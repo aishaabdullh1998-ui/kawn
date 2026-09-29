@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>كنوز بيت سالمة الستة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --letterbox:#D8C6A6;
+  --sand:#E8D8BC; --card:#FCF8F0; --edge:#CDB692;
+  --leaf:#D3E6C1; --leaf-deep:#A9CE8B;
+  --navy:#1C3553; --navy-2:#27466B; --ink:#1C2A3A; --muted:#6B5A43;
+  --grain:#D8B27A; --wood:#8E6A3E;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ --letterbox:#2A2419; } }
+:root[data-theme="dark"]{ --letterbox:#2A2419; }
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;background:var(--letterbox);scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;height:100%;background:var(--letterbox);overflow:hidden;
+  font-family:"Noto Naskh Arabic","Traditional Arabic","Geeza Pro",Tahoma,serif;color:var(--ink)}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:4px solid var(--navy);outline-offset:3px}
+
+.fit{position:relative;width:100%;height:100%;overflow:hidden}
+.stage{
+  position:absolute;left:50%;top:50%;width:1920px;height:1080px;
+  transform:translate(-50%,-50%) scale(.5);transform-origin:center center;
+  background:var(--sand);padding:40px 56px 46px;display:flex;flex-direction:column;gap:26px;
+}
+
+.head{display:flex;justify-content:space-between;align-items:center;height:104px;
+  background:var(--navy);border-radius:26px;padding:0 40px;color:#fff}
+.head h1{margin:0;font-family:"Reem Kufi",sans-serif;font-weight:700;font-size:60px;line-height:1.1;color:#F5E6C8}
+.head p{margin:0;font-size:28px;color:var(--leaf)}
+.head .side{display:flex;align-items:center;gap:18px}
+.tool{background:transparent;border:2px solid var(--leaf);color:#fff;border-radius:14px;padding:8px 20px;font-size:22px}
+
+.main{flex:1 1 auto;display:flex;gap:26px;min-height:0}
+.cards{flex:1 1 auto;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:26px}
+.card{background:var(--card);border:2px solid var(--edge);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+.band{display:flex;align-items:center;gap:16px;background:var(--leaf);padding:12px 22px;border-bottom:2px solid var(--leaf-deep)}
+.band svg{width:104px;height:104px;flex:none}
+.band .n{display:block;font-family:"Reem Kufi",sans-serif;font-weight:700;font-size:44px;line-height:1.15;color:var(--navy)}
+.band .d{display:inline-block;margin-top:4px;background:var(--navy);color:#fff;border-radius:999px;padding:2px 16px;font-size:21px;font-weight:600}
+.q{margin:0;padding:18px 26px 20px;font-weight:600;font-size:31px;line-height:1.7;color:var(--ink)}
+.q.small{font-size:24px;line-height:1.6;padding-top:14px}
+.q ol{margin:0;padding:0 1.3em 0 0}
+.q li{margin-bottom:6px}
+.q .lead{color:var(--muted);font-size:.85em}
+
+.timer{width:320px;flex:none;background:var(--navy);border-radius:24px;color:#fff;padding:24px 22px;
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px}
+.timer h2{margin:0;font-family:"Reem Kufi",sans-serif;font-weight:700;font-size:36px;color:#F5E6C8}
+.timer svg{width:210px;height:315px;flex:none}
+.time{margin:0;font-family:"Reem Kufi",sans-serif;font-weight:700;font-size:76px;line-height:1.1;direction:ltr;text-align:center}
+.status{margin:0;text-align:center;color:var(--leaf);font-weight:600;font-size:24px;min-height:1.5em}
+.mins{display:flex;gap:8px;justify-content:center}
+.mins button{background:transparent;border:2px solid rgba(255,255,255,.4);color:#fff;border-radius:12px;padding:4px 12px;font-size:20px}
+.mins button[aria-pressed="true"]{background:var(--leaf);color:var(--navy);border-color:var(--leaf)}
+.ctrl{display:flex;gap:10px;width:100%}
+.ctrl .go{flex:1 1 auto;min-height:64px;border:0;border-radius:16px;background:var(--leaf);color:var(--navy);font-weight:700;font-size:27px}
+.ctrl .rs{min-height:64px;padding:0 18px;border:2px solid var(--leaf);border-radius:16px;background:transparent;color:#fff;font-weight:600;font-size:23px}
+.timer.done .time{color:var(--grain)}
+</style>
+</head>
+<body><a href="index.html" style="position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:99999;box-shadow:0 3px 10px rgba(0,0,0,.15);border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a><div style="position:fixed;bottom:6px;right:14px;z-index:99999;font-size:12px;font-weight:600;color:rgba(40,40,50,.6);background:rgba(255,255,255,.55);border-radius:10px;padding:1px 8px;pointer-events:none">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+<div class="fit" id="fit">
+<div class="stage" id="stage">
+
+  <header class="head">
+    <div>
+      <h1>كنوز بيت سالمة الستة</h1>
+    </div>
+    <div class="side">
+      <p>أفكّر في درس «خبز ولبن» بستّ طرق</p>
+      <button class="tool" id="fs" hidden>ملء الشاشة</button>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="cards">
+
+      <!-- الجحلة -->
+      <section class="card">
+        <div class="band">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <radialGradient id="clay" cx="36%" cy="42%" r="70%"><stop offset="0" stop-color="#EDD09A"/><stop offset=".55" stop-color="#C99A5B"/><stop offset="1" stop-color="#8A5F30"/></radialGradient>
+            </defs>
+            <ellipse cx="50" cy="94" rx="25" ry="4" fill="#5b4326" opacity=".2"/>
+            <path d="M42 16 h16 v7 c14 6 22 19 22 35 c0 20 -13 34 -30 34 s-30 -14 -30 -34 c0 -16 8 -29 22 -35 z" fill="url(#clay)"/>
+            <path d="M38 13 q2 -9 12 -8 q10 -1 12 8 q-12 5 -24 0z" fill="#EFE4CB" stroke="#CDBA96" stroke-width="1"/>
+            <path d="M41 22 q9 4 18 0" stroke="#6E4E2A" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M42 26 q8 3 16 0" stroke="#6E4E2A" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M24 60 q26 7 52 0" stroke="#A97B45" stroke-width="1.2" fill="none" opacity=".6"/>
+            <ellipse cx="37" cy="52" rx="5" ry="13" fill="#fff" opacity=".2"/>
+          </svg>
+          <div><span class="n">الجَحْلة</span><span class="d">بُعد المعلومة والدقّة</span></div>
+        </div>
+        <p class="q">لماذا نكّست سالمة الجحلتين بعد تبخيرهما في رأيك؟</p>
+      </section>
+
+      <!-- الهاندوة -->
+      <section class="card">
+        <div class="band">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <linearGradient id="metal" x1="0" x2="1"><stop offset="0" stop-color="#6F7880"/><stop offset=".28" stop-color="#EEF1F3"/><stop offset=".55" stop-color="#B9C0C6"/><stop offset="1" stop-color="#626B73"/></linearGradient>
+            </defs>
+            <ellipse cx="50" cy="93" rx="30" ry="4" fill="#5b4326" opacity=".2"/>
+            <path d="M20 46 c0 -11 13 -17 22 -18 v-6 h16 v6 c9 1 22 7 22 18 v36 c0 6 -13 10 -30 10 s-30 -4 -30 -10z" fill="url(#metal)"/>
+            <ellipse cx="50" cy="21" rx="10.5" ry="3.2" fill="#DCE1E5" stroke="#848C94" stroke-width="1.2"/>
+            <ellipse cx="50" cy="21" rx="6" ry="1.6" fill="#4E565E"/>
+            <path d="M20 62 q30 7 60 0" stroke="#838B93" stroke-width="1.5" fill="none"/>
+            <path d="M20 76 q30 7 60 0" stroke="#838B93" stroke-width="1.5" fill="none"/>
+            <path d="M28 44 v36" stroke="#fff" stroke-width="3" opacity=".35" stroke-linecap="round"/>
+          </svg>
+          <div><span class="n">الهاندوة</span><span class="d">بُعد الوجه المقابل</span></div>
+        </div>
+        <div class="q small">
+          <ol>
+            <li>كيف وصف الكاتب خطوات سالمة وهي تحمل الهاندوة؟</li>
+            <li>تخيّل أن خطواتها كانت «متزحزحة»: ماذا حدث للهاندوة والماء؟ اكتب ثلاث جمل.</li>
+            <li>جلبت سالمة «حفنة» من طحين لا «كمية كبيرة». ماذا يدلّ ذلك؟</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- الطوبج -->
+      <section class="card">
+        <div class="band">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <linearGradient id="plate" x1="0" x2="1"><stop offset="0" stop-color="#5E666D"/><stop offset=".35" stop-color="#D5DADE"/><stop offset=".7" stop-color="#9AA2A9"/><stop offset="1" stop-color="#555D64"/></linearGradient>
+              <radialGradient id="stone" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#A89C8A"/><stop offset="1" stop-color="#5E554A"/></radialGradient>
+              <radialGradient id="flame" cx="50%" cy="80%" r="70%"><stop offset="0" stop-color="#FFE9A8"/><stop offset=".45" stop-color="#FFA53A"/><stop offset="1" stop-color="#E0501A"/></radialGradient>
+            </defs>
+            <ellipse cx="50" cy="92" rx="40" ry="5" fill="#5b4326" opacity=".22"/>
+            <path d="M40 88 c-4 -10 4 -14 3 -24 c6 5 7 10 7 14 c2 -6 6 -9 5 -15 c7 8 8 18 3 25z" fill="url(#flame)"/>
+            <ellipse cx="18" cy="80" rx="12" ry="9" fill="url(#stone)"/>
+            <ellipse cx="82" cy="80" rx="12" ry="9" fill="url(#stone)"/>
+            <ellipse cx="50" cy="86" rx="9" ry="6" fill="url(#stone)"/>
+            <ellipse cx="50" cy="60" rx="45" ry="12" fill="url(#plate)"/>
+            <ellipse cx="50" cy="58" rx="42" ry="10" fill="#B7BEC4"/>
+            <ellipse cx="50" cy="57" rx="30" ry="7" fill="#EACB8D"/>
+            <circle cx="42" cy="56" r="1.6" fill="#A8743A"/><circle cx="55" cy="58" r="2" fill="#A8743A"/><circle cx="60" cy="55" r="1.3" fill="#A8743A"/><circle cx="47" cy="59" r="1.2" fill="#A8743A"/>
+            <ellipse cx="4" cy="60" rx="5" ry="3" fill="none" stroke="#7C848B" stroke-width="2"/>
+          </svg>
+          <div><span class="n">الطُّوبَج</span><span class="d">بُعد الحواسّ والمشاعر</span></div>
+        </div>
+        <p class="q">اختر إناءً وارسمه رسمًا سريعًا، ثم صِفه بثلاث حواس: ماذا ترى؟ ماذا تسمع؟ ماذا تشمّ؟</p>
+      </section>
+
+      <!-- القنديل -->
+      <section class="card">
+        <div class="band">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <linearGradient id="green" x1="0" x2="1"><stop offset="0" stop-color="#0F5230"/><stop offset=".4" stop-color="#2E9A5C"/><stop offset="1" stop-color="#0D4428"/></linearGradient>
+              <radialGradient id="glow" cx="50%" cy="60%" r="60%"><stop offset="0" stop-color="#FFF3C4"/><stop offset=".5" stop-color="#FFC266"/><stop offset="1" stop-color="#C9803A" stop-opacity=".6"/></radialGradient>
+            </defs>
+            <ellipse cx="50" cy="95" rx="22" ry="3.5" fill="#5b4326" opacity=".2"/>
+            <path d="M34 20 a16 15 0 0 1 32 0" fill="none" stroke="#9AA3AB" stroke-width="2.5"/>
+            <path d="M40 22 h20 l8 10 h-36z" fill="url(#green)"/>
+            <rect x="44" y="16" width="12" height="7" rx="2" fill="url(#green)"/>
+            <rect x="35" y="32" width="30" height="42" rx="10" fill="url(#glow)"/>
+            <path d="M50 44 c-4 6 -4 12 0 16 c4 -4 4 -10 0 -16z" fill="#FFF8E0"/>
+            <path d="M35 34 v38 M65 34 v38 M50 32 v6 M50 68 v6" stroke="url(#green)" stroke-width="3"/>
+            <path d="M32 74 h36 l3 6 v8 c0 3 -8 5 -21 5 s-21 -2 -21 -5 v-8z" fill="url(#green)"/>
+            <ellipse cx="50" cy="80" rx="19" ry="2.2" fill="#0B3A22" opacity=".5"/>
+          </svg>
+          <div><span class="n">القِنديل</span><span class="d">بُعد الإبداع والجمال</span></div>
+        </div>
+        <p class="q">أيّهما أجمل: «مع خيوط الفجر الأولى» أم «مع بداية الفجر»؟ ولماذا اختار الكاتب الأولى؟</p>
+      </section>
+
+      <!-- رغيف الخبز -->
+      <section class="card">
+        <div class="band">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <radialGradient id="bread" cx="45%" cy="40%" r="65%"><stop offset="0" stop-color="#F6E1B3"/><stop offset=".7" stop-color="#E2B470"/><stop offset="1" stop-color="#B98142"/></radialGradient>
+              <linearGradient id="milk" x1="0" x2="1"><stop offset="0" stop-color="#8C939A"/><stop offset=".35" stop-color="#E7EBEE"/><stop offset="1" stop-color="#7A8188"/></linearGradient>
+            </defs>
+            <ellipse cx="50" cy="92" rx="42" ry="5" fill="#5b4326" opacity=".2"/>
+            <ellipse cx="42" cy="70" rx="36" ry="17" fill="url(#bread)"/>
+            <ellipse cx="42" cy="66" rx="30" ry="12" fill="#EFD199" opacity=".7"/>
+            <ellipse cx="30" cy="66" rx="3" ry="1.8" fill="#A8743A"/><ellipse cx="46" cy="62" rx="2.4" ry="1.5" fill="#A8743A"/><ellipse cx="54" cy="70" rx="3.2" ry="1.9" fill="#9A6630"/><ellipse cx="38" cy="74" rx="2" ry="1.3" fill="#A8743A"/><ellipse cx="60" cy="63" rx="1.6" ry="1" fill="#A8743A"/>
+            <path d="M68 44 h22 v34 c0 4 -5 6 -11 6 s-11 -2 -11 -6z" fill="url(#milk)"/>
+            <ellipse cx="79" cy="44" rx="11" ry="3.5" fill="#FBFAF6" stroke="#9097A0" stroke-width="1"/>
+            <path d="M90 52 q7 1 6 9 q-1 6 -6 6" fill="none" stroke="#8A9199" stroke-width="2.5"/>
+          </svg>
+          <div><span class="n">رغيف الخبز</span><span class="d">بُعد الأمس واليوم</span></div>
+        </div>
+        <p class="q"><span class="lead">بعد مشاهدة الفيديو:</span> ما الذي تغيّر في الصباح اليوم؟ وما الذي بقي كما هو؟</p>
+      </section>
+
+      <!-- الفلج -->
+      <section class="card">
+        <div class="band">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FD3E6"/><stop offset="1" stop-color="#2F7FA6"/></linearGradient>
+              <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9C39C"/><stop offset="1" stop-color="#A88A5E"/></linearGradient>
+            </defs>
+            <path d="M58 58 c2 -18 4 -32 12 -44" stroke="#7A5530" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M70 14 c-10 -4 -20 0 -26 8 M70 14 c-6 -8 -16 -10 -24 -6 M70 14 c10 -6 20 -4 26 4 M70 14 c6 -8 16 -8 22 -2 M70 14 c-2 8 -8 14 -16 16 M70 14 c6 6 10 14 8 22" stroke="#4E8A3A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <path d="M4 70 L40 50 h20 L96 70 v14 H4z" fill="url(#wall)"/>
+            <path d="M14 72 L43 55 h14 L86 72z" fill="url(#water)"/>
+            <path d="M30 66 q5 -2 10 0 M50 62 q4 -2 8 0 M58 68 q6 -2 12 0" stroke="#E6F5FB" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M4 84 H96" stroke="#8A6D45" stroke-width="2"/>
+          </svg>
+          <div><span class="n">الفَلَج</span><span class="d">بُعد الربط والصورة الكاملة</span></div>
+        </div>
+        <p class="q">صمّم غلافًا للقصة يُظهر العنوان وما يدور في النص معًا.</p>
+      </section>
+
+    </div>
+
+    <aside class="timer" id="timer" aria-label="مؤقت النشاط">
+      <h2>وقت النشاط</h2>
+      <svg viewBox="0 0 200 300" role="img" aria-label="ساعة رملية">
+        <defs>
+          <clipPath id="hgTop"><path d="M40 30 H160 C160 90 108 120 104 150 H96 C92 120 40 90 40 30 Z"/></clipPath>
+          <clipPath id="hgBot"><path d="M96 150 H104 C108 180 160 210 160 270 H40 C40 210 92 180 96 150 Z"/></clipPath>
+          <linearGradient id="woodg" x1="0" x2="1"><stop offset="0" stop-color="#6E4E2A"/><stop offset=".5" stop-color="#B08A55"/><stop offset="1" stop-color="#6E4E2A"/></linearGradient>
+        </defs>
+        <path d="M40 30 H160 C160 90 108 120 104 150 C108 180 160 210 160 270 H40 C40 210 92 180 96 150 C92 120 40 90 40 30 Z" fill="#2E4E75"/>
+        <rect id="sTop" x="30" y="50" width="140" height="100" fill="#D8B27A" clip-path="url(#hgTop)"/>
+        <rect id="sBot" x="30" y="270" width="140" height="0" fill="#D8B27A" clip-path="url(#hgBot)"/>
+        <line id="stream" x1="100" y1="150" x2="100" y2="270" stroke="#EBD0A0" stroke-width="3" stroke-dasharray="5 6" stroke-opacity="0"/>
+        <path d="M40 30 H160 C160 90 108 120 104 150 C108 180 160 210 160 270 H40 C40 210 92 180 96 150 C92 120 40 90 40 30 Z" fill="none" stroke="#D3E6C1" stroke-width="3"/>
+        <path d="M58 40 C60 80 90 110 96 140" stroke="#fff" stroke-width="3" opacity=".25" fill="none" stroke-linecap="round"/>
+        <rect x="24" y="30" width="9" height="240" rx="4" fill="url(#woodg)"/>
+        <rect x="167" y="30" width="9" height="240" rx="4" fill="url(#woodg)"/>
+        <rect x="14" y="10" width="172" height="22" rx="8" fill="url(#woodg)"/>
+        <rect x="14" y="268" width="172" height="22" rx="8" fill="url(#woodg)"/>
+      </svg>
+      <div>
+        <p class="time" id="time">٥:٠٠</p>
+        <p class="status" id="status">جاهز للبدء</p>
+      </div>
+      <div class="mins" id="mins" role="group" aria-label="مدة النشاط بالدقائق"></div>
+      <div class="ctrl">
+        <button type="button" class="go" id="go">ابدأ</button>
+        <button type="button" class="rs" id="rs">إعادة</button>
+      </div>
+    </aside>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+  /* تكبير اللوحة وتصغيرها لتبقى بالشكل نفسه على كل شاشة */
+  var fit=document.getElementById('fit'), stage=document.getElementById('stage');
+  function scale(){
+    var w=fit.clientWidth, h=fit.clientHeight;
+    var s=Math.min(w/1920,h/1080);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+    stage.style.webkitTransform='translate(-50%,-50%) scale('+s+')';
+  }
+  window.addEventListener('resize',scale);
+  window.addEventListener('orientationchange',function(){ setTimeout(scale,250); });
+  scale();
+
+  /* الساعة الرملية */
+  var OPTIONS=[3,5,7,10];
+  var total=5*60, left=total, running=false, endAt=0, done=false, tick=0, iv=null, ac=null;
+  var sTop=document.getElementById('sTop'), sBot=document.getElementById('sBot'), stream=document.getElementById('stream');
+  var timeEl=document.getElementById('time'), statusEl=document.getElementById('status');
+  var goBtn=document.getElementById('go'), rsBtn=document.getElementById('rs'), minsEl=document.getElementById('mins');
+  var timerEl=document.getElementById('timer');
+  var DIG='٠١٢٣٤٥٦٧٨٩';
+  function ar(x){ return String(x).replace(/[0-9]/g,function(d){return DIG.charAt(+d);}); }
+
+  function draw(){
+    var frac=Math.max(0,Math.min(1,left/total));
+    var topH=100*frac, botH=100*(1-frac);
+    sTop.setAttribute('y',150-topH); sTop.setAttribute('height',topH);
+    sBot.setAttribute('y',270-botH); sBot.setAttribute('height',botH);
+    stream.setAttribute('y2',270-botH);
+    stream.setAttribute('stroke-opacity',running&&left>0?1:0);
+    stream.setAttribute('stroke-dashoffset',-(tick*4));
+    var secs=Math.ceil(left), mm=Math.floor(secs/60), ss=secs%60;
+    timeEl.textContent=ar(mm)+':'+ar(ss<10?'0'+ss:ss);
+    statusEl.textContent = done ? 'انتهى الوقت' : running ? 'الرمل ينساب…' : (left<total ? 'متوقّف مؤقتًا' : 'جاهز للبدء');
+    goBtn.textContent = running ? 'إيقاف مؤقت' : (left<total && left>0 ? 'متابعة' : 'ابدأ');
+    timerEl.className = done ? 'timer done' : 'timer';
+  }
+  function chime(){
+    try{
+      if(!ac) return;
+      [0,0.4,0.8].forEach(function(d,i){
+        var o=ac.createOscillator(), g=ac.createGain(), t=ac.currentTime+d;
+        o.type='sine'; o.frequency.value=[660,880,990][i];
+        g.gain.setValueAtTime(0.0001,t);
+        g.gain.exponentialRampToValueAtTime(0.3,t+0.03);
+        g.gain.exponentialRampToValueAtTime(0.0001,t+0.9);
+        o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t+1);
+      });
+    }catch(e){}
+  }
+  function loop(){
+    if(!running) return;
+    left=Math.max(0,(endAt-Date.now())/1000); tick++;
+    if(left<=0){ running=false; done=true; clearInterval(iv); iv=null; chime(); }
+    draw();
+  }
+  goBtn.addEventListener('click',function(){
+    if(!ac){ try{ var AC=window.AudioContext||window.webkitAudioContext; if(AC) ac=new AC(); }catch(e){} }
+    try{ if(ac&&ac.resume) ac.resume(); }catch(e){}
+    if(running){
+      left=Math.max(0,(endAt-Date.now())/1000); running=false; clearInterval(iv); iv=null;
+    }else{
+      if(left<=0) left=total;
+      done=false; running=true; endAt=Date.now()+left*1000; iv=setInterval(loop,200);
+    }
+    draw();
+  });
+  rsBtn.addEventListener('click',function(){
+    running=false; done=false; left=total; tick=0; if(iv){clearInterval(iv); iv=null;} draw();
+  });
+  OPTIONS.forEach(function(m){
+    var b=document.createElement('button'); b.type='button';
+    b.textContent=ar(m)+' د';
+    b.setAttribute('aria-pressed', m*60===total ? 'true':'false');
+    b.addEventListener('click',function(){
+      total=m*60; running=false; done=false; left=total; tick=0; if(iv){clearInterval(iv); iv=null;}
+      var all=minsEl.querySelectorAll('button');
+      for(var i=0;i<all.length;i++) all[i].setAttribute('aria-pressed', all[i]===b ? 'true':'false');
+      draw();
+    });
+    minsEl.appendChild(b);
+  });
+
+  var fs=document.getElementById('fs'), root=document.documentElement;
+  if(document.fullscreenEnabled || document.webkitFullscreenEnabled){
+    fs.hidden=false;
+    fs.addEventListener('click',function(){
+      try{
+        var el=document.fullscreenElement||document.webkitFullscreenElement;
+        if(el){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
+        else { (root.requestFullscreen||root.webkitRequestFullscreen).call(root); }
+      }catch(e){}
+    });
+    document.addEventListener('fullscreenchange',function(){ setTimeout(scale,100); });
+  }
+  draw();
+})();
+</script>
+<script src="kawn-data.js" defer></script>
+</body>
+</html>

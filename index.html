@@ -5,17 +5,17 @@
 <meta name="description" content="كون: دروس اللغة العربية للصف الرابع بأسلوب القصة والمغامرة التفاعلية.">
 <meta property="og:title" content="كون: حيث كل درس عالم جديد">
 <meta property="og:description" content="قصص مشوقة ومغامرات تفاعلية تأخذك إلى أعماق اللغة.">
-<meta property="og:image" content="assets/kawn-icon.png">
+<meta property="og:image" content="kawn-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>كون: حيثُ كلُّ درسٍ عالَمٌ جديد</title>
-<link rel="icon" href="assets/kawn-icon.svg" type="image/svg+xml">
+<link rel="icon" href="kawn-icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
-  --cream:#FBF4E6;--sky:#DCE9F5;--powder:#A9CBEA;--sage:#8FAF7A;--deep:#4A6B52;--coral:#E98A6A;--coral2:#C8664A;--gold:#E9B949;--ink:#26324A;--ink2:#5B6679;
+  --cream:#FBF4E6;--sky:#DCE9F5;--powder:#A9CBEA;--sage:#8FAF7A;--deep:#4A6B52;--coral:#E98A6A;--read:#3F7CAC;--read2:#2F6390;--coral2:#C8664A;--gold:#E9B949;--ink:#26324A;--ink2:#5B6679;
   --card:#FFFDF8;--bg:var(--cream);
   --logo:"Aref Ruqaa","Noto Naskh Arabic",serif;--ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--body:"Noto Naskh Arabic","Tahoma",serif;
 }
@@ -67,14 +67,14 @@ footer .f-logo svg{width:220px;height:auto;margin:0 auto;display:block}
 .sub{margin:0;font-family:var(--ui);font-weight:600;font-size:clamp(15px,1.5vw,19px);color:#26324A;max-width:600px;line-height:1.7}
 .cta{display:flex;gap:12px;margin-top:24px;flex-wrap:nowrap;justify-content:center;padding:0 8px}
 .cta a{justify-content:center;min-width:clamp(120px,16vw,210px);white-space:nowrap}
-@media (max-width:420px){.cta a{padding:12px 18px;font-size:17px;min-width:0}}
+@media (max-width:520px){.cta{gap:8px}.cta a{padding:11px 12px;font-size:15px;min-width:0}}
 .cta a{text-decoration:none;font-weight:800;font-size:clamp(18px,1.7vw,22px);padding:13px 28px;border-radius:30px;color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.18);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s;display:inline-flex;align-items:center;gap:8px}
 .cta a .ic{display:inline-block;transition:transform .4s}
 .cta a:hover{transform:translateY(-5px) scale(1.04);box-shadow:0 11px 0 rgba(0,0,0,.14),0 0 0 6px rgba(233,185,73,.35)}
 .cta a:hover .ic{animation:wig .6s}
 .cta a:active{transform:translateY(3px) scale(.98);box-shadow:0 2px 0 rgba(0,0,0,.18)}
 @keyframes wig{25%{transform:rotate(-18deg) scale(1.2)}75%{transform:rotate(14deg) scale(1.2)}}
-.cta .g{background:var(--deep)}.cta .s{background:var(--coral2)}
+.cta .g{background:var(--deep)}.cta .s{background:var(--coral2)}.cta .r{background:var(--read2)}
 .scroll{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:6px;color:#fff;font-weight:800;font-size:16px;text-decoration:none;background:rgba(38,50,74,.78);padding:10px 20px 8px;border-radius:24px;animation:bob 1.8s ease-in-out infinite}
 .scroll::before{content:"";position:absolute;inset:0;border-radius:24px;box-shadow:0 0 0 0 rgba(233,185,73,.7);animation:ring 1.8s infinite}
 @keyframes bob{50%{transform:translate(-50%,-8px)}}
@@ -95,12 +95,13 @@ footer .f-logo svg{width:220px;height:auto;margin:0 auto;display:block}
 .galaxy::before{content:"";position:absolute;top:-1px;left:0;right:0;height:70px;background:var(--bg);-webkit-mask:radial-gradient(60px 50px at 50% 0,#000 98%,#0000) 0 0/120px 70px repeat-x;mask:radial-gradient(60px 50px at 50% 0,#000 98%,#0000) 0 0/120px 70px repeat-x}
 .galaxy.g{background:linear-gradient(#E4EEDB,#D5E4C8)}
 .galaxy.s{background:linear-gradient(#FBE3D6,#F6D2BF)}
+.galaxy.r{background:linear-gradient(#DDEBF6,#CADFEF)}
 :root[data-theme="dark"] .galaxy.g{background:linear-gradient(#2C3A33,#26332C)}
 :root[data-theme="dark"] .galaxy.s{background:linear-gradient(#3D2E2B,#352826)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .galaxy.g{background:linear-gradient(#2C3A33,#26332C)}:root:not([data-theme="light"]) .galaxy.s{background:linear-gradient(#3D2E2B,#352826)}}
 .ghead{max-width:1320px;margin:0 auto 30px;padding:0 5vw;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .ghead .k{display:inline-block;font-size:15px;font-weight:800;padding:4px 14px;border-radius:14px;color:#fff;margin-bottom:8px}
-.g .ghead .k{background:var(--deep)}.s .ghead .k{background:var(--coral2)}
+.g .ghead .k{background:var(--deep)}.s .ghead .k{background:var(--coral2)}.r .ghead .k{background:var(--read2)}
 .ghead h2{margin:0;font-size:clamp(34px,5vw,58px);line-height:1.2}
 .ghead p{margin:6px 0 0;font-family:var(--ui);font-weight:600;font-size:19px;color:var(--ink);opacity:.85;max-width:600px;line-height:1.7}
 .ghead .hint{font-size:15px;font-weight:700;color:var(--ink2)}
@@ -117,7 +118,7 @@ footer .f-logo svg{width:220px;height:auto;margin:0 auto;display:block}
 .world:hover .ch{transform:translateX(-50%) translateY(-8px) rotate(-4deg)}
 .pic .cl{position:absolute;background:#fff;border-radius:40px;opacity:.9}
 .pic .badge{position:absolute;top:14px;right:14px;font-size:13px;font-weight:800;color:#fff;padding:3px 12px;border-radius:12px}
-.g .badge{background:var(--deep)}.s .badge{background:var(--coral2)}
+.g .badge{background:var(--deep)}.s .badge{background:var(--coral2)}.r .badge{background:var(--read2)}
 .info{padding:18px 22px 22px;display:flex;flex-direction:column;gap:6px;flex:1}
 .info .wn{font-size:15px;font-weight:800;color:var(--ink2)}
 .info h3{margin:0;font-size:30px;line-height:1.25}
@@ -125,7 +126,7 @@ footer .f-logo svg{width:220px;height:auto;margin:0 auto;display:block}
 .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
 .meta span{font-size:13px;font-weight:700;background:rgba(38,50,74,.07);padding:3px 10px;border-radius:10px}
 .go{margin-top:10px;align-self:flex-start;font-weight:800;font-size:17px;padding:8px 20px;border-radius:22px;color:#fff}
-.g .go{background:var(--deep)}.s .go{background:var(--coral2)}
+.g .go{background:var(--deep)}.s .go{background:var(--coral2)}.r .go{background:var(--read2)}
 
 /* ختم الزيارة */
 .visited{position:absolute;top:12px;left:12px;background:#fff;color:var(--deep);font-size:13px;font-weight:800;padding:3px 10px;border-radius:12px;box-shadow:0 3px 8px rgba(0,0,0,.12);display:none;align-items:center;gap:4px}
@@ -186,7 +187,7 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
 }
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.world{opacity:1;transform:none}}
 </style>
-<script src="assets/kawn-data.js"></script>
+<script src="kawn-data.js"></script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -308,12 +309,33 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
   <circle cx="120" cy="-207" r="4" fill="#fff"/><circle cx="178" cy="-249" r="4" fill="#fff"/>
   <circle cx="92" cy="-160" r="11" fill="#FFC1D1"/>
   <path d="M100 -130 q16 14 34 2" stroke="#2B2233" stroke-width="6" fill="none" stroke-linecap="round"/>
+</symbol><symbol id="s-house" viewBox="0 0 300 220">
+  <ellipse cx="150" cy="208" rx="130" ry="9" fill="#000" opacity=".12"/>
+  <path d="M10 196 Q150 176 290 196" stroke="#5DA9D6" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <rect x="70" y="70" width="150" height="120" fill="#E3C08E" stroke="#B58B55" stroke-width="4"/>
+  <path d="M70 70 h14v-14h14v14h14v-14h14v14h14v-14h14v14h14v-14h14v14h14v-14h14v14" fill="#E3C08E" stroke="#B58B55" stroke-width="4"/>
+  <rect x="190" y="40" width="44" height="150" rx="6" fill="#D9B07A" stroke="#B58B55" stroke-width="4"/>
+  <path d="M130 190 v-44 a16 16 0 0 1 32 0 v44" fill="#7A4F2A"/>
+  <rect x="90" y="100" width="24" height="30" rx="4" fill="#5A3A1E"/><rect x="200" y="70" width="22" height="26" rx="4" fill="#5A3A1E"/>
+  <circle cx="211" cy="82" r="5" fill="#F4C24D"/>
+  <path d="M40 190 Q34 130 46 96" stroke="#8B5A2B" stroke-width="10" fill="none"/>
+  <g fill="#4A8C52"><path d="M46 96 Q16 76 0 96 Q26 84 46 100Z"/><path d="M46 96 Q76 74 96 94 Q70 84 46 100Z"/><path d="M46 96 Q40 62 58 50 Q50 76 48 98Z"/></g>
 </symbol>
+<symbol id="s-jar" viewBox="0 0 220 240">
+  <ellipse cx="110" cy="228" rx="70" ry="8" fill="#000" opacity=".12"/>
+  <path d="M82 30 h56 l-6 22 q52 26 50 92 q-2 64 -72 76 q-70 -12 -72 -76 q-2 -66 50 -92z" fill="#C98552" stroke="#8A5530" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="78" y="22" width="64" height="14" rx="6" fill="#B06E3E" stroke="#8A5530" stroke-width="4"/>
+  <path d="M52 120 q58 22 116 0 M50 150 q60 22 120 0" stroke="#F3DDB5" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <circle cx="92" cy="106" r="8" fill="#2B2233"/><circle cx="128" cy="106" r="8" fill="#2B2233"/><circle cx="95" cy="103" r="2.6" fill="#fff"/><circle cx="131" cy="103" r="2.6" fill="#fff"/>
+  <path d="M96 132 q14 12 28 0" stroke="#2B2233" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g fill="#F2B233"><path d="M30 60 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z"/><path d="M186 40 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/><path d="M196 150 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/></g>
+</symbol>
+
 </svg>
 
 <header class="top" id="top">
   <a class="mini" href="#home" aria-label="الرئيسية: كون"><svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="كون"><title>كون</title><defs><clipPath id="upm"><rect x="0" y="0" width="400" height="212"/></clipPath><linearGradient id="sunm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4C24D"/><stop offset="1" stop-color="#E98A6A"/></linearGradient></defs><g clip-path="url(#upm)"><circle cx="210" cy="212" r="120" fill="url(#sunm)" opacity=".28"/><circle cx="210" cy="212" r="80" fill="url(#sunm)" opacity=".35"/></g><g fill="none" stroke="#1F2A40" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M338 44 L278 84 L278 168 Q278 192 254 192 L214 192"/><path d="M214 192 C214 158 174 156 176 180 C178 198 204 198 202 214 C198 238 168 250 140 248"/><path d="M112 146 C114 222 30 226 24 152"/></g><path d="M10 222 Q200 206 390 222" stroke="#8FAF7A" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="68" cy="100" r="15" fill="#E9B949"/></svg></a>
-  <nav><a href="#grammar" data-sec="grammar"><span aria-hidden="true">🌿</span><span class="lbl">الأنماط اللّغويّة</span></a><a href="#spelling" data-sec="spelling"><span aria-hidden="true">✏️</span><span class="lbl">الإملاء</span></a></nav>
+  <nav><a href="#grammar" data-sec="grammar"><span aria-hidden="true">🌿</span><span class="lbl">الأنماط اللّغويّة</span></a><a href="#spelling" data-sec="spelling"><span aria-hidden="true">✏️</span><span class="lbl">الإملاء</span></a><a href="#reading" data-sec="reading"><span aria-hidden="true">📖</span><span class="lbl">القراءة</span></a></nav>
   <div class="prog" title="العوالم الّتي اكتشفتَها"><span class="st">⭐</span><span id="progT">٠ / ٧</span><div class="pbar"><i id="progB"></i></div></div>
 </header>
 
@@ -341,7 +363,7 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
     <div class="logo"><h1 class="vh">كون</h1><svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="كون"><title>كون</title><defs><clipPath id="uph"><rect x="0" y="0" width="400" height="212"/></clipPath><linearGradient id="sunh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4C24D"/><stop offset="1" stop-color="#E98A6A"/></linearGradient></defs><g clip-path="url(#uph)"><circle cx="210" cy="212" r="120" fill="url(#sunh)" opacity=".28"/><circle cx="210" cy="212" r="80" fill="url(#sunh)" opacity=".35"/></g><g stroke="#E98A6A" stroke-width="5" stroke-linecap="round" opacity=".7"><path d="M210 70 v-26 M130 104 l-18 -18 M290 104 l18 -18"/></g><g fill="none" stroke="#1F2A40" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M338 44 L278 84 L278 168 Q278 192 254 192 L214 192"/><path d="M214 192 C214 158 174 156 176 180 C178 198 204 198 202 214 C198 238 168 250 140 248"/><path d="M112 146 C114 222 30 226 24 152"/></g><path d="M10 222 Q200 206 390 222" stroke="#8FAF7A" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="68" cy="100" r="15" fill="#E9B949"/></svg></div>
     <p class="tag">حيثُ كلُّ درسٍ.. عالَمٌ جديد</p>
     <p class="sub">قصصٌ مشوّقةٌ ومغامراتٌ تفاعليّةٌ تأخذُك إلى أعماقِ اللّغة.</p>
-    <div class="cta"><a class="g" href="#grammar">الأنماطُ اللّغويّة</a><a class="s" href="#spelling">الإملاء</a></div>
+    <div class="cta"><a class="g" href="#grammar">الأنماطُ اللّغويّة</a><a class="s" href="#spelling">الإملاء</a><a class="r" href="#reading">القراءة</a></div>
     </div>
   </div>
   <a class="scroll" href="#how"><span></span>اكتشفِ العوالم</a>
@@ -364,6 +386,12 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
 <section class="galaxy s" id="spelling">
   <div class="ghead"><div><span class="k">المجرّةُ الثّانية</span><h2>مجرّةُ الإملاء</h2><p>عوالمُ تجعلُ قواعدَ الكتابةِ ألعابًا يكتشفُها الطّالبُ بنفسِه.</p></div><span class="hint">٣ عوالم</span></div>
   <div class="rail" id="railS"></div>
+</section>
+
+<!-- مجرة القراءة -->
+<section class="galaxy r" id="reading">
+  <div class="ghead"><div><span class="k">المجرّةُ الثّالثة</span><h2>مجرّةُ القراءة</h2><p>نماذجُ من حصصِ القراءةِ والفهم: عوالمُ يعيشُ فيها الطّالبُ النّصَّ ويفكّرُ فيه.</p></div><span class="hint">عالَمان</span></div>
+  <div class="rail" id="railR"></div>
 </section>
 
 <section class="msgs" id="messages">
@@ -402,13 +430,15 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
 
 <script>
 const W=[
- {g:'g',sym:'s-zajil',vb:'250 230',world:'عالَمُ زاجل',title:'الجملةُ الاسميّة',desc:'حمامةُ البريدِ مزّقَتِ العاصفةُ رسائلَها نصفين… يعيدُ الطّلابُ المبتدأَ إلى خبرِه ويكتشفونَ سرَّ الضّمّة.',sky:['#CFE6F7','#F2F8FC'],hill:'#8FAF7A',url:'lessons/zajil-aljumla-alismiyya.html'},
- {g:'g',sym:'s-turtle',vb:'300 180',world:'عالَمُ رَيّا',title:'ضمائرُ الرّفعِ المتّصلة',desc:'سلحفاةُ رأسِ الجنز وأصدافُها الثّلاث: تاءُ الفاعل، ونا الفاعلين، ونونُ النّسوة… ولماذا يسكنُ آخرُ الفعل.',sky:['#FFE3C2','#FFF4E4'],hill:'#1FA3B8',url:'lessons/rayya-damair-alraf.html'},
- {g:'g',sym:'s-falcon',vb:'240 220',world:'عالَمُ شاهين',title:'أسماءُ الإشارة',desc:'صقرُ جبلِ شمسَ يرى القريبَ والبعيد: هذا وذلك، هذانِ وهاتانِ، هؤلاءِ وأولئك.',sky:['#D5E7F4','#FBF1DE'],hill:'#C99263',url:'lessons/shaheen-asmaa-alishara.html'},
- {g:'g',sym:'s-needle',vb:'120 240',world:'عالَمُ نَقّوشة',title:'أدواتُ الرّبط',desc:'إبرةُ الكُمّةِ تخيطُ الكلمات: الواوُ عُقدةٌ تجمع، والفاءُ غرزةٌ قصيرة، وثُمَّ غرزةٌ طويلة.',sky:['#EDE3F7','#FBF6FF'],hill:'#8FAF7A',url:'lessons/naqqusha-adawat-alrabt.html'},
- {g:'s',sym:'s-det',vb:'220 250',world:'ملفُّ القضيّة: لغزُ قبّعاتِ الألف',title:'همزةُ الوصلِ والقطعِ والمدّ',desc:'ملفُّ قضيّةٍ سرّيّ وكاشفُ الواو: متى تلبسُ الألفُ قبّعتَها؟ ومَن هم عصابةُ الأسماءِ السّبعة؟',sky:['#D9DEE8','#F4EFE4'],hill:'#B88A55',url:'lessons/lughz-qubbaat-alalif.html'},
- {g:'s',sym:'s-hz',vb:'20 -330 300 420',world:'عالَمُ همّوزة',title:'الهمزةُ المتوسّطة',desc:'نزالُ الأذرع وشدُّ الحبلِ والكراسي الموسيقيّة: الحركةُ الأقوى تختارُ كرسيَّ الهمزة.',sky:['#FFE1E8','#FFF6EC'],hill:'#F2D08A',url:'lessons/hammooza-alhamza-almutawassita.html'},
- {g:'s',sym:'s-bus',vb:'320 190',world:'عالَمُ سعيدة',title:'علاماتُ التّرقيم',desc:'حافلةُ المدرسةِ في مدينةِ الكلام: سبعُ إشاراتٍ تنظّمُ القراءةَ وتغيّرُ المعنى والنّبرة.',sky:['#CDE9FA','#EEF8FF'],hill:'#2F343D',url:'lessons/saeeda-alamat-altarqeem.html'}
+ {g:'g',sym:'s-zajil',vb:'250 230',world:'عالَمُ زاجل',title:'الجملةُ الاسميّة',desc:'حمامةُ البريدِ مزّقَتِ العاصفةُ رسائلَها نصفين… يعيدُ الطّلابُ المبتدأَ إلى خبرِه ويكتشفونَ سرَّ الضّمّة.',sky:['#CFE6F7','#F2F8FC'],hill:'#8FAF7A',url:'zajil-aljumla-alismiyya.html'},
+ {g:'g',sym:'s-turtle',vb:'300 180',world:'عالَمُ رَيّا',title:'ضمائرُ الرّفعِ المتّصلة',desc:'سلحفاةُ رأسِ الجنز وأصدافُها الثّلاث: تاءُ الفاعل، ونا الفاعلين، ونونُ النّسوة… ولماذا يسكنُ آخرُ الفعل.',sky:['#FFE3C2','#FFF4E4'],hill:'#1FA3B8',url:'rayya-damair-alraf.html'},
+ {g:'g',sym:'s-falcon',vb:'240 220',world:'عالَمُ شاهين',title:'أسماءُ الإشارة',desc:'صقرُ جبلِ شمسَ يرى القريبَ والبعيد: هذا وذلك، هذانِ وهاتانِ، هؤلاءِ وأولئك.',sky:['#D5E7F4','#FBF1DE'],hill:'#C99263',url:'shaheen-asmaa-alishara.html'},
+ {g:'g',sym:'s-needle',vb:'120 240',world:'عالَمُ نَقّوشة',title:'أدواتُ الرّبط',desc:'إبرةُ الكُمّةِ تخيطُ الكلمات: الواوُ عُقدةٌ تجمع، والفاءُ غرزةٌ قصيرة، وثُمَّ غرزةٌ طويلة.',sky:['#EDE3F7','#FBF6FF'],hill:'#8FAF7A',url:'naqqusha-adawat-alrabt.html'},
+ {g:'s',sym:'s-det',vb:'220 250',world:'ملفُّ القضيّة: لغزُ قبّعاتِ الألف',title:'همزةُ الوصلِ والقطعِ والمدّ',desc:'ملفُّ قضيّةٍ سرّيّ وكاشفُ الواو: متى تلبسُ الألفُ قبّعتَها؟ ومَن هم عصابةُ الأسماءِ السّبعة؟',sky:['#D9DEE8','#F4EFE4'],hill:'#B88A55',url:'lughz-qubbaat-alalif.html'},
+ {g:'s',sym:'s-hz',vb:'20 -330 300 420',world:'عالَمُ همّوزة',title:'الهمزةُ المتوسّطة',desc:'نزالُ الأذرع وشدُّ الحبلِ والكراسي الموسيقيّة: الحركةُ الأقوى تختارُ كرسيَّ الهمزة.',sky:['#FFE1E8','#FFF6EC'],hill:'#F2D08A',url:'hammooza-alhamza-almutawassita.html'},
+ {g:'s',sym:'s-bus',vb:'320 190',world:'عالَمُ سعيدة',title:'علاماتُ التّرقيم',desc:'حافلةُ المدرسةِ في مدينةِ الكلام: سبعُ إشاراتٍ تنظّمُ القراءةَ وتغيّرُ المعنى والنّبرة.',sky:['#CDE9FA','#EEF8FF'],hill:'#2F343D',url:'saeeda-alamat-altarqeem.html'},
+ {g:'r',sym:'s-house',vb:'300 220',world:'درسُ «خبز ولبن»',title:'بيتُ سالمةَ المطلُّ على الفلج',desc:'جولةٌ ثلاثيّةُ الأبعادِ في بيتٍ عُمانيٍّ قديم: يضيءُ الطّالبُ القنديل، ويملأُ الهاندوةَ من الفلج، ويخبزُ على الطّوبج.',sky:['#FFE7C7','#FFF6E8'],hill:'#8FAF7A',meta:['جولة ثلاثيّة الأبعاد','الصّفّ الرّابع'],url:'bayt-salima.html'},
+ {g:'r',sym:'s-jar',vb:'220 240',world:'درسُ «خبز ولبن»',title:'كنوزُ بيتِ سالمةَ السّتّة',desc:'ستُّ أوانٍ من البيت، لكلٍّ منها طريقةُ تفكيرٍ في النّص: الجحلة، والهاندوة، والطّوبج، والقنديل، والرّغيف، والفلج.',sky:['#E3EEF8','#F7FAFD'],hill:'#C98552',meta:['نشاطُ تفكير','الصّفّ الرّابع'],url:'kunuz-bayt-salima.html'}
 ];
 function card(w,i){
   const a=document.createElement('a');a.className='world';a.href=w.url;a.style.transitionDelay=(i%4*.08)+'s';
@@ -417,14 +447,14 @@ function card(w,i){
     <span class="cl" style="width:26%;height:14%;top:14%;right:8%"></span><span class="cl" style="width:18%;height:10%;top:26%;left:10%;opacity:.7"></span>
     <svg class="hills" viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M0 120 L0 60 Q100 10 200 50 T400 40 L400 120z" fill="${w.hill}" opacity=".55"/><path d="M0 120 L0 85 Q120 50 240 80 T400 70 L400 120z" fill="${w.hill}"/></svg>
     <svg class="ch"><use href="#${w.sym}" width="100%" height="100%"/></svg>
-    <span class="badge">${w.g==='g'?'الأنماطُ اللّغويّة':'الإملاء'}</span><span class="visited">✔ زُرْتَه</span></div>
+    <span class="badge">${({g:'الأنماطُ اللّغويّة',s:'الإملاء',r:'القراءة'})[w.g]}</span><span class="visited">✔ زُرْتَه</span></div>
     <div class="info"><span class="wn">${w.world}</span><h3>${w.title}</h3><p>${w.desc}</p>
-    <div class="meta"><span>١٠ شرائح تفاعليّة</span><span>الصّفّ الرّابع</span></div>
+    <div class="meta">${(w.meta||['١٠ شرائح تفاعليّة','الصّفّ الرّابع']).map(m=>`<span>${m}</span>`).join('')}</div>
     <span class="go">ادخُلِ العالَمَ ←</span></div>`;
   a.dataset.id=i;a.addEventListener('click',e=>{e.preventDefault();markSeen(i);zoomTo(a,w)});
   return a}
-const railG=document.getElementById('railG'),railS=document.getElementById('railS');
-W.forEach((w,i)=>(w.g==='g'?railG:railS).appendChild(card(w,i)));
+const RAIL={g:document.getElementById('railG'),s:document.getElementById('railS'),r:document.getElementById('railR')};
+W.forEach((w,i)=>RAIL[w.g].appendChild(card(w,i)));
 
 /* تقدّم الطالب */
 const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
@@ -438,9 +468,9 @@ paintSeen();
 const buddy=document.getElementById('buddy'),sayEl=document.getElementById('say');
 let bT=null;function say(t){sayEl.textContent=t;buddy.classList.remove('hide');clearTimeout(bT);bT=setTimeout(()=>buddy.classList.add('hide'),innerWidth<760?4000:7000)}
 document.getElementById('buddyBtn').onclick=()=>buddy.classList.toggle('hide');
-const MSG={home:'مرحبًا! أنا نُجَيْمة، نجمةُ «كون». اختَرْ مجرّةً لنبدأَ الرّحلة ✨',how:'في «كون» كلُّ درسٍ عالمٌ له قصّةٌ وشخصيّة 🌍',grammar:'هنا مجرّةُ الأنماطِ اللّغويّة 🌿 عوالمُ الجملةِ والضّمائرِ والإشارةِ والرّبط.',spelling:'وصلْنا إلى مجرّةِ الإملاء ✏️ هنا نكتبُ الهمزاتِ والعلاماتِ بلا خطأ!'};
+const MSG={home:'مرحبًا! أنا نُجَيْمة، نجمةُ «كون». اختَرْ مجرّةً لنبدأَ الرّحلة ✨',how:'في «كون» كلُّ درسٍ عالمٌ له قصّةٌ وشخصيّة 🌍',grammar:'هنا مجرّةُ الأنماطِ اللّغويّة 🌿 عوالمُ الجملةِ والضّمائرِ والإشارةِ والرّبط.',spelling:'وصلْنا إلى مجرّةِ الإملاء ✏️ هنا نكتبُ الهمزاتِ والعلاماتِ بلا خطأ!',reading:'أهلًا بكم في مجرّةِ القراءة 📖 هنا نعيشُ النّصَّ ونفكّرُ فيه!'};
 const secIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&MSG[e.target.id]){say(MSG[e.target.id]);document.querySelectorAll('.top nav a').forEach(a=>a.classList.toggle('on',a.dataset.sec===e.target.id))}}),{threshold:.4});
-['home','how','grammar','spelling'].forEach(id=>secIO.observe(document.getElementById(id)));
+['home','how','grammar','spelling','reading'].forEach(id=>secIO.observe(document.getElementById(id)));
 /* الرسائل */
 (function(){const K=window.KAWN||{ok:false};const wall=document.getElementById('wall'),form=document.getElementById('msgForm'),note=document.getElementById('fNote'),send=document.getElementById('fSend');let role='';
   document.querySelectorAll('#fRole button').forEach(b=>b.onclick=()=>{role=b.dataset.r;document.querySelectorAll('#fRole button').forEach(x=>x.classList.toggle('on',x===b))});
