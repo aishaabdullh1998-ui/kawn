@@ -1,7 +1,7 @@
 /* كون: عدّاد الزوّار والرسائل
    ضعي بين علامتي التنصيص رابطَ تطبيق الويب من Google Apps Script
    مثال: const KAWN_API='https://script.google.com/macros/s/XXXX/exec'; */
-const KAWN_API='https://script.google.com/macros/s/AKfycbzQQMyMyPQqsaO-TFHmgnd4q5rPcWYK-qoZ0bfFAaEUnla5iI-vbpm-0R6GolY5NeID/exec';
+const KAWN_API='';
 
 (function(){
   var ok=/^https:\/\/script\.google\.com\//.test(KAWN_API);
