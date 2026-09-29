@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="../assets/kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ملف القضية: لغز قبعات الألف</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --desk:#1B2330; --desk2:#26344A;
+  --kraft:#EBD4A4; --kraft2:#D9BA80; --paper:#FBF4E4;
+  --ink:#2B1D12; --ink2:#5A4330;
+  --red:#C0392B; --tape:#F2C230; --cyan:#35C8DC;
+  --cork:#B8874F; --cork2:#A5763F;
+  --ninja:#2B2F38; --loud:#EF7B2D; --twin:#7B4FD6; --gold:#F5C84A; --ok:#2E9E58; --bad:#D8433A;
+  --display:"Lalezar","Noto Naskh Arabic","Traditional Arabic","Tahoma",sans-serif;
+  --body:"Noto Naskh Arabic","Traditional Arabic","Arabic Typesetting","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --desk:#161D28; --desk2:#212D40; } }
+:root[data-theme="dark"]{ --desk:#161D28; --desk2:#212D40; }
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--desk);font-family:var(--body);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--cyan);outline-offset:3px}
+
+/* ===== المسرح 1600×900 ===== */
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center center;overflow:hidden;
+  background:
+   radial-gradient(1200px 600px at 50% 40%, var(--desk2), var(--desk) 70%),
+   var(--desk)}
+#stage::before{content:"";position:absolute;inset:0;opacity:.06;pointer-events:none;
+  background:repeating-linear-gradient(8deg,#fff 0 2px,transparent 2px 9px)}
+.slide{position:absolute;inset:0;display:none}
+.slide.active{display:block;animation:slideIn .45s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* الملف الورقي */
+.folder{position:absolute;inset:58px 30px 84px;background:
+   radial-gradient(900px 400px at 20% 10%, rgba(255,255,255,.35), transparent 60%),
+   radial-gradient(700px 300px at 90% 90%, rgba(120,80,30,.18), transparent 60%),
+   var(--kraft);
+  border-radius:8px 8px 20px 20px;box-shadow:0 26px 60px rgba(0,0,0,.5), inset 0 0 0 2px rgba(120,80,30,.25)}
+.tab{position:absolute;top:-42px;right:56px;height:46px;padding:4px 30px 0;background:var(--kraft);border-radius:16px 16px 0 0;
+  font-family:var(--display);font-size:26px;color:var(--ink2);box-shadow:inset 0 2px 0 rgba(255,255,255,.4)}
+.head{position:absolute;top:14px;right:36px;left:36px;display:flex;align-items:baseline;gap:22px}
+.head h2{margin:0;font-family:var(--display);font-weight:400;font-size:54px;line-height:1.25;color:var(--ink)}
+.head p{margin:0;font-size:28px;font-weight:700;color:var(--red)}
+.content{position:absolute;top:100px;right:30px;left:30px;height:506px}
+.band{position:absolute;bottom:12px;right:24px;left:24px;height:128px;display:flex;align-items:flex-end;gap:22px}
+
+/* المرشد والفقاعة */
+.guide{display:flex;align-items:flex-end;gap:10px;flex:1 1 auto;min-width:0;order:2}
+.guide svg{width:112px;height:128px;flex:none}
+.bubble{position:relative;background:var(--paper);border:3px solid var(--ink);border-radius:22px;padding:12px 20px;font-size:25px;line-height:1.6;font-weight:600;max-width:760px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:18px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.challenge{order:1;flex:0 0 600px;background:var(--tape);border-radius:6px;padding:12px 22px 14px;font-size:25px;font-weight:700;line-height:1.55;
+  transform:rotate(-1deg);box-shadow:0 8px 18px rgba(0,0,0,.25);position:relative}
+.challenge::before{content:"";position:absolute;inset:0;border-radius:6px;pointer-events:none;
+  background:repeating-linear-gradient(-45deg,rgba(0,0,0,.9) 0 14px,transparent 14px 28px);
+  -webkit-mask:linear-gradient(#000 0 0) top/100% 9px no-repeat,linear-gradient(#000 0 0) bottom/100% 9px no-repeat;
+          mask:linear-gradient(#000 0 0) top/100% 9px no-repeat,linear-gradient(#000 0 0) bottom/100% 9px no-repeat}
+.challenge b{font-family:var(--display);font-weight:400;font-size:27px;margin-left:8px;color:var(--ink)}
+
+/* أزرار عامة */
+.btn{border:0;border-radius:16px;padding:12px 26px;font-size:27px;font-weight:700;background:var(--ink);color:var(--paper);box-shadow:0 5px 0 rgba(0,0,0,.35);transition:transform .1s}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.35)}
+.btn.cy{background:#0F6E7C}
+.btn.rd{background:var(--red)}
+.btn.lt{background:var(--paper);color:var(--ink);box-shadow:0 5px 0 rgba(0,0,0,.25)}
+
+/* تمييز الألف */
+.w{font-family:var(--body);font-weight:700}
+.a-w{color:#1D2B3A}
+.a-q{color:var(--loud)}
+.a-m{color:var(--twin)}
+
+/* شريط التنقل */
+#nav{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 18px;border-radius:27px;background:rgba(255,255,255,.12);color:#fff;font-size:24px;font-weight:700;backdrop-filter:blur(4px)}
+#nav button:disabled{opacity:.3;cursor:not-allowed}
+#nav .main{background:var(--tape);color:var(--ink);padding:0 26px}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(242,194,48,.7)}50%{box-shadow:0 0 0 14px rgba(242,194,48,0)}}
+#counter{color:#fff;font-family:var(--display);font-size:24px;min-width:90px;text-align:center}
+#tools{position:absolute;top:12px;left:18px;display:flex;gap:10px;z-index:50}
+#tools button{border:0;height:44px;padding:0 16px;border-radius:22px;background:rgba(255,255,255,.12);color:#fff;font-size:20px;font-weight:700}
+
+/* ملاحظات المعلمة */
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:var(--paper);z-index:60;box-shadow:12px 0 40px rgba(0,0,0,.4);
+  transform:translateX(-105%);transition:transform .35s;padding:30px 30px 20px;font-size:23px;line-height:1.75;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-family:var(--display);font-weight:400;font-size:34px;margin:0 0 10px;color:var(--red)}
+#notes dt{font-weight:700;color:var(--ink2);margin-top:10px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px}
+
+/* ===== ١. الغلاف ===== */
+.s1 .intro{position:absolute;top:26px;right:0;left:0;text-align:center;color:var(--paper);font-size:31px;font-weight:700}
+.f3d{position:absolute;left:340px;top:150px;width:880px;height:580px;perspective:2200px}
+.f3d .inside,.f3d .cover{position:absolute;inset:0;border-radius:10px 10px 18px 18px}
+.f3d .inside{background:var(--paper);box-shadow:0 30px 70px rgba(0,0,0,.55);padding:44px 60px;
+  background-image:repeating-linear-gradient(transparent 0 47px,rgba(53,120,200,.18) 47px 49px)}
+.f3d .inside h3{margin:0 0 6px;font-family:var(--display);font-weight:400;font-size:50px;color:var(--red)}
+.f3d .inside p{margin:0 0 6px;font-size:28px;font-weight:700}
+.f3d .inside ol{margin:0;padding-right:44px;font-size:29px;line-height:1.65;list-style:arabic-indic;font-weight:600}
+.f3d .cover{transform-origin:right center;transition:transform 1.4s cubic-bezier(.6,.05,.3,1),opacity .4s 1.2s;backface-visibility:hidden;
+  background:radial-gradient(600px 300px at 30% 20%,rgba(255,255,255,.35),transparent 60%),var(--kraft);box-shadow:0 30px 70px rgba(0,0,0,.55)}
+.f3d .cover::before{content:"";position:absolute;top:-34px;left:90px;width:260px;height:40px;background:var(--kraft);border-radius:14px 14px 0 0}
+.f3d.open .cover{transform:rotateY(-165deg);opacity:0;pointer-events:none}
+.clip{position:absolute;top:22px;left:50%;transform:translateX(-50%);width:170px;height:26px;border-radius:13px;background:linear-gradient(#9aa3ad,#5d6670);box-shadow:0 3px 6px rgba(0,0,0,.35)}
+.stampT{position:absolute;top:80px;right:120px;transform:rotate(-5deg);border:7px double var(--red);border-radius:10px;padding:10px 34px 14px;color:var(--red);text-align:center;
+  mix-blend-mode:multiply}
+.stampT .l1{font-family:var(--display);font-size:52px;line-height:1.2}
+.stampT .l2{font-family:var(--display);font-size:68px;line-height:1.2}
+.sticky{position:absolute;bottom:40px;right:70px;width:250px;height:190px;background:#F7EC5A;transform:rotate(4deg);box-shadow:0 10px 18px rgba(0,0,0,.25);
+  display:flex;align-items:center;justify-content:center;text-align:center;font-size:34px;font-weight:700;line-height:1.5;padding:16px;animation:wob 2.4s ease-in-out infinite}
+.sticky::before{content:"";position:absolute;top:-14px;left:70px;width:110px;height:28px;background:rgba(255,255,255,.55)}
+@keyframes wob{0%,100%{transform:rotate(4deg)}50%{transform:rotate(1.5deg)}}
+.fp{position:absolute;bottom:30px;left:90px;width:300px;display:flex;flex-direction:column;align-items:center;gap:8px;border:0;background:transparent;color:var(--ink)}
+.fp .pad{width:150px;height:150px;border-radius:26px;background:#10202A;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  box-shadow:0 0 0 5px #0B141B, 0 0 28px rgba(53,200,220,.6)}
+.fp .pad svg{width:92px;height:110px;animation:glow 1.6s ease-in-out infinite}
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 4px var(--cyan))}50%{filter:drop-shadow(0 0 16px var(--cyan))}}
+.fp .scan{position:absolute;left:0;right:0;height:6px;background:var(--cyan);box-shadow:0 0 18px var(--cyan);top:-10px;opacity:0}
+.fp.scanning .scan{animation:scan .9s ease-in-out 2}
+@keyframes scan{0%{top:0;opacity:1}100%{top:100%;opacity:1}}
+.fp span{font-size:26px;font-weight:700;background:var(--paper);border-radius:12px;padding:4px 14px}
+.peek{position:absolute;left:1160px;top:280px;width:260px;height:300px;transform:rotate(8deg)}
+.peek svg{width:100%;height:100%}
+.wink{animation:wink 3s infinite}
+@keyframes wink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+
+/* ===== ٢. مسرح الجريمة ===== */
+.cork{position:absolute;inset:0;border-radius:14px;border:14px solid #7A5230;
+  background:radial-gradient(circle at 20% 30%,rgba(0,0,0,.08) 0 2px,transparent 3px) 0 0/22px 22px,
+             radial-gradient(circle at 70% 60%,rgba(255,255,255,.08) 0 2px,transparent 3px) 0 0/17px 17px,var(--cork);
+  box-shadow:inset 0 0 40px rgba(0,0,0,.35)}
+.strings{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.qdisc{position:absolute;left:50%;top:314px;transform:translateX(-50%);width:150px;height:150px;border-radius:50%;border:0;
+  background:radial-gradient(circle at 40% 35%,#E8C78E,#C79A58);box-shadow:0 10px 22px rgba(0,0,0,.35);font-family:var(--display);font-size:110px;color:var(--red);line-height:1;padding-top:22px}
+.qdisc:active{transform:translateX(-50%) scale(.95)}
+.qdisc.done{opacity:.5}
+.pol{position:absolute;top:22px;width:250px;height:280px;perspective:900px}
+.pol .card{position:absolute;inset:0;transition:transform .7s;transform-style:preserve-3d}
+.pol.shown .card{transform:rotateY(180deg)}
+.pol .face{position:absolute;inset:0;backface-visibility:hidden;background:#fff;padding:14px 14px 0;box-shadow:0 12px 24px rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center}
+.pol .front{transform:rotateY(180deg)}
+.pol .photo{width:100%;height:150px;background:#26323F;display:flex;align-items:center;justify-content:center;position:relative}
+.pol .photo svg{height:120px;width:100px;opacity:.9}
+.pol .photo .num{position:absolute;top:8px;right:8px;background:var(--tape);font-family:var(--display);font-size:24px;border-radius:6px;padding:0 10px}
+.pol .word{font-size:64px;line-height:1.5;margin-top:4px}
+.pol .back .word{font-family:var(--display);color:#9b8c7a;font-size:60px}
+.pol .pin{position:absolute;top:-12px;left:50%;width:26px;height:26px;margin-left:-13px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff8a80,#b71c1c);z-index:3;box-shadow:0 3px 5px rgba(0,0,0,.4)}
+.cap{position:absolute;top:70px;z-index:4;left:50%;transform:translateX(-50%) rotate(-2deg) scale(.6);opacity:0;white-space:nowrap;background:var(--tape);padding:4px 16px;border-radius:6px;font-size:25px;font-weight:700;transition:.3s}
+.pol.cap-on .cap{opacity:1;transform:translateX(-50%) rotate(-2deg) scale(1)}
+
+/* ===== ٣. طابور المشتبه بهم ===== */
+.lineup{position:absolute;inset:0;border-radius:14px;overflow:hidden;
+  background:repeating-linear-gradient(to bottom,transparent 0 44px,rgba(30,60,90,.28) 44px 47px),linear-gradient(#DCEAF2,#B9D2E1)}
+.lineup .sign{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:#3a4250;color:#f5e7c7;font-family:var(--display);font-size:40px;padding:6px 40px;border-radius:10px;border:4px solid #9aa3ad}
+.slots{position:absolute;inset:84px 40px 0;display:flex;justify-content:space-around;align-items:flex-end}
+.slot{width:360px;display:flex;flex-direction:column;align-items:center;gap:8px;padding-bottom:16px}
+.slot .fig{border:0;background:transparent;padding:0;width:210px;height:250px}
+.slot .fig svg{width:100%;height:100%;filter:brightness(0) opacity(.78);transition:filter .6s}
+.slot.rev .fig svg{filter:none;animation:popIn .5s}
+@keyframes popIn{0%{transform:scale(.7)}70%{transform:scale(1.08)}100%{transform:scale(1)}}
+.slot .plate{min-height:84px;border-radius:12px;padding:6px 18px;text-align:center;background:#1f2733;color:#f5e7c7;font-size:23px;line-height:1.5;border:3px solid #6b7686}
+.slot .plate b{display:block;font-family:var(--display);font-weight:400;font-size:28px}
+.slot .vote{display:flex;align-items:center;gap:10px}
+.slot .vote button{border:0;border-radius:24px;background:#fff;padding:4px 18px;font-size:22px;font-weight:700;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.slot .vote output{font-family:var(--display);font-size:32px;min-width:40px;text-align:center}
+.slot.w .plate{border-color:#8fa3bb}
+.slot.q.rev .plate{border-color:var(--loud)}
+.slot.m.rev .plate{border-color:var(--twin)}
+
+/* ===== ٤-٥. الملف الشخصي + كاشف الواو ===== */
+.dossier{position:absolute;top:0;right:0;width:600px;height:506px;background:var(--paper);border-radius:10px;box-shadow:0 12px 26px rgba(0,0,0,.25);padding:34px 34px 20px}
+.dossier::before{content:"";position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:170px;height:34px;border-radius:10px;background:linear-gradient(#9aa3ad,#5d6670)}
+.dossier dl{margin:0;font-size:27px;line-height:1.6}
+.dossier dt{display:inline;font-weight:700;color:var(--red)}
+.dossier dd{display:inline;margin:0;font-weight:600}
+.dossier .row{margin-bottom:6px}
+.evi{margin-top:12px;border:10px solid transparent;border-image:repeating-linear-gradient(-45deg,#1b1b1b 0 12px,var(--tape) 12px 24px) 10;background:#fff8e3;padding:6px 14px 10px}
+.evi .t{font-family:var(--display);font-size:25px;color:var(--ink2)}
+.evi .ws{display:flex;flex-wrap:wrap;gap:4px 30px;font-size:42px;line-height:1.55;justify-content:center}
+.evi .ws small{font-size:20px;color:var(--ink2);display:block;text-align:center;line-height:1}
+.lab{position:absolute;top:0;left:0;width:900px;height:506px;display:flex;align-items:flex-end;gap:0}
+.lab .char{width:230px;height:360px;flex:none;margin-bottom:6px}
+.detector{flex:1;align-self:stretch;background:#1E2838;border-radius:28px;border:6px solid #3A4A63;padding:18px 26px;color:#DDF6FA;position:relative;display:flex;flex-direction:column;gap:12px;
+  box-shadow:inset 0 0 0 3px #111823,0 14px 30px rgba(0,0,0,.35)}
+.detector .top{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:32px;color:#9EE7F1}
+.led{width:16px;height:16px;border-radius:50%;background:#3dff8a;box-shadow:0 0 10px #3dff8a;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.screen{height:190px;background:#0B1720;border-radius:18px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  box-shadow:inset 0 0 30px rgba(53,200,220,.25);border:2px solid #1f4d58}
+.screen .wd{font-size:96px;color:#F1FBFD;text-shadow:0 0 18px rgba(53,200,220,.45);white-space:nowrap}
+.screen .waw{display:inline-block;color:var(--cyan);max-width:0;overflow:hidden;vertical-align:bottom;transition:max-width .5s}
+.detector.on .screen .waw{max-width:120px;animation:drop .5s}
+@keyframes drop{from{transform:translateY(-80px)}to{transform:none}}
+.screen .al{display:inline-block;transition:.5s}
+.s4 .detector.on .screen .al{opacity:.18;outline:3px dashed #9EE7F1;outline-offset:4px;border-radius:6px}
+.s5 .detector.on .screen .al{color:var(--loud);animation:shout .6s 2}
+@keyframes shout{50%{transform:scale(1.45)}}
+.readout{font-size:30px;font-weight:700;min-height:52px;color:#fff}
+.readout span{color:var(--tape)}
+.detector .ctrls{display:flex;gap:14px;flex-wrap:wrap}
+.verdict{position:absolute;bottom:34px;left:40px;transform:rotate(-10deg) scale(2);opacity:0;border:6px solid;border-radius:12px;padding:4px 18px;font-family:var(--display);font-size:34px;pointer-events:none;background:rgba(11,23,32,.6)}
+.detector.on .verdict{animation:stampIn .45s .55s forwards}
+@keyframes stampIn{to{opacity:1;transform:rotate(-10deg) scale(1)}}
+.s4 .verdict{color:#9EE7F1;border-color:#9EE7F1}
+.s5 .verdict{color:var(--tape);border-color:var(--tape)}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+
+/* ===== ٦. العصابة ===== */
+.posters{position:absolute;top:10px;right:0;left:0;display:flex;justify-content:center;gap:18px}
+.wanted{width:192px;height:250px;perspective:900px;border:0;background:transparent;padding:0}
+.wanted .card{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.wanted.shown .card{transform:rotateY(180deg)}
+.wanted .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:10px 8px 12px;box-shadow:0 10px 20px rgba(0,0,0,.3)}
+.wanted .back{background:#F4E4BF;border:3px solid #8C6A3E}
+.wanted .back b{font-family:var(--display);font-weight:400;font-size:38px;color:var(--red);line-height:1.2}
+.wanted .back svg{width:90px;height:120px;filter:brightness(0) opacity(.7)}
+.wanted .back i{font-style:normal;font-family:var(--display);font-size:28px;color:var(--ink2)}
+.wanted .front{transform:rotateY(180deg);background:#fff;border:3px solid var(--ninja)}
+.wanted .front svg{width:84px;height:112px}
+.wanted .front .word{font-size:46px;line-height:1.5}
+.wanted .front small{font-size:18px;font-weight:700;color:var(--ink2)}
+.chant{position:absolute;top:330px;right:60px;left:60px;display:flex;align-items:center;gap:22px;justify-content:center}
+.chant p{margin:0;background:var(--ninja);color:#fff;border-radius:18px;padding:14px 30px;font-size:34px;line-height:1.6;font-weight:700}
+.chant p .al{color:#9EE7F1}
+.intruder{display:flex;gap:12px;margin-top:6px}
+.intruder button{border:0;border-radius:12px;background:#fff;font-size:34px;font-weight:700;padding:0 20px;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.good{background:var(--ok)!important;color:#fff}
+.wrong{background:var(--bad)!important;color:#fff}
+
+/* ===== ٧. آلة المد ===== */
+.factory{position:absolute;inset:0 0 170px 0;background:rgba(255,255,255,.35);border-radius:16px}
+.belt{position:absolute;right:30px;left:30px;bottom:26px;height:34px;border-radius:17px;background:repeating-linear-gradient(90deg,#434c5a 0 22px,#2e353f 22px 44px);box-shadow:0 6px 0 #1f242b}
+.factory.run .belt{animation:belt .5s linear infinite}
+@keyframes belt{to{background-position:-44px 0}}
+.inzone{position:absolute;right:50px;bottom:66px;display:flex;gap:10px;align-items:flex-end}
+.tile{width:106px;height:118px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:92px;font-weight:700;color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.25);line-height:1;padding-top:10px;touch-action:none}
+.tile.h{background:var(--red);cursor:grab}
+.tile.a{background:var(--ok)}
+.tile.dragging{z-index:40;position:relative;cursor:grabbing;box-shadow:0 18px 30px rgba(0,0,0,.35)}
+.slotz{width:122px;height:142px;border-radius:20px;border:4px dashed var(--ink2);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;text-align:center;color:var(--ink2);padding:6px}
+.slotz.hot{background:rgba(242,194,48,.35)}
+.tray{position:absolute;right:150px;top:4px;display:flex;align-items:center;gap:16px;font-size:24px;font-weight:700}
+.machine{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);width:320px;height:266px}
+.machine svg{width:100%;height:100%;overflow:visible}
+.gear{transform-box:fill-box;transform-origin:center}
+.factory.run .gear{animation:spin 1s linear infinite}
+.factory.run .gear.r{animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.factory.run .bulb{animation:blink .3s infinite}
+.outzone{position:absolute;left:330px;bottom:60px;width:180px;height:200px;display:flex;align-items:center;justify-content:center}
+.outzone .res{font-size:170px;font-weight:700;color:var(--gold);text-shadow:0 0 0 #000,0 6px 0 #B58A12,0 0 30px rgba(245,200,74,.9);opacity:0;transform:scale(.3);line-height:1}
+.factory.made .outzone .res{animation:popOut .6s forwards}
+@keyframes popOut{70%{opacity:1;transform:scale(1.2)}100%{opacity:1;transform:scale(1)}}
+.inzone.go{transition:transform 1s ease-in,opacity .4s .7s;transform:translateX(-360px);opacity:0}
+.eq{position:absolute;top:110px;left:50px;font-size:44px;font-weight:700;background:var(--paper);border-radius:16px;padding:4px 26px;opacity:0;transition:.4s}
+.factory.made .eq{opacity:1}
+.eq .h{color:var(--red)}.eq .a{color:var(--ok)}.eq .m{color:#B8860B}
+.runbtn{position:absolute;top:22px;right:400px}
+.mapstrip{position:absolute;bottom:0;right:0;left:0;height:156px;display:flex;gap:22px}
+.pinbox{flex:1;background:#E3D2A8;border-radius:16px;border:3px dashed #8C6A3E;display:flex;align-items:center;gap:20px;padding:0 24px}
+.pinbox button{flex:none;border:0;width:92px;height:92px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--twin);box-shadow:0 0 0 6px rgba(123,79,214,.25)}
+.pinbox button span{display:block;transform:rotate(45deg);color:#fff;font-family:var(--display);font-size:22px;line-height:1.1}
+.pinbox .ws{font-size:46px;font-weight:700;opacity:0;transition:.5s;display:flex;gap:30px}
+.pinbox.on .ws{opacity:1}
+.pinbox.on button{animation:ping 1.2s 2}
+@keyframes ping{50%{box-shadow:0 0 0 22px rgba(123,79,214,0)}}
+.pinbox .lbl{font-family:var(--display);font-size:30px;color:var(--ink2)}
+
+/* ===== ٨. مختبر الفرز ===== */
+.bins{position:absolute;top:0;right:0;left:0;height:260px;display:flex;gap:26px}
+.bin{flex:1;border-radius:14px 14px 18px 18px;padding:16px 20px;position:relative;display:flex;flex-direction:column;gap:8px}
+.bin.w{background:#2F3542;color:#EAF2F7}
+.bin.q{background:#F6D3B5;color:var(--ink)}
+.bin .bt{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:32px}
+.bin .bt svg{width:64px;height:84px}
+.bin .drop{flex:1;border:3px dashed currentColor;border-radius:14px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:10px;padding:10px;opacity:.95}
+.bin.hot .drop{background:rgba(242,194,48,.3)}
+.cards{position:absolute;bottom:0;right:0;left:0;height:220px;padding-left:190px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:16px 18px}
+.wc{min-width:170px;height:84px;border-radius:14px;background:var(--paper);border:3px solid var(--ink);font-size:44px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 16px;box-shadow:0 5px 0 rgba(0,0,0,.25);cursor:grab;touch-action:none;line-height:1}
+.wc.dragging{z-index:40;position:relative;cursor:grabbing}
+.drop .wc{color:var(--ink);min-width:0;height:60px;font-size:34px;cursor:default;box-shadow:none;border-width:2px}
+.score{position:absolute;top:10px;left:0;font-family:var(--display);font-size:32px;background:var(--ink);color:var(--tape);border-radius:14px;padding:2px 20px}
+.resetb{position:absolute;top:74px;left:0;font-size:22px;padding:6px 18px}
+
+/* ===== ٩. التحدي الأخير ===== */
+.tablets{position:absolute;inset:0;display:flex;gap:30px}
+.tablet{flex:1;background:#101B28;border-radius:34px;border:10px solid #2c3a4d;padding:22px 28px;color:#e7f6fb;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:14px;
+  box-shadow:0 18px 34px rgba(0,0,0,.35),inset 0 0 0 2px #3f5875}
+.tablet h4{margin:0;font-family:var(--display);font-weight:400;font-size:34px;color:#9EE7F1}
+.tablet .q{font-size:29px;font-weight:700;text-align:center;line-height:1.5}
+.tablet .big{font-size:92px;font-weight:700;position:relative;padding:0 30px;line-height:1.4}
+.tablet .big .gap{color:var(--tape);border-bottom:6px dotted var(--tape);padding:0 10px;margin-left:4px}
+.opts{display:flex;gap:18px;margin-top:auto}
+.opts button{border:0;min-width:150px;height:96px;border-radius:20px;background:#2B6CB0;color:#fff;font-size:50px;font-weight:700;box-shadow:0 6px 0 #1a4677;padding:0 22px}
+.lz{position:absolute;top:0;bottom:0;width:8px;background:#6ef2ff;box-shadow:0 0 22px #6ef2ff,0 0 6px #fff;right:0;opacity:0}
+.big.scan .lz{animation:laser 1.6s ease-in-out 2}
+@keyframes laser{0%{right:0;opacity:1}100%{right:100%;opacity:1}}
+.medal{position:absolute;inset:0;background:rgba(9,17,26,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;pointer-events:none;transition:.5s}
+.medal.on{opacity:1;pointer-events:auto}
+.medal svg{width:190px;height:230px;animation:popIn .7s}
+.medal b{font-family:var(--display);font-weight:400;font-size:42px;color:var(--gold)}
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;font-style:normal;font-size:40px;color:var(--gold);animation:fall 1.4s ease-in forwards}
+@keyframes fall{from{transform:translateY(-40px) rotate(0);opacity:1}to{transform:translateY(420px) rotate(260deg);opacity:0}}
+
+/* ===== ١٠. الختام ===== */
+.s10 .stampBig{position:absolute;top:10px;right:80px;transform:rotate(-8deg) scale(3);opacity:0;border:10px double var(--red);color:var(--red);border-radius:18px;padding:6px 40px 12px;font-family:var(--display);font-size:76px;mix-blend-mode:multiply}
+.s10.go .stampBig{animation:stampDown .5s .2s forwards}
+@keyframes stampDown{to{transform:rotate(-8deg) scale(1);opacity:1}}
+.recap{position:absolute;top:190px;right:40px;width:760px;display:flex;flex-direction:column;gap:14px}
+.recap div{display:flex;align-items:center;gap:16px;background:var(--paper);border-radius:14px;padding:6px 18px;font-size:29px;font-weight:700;box-shadow:0 5px 12px rgba(0,0,0,.15)}
+.recap svg{width:56px;height:76px;flex:none}
+.badge{position:absolute;top:30px;left:50px;width:560px;height:470px;background:linear-gradient(160deg,#FFF3C4,#F1CE6B);border-radius:28px;border:8px solid #B8860B;padding:20px 30px;text-align:center;box-shadow:0 18px 34px rgba(0,0,0,.3)}
+.badge svg{width:130px;height:150px}
+.badge h4{margin:0;font-family:var(--display);font-weight:400;font-size:44px;color:#7A5410}
+.badge input{width:100%;margin-top:14px;font-family:var(--body);font-size:44px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed #7A5410;background:transparent;color:var(--ink);padding:6px;user-select:text}
+.badge input:focus{outline:none;background:rgba(255,255,255,.5)}
+.badge p{margin:12px 0 0;font-size:24px;font-weight:700;color:#7A5410}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+#credit{position:absolute;right:12px;bottom:5px;z-index:55;pointer-events:none;font-family:"Noto Naskh Arabic","Tahoma",sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.22);padding:1px 9px 2px;border-radius:9px;opacity:.7;letter-spacing:0}
+</style>
+</head>
+<body>
+
+<!-- ===== رسومات الشخصيات ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+  <pattern id="pStripe" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="24" height="12" fill="#E0413A"/><rect y="12" width="24" height="12" fill="#FFF6EC"/></pattern>
+  <radialGradient id="gLens" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#F4FDFF"/><stop offset="1" stop-color="#9ED7E7"/></radialGradient>
+  <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE38A"/><stop offset="1" stop-color="#D49A12"/></linearGradient>
+</defs>
+<symbol id="c-ninja" viewBox="0 -50 220 370">
+  <ellipse cx="110" cy="306" rx="60" ry="9" fill="#000" opacity=".18"/>
+  <rect x="84" y="256" width="20" height="42" rx="9" fill="#1B1E24"/><rect x="116" y="256" width="20" height="42" rx="9" fill="#1B1E24"/>
+  <ellipse cx="92" cy="300" rx="16" ry="7" fill="#111"/><ellipse cx="128" cy="300" rx="16" ry="7" fill="#111"/>
+  <path d="M82 140 q-34 8 -40 42" stroke="#2B2F38" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M138 140 q30 -8 40 -44" stroke="#2B2F38" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <circle cx="42" cy="184" r="11" fill="#F1CFA8"/><circle cx="178" cy="94" r="11" fill="#F1CFA8"/>
+  <path d="M78 58 Q80 22 110 20 Q140 22 142 58 L136 262 Q110 280 84 262 Z" fill="#2B2F38"/>
+  <path d="M96 30 Q104 24 114 25" stroke="#4A5160" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <rect x="81" y="190" width="58" height="12" rx="4" fill="#C0392B"/>
+  <path d="M140 56 q30 -14 52 0 q-20 0 -30 8 q22 4 34 22 q-24 -12 -56 -18z" fill="#C0392B"/>
+  <rect x="78" y="52" width="64" height="11" rx="4" fill="#C0392B"/>
+  <rect x="82" y="74" width="56" height="32" rx="14" fill="#F1CFA8"/>
+  <ellipse cx="98" cy="91" rx="6.5" ry="7.5" fill="#1B1E24"/><circle cx="100" cy="88" r="2.3" fill="#fff"/>
+  <ellipse cx="122" cy="91" rx="6.5" ry="7.5" fill="#1B1E24"/><circle cx="124" cy="88" r="2.3" fill="#fff"/>
+  <path d="M88 79 L104 85 M132 79 L116 85" stroke="#1B1E24" stroke-width="4.5" stroke-linecap="round"/>
+</symbol>
+<symbol id="c-loud" viewBox="0 -50 240 370">
+  <ellipse cx="110" cy="306" rx="60" ry="9" fill="#000" opacity=".18"/>
+  <text x="112" y="10" font-size="84" text-anchor="middle" fill="#EF7B2D" stroke="#A9501A" stroke-width="2" font-family="'Noto Naskh Arabic','DejaVu Sans',sans-serif" font-weight="700">ء</text>
+  <rect x="84" y="256" width="22" height="40" rx="9" fill="#3B6EA8"/><rect x="114" y="256" width="22" height="40" rx="9" fill="#3B6EA8"/>
+  <ellipse cx="92" cy="300" rx="17" ry="8" fill="#D63A2F"/><ellipse cx="130" cy="300" rx="17" ry="8" fill="#D63A2F"/>
+  <path d="M82 162 q-32 -10 -36 -50" stroke="#F4C9A1" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <circle cx="46" cy="110" r="13" fill="#F4C9A1"/>
+  <path d="M78 58 Q80 22 110 20 Q140 22 142 58 L136 262 Q110 280 84 262 Z" fill="#F4C9A1" stroke="#D9A37A" stroke-width="3"/>
+  <path d="M80 150 L140 150 L136 262 Q110 280 84 262 Z" fill="url(#pStripe)"/>
+  <path d="M92 86 q8 -9 16 0 M114 86 q8 -9 16 0" stroke="#2B1D12" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <circle cx="90" cy="104" r="7" fill="#F08A8A" opacity=".6"/><circle cx="130" cy="104" r="7" fill="#F08A8A" opacity=".6"/>
+  <ellipse cx="110" cy="120" rx="14" ry="17" fill="#6B1B1B"/><ellipse cx="110" cy="130" rx="9" ry="5" fill="#E86A6A"/>
+  <path d="M138 164 q22 -4 30 -30" stroke="#F4C9A1" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M134 108 L198 78 L198 164 L134 130 Z" fill="#D63A2F"/>
+  <ellipse cx="198" cy="121" rx="11" ry="43" fill="#FFF6EC" stroke="#D63A2F" stroke-width="5"/>
+  <rect x="150" y="124" width="16" height="30" rx="5" fill="#2B2F38"/>
+  <path d="M216 90 l16 -10 M218 121 h18 M216 152 l16 10" stroke="#EF7B2D" stroke-width="6" stroke-linecap="round"/>
+</symbol>
+<symbol id="c-twin" viewBox="0 -50 220 370">
+  <ellipse cx="110" cy="306" rx="60" ry="9" fill="#000" opacity=".18"/>
+  <path d="M68 -8 C82 -34 100 4 114 -14 S142 -34 154 -18" stroke="#7B4FD6" stroke-width="15" fill="none" stroke-linecap="round"/>
+  <path d="M86 14 v10 M110 10 v10 M134 14 v10" stroke="#7B4FD6" stroke-width="4" opacity=".45" stroke-linecap="round"/>
+  <rect x="84" y="256" width="22" height="40" rx="9" fill="#5B3AA8"/><rect x="114" y="256" width="22" height="40" rx="9" fill="#5B3AA8"/>
+  <ellipse cx="92" cy="300" rx="17" ry="8" fill="#2B2F38"/><ellipse cx="130" cy="300" rx="17" ry="8" fill="#2B2F38"/>
+  <path d="M82 150 q-30 -6 -40 -34" stroke="#F6C945" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M138 150 q26 10 34 38" stroke="#F6C945" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <circle cx="42" cy="114" r="11" fill="#F6C945" stroke="#D19E1E" stroke-width="3"/><circle cx="172" cy="190" r="11" fill="#F6C945" stroke="#D19E1E" stroke-width="3"/>
+  <path d="M78 58 Q80 22 110 20 Q140 22 142 58 L136 262 Q110 280 84 262 Z" fill="#F6C945" stroke="#D19E1E" stroke-width="3"/>
+  <ellipse cx="98" cy="90" rx="7" ry="8.5" fill="#2B1D12"/><circle cx="100" cy="87" r="2.5" fill="#fff"/>
+  <ellipse cx="122" cy="90" rx="7" ry="8.5" fill="#2B1D12"/><circle cx="124" cy="87" r="2.5" fill="#fff"/>
+  <circle cx="88" cy="106" r="7" fill="#F08A8A" opacity=".55"/><circle cx="132" cy="106" r="7" fill="#F08A8A" opacity=".55"/>
+  <path d="M96 110 q14 15 28 0" stroke="#2B1D12" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+</symbol>
+<symbol id="c-det" viewBox="0 0 220 250">
+  <path d="M140 164 L186 236" stroke="#7A4E2D" stroke-width="24" stroke-linecap="round"/>
+  <path d="M140 164 L152 183" stroke="#3B4455" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="104" cy="116" r="66" fill="url(#gLens)" stroke="#3B4455" stroke-width="13"/>
+  <path d="M62 90 A48 48 0 0 1 96 64" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".8"/>
+  <g class="wink" style="transform-origin:80px 112px"><path d="M72 112 q10 -9 20 0" stroke="#2B1D12" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+  <ellipse cx="128" cy="108" rx="9" ry="11" fill="#2B1D12"/><circle cx="131" cy="104" r="3" fill="#fff"/>
+  <path d="M116 88 q12 -6 24 2" stroke="#2B1D12" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <path d="M82 136 q24 20 48 0" stroke="#2B1D12" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <circle cx="70" cy="128" r="7" fill="#F08A8A" opacity=".5"/>
+  <ellipse cx="104" cy="56" rx="86" ry="13" fill="#6B4A34"/>
+  <path d="M56 54 Q58 10 104 8 Q150 10 152 54 Z" fill="#7E5A40"/>
+  <path d="M58 40 Q104 32 150 40 L151 51 Q104 45 57 51 Z" fill="#2B1D12"/>
+  <path d="M104 12 Q98 26 104 34" stroke="#5E4230" stroke-width="4" fill="none"/>
+</symbol>
+<symbol id="c-fp" viewBox="0 0 100 120">
+  <g fill="none" stroke="#35C8DC" stroke-width="4.5" stroke-linecap="round">
+    <path d="M50 10 C25 10 12 30 12 55 C12 80 20 100 30 110"/><path d="M50 22 C32 22 24 38 24 58 C24 78 32 96 40 108"/>
+    <path d="M50 34 C40 34 36 46 36 60 C36 76 42 92 50 104"/><path d="M50 46 C44 46 48 60 48 70 C48 84 54 94 60 102"/>
+    <path d="M50 10 C75 10 88 30 88 55 C88 72 84 88 78 100"/><path d="M50 22 C68 22 76 38 76 58 C76 72 72 86 68 96"/>
+    <path d="M50 34 C60 34 64 46 64 60 C64 72 62 82 58 90"/>
+  </g>
+</symbol>
+<symbol id="c-medal" viewBox="0 0 200 240">
+  <path d="M60 0 L100 70 L140 0 L120 0 L100 36 L80 0 Z" fill="#C0392B"/>
+  <path d="M40 0 L90 90 L110 90 L60 0 Z M160 0 L110 90 L90 90 L140 0 Z" fill="#2B6CB0" opacity=".9"/>
+  <circle cx="100" cy="150" r="72" fill="url(#gGold)" stroke="#B8860B" stroke-width="8"/>
+  <path d="M100 100 L113 136 L152 137 L121 160 L132 197 L100 175 L68 197 L79 160 L48 137 L87 136 Z" fill="#FFF7D1" stroke="#B8860B" stroke-width="4"/>
+</symbol>
+</svg>
+
+<div id="stage" role="application" aria-label="عرض تفاعلي: لغز قبعات الألف">
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+
+
+<div id="tools"><a href="../index.html" style="border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a>
+  <button id="bSound" aria-label="كتم الأصوات أو تشغيلها">🔊 الصوت</button>
+  <button id="bFull">⛶ ملء الشاشة</button>
+  <button id="bNotes">📋 ملاحظات المعلمة</button>
+</div>
+
+<!-- ============ ١. الغلاف ============ -->
+<section class="slide s1 active" data-n="1">
+  <p class="intro">أيُّها المحقِّقونَ الصِّغارُ… وصلَنا ملفٌّ سِرِّيٌّ عاجِلٌ!</p>
+  <div class="f3d" id="f3d">
+    <div class="inside">
+      <h3>خُطَّةُ التَّحْقِيقِ</h3>
+      <p>بعدَ حَلِّ اللُّغزِ سأستطيعُ أنْ:</p>
+      <ol>
+        <li>أُمَيِّزَ همزةَ الوصلِ مِنْ همزةِ القطعِ في أوَّلِ الكلمةِ.</li>
+        <li>أستخدِمَ «كاشِفَ الواوِ» لأعرِفَ نوعَ الهمزةِ.</li>
+        <li>أحفَظَ أسماءَ «عِصابَةِ النِّينْجا» السَّبعةَ.</li>
+        <li>أعرِفَ مِمَّ تتكوَّنُ همزةُ المدِّ (آ) وأكتُبَها صحيحةً.</li>
+      </ol>
+    </div>
+    <div class="cover">
+      <div class="clip"></div>
+      <div class="stampT"><div class="l1">مَلَفُّ القَضِيَّةِ:</div><div class="l2">لُغْزُ قُبَّعاتِ الأَلِفِ</div></div>
+      <div class="sticky">لِلْمُحَقِّقِينَ<br>الصِّغارِ فَقَطْ!</div>
+      <button class="fp" id="fpBtn" aria-label="افتح الملف بالبصمة">
+        <div class="pad"><svg><use href="#c-fp"/></svg><div class="scan"></div></div>
+        <span>ضَعْ بَصْمَتَكَ لِتَفْتَحَ المَلَفَّ</span>
+      </button>
+    </div>
+  </div>
+  <div class="peek"><svg><use href="#c-det"/></svg></div>
+  <template class="notes">
+    <h3>١. فتحُ الملفّ</h3>
+    <dl><dt>الهدف</dt><dd>إثارةُ الدّافعيّة وعرضُ أهدافِ الدّرس.</dd>
+    <dt>قولي</dt><dd>«وصلَنا ملفٌّ سرّيّ عاجل… ولا يفتحُه إلّا محقّقٌ حقيقيّ!»</dd>
+    <dt>التّنفيذ</dt><dd>يخرجُ طالبٌ ويضعُ إصبعَه على البصمة. لا تنتقلُ الشّريحةُ حتّى يُفتَحَ الملفّ. بعد الفتح اقرئي «خطّة التّحقيق» مع الطّلاب.</dd>
+    <dt>الزّمن</dt><dd>دقيقتان</dd></dl>
+  </template>
+</section>
+
+<!-- ============ ٢. مسرح الجريمة ============ -->
+<section class="slide s2" data-n="2">
+  <div class="folder"><div class="tab">الدَّليلُ ٢ من ١٠</div>
+    <div class="head"><h2>مَسْرَحُ الجَرِيمَةِ</h2><p>ثلاثةُ أدلّةٍ… وألِفٌ تُغيِّرُ قبّعتَها!</p></div>
+    <div class="content">
+      <div class="cork">
+        <svg class="strings" id="strings"><g stroke="#C62828" stroke-width="5" fill="none"></g></svg>
+        <div class="pol" style="right:180px" data-cap="ألِفٌ بلا قُبَّعةٍ (ا)">
+          <div class="pin"></div>
+          <div class="card">
+            <div class="face back"><div class="photo"><svg><use href="#c-fp"/></svg><span class="num">١</span></div><div class="word">؟</div></div>
+            <div class="face front"><div class="photo"><svg><use href="#c-fp"/></svg><span class="num">١</span></div><div class="word w"><span class="a-w">ا</span>سْتَخْرَجَ</div></div>
+          </div><div class="cap"></div>
+        </div>
+        <div class="pol" style="right:601px" data-cap="قُبَّعةٌ ظاهرةٌ (أ)">
+          <div class="pin"></div>
+          <div class="card">
+            <div class="face back"><div class="photo"><svg><use href="#c-fp"/></svg><span class="num">٢</span></div><div class="word">؟</div></div>
+            <div class="face front"><div class="photo"><svg><use href="#c-fp"/></svg><span class="num">٢</span></div><div class="word w"><span class="a-q">أَ</span>سَدٌ</div></div>
+          </div><div class="cap"></div>
+        </div>
+        <div class="pol" style="right:1022px" data-cap="قُبَّعةٌ طائرةٌ (آ)">
+          <div class="pin"></div>
+          <div class="card">
+            <div class="face back"><div class="photo"><svg><use href="#c-fp"/></svg><span class="num">٣</span></div><div class="word">؟</div></div>
+            <div class="face front"><div class="photo"><svg><use href="#c-fp"/></svg><span class="num">٣</span></div><div class="word w"><span class="a-m">آ</span>مَالٌ</div></div>
+          </div><div class="cap"></div>
+        </div>
+        <button class="qdisc" id="qdisc" aria-label="اكشف الدليل التالي">؟</button>
+      </div>
+    </div>
+    <div class="band">
+      <div class="challenge"><b>تَحَدِّي المُحَقِّقِينَ:</b>صِفْ قُبَّعةَ الألِفِ في كلِّ كلمةٍ: هل تلبَسُ قبّعةً؟ وما شكلُها؟</div>
+      <div class="guide"><svg><use href="#c-det"/></svg><div class="bubble">انظُروا جيّدًا! كلُّ كلمةٍ تبدأُ بألِفٍ، لكنَّ الألِفَ تلبَسُ في كلِّ مرّةٍ قبّعةً مختلِفةً… لماذا؟</div></div>
+    </div>
+  </div>
+  <template class="notes">
+    <h3>٢. مسرحُ الجريمة</h3>
+    <dl><dt>الهدف</dt><dd>الملاحظةُ وإثارةُ التّساؤل.</dd>
+    <dt>التّنفيذ</dt><dd>اضغطي علامةَ «؟» ثلاثَ مرّات لكشفِ الأدلّة واحدًا واحدًا. ثمّ اضغطي على كلِّ بطاقةٍ لإظهارِ وصفِ قبّعتها بعد أن يصفَها الطّلاب.</dd>
+    <dt>تنبيه</dt><dd>لا تشرحي القاعدةَ هنا؛ اتركي اللّغزَ معلّقًا حتّى غرفةِ المشتبهِ بهم.</dd>
+    <dt>الزّمن</dt><dd>٣ دقائق</dd></dl>
+  </template>
+</section>
+
+<!-- ============ ٣. طابور المشتبه بهم ============ -->
+<section class="slide s3" data-n="3">
+  <div class="folder"><div class="tab">الدَّليلُ ٣ من ١٠</div>
+    <div class="head"><h2>غُرْفَةُ المُشْتَبَهِ بِهِمْ</h2><p>مَنِ الأهدأُ؟ ومَنِ الأصخَبُ؟</p></div>
+    <div class="content">
+      <div class="lineup">
+        <div class="sign">المُشْتَبَهُ بِهِمُ الثَّلاثَةُ</div>
+        <div class="slots">
+          <div class="slot w" data-snd="whoosh">
+            <div class="vote"><button>صوِّتْ</button><output>٠</output></div>
+            <button class="fig" aria-label="اكشف المشتبه به الأول"><svg><use href="#c-ninja"/></svg></button>
+            <div class="plate" data-t="<b>١. النِّينْجا الخَفِيُّ</b>همزةُ الوصلِ (بلا قبّعة)">اضغطْ لكشفِ الوجه</div>
+          </div>
+          <div class="slot q" data-snd="megaphone">
+            <div class="vote"><button>صوِّتْ</button><output>٠</output></div>
+            <button class="fig" aria-label="اكشف المشتبه به الثاني"><svg><use href="#c-loud"/></svg></button>
+            <div class="plate" data-t="<b>٢. الصَّوْتُ العالي</b>همزةُ القطعِ (قبّعةٌ ظاهرة ء)">اضغطْ لكشفِ الوجه</div>
+          </div>
+          <div class="slot m" data-snd="magic">
+            <div class="vote"><button>صوِّتْ</button><output>٠</output></div>
+            <button class="fig" aria-label="اكشف المشتبه به الثالث"><svg><use href="#c-twin"/></svg></button>
+            <div class="plate" data-t="<b>٣. التَّوْأَمُ المُمَدَّدُ</b>همزةُ المدِّ (قبّعةٌ طائرة ~)">اضغطْ لكشفِ الوجه</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="challenge"><b>تَصْوِيتٌ سِرِّيٌّ:</b>قبلَ الكشفِ: مَنْ تظنُّونَه الأهدأَ؟ ومَنِ الأصخَبَ؟ صوِّتوا ثمّ اكشِفوا الوجوه.</div>
+      <div class="guide"><svg><use href="#c-det"/></svg><div class="bubble">في الطّابورِ ثلاثةُ مشتبَهٍ بهم يختبئونَ في أوّلِ الكلمات. لكلٍّ منهم قبّعةٌ… وسِرٌّ!</div></div>
+    </div>
+  </div>
+  <template class="notes">
+    <h3>٣. غرفةُ المشتبه بهم</h3>
+    <dl><dt>الهدف</dt><dd>التّعرّفُ على الأنواعِ الثّلاثة وربطُها بالشّخصيّات.</dd>
+    <dt>التّنفيذ</dt><dd>قبلَ الكشف يصوّتُ الطّلابُ برفعِ الأيدي: من الأهدأ؟ من الأصخب؟ سجّلي الأصواتَ بزرّ «صوّت». ثمّ اضغطي على كلِّ ظلٍّ لكشفِه.</dd>
+    <dt>اربطي</dt><dd>عودي إلى كلماتِ مسرحِ الجريمة: اسْتَخْرَجَ ← النّينجا، أَسَدٌ ← الصّوت العالي، آمَالٌ ← التّوأم.</dd>
+    <dt>الزّمن</dt><dd>٣ دقائق</dd></dl>
+  </template>
+</section>
+
+<!-- ============ ٤. همزة الوصل ============ -->
+<section class="slide s4" data-n="4">
+  <div class="folder"><div class="tab">الدَّليلُ ٤ من ١٠</div>
+    <div class="head"><h2>المُشْتَبَهُ بِهِ الأَوَّلُ: النِّينْجا الخَفِيُّ</h2><p>همزةُ الوصلِ</p></div>
+    <div class="content">
+      <div class="dossier">
+        <dl>
+          <div class="row"><dt>المكانُ: </dt><dd>أوّلُ الكلمةِ.</dd></div>
+          <div class="row"><dt>الشّكلُ: </dt><dd>ألِفٌ بلا قبّعةٍ أبدًا (ا).</dd></div>
+          <div class="row"><dt>السِّرُّ: </dt><dd>إذا جاءَ قبلَه حرفٌ <u>اختفى من النُّطقِ</u>.</dd></div>
+        </dl>
+        <div class="evi"><div class="t">صُندوقُ الأدلّةِ</div>
+          <div class="ws w"><span><span class="a-w">ا</span>سْتَخْرَجَ</span><span><span class="a-w">ا</span>نْطَلَقَ</span><span><span class="a-w">ا</span>كْتُبْ</span><span><span class="a-w">ا</span>لْبَيْتُ</span></div>
+        </div>
+      </div>
+      <div class="lab">
+        <svg class="char"><use href="#c-ninja"/></svg>
+        <div class="detector" id="det4">
+          <div class="top"><span class="led"></span>كاشِفُ الواوِ</div>
+          <div class="screen"><div class="wd w"><span class="waw">وَ</span><span class="al">ا</span><span class="rest">سْتَعْمَلَ</span></div></div>
+          <div class="readout">اضغَطْ «أضِفِ الواوَ» ثمّ انطِقْ!</div>
+          <div class="ctrls"><button class="btn cy go">أضِفِ الواوَ</button><button class="btn lt nx">كلمةٌ أُخرى</button></div>
+          <div class="verdict">اختفَتْ ← همزةُ وصلٍ</div>
+        </div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="challenge"><b>تَحَدٍّ:</b>انطِقْ مع الواوِ: وَ + انْطَلَقَ… هل سمِعْتَ الهمزةَ؟</div>
+      <div class="guide"><svg><use href="#c-det"/></svg><div class="bubble">النِّينجا لا يلبَسُ قبّعةً أبدًا، وإذا جاءَ قبلَه حرفٌ اختفى من الصّوتِ تمامًا! هيّا نختبِرْه بكاشفِ الواو.</div></div>
+    </div>
+  </div>
+  <template class="notes">
+    <h3>٤. همزةُ الوصل</h3>
+    <dl><dt>الهدف</dt><dd>تعريفُ همزةِ الوصل واختبارُها بالواو.</dd>
+    <dt>التّنفيذ</dt><dd>اقرئي الكلمةَ، ثمّ اضغطي «أضف الواو»، واطلبي من الصّفّ نطقَ الكلمةِ الجديدة. اسألي: هل سمعتم الهمزة؟ ثمّ «كلمة أخرى» (٤ كلمات).</dd>
+    <dt>ملاحظة</dt><dd>ألفُ «الـ» التّعريف همزةُ وصلٍ أيضًا: البَيْتُ ← وَالْبَيْتُ.</dd>
+    <dt>الزّمن</dt><dd>٥ دقائق</dd></dl>
+  </template>
+</section>
+
+<!-- ============ ٥. همزة القطع ============ -->
+<section class="slide s5" data-n="5">
+  <div class="folder"><div class="tab">الدَّليلُ ٥ من ١٠</div>
+    <div class="head"><h2>المُشْتَبَهُ بِهِ الثّاني: الصَّوْتُ العالي</h2><p>همزةُ القطعِ</p></div>
+    <div class="content">
+      <div class="dossier">
+        <dl>
+          <div class="row"><dt>المكانُ: </dt><dd>أوّلُ الكلمةِ.</dd></div>
+          <div class="row"><dt>الشّكلُ: </dt><dd>يلبَسُ قبّعتَه دائمًا: فوقَ الألِف (أ) أو تحتَها (إ).</dd></div>
+          <div class="row"><dt>السِّرُّ: </dt><dd>يُنطَقُ دائمًا، <u>حتّى بعدَ الواو</u>.</dd></div>
+        </dl>
+        <div class="evi"><div class="t">صُندوقُ الأدلّةِ</div>
+          <div class="ws w">
+            <span><span class="a-q">أَ</span>سَدٌ<small>مفتوحة</small></span>
+            <span><span class="a-q">أُ</span>مِّي<small>مضمومة</small></span>
+            <span><span class="a-q">إِ</span>يمَانٌ<small>مكسورة</small></span>
+          </div>
+        </div>
+      </div>
+      <div class="lab">
+        <svg class="char"><use href="#c-loud"/></svg>
+        <div class="detector" id="det5">
+          <div class="top"><span class="led"></span>كاشِفُ الواوِ</div>
+          <div class="screen"><div class="wd w"><span class="waw">وَ</span><span class="al">أَ</span><span class="rest">سَدٌ</span></div></div>
+          <div class="readout">اضغَطْ «أضِفِ الواوَ» ثمّ انطِقْ!</div>
+          <div class="ctrls"><button class="btn cy go">أضِفِ الواوَ</button><button class="btn lt nx">كلمةٌ أُخرى</button><button class="btn rd cheer">ردَّدْنا معًا!</button></div>
+          <div class="verdict">نُطِقَتْ ← همزةُ قطعٍ</div>
+        </div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="challenge"><b>تَحَدٍّ جَماعِيٌّ:</b>ردِّدوا معًا بصوتٍ عالٍ: وَأَسَدٌ، وَأُمِّي، وَإِيمَانٌ!</div>
+      <div class="guide"><svg><use href="#c-det"/></svg><div class="bubble">أمّا هذا فصوتُه عالٍ! يلبَسُ قبّعتَه دائمًا، ولا يختفي أبدًا، حتّى لو جاءَتْ قبلَه الواو.</div></div>
+    </div>
+  </div>
+  <template class="notes">
+    <h3>٥. همزةُ القطع</h3>
+    <dl><dt>الهدف</dt><dd>تعريفُ همزةِ القطع وأشكالِها بحسب حركتها.</dd>
+    <dt>التّنفيذ</dt><dd>اضغطي «أضف الواو» ثمّ يردّدُ الصّفُّ الكلمةَ بصوتٍ عالٍ. إذا نطقوها صحيحةً اضغطي «ردّدنا معًا!» للتّصفيق.</dd>
+    <dt>قارني</dt><dd>وَأَسَدٌ (نسمعُ الهمزة) مقابل وَانْطَلَقَ (لا نسمعُها).</dd>
+    <dt>الزّمن</dt><dd>٥ دقائق</dd></dl>
+  </template>
+</section>
+
+<!-- ============ ٦. عصابة الأسماء السبعة ============ -->
+<section class="slide s6" data-n="6">
+  <div class="folder"><div class="tab">الدَّليلُ ٦ من ١٠</div>
+    <div class="head"><h2>عِصابَةُ النِّينْجا السِّرِّيَّةُ</h2><p>سبعةُ أسماءٍ همزتُها همزةُ وصلٍ</p></div>
+    <div class="content">
+      <div class="posters" id="posters"></div>
+      <div class="chant">
+        <p>نَشيدُ العِصابةِ: <span class="al">ا</span>سْمٌ وَ<span class="al">ا</span>بْنٌ وَ<span class="al">ا</span>بْنَةٌ، <span class="al">ا</span>مْرُؤٌ وَ<span class="al">ا</span>مْرَأَةٌ، <span class="al">ا</span>ثْنَانِ وَ<span class="al">ا</span>ثْنَتَانِ</p>
+        <button class="btn" id="showAll">اكشِفِ الجميعَ</button>
+      </div>
+    </div>
+    <div class="band">
+      <div class="challenge"><b>مَنِ الدَّخيلُ على العِصابة؟</b>
+        <div class="intruder" id="intruder"><button class="w" data-ok="0">ابْنٌ</button><button class="w" data-ok="1">أَخٌ</button><button class="w" data-ok="0">اثْنَانِ</button></div>
+      </div>
+      <div class="guide"><svg><use href="#c-det"/></svg><div class="bubble" id="b6">انتبِهوا! هذه أسماءٌ انضمَّتْ سِرًّا إلى عصابةِ النِّينجا، فهمزتُها همزةُ وصلٍ بلا قبّعة.</div></div>
+    </div>
+  </div>
+  <template class="notes">
+    <h3>٦. عصابةُ الأسماء السّبعة</h3>
+    <dl><dt>الهدف</dt><dd>حفظُ الأسماءِ السّبعة الّتي تبدأ بهمزةِ وصل.</dd>
+    <dt>التّنفيذ</dt><dd>اضغطي البطاقاتِ واحدةً واحدةً (أو «اكشف الجميع»)، ثمّ ردّدوا «نشيدَ العصابة» مع التّصفيق على كلّ اسم.</dd>
+    <dt>اختبار</dt><dd>وَاسْمُهُ، وَابْنُهُ: الهمزةُ لا تُنطَق. «أَخٌ» ليس منها: وَأَخٌ (تُنطَق).</dd>
+    <dt>الزّمن</dt><dd>٥ دقائق</dd></dl>
+  </template>
+</section>
+
+<!-- ============ ٧. همزة المد ============ -->
+<section class="slide s7" data-n="7">
+  <div class="folder"><div class="tab">الدَّليلُ ٧ من ١٠</div>
+    <div class="head"><h2>المُشْتَبَهُ بِهِ الثّالِثُ: التَّوْأَمُ المُمَدَّدُ</h2><p>همزةُ المدِّ</p></div>
+    <div class="content">
+      <div class="factory" id="factory">
+        <div class="tray">اسحَبْ ← <div class="tile h" id="hTile">أَ</div></div>
+        <button class="btn lt runbtn" id="runM">شغِّلِ الآلةَ</button>
+        <div class="eq"><span class="h">أَ</span> + <span class="a">ا</span> = <span class="m">آ</span></div>
+        <div class="inzone" id="inzone"><div class="slotz" id="slotz">ضَعِ الهمزةَ هُنا</div><div class="tile a">ا</div></div>
+        <div class="machine">
+          <svg viewBox="0 0 360 300">
+            <path d="M60 300 V110 Q60 30 180 30 Q300 30 300 110 V300 Z" fill="#6D7B8F" stroke="#3B4455" stroke-width="8"/>
+            <path d="M110 300 V140 Q110 90 180 90 Q250 90 250 140 V300 Z" fill="#2A2F3A"/>
+            <path d="M130 300 V150 Q130 110 180 110 Q230 110 230 150 V300" fill="none" stroke="#8B5CF6" stroke-width="4" opacity=".6"/>
+            <g class="gear" transform="translate(0,0)"><circle cx="86" cy="80" r="26" fill="#9AA6B8" stroke="#3B4455" stroke-width="5"/><circle cx="86" cy="80" r="8" fill="#3B4455"/>
+              <path d="M86 46 v12 M86 102 v12 M52 80 h12 M108 80 h12 M62 56 l9 9 M101 95 l9 9 M62 104 l9 -9 M101 65 l9 -9" stroke="#3B4455" stroke-width="7"/></g>
+            <g class="gear r"><circle cx="276" cy="86" r="20" fill="#9AA6B8" stroke="#3B4455" stroke-width="5"/><circle cx="276" cy="86" r="6" fill="#3B4455"/>
+              <path d="M276 60 v10 M276 102 v10 M250 86 h10 M292 86 h10" stroke="#3B4455" stroke-width="6"/></g>
+            <rect x="160" y="0" width="40" height="30" rx="8" fill="#3B4455"/>
+            <circle class="bulb" cx="180" cy="-6" r="16" fill="#F5C84A" stroke="#B8860B" stroke-width="4"/>
+            <rect x="150" y="190" width="60" height="70" rx="8" fill="#3E4756"/><rect x="160" y="200" width="40" height="22" rx="4" fill="#35C8DC" opacity=".8"/>
+          </svg>
+        </div>
+        <div class="outzone"><div class="res w">آ</div></div>
+        <div class="belt"></div>
+      </div>
+      <div class="mapstrip">
+        <div class="pinbox" data-snd="radar"><button aria-label="أين في البداية"><span>في<br>البداية</span></button>
+          <div class="ws w"><span><span class="a-m">آ</span>مَالٌ</span><span><span class="a-m">آ</span>ثَارٌ</span></div></div>
+        <div class="pinbox" data-snd="radar"><button aria-label="أين في الوسط"><span>في<br>الوسط</span></button>
+          <div class="ws w"><span>قُرْ<span class="a-m">آ</span>نٌ</span><span>مِرْ<span class="a-m">آ</span>ةٌ</span></div></div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="challenge"><b>تَجْرِبَةُ المُخْتَبَرِ:</b>اسحَبِ الهمزةَ المفتوحةَ (أَ) إلى الآلةِ، وشاهِدْ ماذا يحدُث!</div>
+      <div class="guide"><svg><use href="#c-det"/></svg><div class="bubble" id="b7">التَّوأمُ الممدَّدُ صنعَتْه آلةٌ عجيبةٌ… مِمَّ يتكوَّن يا تُرى؟</div></div>
+    </div>
+  </div>
+  <template class="notes">
+    <h3>٧. همزةُ المدّ</h3>
+    <dl><dt>الهدف</dt><dd>فهمُ أنّ «آ» همزةٌ مفتوحة تليها ألفٌ ساكنة، وأنّها تأتي في أوّلِ الكلمة ووسطِها.</dd>
+    <dt>التّنفيذ</dt><dd>يسحبُ طالبٌ «أَ» إلى المكانِ المنقّط (أو اضغطي «شغّل الآلة»). ثمّ اضغطي الدّبّوسين.</dd>
+    <dt>قاعدة مختصرة</dt><dd>آ = أَ + ا، وتُنطَقُ دائمًا: وَآمَالٌ.</dd>
+    <dt>الزّمن</dt><dd>٤ دقائق</dd></dl>
+  </template>
+</section>
+
+<!-- ============ ٨. مختبر كاشف الواو ============ -->
+<section class="slide s8" data-n="8">
+  <div class="folder"><div class="tab">الدَّليلُ ٨ من ١٠</div>
+    <div class="head"><h2>مُخْتَبَرُ كاشِفِ الواوِ</h2><p>صنِّفِ المشتبهَ بهم في ملفّاتِهم</p></div>
+    <div class="content">
+      <div class="bins">
+        <div class="bin w" data-k="w"><div class="bt"><svg><use href="#c-ninja"/></svg>ملفُّ النِّينجا: همزةُ وصلٍ (ا)</div><div class="drop"></div></div>
+        <div class="bin q" data-k="q"><div class="bt"><svg><use href="#c-loud"/></svg>ملفُّ الصّوتِ العالي: همزةُ قطعٍ (أ، إ)</div><div class="drop"></div></div>
+      </div>
+      <div class="cards" id="cards"><div class="score" id="score">٠ / ٨</div><button class="btn lt resetb" id="reset8">أعِدِ اللّعبةَ</button></div>
+    </div>
+    <div class="band">
+      <div class="challenge"><b>قاعدةُ المختبر:</b>قبلَ السَّحبِ انطِقِ الكلمةَ مع الواو بصوتٍ مسموعٍ، ثمّ ضعْها في ملفِّها.</div>
+      <div class="guide"><svg><use href="#c-det"/></svg><div class="bubble" id="b8">كاشفُ الواو جاهز! مَن يبدأُ أوّلًا؟</div></div>
+    </div>
+  </div>
+  <template class="notes">
+    <h3>٨. مختبرُ كاشفِ الواو</h3>
+    <dl><dt>الهدف</dt><dd>تطبيقُ اختبارِ الواو للتّمييز بين همزتَي الوصل والقطع.</dd>
+    <dt>التّنفيذ</dt><dd>يخرجُ الطّلابُ بالتّناوب. يقولُ الطّالبُ الكلمةَ مع الواو قبل السّحب. الخطأ يُعيدُ البطاقةَ مع تلميح.</dd>
+    <dt>بعدها</dt><dd>وزّعي <b>ورقة النّشاط ١: ملفّ الأدلّة</b> (عمل ثنائيّ).</dd>
+    <dt>الزّمن</dt><dd>٦ دقائق + ٥ دقائق للورقة</dd></dl>
+  </template>
+</section>
+
+<!-- ============ ٩. التحدي الأخير ============ -->
+<section class="slide s9" data-n="9">
+  <div class="folder"><div class="tab">الدَّليلُ ٩ من ١٠</div>
+    <div class="head"><h2>التَّحَدِّي الأَخِيرُ</h2><p>أثبِتْ أنَّكَ محقِّقٌ محترِفٌ</p></div>
+    <div class="content">
+      <div class="tablets">
+        <div class="tablet" id="t1">
+          <h4>١. أينَ القُبَّعةُ الصَّحيحةُ؟</h4>
+          <div class="q">أيُّ ألِفٍ نضعُ في بدايةِ هذه الكلمة؟</div>
+          <div class="big w"><span class="gap">؟</span>سْتَعْمَلَ</div>
+          <div class="opts"><button data-ok="0">أ</button><button data-ok="1">ا</button><button data-ok="0">إ</button></div>
+          <div class="stars"></div>
+        </div>
+        <div class="tablet" id="t2">
+          <h4>٢. حلِّلِ البصمةَ السِّرِّيَّةَ</h4>
+          <div class="q">مِمَّ تتكوَّنُ همزةُ المدِّ في كلمةِ (قُرْآنٌ)؟</div>
+          <div class="big w" id="scanW">قُرْ<span class="a-m">آ</span>نٌ<span class="lz"></span></div>
+          <div class="opts"><button data-ok="0">أَ + أَ</button><button data-ok="1">أَ + ا</button><button data-ok="0">إِ + ا</button></div>
+          <div class="medal" id="medal"><svg><use href="#c-medal"/></svg><b>وِسامُ النَّجمةِ الذَّهبيّةِ</b></div>
+          <div class="stars"></div>
+        </div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="challenge"><b>قبلَ الضَّغط:</b>أشيروا بأصابعِكم: ١ أو ٢ أو ٣، ثمّ يضغطُ محقِّقٌ واحدٌ.</div>
+      <div class="guide"><svg><use href="#c-det"/></svg><div class="bubble">لحظةُ الحقيقة! إجابةٌ صحيحةٌ تفتحُ الصُّندوقَ السِّرِّيَّ.</div></div>
+    </div>
+  </div>
+  <template class="notes">
+    <h3>٩. التّحدّي الأخير</h3>
+    <dl><dt>الهدف</dt><dd>تقويمٌ تكوينيٌّ سريع للصّفّ كلِّه.</dd>
+    <dt>التّنفيذ</dt><dd>يشيرُ كلُّ طالبٍ برقمِ إجابتِه بأصابعه، فتلاحظين من أخطأ، ثمّ يضغطُ طالبٌ واحد. الإجابة الخاطئة تهتزّ ويمكن المحاولة مجدّدًا.</dd>
+    <dt>الإجابات</dt><dd>(١) ا، لأنّ: وَاسْتَعْمَلَ لا نسمعُ فيها الهمزة. (٢) أَ + ا.</dd>
+    <dt>الزّمن</dt><dd>٣ دقائق</dd></dl>
+  </template>
+</section>
+
+<!-- ============ ١٠. الختام ============ -->
+<section class="slide s10" data-n="10">
+  <div class="folder"><div class="tab">الدَّليلُ ١٠ من ١٠</div>
+    <div class="content" style="top:40px;height:566px">
+      <div class="stampBig">أُغْلِقَ المَلَفُّ بِنَجاحٍ!</div>
+      <div class="recap">
+        <div><svg><use href="#c-ninja"/></svg>همزةُ الوصلِ (ا): تختفي في النُّطقِ بعدَ الواو.</div>
+        <div><svg><use href="#c-loud"/></svg>همزةُ القطعِ (أ، إ): تُنطَقُ دائمًا.</div>
+        <div><svg><use href="#c-twin"/></svg>همزةُ المدِّ (آ) = أَ + ا</div>
+      </div>
+      <div class="badge">
+        <svg><use href="#c-medal"/></svg>
+        <h4>شارةُ المحقِّقِ المحترِفِ</h4>
+        <input id="starName" placeholder="اكتُبْ اسمَ المحقِّقِ النّجمِ" aria-label="اسم المحقق النجم">
+        <p>خبيرٌ رسميٌّ في قُبَّعاتِ الألِفِ</p>
+      </div>
+    </div>
+    <div class="band">
+      <div class="challenge"><b>تذكرةُ الخروج:</b>أجِبْ عن ورقةِ النّشاط ٣ قبلَ مغادرةِ الصّفّ.</div>
+      <div class="guide"><svg><use href="#c-det"/></svg><div class="bubble">أحسنتم يا محقّقين! أُغلِقَ الملفُّ، وأصبحتم خبراءَ رسميّين في قبّعاتِ الألِف.</div></div>
+    </div>
+  </div>
+  <template class="notes">
+    <h3>١٠. إغلاقُ الملفّ</h3>
+    <dl><dt>الهدف</dt><dd>تلخيصُ القاعدة وتعزيزُ المتميّزين.</dd>
+    <dt>التّنفيذ</dt><dd>اكتبي اسمَ المحقّق النّجم في الشّارة وصوّري الشّاشة شهادةَ تقدير.</dd>
+    <dt>التّقويم</dt><dd>وزّعي <b>ورقة النّشاط ٣: تذكرة الخروج</b>. ورقة النّشاط ٢ «مختبر القبّعات» واجبٌ منزليّ أو إثراء.</dd>
+    <dt>الزّمن</dt><dd>٣ دقائق</dd></dl>
+  </template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+
+<aside id="notes" aria-live="polite"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+
+<nav id="nav">
+  <button id="prev" aria-label="الشريحة السابقة">▶ السّابق</button>
+  <span id="counter">١ / ١٠</span>
+  <button id="next" class="main" aria-label="الشريحة التالية">التّالي ◀</button>
+</nav>
+</div>
+
+<script>
+/* ========= الأصوات (مولّدة داخل المتصفح) ========= */
+const SFX=(()=>{let ctx=null,on=true;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ return{
+  toggle(){on=!on;return on},
+  beep(){tone(1320,.09,{type:'square',v:.07});tone(1760,.14,{type:'square',v:.07,at:.11})},
+  creak(){tone(90,1,{type:'sawtooth',v:.05,to:150});noise(1,{v:.06,type:'bandpass',f:700,to:260,q:5})},
+  whoosh(){noise(.5,{v:.4,type:'bandpass',f:300,to:3200,q:1.2})},
+  boom(){tone(120,.7,{v:.5,to:40});noise(.55,{v:.35,f:500,to:60})},
+  megaphone(){tone(440,.35,{type:'sawtooth',v:.09,to:880});tone(880,.35,{type:'sawtooth',v:.07,at:.35,to:440})},
+  thunder(){noise(1.1,{v:.35,f:320,to:60})},
+  lens(){[1047,1319,1568].forEach((f,i)=>tone(f,.4,{v:.09,at:i*.07}))},
+  buzz(){tone(140,.35,{type:'square',v:.11});tone(148,.35,{type:'square',v:.09})},
+  cheer(){[523,659,784,1047].forEach((f,i)=>tone(f,.24,{type:'triangle',v:.16,at:i*.09}));for(let i=0;i<22;i++)noise(.05,{v:.12,type:'bandpass',f:1500+Math.random()*2000,at:.35+Math.random()*1.1})},
+  stamp(){noise(.18,{v:.7,f:900,to:120});tone(80,.28,{v:.45,to:45})},
+  gears(){for(let i=0;i<12;i++){noise(.04,{v:.25,type:'highpass',f:2500,at:i*.11});tone(200+(i%2)*70,.05,{type:'square',v:.05,at:i*.11})}},
+  laser(){tone(1800,.8,{type:'sawtooth',v:.05,to:300});tone(1800,.8,{type:'sawtooth',v:.05,to:300,at:1.6})},
+  radar(){tone(1200,.45,{v:.12,to:1180});tone(1200,.45,{v:.06,at:.5})},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  flip(){noise(.12,{v:.22,type:'highpass',f:1500})},
+  pop(){tone(600,.08,{v:.15,to:1200})}
+ }})();
+
+/* ========= المسرح والتنقل ========= */
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`;window.__s=s;}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+let cur=0,unlocked=false;
+const nextB=document.getElementById('next'),prevB=document.getElementById('prev'),counter=document.getElementById('counter');
+function go(i){
+  if(i<0||i>=slides.length)return;
+  if(i>0&&!unlocked)return;
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=(cur===slides.length-1)||(!unlocked);
+  nextB.classList.toggle('pulse',cur===0&&unlocked);
+  renderNotes();
+  if(slides[cur].dataset.n==='10')closing();
+  if(slides[cur].dataset.n==='2')requestAnimationFrame(strings);
+  if(slides[cur].dataset.n==='9')setTimeout(()=>{scanW.classList.add('scan');SFX.laser()},500);
+}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+document.getElementById('bSound').onclick=e=>{const on=SFX.toggle();e.currentTarget.textContent=on?'🔊 الصوت':'🔇 صامت'};
+document.getElementById('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+const notes=document.getElementById('notes'),notesBody=document.getElementById('notesBody');
+function renderNotes(){const t=slides[cur].querySelector('template.notes');notesBody.innerHTML=t?t.innerHTML:''}
+document.getElementById('bNotes').onclick=()=>notes.classList.toggle('open');
+document.getElementById('closeNotes').onclick=()=>notes.classList.remove('open');
+
+/* ========= سحب وإفلات عام ========= */
+function draggable(el,targets,onDrop){
+  el.addEventListener('pointerdown',e=>{
+    if(el.classList.contains('placed'))return;e.preventDefault();
+    const sx=e.clientX,sy=e.clientY,id=e.pointerId;el.setPointerCapture(id);el.classList.add('dragging');SFX.pop();
+    const move=ev=>{const s=window.__s||1;el.style.transform=`translate(${(ev.clientX-sx)/s}px,${(ev.clientY-sy)/s}px) scale(1.08)`;
+      targets().forEach(t=>{const r=t.getBoundingClientRect();t.classList.toggle('hot',ev.clientX>r.left&&ev.clientX<r.right&&ev.clientY>r.top&&ev.clientY<r.bottom)})};
+    const up=ev=>{el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);el.classList.remove('dragging');
+      let hit=null;targets().forEach(t=>{const r=t.getBoundingClientRect();if(ev.clientX>r.left&&ev.clientX<r.right&&ev.clientY>r.top&&ev.clientY<r.bottom)hit=t;t.classList.remove('hot')});
+      if(!onDrop(el,hit)){el.style.transition='transform .35s';el.style.transform='';setTimeout(()=>el.style.transition='',360)}};
+    el.addEventListener('pointermove',move);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);
+  });
+}
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function stars(box){for(let i=0;i<14;i++){const s=document.createElement('i');s.textContent='★';s.style.left=Math.random()*95+'%';s.style.top=Math.random()*20+'%';s.style.animationDelay=Math.random()*.4+'s';box.appendChild(s);setTimeout(()=>s.remove(),2000)}}
+
+/* ١. الغلاف */
+const fpBtn=document.getElementById('fpBtn');
+fpBtn.onclick=()=>{if(unlocked)return;SFX.beep();fpBtn.classList.add('scanning');
+  setTimeout(()=>{SFX.creak();document.getElementById('f3d').classList.add('open');unlocked=true;go(0)},1700)};
+
+/* ٢. مسرح الجريمة */
+const pols=[...document.querySelectorAll('.s2 .pol')];let revealed=0;
+document.getElementById('qdisc').onclick=e=>{if(revealed>=3){SFX.lens();return}SFX.lens();const p=pols[revealed++];setTimeout(()=>{p.classList.add('shown');SFX.thunder()},250);if(revealed===3)e.currentTarget.classList.add('done')};
+function strings(){const g=document.querySelector('#strings g'),cork=document.querySelector('.s2 .cork').getBoundingClientRect(),s=window.__s||1,d=document.getElementById('qdisc').getBoundingClientRect();const dx=(d.left+d.width/2-cork.left)/s-14,dy=(d.top+d.height/2-cork.top)/s-14;g.innerHTML=pols.map(p=>{const r=p.querySelector('.pin').getBoundingClientRect();return `<path d="M${(r.left+r.width/2-cork.left)/s-14} ${(r.top+r.height/2-cork.top)/s-14} L${dx} ${dy}"/>`}).join('')}
+pols.forEach(p=>{p.querySelector('.cap').textContent=p.dataset.cap;p.onclick=()=>{if(!p.classList.contains('shown'))return;p.classList.toggle('cap-on');SFX.pop()}});
+
+/* ٣. الطابور */
+document.querySelectorAll('.s3 .slot').forEach(sl=>{
+  let v=0;const o=sl.querySelector('output');
+  sl.querySelector('.vote button').onclick=()=>{v++;o.textContent=AR(v);SFX.pop()};
+  sl.querySelector('.fig').onclick=()=>{if(sl.classList.contains('rev'))return;sl.classList.add('rev');sl.querySelector('.plate').innerHTML=sl.querySelector('.plate').dataset.t;SFX[sl.dataset.snd]()};
+});
+
+/* ٤-٥. كاشف الواو */
+function detector(id,words,onRun){
+  const d=document.getElementById(id);let i=0;const al=d.querySelector('.al'),rest=d.querySelector('.rest'),ro=d.querySelector('.readout');
+  function set(){d.classList.remove('on');al.textContent=words[i][0];rest.textContent=words[i][1];ro.innerHTML='اضغَطْ «أضِفِ الواوَ» ثمّ انطِقْ!'}
+  d.querySelector('.go').onclick=()=>{if(d.classList.contains('on'))return;d.classList.add('on');ro.innerHTML='نسمَعُها: <span>'+words[i][2]+'</span>';onRun(d)};
+  d.querySelector('.nx').onclick=()=>{i=(i+1)%words.length;set();SFX.flip()};
+  set();return d;
+}
+detector('det4',[['ا','سْتَعْمَلَ','وَسْتَعْمَلَ'],['ا','نْطَلَقَ','وَنْطَلَقَ'],['ا','سْتَخْرَجَ','وَسْتَخْرَجَ'],['ا','لْبَيْتُ','وَلْبَيْتُ']],()=>SFX.whoosh());
+const d5=detector('det5',[['أَ','سَدٌ','وَأَسَدٌ'],['أُ','مِّي','وَأُمِّي'],['إِ','يمَانٌ','وَإِيمَانٌ']],()=>{SFX.boom();shake(document.querySelector('.s5 .folder'))});
+d5.querySelector('.cheer').onclick=()=>SFX.cheer();
+
+/* ٦. العصابة */
+const gang=['اسْمٌ','ابْنٌ','ابْنَةٌ','امْرُؤٌ','امْرَأَةٌ','اثْنَانِ','اثْنَتَانِ'];
+const posters=document.getElementById('posters');
+gang.forEach((g,k)=>{const b=document.createElement('button');b.className='wanted';b.setAttribute('aria-label','اكشف الاسم '+AR(k+1));
+  b.innerHTML=`<div class="card"><div class="face back"><b>مَطْلُوبٌ</b><svg><use href="#c-ninja"/></svg><i>رقم ${AR(k+1)}</i></div><div class="face front"><svg><use href="#c-ninja"/></svg><div class="word w"><span class="a-w">${g[0]}</span>${g.slice(1)}</div><small>عضوٌ في العصابة</small></div></div>`;
+  b.onclick=()=>{if(b.classList.contains('shown'))return;b.classList.add('shown');SFX.whoosh()};posters.appendChild(b)});
+document.getElementById('showAll').onclick=()=>{[...posters.children].forEach((b,k)=>setTimeout(()=>{if(!b.classList.contains('shown')){b.classList.add('shown');SFX.flip()}},k*160))};
+document.querySelectorAll('#intruder button').forEach(b=>b.onclick=()=>{
+  const bub=document.getElementById('b6');
+  if(b.dataset.ok==='1'){b.classList.add('good');SFX.cheer();bub.textContent='صحيح! «أَخٌ» ليس من العصابة: نقولُ وَأَخٌ فنسمَعُ الهمزة، إذن همزتُه همزةُ قطع.'}
+  else{b.classList.add('wrong');SFX.buzz();shake(b);bub.textContent='جرِّبْ كاشفَ الواو: وَ + '+b.textContent+'… هل سمعتَ الهمزة؟';setTimeout(()=>b.classList.remove('wrong'),900)}});
+
+/* ٧. آلة المد */
+const factory=document.getElementById('factory'),slotz=document.getElementById('slotz'),hTile=document.getElementById('hTile'),inzone=document.getElementById('inzone');
+let made=false;
+function runMachine(){if(made)return;made=true;
+  if(!slotz.contains(hTile)){slotz.textContent='';slotz.appendChild(hTile)}
+  hTile.classList.add('placed');hTile.style.transform='';
+  factory.classList.add('run');SFX.gears();
+  setTimeout(()=>inzone.classList.add('go'),300);
+  setTimeout(()=>{factory.classList.remove('run');factory.classList.add('made');SFX.magic();
+    document.getElementById('b7').textContent='اندمجَتِ الهمزةُ المفتوحةُ (أَ) معَ الألِفِ السّاكنةِ (ا) فصارتا حرفًا واحدًا بصوتٍ طويلٍ: آ'},1500)}
+draggable(hTile,()=>[slotz],(el,hit)=>{if(hit){runMachine();return true}SFX.buzz();return false});
+document.getElementById('runM').onclick=runMachine;
+document.querySelectorAll('.s7 .pinbox').forEach(p=>p.querySelector('button').onclick=()=>{p.classList.add('on');SFX.radar()});
+
+/* ٨. مختبر الفرز */
+const W8=[['اسْتَمَعَ','w'],['أَكَلَ','q'],['إِبْرِيقٌ','q'],['ابْنٌ','w'],['أُذُنٌ','q'],['انْكَسَرَ','w'],['اسْمٌ','w'],['أَحْمَدُ','q']];
+const cardsBox=document.getElementById('cards'),score=document.getElementById('score'),b8=document.getElementById('b8');let got=0;
+function build8(){got=0;score.textContent=AR(0)+' / '+AR(W8.length);
+  document.querySelectorAll('.s8 .drop').forEach(d=>d.innerHTML='');cardsBox.querySelectorAll('.wc').forEach(c=>c.remove());
+  [...W8].sort(()=>Math.random()-.5).forEach(([w,k])=>{const c=document.createElement('div');c.className='wc w';c.textContent=w;c.dataset.k=k;cardsBox.appendChild(c);
+    draggable(c,()=>[...document.querySelectorAll('.s8 .bin')],(el,hit)=>{if(!hit)return false;
+      const withW='وَ'+w;
+      if(hit.dataset.k===k){el.classList.add('placed');el.style.transform='';hit.querySelector('.drop').appendChild(el);got++;score.textContent=AR(got)+' / '+AR(W8.length);SFX.cheer();
+        b8.textContent=k==='w'?`«${withW}»: لم نسمَعِ الهمزة… إنّه النِّينجا! ✔`:`«${withW}»: سمِعْنا الهمزة بوضوح… إنّه الصّوتُ العالي! ✔`;
+        if(got===W8.length){b8.textContent='أُغلِقَتِ الملفّاتُ كلُّها! أنتم محقّقون ماهرون.';stars(document.querySelector('.s8 .content'))}
+        return true}
+      SFX.buzz();shake(el);b8.textContent=`جرِّبْ كاشفَ الواو مرّةً أخرى: «${withW}»… هل سمِعْتَ الهمزة؟`;return false})})}
+document.getElementById('reset8').onclick=build8;build8();
+document.querySelector('.s8 .content').style.position='absolute';
+(()=>{const s=document.createElement('div');s.className='stars';document.querySelector('.s8 .content').appendChild(s)})();
+
+/* ٩. التحدي الأخير */
+const scanW=document.getElementById('scanW');
+document.querySelectorAll('.s9 .tablet').forEach(t=>t.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{
+  if(b.dataset.ok==='1'){b.style.background='var(--ok)';b.style.boxShadow='0 6px 0 #1d6b3b';SFX.cheer();stars(t.querySelector('.stars'));
+    if(t.id==='t1')t.querySelector('.gap').outerHTML='<span style="color:#7CF5A8">ا</span>';
+    if(t.id==='t2')setTimeout(()=>{document.getElementById('medal').classList.add('on');SFX.magic()},900)}
+  else{b.style.background='var(--bad)';SFX.buzz();shake(b);setTimeout(()=>b.style.background='',800)}}));
+
+/* ١٠. الختام */
+const cv=document.getElementById('confetti'),cx=cv.getContext('2d');
+function closing(){const s=slides[cur];s.classList.remove('go');void s.offsetWidth;s.classList.add('go');setTimeout(()=>{SFX.stamp();confetti()},650)}
+function confetti(){const cols=['#C0392B','#F2C230','#35C8DC','#7B4FD6','#2E9E58','#EF7B2D'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+
+go(0);
+</script>
+<script src="../assets/kawn-data.js" defer></script>
+</body>
+</html>

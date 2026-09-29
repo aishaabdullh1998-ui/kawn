@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="../assets/kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>نَقّوشة إبرة الكُمّة: أدوات الربط</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#EFE6D6;--bg2:#E6D9C2;--paper:#FFFDF7;--ink:#262234;--ink2:#6A6378;--plum:#3B3355;--gold:#E5B53A;
+  --waw:#16A3A0;--waw2:#0E7572;--fa:#F0643C;--fa2:#B8411E;--thm:#5B4BD6;--thm2:#3B2FA0;--ok:#2EAD65;--bad:#E23B3B;
+  --ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--word:"Noto Naskh Arabic","Traditional Arabic","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#D9CDB8;--bg2:#CFC0A6}}
+:root[data-theme="dark"]{--bg:#D9CDB8;--bg2:#CFC0A6}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--bg);font-family:var(--ui);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;
+  background:radial-gradient(circle at 20px 20px,rgba(59,51,85,.08) 3px,transparent 4px) 0 0/40px 40px,radial-gradient(circle at 0 0,rgba(229,181,58,.12) 5px,transparent 6px) 0 0/80px 80px,var(--bg)}
+.slide{position:absolute;inset:0;display:none}
+.slide.active{display:block;animation:slideIn .45s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{position:absolute;inset:58px 30px 96px;background:var(--paper);border-radius:30px;border:14px solid var(--plum);box-shadow:0 20px 44px rgba(59,51,85,.3)}
+.card::before{content:"";position:absolute;inset:-7px;border:3px dashed var(--gold);border-radius:24px;pointer-events:none}
+.num{position:absolute;top:-46px;right:44px;width:96px;height:96px;border-radius:50%;background:var(--paper);border:6px solid var(--plum);outline:3px dashed var(--gold);outline-offset:-14px;display:flex;align-items:center;justify-content:center}
+.num b{font-size:38px;font-weight:800;color:var(--plum)}
+.head{position:absolute;top:10px;right:170px;left:30px;display:flex;align-items:baseline;gap:20px}
+.head h2{margin:0;font-size:50px;font-weight:800;line-height:1.35}
+.head p{margin:0;font-size:27px;font-weight:700;color:var(--ink2)}
+.content{position:absolute;top:96px;right:28px;left:28px;height:474px}
+.band{position:absolute;bottom:8px;right:20px;left:20px;height:126px;display:flex;align-items:flex-end;gap:20px}
+.guide{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;order:2}
+.guide svg{width:70px;height:124px;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:24px;padding:10px 20px;font-size:25px;line-height:1.5;font-weight:700;max-width:800px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:18px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.task{order:1;flex:0 0 590px;background:#F5F0FF;border:3px dashed var(--thm);border-radius:18px;padding:10px 20px;font-size:24px;font-weight:700;line-height:1.5}
+.task b{color:var(--thm2);margin-left:6px}
+.w{font-family:var(--word);font-weight:700}
+.cW{color:var(--waw)}.cF{color:var(--fa)}.cT{color:var(--thm)}
+.cn{font-weight:700;border-bottom:5px dashed currentColor;padding:0 2px}
+.btn{border:0;border-radius:22px;padding:10px 26px;font-size:27px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.3)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.pl{background:var(--plum)}.btn.lt{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(59,51,85,.2)}
+.btn.sel{outline:5px solid var(--gold);outline-offset:2px}
+.good{background:var(--ok)!important;color:#fff!important}.bad{background:var(--bad)!important;color:#fff!important}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+@keyframes popIn{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.rule{background:#fff;border-radius:22px;padding:12px 22px;font-size:26px;font-weight:700;line-height:1.6;border-right:12px solid}
+.rule h4{margin:0 0 2px;font-size:31px;display:flex;align-items:center;gap:12px}
+.ex{font-family:var(--word);font-size:34px;background:#F6F3EE;border-radius:12px;padding:2px 16px;display:inline-block;margin:4px 0}
+.stitch{display:block;height:14px;margin-top:4px;background:repeating-linear-gradient(90deg,currentColor 0 var(--len,16px),transparent var(--len,16px) calc(var(--len,16px) + 10px))}
+
+#nav{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 20px;border-radius:27px;background:#fff;color:var(--ink);font-size:24px;font-weight:800;box-shadow:0 4px 0 var(--bg2)}
+#nav button:disabled{opacity:.4;cursor:not-allowed}
+#nav .main{background:var(--plum);color:#fff;box-shadow:0 4px 0 #1F1A30}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(229,181,58,.9)}50%{box-shadow:0 0 0 14px rgba(229,181,58,0)}}
+#counter{font-size:26px;font-weight:800;min-width:90px;text-align:center}
+#tools{position:absolute;top:10px;left:16px;display:flex;gap:10px;z-index:50}
+#tools button{border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:var(--ink);font-size:20px;font-weight:700}
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:#fff;z-index:60;box-shadow:12px 0 40px rgba(0,0,0,.3);transform:translateX(-105%);transition:transform .35s;padding:30px;font-size:23px;line-height:1.7;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-size:34px;margin:0 0 8px;color:var(--plum)}
+#notes dt{font-weight:800;color:var(--fa2);margin-top:8px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px;font-size:20px}
+
+/* ١ */
+.s1 .title{position:absolute;top:44px;right:0;left:0;text-align:center}
+.s1 h1{margin:0;font-size:92px;font-weight:800;color:var(--paper);line-height:1.25;-webkit-text-stroke:3px var(--plum);paint-order:stroke fill;text-shadow:0 7px 0 var(--plum)}
+.s1 .title p{margin:4px 0 0;font-size:34px;font-weight:800}
+.kumma{position:absolute;left:540px;top:380px;width:520px;height:330px}
+.kumma svg{width:100%;height:100%}
+.kneedle{position:absolute;left:1000px;top:300px;width:110px;height:200px;animation:sew 1.4s ease-in-out infinite}
+@keyframes sew{50%{transform:translate(-30px,50px) rotate(-10deg)}}
+.kneedle svg{width:100%;height:100%}
+.s1 .go1{position:absolute;top:270px;left:50%;transform:translateX(-50%);font-size:34px;padding:14px 40px;z-index:5}
+.s1.open .go1,.s1.open .kneedle{display:none}
+.s1.open .kumma{opacity:.25;transition:.6s}
+.mission{position:absolute;top:230px;right:230px;left:230px;background:var(--paper);border-radius:30px;padding:26px 46px;border:14px solid var(--plum);box-shadow:0 20px 44px rgba(0,0,0,.3);opacity:0;transform:scale(.6);pointer-events:none;transition:.6s .3s cubic-bezier(.3,1.5,.5,1)}
+.s1.open .mission{opacity:1;transform:none}
+.mission h3{margin:0;font-size:44px;color:var(--plum)}
+.mission p{margin:0;font-size:27px;font-weight:700}
+.mission ol{margin:0;padding-right:44px;font-size:29px;line-height:1.75;font-weight:700;list-style:arabic-indic}
+.thr{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 3s ease forwards 1s}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* ٢ */
+.cut{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:22px}
+.pieces{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;font-family:var(--word);font-size:50px;font-weight:700;background:#fff;border-radius:22px;padding:24px 30px;border:4px solid #EEE6F7;min-height:210px;align-items:center;max-width:1350px;line-height:1.7}
+.pieces .pc{background:#F6F3EE;border-radius:14px;padding:0 18px;transition:.5s}
+.pieces.sewn{gap:0 12px}
+.pieces.sewn .pc{background:transparent;padding:0}
+.pieces .jn{animation:popIn .5s}
+.ctr{display:flex;gap:18px}
+
+/* ٣–٥ */
+.split{position:absolute;inset:0;display:flex;gap:30px}
+.demo{flex:1;background:#fff;border-radius:24px;border:4px solid #EEE6F7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:16px;position:relative}
+.side{width:560px;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.pair3{display:flex;gap:20px;align-items:center}
+.item{width:170px;height:170px;border-radius:26px;background:#F6F3EE;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:84px;line-height:1;transition:transform .6s cubic-bezier(.3,1.4,.5,1)}
+.item small{font-family:var(--word);font-size:30px;font-weight:700;margin-top:6px}
+.knot{font-family:var(--word);font-size:70px;color:var(--waw);font-weight:700}
+.big{font-family:var(--word);font-size:50px;font-weight:700;text-align:center;line-height:1.6;min-height:80px}
+.eq{font-size:30px;font-weight:800;color:var(--ok);min-height:44px}
+.tl{position:relative;width:900px;height:210px}
+.tl .line{position:absolute;top:120px;right:30px;left:30px;height:8px;border-radius:4px;background:#D9D2C4}
+.tl .ev{position:absolute;top:0;width:190px;text-align:center;opacity:0;transition:opacity .4s}
+.tl .ev.on{opacity:1;animation:popIn .45s}
+.tl .ev .e{font-size:76px;line-height:1}
+.tl .ev .t{font-family:var(--word);font-size:28px;font-weight:700;background:#F6F3EE;border-radius:12px;padding:0 10px;display:inline-block}
+.tl .ev::after{content:"";position:absolute;top:112px;left:50%;margin-left:-12px;width:24px;height:24px;border-radius:50%;background:currentColor}
+.tl .sti{position:absolute;top:118px;height:12px;background:repeating-linear-gradient(90deg,currentColor 0 22px,transparent 22px 32px);width:0;transition:width 1s ease}
+.clock{font-size:30px;font-weight:800;min-height:44px}
+
+/* ٦ حبل الوقت */
+.rope{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.ropeBox{position:relative;width:1380px;height:250px;background:#fff;border-radius:24px;border:4px solid #EEE6F7}
+.ropeBox .r{position:absolute;top:44px;right:30px;left:30px;height:10px;border-radius:5px;background:repeating-linear-gradient(45deg,#B8894F 0 10px,#9C7240 10px 20px)}
+.pin{position:absolute;top:24px;width:210px;display:flex;flex-direction:column;align-items:center;transition:right .8s cubic-bezier(.3,1.3,.5,1)}
+.pin::before{content:"";width:16px;height:46px;border-radius:5px;background:#D9A441;border:3px solid #9C7240}
+.pin .pc{margin-top:-6px;background:#FFF7E6;border:3px solid #E8D5AE;border-radius:16px;padding:6px 12px;text-align:center;box-shadow:0 6px 12px rgba(0,0,0,.1)}
+.pin .pc .e{font-size:62px;line-height:1.1}
+.pin .pc .t{font-family:var(--word);font-size:26px;font-weight:700}
+.picks{display:flex;gap:12px}
+.cbtn{width:130px;height:84px;border-radius:20px;border:0;font-family:var(--word);font-size:48px;font-weight:700;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.cbtn.W{background:var(--waw)}.cbtn.F{background:var(--fa)}.cbtn.T{background:var(--thm)}
+.meaning{font-size:28px;font-weight:800;min-height:46px;text-align:center}
+.sent6{font-family:var(--word);font-size:46px;font-weight:700;min-height:70px}
+
+/* ٧ اللعبة */
+.game{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:18px;justify-content:center}
+.gs{font-family:var(--word);font-size:54px;font-weight:700;background:#fff;border-radius:24px;padding:18px 40px;border:4px solid #EEE6F7;min-width:1200px;text-align:center;line-height:1.6}
+.gs .gap{display:inline-block;min-width:110px;border-bottom:6px dotted var(--ink2);margin:0 8px}
+.gMsg{font-size:28px;font-weight:800;min-height:44px}
+.sc{position:absolute;top:0;left:10px;background:var(--plum);color:var(--gold);border-radius:14px;padding:0 18px;font-size:28px;font-weight:800}
+
+/* ٨ */
+.spell{position:absolute;inset:0;display:flex;gap:30px}
+.spR{flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.spL{width:620px;background:#F5F0FF;border-radius:24px;border:3px dashed var(--thm);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;position:relative}
+.pairB{display:flex;gap:16px}
+.pairB button{min-width:250px;height:100px;border-radius:20px;border:0;background:#fff;font-family:var(--word);font-size:48px;font-weight:700;box-shadow:0 5px 0 rgba(0,0,0,.12)}
+.res{font-size:26px;font-weight:800;min-height:40px;text-align:center}
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;font-style:normal;font-size:42px;color:var(--gold);animation:fall 1.4s ease-in forwards}
+@keyframes fall{from{transform:translateY(-40px) rotate(0);opacity:1}to{transform:translateY(420px) rotate(260deg);opacity:0}}
+
+/* ٩ */
+.story{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:18px}
+.sets{display:flex;gap:12px}
+.chain{display:flex;align-items:center;gap:16px}
+.ev9{background:#FFF7E6;border:3px solid #E8D5AE;border-radius:18px;padding:8px 16px;text-align:center;min-width:220px}
+.ev9 .e{font-size:64px;line-height:1.1}
+.ev9 .t{font-family:var(--word);font-size:28px;font-weight:700}
+.cyc{width:110px;height:110px;border-radius:50%;border:0;font-family:var(--word);font-size:48px;font-weight:700;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.2);background:#C9C2D6}
+.cyc.W{background:var(--waw)}.cyc.F{background:var(--fa)}.cyc.T{background:var(--thm)}
+.out9{font-family:var(--word);font-size:44px;font-weight:700;background:#fff;border-radius:20px;padding:12px 30px;border:4px solid #EEE6F7;min-width:1200px;text-align:center;min-height:90px}
+.out9 .ph{font-family:var(--ui);font-size:28px;color:var(--ink2)}
+
+/* ١٠ */
+.recap{position:absolute;top:0;right:20px;width:840px;display:flex;flex-direction:column;gap:12px}
+.recap h3{margin:0;font-size:52px;color:var(--ok);transform:scale(0);transition:.6s cubic-bezier(.3,1.6,.5,1)}
+.s10.go .recap h3{transform:none}
+.recap div{display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:8px 18px;font-size:26px;font-weight:700;line-height:1.45}
+.recap .ic{width:80px;height:80px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:42px;color:#fff;font-weight:700}
+.badge{position:absolute;top:10px;left:24px;width:500px;height:470px;border-radius:30px;background:linear-gradient(160deg,#FFF8E6,#F4D98B);border:8px solid var(--plum);text-align:center;padding:14px 26px;box-shadow:0 16px 30px rgba(0,0,0,.2)}
+.badge svg{width:260px;height:170px}
+.badge h4{margin:0;font-size:40px;color:var(--plum)}
+.badge input{width:100%;font-family:var(--word);font-size:40px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed var(--plum);background:transparent;color:var(--ink);padding:4px;user-select:text}
+.badge input:focus{outline:none;background:rgba(255,255,255,.5)}
+.badge p{margin:10px 0 0;font-size:23px;font-weight:700;color:var(--plum)}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+#credit{position:absolute;right:12px;bottom:5px;z-index:55;pointer-events:none;font-family:"Noto Naskh Arabic","Tahoma",sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.22);padding:1px 9px 2px;border-radius:9px;opacity:.7;letter-spacing:0}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs><linearGradient id="gSil" x1="0" x2="1"><stop offset="0" stop-color="#DDE3EC"/><stop offset=".5" stop-color="#FFFFFF"/><stop offset="1" stop-color="#B7C0CE"/></linearGradient></defs>
+<symbol id="needle" viewBox="0 0 120 240">
+  <path class="thr0" d="M60 26 C 18 -4 -2 64 30 92 S 6 170 40 200 S 20 230 6 236" stroke="#F0643C" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M50 22 Q60 2 70 22 L67 196 L60 236 L53 196 Z" fill="url(#gSil)" stroke="#8A93A6" stroke-width="3"/>
+  <ellipse cx="60" cy="28" rx="4.5" ry="11" fill="#FFFDF7" stroke="#8A93A6" stroke-width="2"/>
+  <circle cx="54" cy="92" r="6" fill="#262234"/><circle cx="67" cy="92" r="6" fill="#262234"/>
+  <circle cx="55.5" cy="90" r="2" fill="#fff"/><circle cx="68.5" cy="90" r="2" fill="#fff"/>
+  <circle cx="50" cy="104" r="4" fill="#F7A1B5" opacity=".8"/><circle cx="71" cy="104" r="4" fill="#F7A1B5" opacity=".8"/>
+  <path d="M55 106 q5 6 10 0" stroke="#262234" stroke-width="3" fill="none" stroke-linecap="round"/>
+</symbol>
+<symbol id="kumma" viewBox="0 0 300 190">
+  <ellipse cx="150" cy="182" rx="130" ry="8" fill="#000" opacity=".12"/>
+  <path d="M18 160 Q18 20 150 18 Q282 20 282 160 Z" fill="#FFFDF7" stroke="#CFC6B2" stroke-width="4"/>
+  <rect x="16" y="142" width="268" height="30" rx="8" fill="#FFFDF7" stroke="#CFC6B2" stroke-width="4"/>
+  <g class="bW"><path d="M40 150 H260" stroke="#16A3A0" stroke-width="5" stroke-dasharray="10 8"/></g>
+  <g class="bF"><path d="M34 116 Q150 90 266 116" stroke="#F0643C" stroke-width="5" fill="none" stroke-dasharray="6 6"/>
+    <g fill="#F0643C"><circle cx="70" cy="104" r="5"/><circle cx="110" cy="98" r="5"/><circle cx="150" cy="96" r="5"/><circle cx="190" cy="98" r="5"/><circle cx="230" cy="104" r="5"/></g></g>
+  <g class="bT"><path d="M60 70 Q150 30 240 70" stroke="#5B4BD6" stroke-width="5" fill="none" stroke-dasharray="22 10"/>
+    <path d="M150 30 l10 12 l-10 12 l-10 -12z" fill="#5B4BD6"/></g>
+  <circle cx="150" cy="20" r="6" fill="#E5B53A"/>
+</symbol>
+</svg>
+
+<div id="stage">
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+
+<div id="tools"><a href="../index.html" style="border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a><button id="bSound">🔊 الصوت</button><button id="bFull">⛶ ملء الشاشة</button><button id="bNotes">📋 ملاحظات المعلمة</button></div>
+
+<!-- ١ -->
+<section class="slide s1 active">
+  <div class="title"><h1>نَقّوشةُ إبرةُ الكُمّةِ</h1><p>تخيطُ الكلماتِ بأدواتِ الرّبط: الواو والفاء وثُمَّ</p></div>
+  <button class="btn pl go1" id="go1">🪡 ابدئي الخياطةَ يا نَقّوشة</button>
+  <div class="kumma"><svg><use href="#kumma"/></svg></div>
+  <div class="kneedle"><svg><use href="#needle"/></svg></div>
+  <div class="mission">
+    <h3>نقشةُ اليوم</h3>
+    <p>بعدَ أن نُطرّزَ مع نَقّوشة سأستطيعُ أنْ:</p>
+    <ol>
+      <li>أستخدمَ الواوَ لأجمعَ شيئينِ معًا.</li>
+      <li>أستخدمَ الفاءَ حينَ يأتي الثّاني بعدَ الأوّلِ مباشرةً.</li>
+      <li>أستخدمَ ثُمَّ حينَ يأتي الثّاني بعدَ الأوّلِ بمهلة.</li>
+      <li>أختارَ أداةَ الرّبطِ المناسبةَ وأكتبَها كتابةً صحيحة.</li>
+    </ol>
+  </div>
+  <template class="notes"><h3>١. نقّوشة إبرة الكُمّة</h3><dl>
+    <dt>الهدف</dt><dd>إثارة الدافعية وعرض الأهداف.</dd>
+    <dt>قولي</dt><dd>«من يعرف الكُمّة العُمانية؟ نقوشها تُخاط غرزة غرزة… ونقّوشة إبرة تخيط الكلمات كما تخيط الكُمّة!»</dd>
+    <dt>فكرة</dt><dd>إحضار كُمّة حقيقية إلى الصف يجعل التشبيه ملموسًا.</dd>
+    <dt>الزمن</dt><dd>دقيقتان</dd></dl></template>
+</section>
+
+<!-- ٢ -->
+<section class="slide s2">
+  <div class="card"><div class="num"><b>٢</b></div>
+    <div class="head"><h2>كلماتٌ مقطّعة!</h2><p>اقرأْها… هل تبدو طبيعيّة؟</p></div>
+    <div class="content"><div class="cut">
+      <div class="pieces" id="pieces"></div>
+      <div class="ctr"><button class="btn lt" id="robot">🤖 اقرأْها مقطّعةً</button><button class="btn pl" id="sew">🪡 اخيطيها يا نَقّوشة</button></div>
+      <div class="eq" id="eq2" style="color:var(--plum)"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>سؤال:</b>ما الّذي أضافَتْه نَقّوشة؟ ولماذا لم تستخدمْ أداةً واحدةً في كلِّ مرّة؟</div>
+      <div class="guide"><svg><use href="#needle"/></svg><div class="bubble" id="b2">كتبَتْ مريمُ عن صباحِها بجملٍ مقطّعةٍ كأنّها روبوت!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. كلمات مقطّعة</h3><dl>
+    <dt>الهدف</dt><dd>الإحساس بحاجة الجمل إلى أدوات الربط، وأن لكل أداة معنى.</dd>
+    <dt>التنفيذ</dt><dd>اقرئي الجمل المقطعة بصوت آلي ليضحك الطلاب، ثم اضغطي «اخيطيها» واقرئي الجملة المترابطة.</dd>
+    <dt>سؤال</dt><dd>لماذا قالت «فتوضّأتُ» وليس «ثمّ توضّأتُ»؟ (لأن الوضوء كان مباشرة بعد الاستيقاظ).</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ٣ الواو -->
+<section class="slide s3">
+  <div class="card"><div class="num"><b>٣</b></div>
+    <div class="head"><h2>الواو: العُقدةُ الّتي تجمع</h2><p>معًا… ولا يهمُّ الترتيب</p></div>
+    <div class="content"><div class="split">
+      <div class="demo">
+        <div class="pair3"><div class="item" id="i3a">🌴<small>التّمرَ</small></div><div class="knot">وَ</div><div class="item" id="i3b">🥛<small>اللّبنَ</small></div></div>
+        <div class="big" id="s3">أكلْتُ التّمرَ <span class="cW cn">وَ</span>اللّبنَ.</div>
+        <button class="btn" style="background:var(--waw)" id="swap3">🔄 بدِّلِ المكانين</button>
+        <div class="eq" id="eq3"></div>
+      </div>
+      <div class="side">
+        <div class="rule" style="border-color:var(--waw)"><h4><span class="w cW" style="font-size:52px">وَ</span>الواو</h4>تجمعُ شيئينِ أو فعلينِ معًا، <b>ولا يهمُّ أيُّهما أوّلًا</b>.<br><span class="ex">جاءَ أحمدُ <span class="cW">و</span>سالمٌ.</span><br><span class="ex">في حقيبتي قلمٌ <span class="cW">و</span>دفترٌ.</span></div>
+        <div class="rule" style="border-color:var(--gold);font-size:24px">🧵 مثلُ عُقدةٍ تربطُ خيطينِ: كلاهما في المكانِ نفسِه.</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>قُلْ جملةً فيها شيئانِ تحبُّهما، واربطْهما بالواو.</div>
+      <div class="guide"><svg><use href="#needle"/></svg><div class="bubble" id="b3">الواوُ عُقدتي المفضّلة: تجمعُ الأصدقاءَ دونَ أن يتسابقوا!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٣. الواو</h3><dl>
+    <dt>الهدف</dt><dd>معنى الواو: الجمع والمشاركة دون ترتيب.</dd>
+    <dt>التنفيذ</dt><dd>اضغطي «بدّل المكانين» واسألي: هل تغيّر المعنى؟ (لا). هذا سرّ الواو.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ٤ الفاء -->
+<section class="slide s4">
+  <div class="card"><div class="num"><b>٤</b></div>
+    <div class="head"><h2>الفاء: الغُرزةُ القصيرة</h2><p>الثّاني بعدَ الأوّلِ مباشرةً</p></div>
+    <div class="content"><div class="split">
+      <div class="demo" style="color:var(--fa)">
+        <div class="tl" id="tl4"><div class="line"></div><div class="sti" id="st4"></div>
+          <div class="ev" id="e4a" style="right:170px"><div class="e">🔔</div><div class="t" style="color:var(--ink)">رنَّ الجرسُ</div></div>
+          <div class="ev" id="e4b" style="right:390px"><div class="e">🏃</div><div class="t" style="color:var(--ink)">خرجَ الطّلابُ</div></div></div>
+        <div class="big" id="s4" style="color:var(--ink)"></div>
+        <button class="btn" style="background:var(--fa)" id="go4">▶ شاهِدِ الغُرزة</button>
+        <div class="clock" id="c4"></div>
+      </div>
+      <div class="side">
+        <div class="rule" style="border-color:var(--fa)"><h4><span class="w cF" style="font-size:52px">فَ</span>الفاء</h4>تربطُ حدثينِ: <b>الثّاني بعدَ الأوّلِ مباشرةً</b>، بلا انتظار.<br><span class="ex">دخلَ المعلّمُ <span class="cF">ف</span>وقفَ الطّلابُ.</span><br><span class="ex">سقطَ الكوبُ <span class="cF">ف</span>انكسرَ.</span></div>
+        <div class="rule" style="border-color:var(--gold);font-size:24px">🪡 غرزةٌ قصيرة: الحدثانِ متلاصقان.</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>ماذا يحدثُ مباشرةً بعدَ أن يرنَّ المنبّهُ صباحًا؟ قُلْها بالفاء.</div>
+      <div class="guide"><svg><use href="#needle"/></svg><div class="bubble" id="b4">الفاءُ سريعةٌ مثلي حينَ أغرزُ غرزةً صغيرة: هُوب!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٤. الفاء</h3><dl>
+    <dt>الهدف</dt><dd>معنى الفاء: الترتيب مع التعقيب (بلا مهلة).</dd>
+    <dt>التنفيذ</dt><dd>اضغطي «شاهد الغرزة»: الحدث الثاني يظهر بعد الأول مباشرة، والمسافة بينهما قصيرة.</dd>
+    <dt>سؤال</dt><dd>هل يمكن أن نقول: خرجَ الطلابُ فرنَّ الجرسُ؟ (لا، لأن الترتيب مهم مع الفاء).</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٥ ثم -->
+<section class="slide s5">
+  <div class="card"><div class="num"><b>٥</b></div>
+    <div class="head"><h2>ثُمَّ: الغُرزةُ الطّويلة</h2><p>الثّاني بعدَ الأوّلِ… بمهلة</p></div>
+    <div class="content"><div class="split">
+      <div class="demo" style="color:var(--thm)">
+        <div class="tl"><div class="line"></div><div class="sti" id="st5"></div>
+          <div class="ev" id="e5a" style="right:30px"><div class="e">🌱</div><div class="t" style="color:var(--ink)">زرعَ جدّي النّخلةَ</div></div>
+          <div class="ev" id="e5b" style="right:680px"><div class="e">🌴</div><div class="t" style="color:var(--ink)">أثمرَتْ</div></div></div>
+        <div class="big" id="s5" style="color:var(--ink)"></div>
+        <button class="btn" style="background:var(--thm)" id="go5">▶ شاهِدِ الغُرزة</button>
+        <div class="clock" id="c5"></div>
+      </div>
+      <div class="side">
+        <div class="rule" style="border-color:var(--thm)"><h4><span class="w cT" style="font-size:52px">ثُمَّ</span></h4>تربطُ حدثينِ: <b>الثّاني بعدَ الأوّلِ، لكن بعدَ مهلةٍ من الوقت</b>.<br><span class="ex">تعلّمْتُ الحروفَ <span class="cT">ثُمَّ</span> تعلّمْتُ القراءةَ.</span><br><span class="ex">سافرَ أبي <span class="cT">ثُمَّ</span> عادَ بعدَ أسبوع.</span></div>
+        <div class="rule" style="border-color:var(--gold);font-size:24px">🪡 غرزةٌ طويلة: بينَ الحدثينِ مسافة.</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>ماذا تعلّمْتَ في الصّفِّ الأوّلِ، ثُمَّ في الصّفِّ الرّابع؟</div>
+      <div class="guide"><svg><use href="#needle"/></svg><div class="bubble">مع ثُمَّ أمدُّ خيطي طويلًا… فبينَ الحدثينِ وقتٌ كثير!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٥. ثُمَّ</h3><dl>
+    <dt>الهدف</dt><dd>معنى ثمّ: الترتيب مع التراخي (مهلة من الوقت).</dd>
+    <dt>التنفيذ</dt><dd>اضغطي «شاهد الغرزة»: السنوات تمرّ، والغرزة تمتد طويلًا قبل أن يظهر الحدث الثاني.</dd>
+    <dt>قارني</dt><dd>زرع جدي النخلة فأثمرت؟ (لا يصح؛ النخلة تحتاج سنوات).</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٦ حبل الوقت -->
+<section class="slide s6">
+  <div class="card"><div class="num"><b>٦</b></div>
+    <div class="head"><h2>حبلُ الوقت</h2><p>الأداةُ تُغيِّرُ المسافةَ والمعنى</p></div>
+    <div class="content"><div class="rope">
+      <div class="picks" id="set6"><button class="btn lt sel" data-i="0">👕 الثّوب والكُمّة</button><button class="btn lt" data-i="1">🥛 الكوب</button><button class="btn lt" data-i="2">🌱 البذرة</button></div>
+      <div class="ropeBox"><div class="r"></div><div class="pin" id="pA"><div class="pc"><div class="e"></div><div class="t"></div></div></div><div class="pin" id="pB"><div class="pc"><div class="e"></div><div class="t"></div></div></div></div>
+      <div class="picks"><button class="cbtn W" data-c="W">وَ</button><button class="cbtn F" data-c="F">فَ</button><button class="cbtn T" data-c="T">ثُمَّ</button></div>
+      <div class="sent6" id="s6"></div>
+      <div class="meaning" id="m6">اختَرْ أداةً وراقبِ الحبل!</div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>ناقِشوا:</b>أيُّ أداةٍ تناسبُ كلَّ حدثين؟ ولماذا تبدو بعضُ الجملِ غريبة؟</div>
+      <div class="guide"><svg><use href="#needle"/></svg><div class="bubble" id="b6">علّقوا الأحداثَ على حبلِ الوقت، وانظروا كيفَ تتغيّرُ المسافة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٦. حبل الوقت</h3><dl>
+    <dt>الهدف</dt><dd>المقارنة بين الأدوات الثلاث في الموقف نفسه.</dd>
+    <dt>التنفيذ</dt><dd>اختاري زوج الأحداث، ثم جرّبي الأدوات الثلاث. الحبل يُظهر المسافة، والرسالة تحكم على مناسبة المعنى.</dd>
+    <dt>المناسب</dt><dd>الثوب والكُمّة: الواو. الكوب: الفاء. البذرة: ثمّ.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٧ اللعبة -->
+<section class="slide s7">
+  <div class="card"><div class="num"><b>٧</b></div>
+    <div class="head"><h2>مَشغَلُ نَقّوشة</h2><p>اختَرِ الخيطَ المناسب</p></div>
+    <div class="content"><div class="game">
+      <div class="sc" id="sc7">٠ / ٨</div>
+      <div class="gs" id="gs7"></div>
+      <div class="picks" id="pk7"><button class="cbtn W" data-c="W">وَ</button><button class="cbtn F" data-c="F">فَ</button><button class="cbtn T" data-c="T">ثُمَّ</button></div>
+      <div class="gMsg" id="m7"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>قبلَ الاختيار:</b>معًا؟ ← وَ. مباشرةً؟ ← فَ. بعدَ مهلة؟ ← ثُمَّ.</div>
+      <div class="guide"><svg><use href="#needle"/></svg><div class="bubble" id="b7">الكُمّةُ تنتظرُ غرزاتِكم!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٧. مشغل نقّوشة</h3><dl>
+    <dt>الهدف</dt><dd>تطبيق: اختيار الأداة المناسبة للمعنى.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطالب الجملة ويسأل: معًا؟ مباشرة؟ بعد مهلة؟ ثم يختار.</dd>
+    <dt>الإجابات</dt><dd>و، ف، ثمّ، و، ف، ثمّ، ف، ثمّ.</dd>
+    <dt>الزمن</dt><dd>٦ دقائق</dd></dl></template>
+</section>
+
+<!-- ٨ الإملاء -->
+<section class="slide s8">
+  <div class="card"><div class="num"><b>٨</b></div>
+    <div class="head"><h2>خيطٌ ملتصقٌ وخيطٌ مستقلّ</h2><p>كيفَ نكتبُها؟</p></div>
+    <div class="content"><div class="spell">
+      <div class="spR">
+        <div class="rule" style="border-color:var(--waw)"><h4>الواو والفاء: حرفانِ ملتصقان</h4>نكتبُهما ملتصقتينِ بالكلمةِ بعدَهما، بلا مسافة:<br><span class="ex"><span class="cW">و</span>دفترًا</span> <span class="ex"><span class="cF">ف</span>خرجَ</span></div>
+        <div class="rule" style="border-color:var(--thm)"><h4>ثُمَّ: كلمةٌ مستقلّة</h4>نكتبُها وحدَها، وبعدَها مسافة:<br><span class="ex"><span class="cT">ثُمَّ</span> عادَ</span></div>
+      </div>
+      <div class="spL" id="spL"><div class="sc" id="sc8">٠ / ٥</div>
+        <div style="font-size:28px;font-weight:800">أيُّ الكتابتينِ صحيحة؟</div>
+        <div class="pairB" id="pair8"></div>
+        <div class="res" id="r8"></div><div class="stars"></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ إملائيّ:</b>اكتبْ في الهواء: «قلمٌ ودفترٌ» ثمّ «أكلْتُ ثُمَّ نمْتُ». أين تركْتَ المسافة؟</div>
+      <div class="guide"><svg><use href="#needle"/></svg><div class="bubble" id="b8">الواو والفاء خيطانِ قصيرانِ يلتصقانِ بالقماش… أمّا ثُمَّ فتقفُ وحدَها!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٨. الكتابة الصحيحة</h3><dl>
+    <dt>الهدف</dt><dd>كتابة الواو والفاء متصلتين بما بعدهما، وثمّ منفصلة.</dd>
+    <dt>التنفيذ</dt><dd>اقرئي القاعدة، ثم اختبار الكتابتين (٥ أسئلة).</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٩ قصتي -->
+<section class="slide s9">
+  <div class="card"><div class="num"><b>٩</b></div>
+    <div class="head"><h2>أُطرِّزُ يومي</h2><p>اربطْ أحداثَ يومِك</p></div>
+    <div class="content"><div class="story">
+      <div class="sets" id="sets9"><button class="btn lt sel" data-i="0">🌅 صباحي</button><button class="btn lt" data-i="1">🏠 بعدَ المدرسة</button><button class="btn lt" data-i="2">🏖️ يومُ العطلة</button></div>
+      <div class="chain" id="chain9"></div>
+      <div class="out9" id="out9"><span class="ph">اضغطِ الدّوائرَ لتختارَ أداةَ الرّبط…</span></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>اقرأْ قصّتَك، ثمّ غيِّرْ أداةً واحدة: هل تغيّرَ المعنى؟</div>
+      <div class="guide"><svg><use href="#needle"/></svg><div class="bubble" id="b9">اضغطوا الدّائرةَ بينَ حدثينِ لتختاروا الخيط: وَ ← فَ ← ثُمَّ.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. أطرّز يومي</h3><dl>
+    <dt>الهدف</dt><dd>إنتاج جملة مترابطة عن حياة الطالب باختيار الأدوات.</dd>
+    <dt>التنفيذ</dt><dd>يختار الطالب المجموعة، ثم يضغط الدائرتين ليختار الأداة، ويقرأ الجملة. ناقشي: هل «ثمّ» مناسبة هنا؟ لماذا؟</dd>
+    <dt>امتداد</dt><dd>يكتب كل طالب في دفتره فقرة عن يومه بالأدوات الثلاث.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ١٠ -->
+<section class="slide s10">
+  <div class="card"><div class="num"><b>١٠</b></div>
+    <div class="content" style="top:26px;height:560px">
+      <div class="recap">
+        <h3>اكتملَتْ نقوشُ الكُمّة!</h3>
+        <div><span class="ic" style="background:var(--waw)">وَ</span>الواو: عقدةٌ تجمعُ شيئينِ معًا، ولا يهمُّ الترتيب.</div>
+        <div><span class="ic" style="background:var(--fa)">فَ</span>الفاء: غرزةٌ قصيرة: الثّاني بعدَ الأوّلِ مباشرةً.</div>
+        <div><span class="ic" style="background:var(--thm);font-size:32px">ثُمَّ</span>ثُمَّ: غرزةٌ طويلة: الثّاني بعدَ الأوّلِ بمهلة.</div>
+        <div><span class="ic" style="background:var(--gold);font-size:30px">✍️</span>الواو والفاء تلتصقانِ بما بعدَهما، وثُمَّ كلمةٌ مستقلّة.</div>
+      </div>
+      <div class="badge"><svg><use href="#kumma"/></svg><h4>شارةُ المطرِّزِ الماهر</h4>
+        <input id="starName" placeholder="اكتبِ اسمَ المطرِّزِ النّجم" aria-label="اسم النجم">
+        <p>يخيطُ الكلماتِ بالخيطِ المناسب</p></div>
+    </div>
+    <div class="band">
+      <div class="task"><b>في دفترك:</b>اكتبْ فقرةً عن زيارةٍ لبيتِ جدّك، واستخدمِ الواو والفاء وثُمَّ.</div>
+      <div class="guide"><svg><use href="#needle"/></svg><div class="bubble">شكرًا يا مطرِّزيَّ الصّغار! كُمّتُنا أجملُ كُمّةٍ في عُمان.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١٠. اكتملت الكُمّة</h3><dl>
+    <dt>الهدف</dt><dd>تلخيص معاني الأدوات الثلاث وكتابتها، وتعزيز المتميز.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب الملخص معًا، ثم اكتبي اسم المطرز النجم وصوّري الشاشة.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+<aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ١٠</span><button id="next" class="main">التّالي ◀</button></nav>
+</div>
+
+<script>
+const SFX=(()=>{let ctx=null,on=true;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ return{toggle(){on=!on;return on},
+  stitch(){noise(.06,{v:.3,type:'highpass',f:3000});tone(1400,.05,{type:'triangle',v:.08,at:.03})},
+  zip(n=6,gap=.08){for(let i=0;i<n;i++){noise(.04,{v:.22,type:'highpass',f:2800,at:i*gap});}},
+  robot(){[300,300,260,300].forEach((f,i)=>tone(f,.16,{type:'square',v:.06,at:i*.3}))},
+  tick(){tone(1800,.03,{type:'square',v:.05})},
+  pop(){tone(600,.08,{v:.15,to:1200})},
+  yes(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,{type:'triangle',v:.16,at:i*.08}))},
+  no(){tone(220,.25,{type:'square',v:.08,to:150})},
+  giggle(){[900,760,900,700,860].forEach((f,i)=>tone(f,.09,{type:'triangle',v:.1,at:i*.1}))},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  cheer(){this.yes();for(let i=0;i<22;i++)noise(.05,{v:.12,type:'bandpass',f:1500+Math.random()*2000,at:.35+Math.random()*1.1})}
+ }})();
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let cur=0,unlocked=false;
+const nextB=document.getElementById('next'),prevB=document.getElementById('prev'),counter=document.getElementById('counter');
+function go(i){if(i<0||i>=slides.length)return;if(i>0&&!unlocked)return;
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=cur===slides.length-1||!unlocked;nextB.classList.toggle('pulse',cur===0&&unlocked);
+  const t=slides[cur].querySelector('template.notes');document.getElementById('notesBody').innerHTML=t?t.innerHTML:'';
+  if(cur===5&&window.__r6)window.__r6();
+  if(cur===9)closing();}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+document.getElementById('bSound').onclick=e=>{e.currentTarget.textContent=SFX.toggle()?'🔊 الصوت':'🔇 صامت'};
+document.getElementById('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+document.getElementById('bNotes').onclick=()=>document.getElementById('notes').classList.toggle('open');
+document.getElementById('closeNotes').onclick=()=>document.getElementById('notes').classList.remove('open');
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function stars(box){for(let i=0;i<14;i++){const s=document.createElement('i');s.textContent='★';s.style.left=Math.random()*95+'%';s.style.top=Math.random()*20+'%';s.style.animationDelay=Math.random()*.4+'s';box.appendChild(s);setTimeout(()=>s.remove(),2000)}}
+/* ربط كلمتين بأداة مع الكتابة الصحيحة */
+const CL={W:'cW',F:'cF',T:'cT'},CT={W:'وَ',F:'فَ',T:'ثُمَّ'};
+const join=(a,c,b)=>c==='T'?`${a} <span class="${CL[c]} cn">ثُمَّ</span> ${b}`:`${a} <span class="${CL[c]} cn">${CT[c]}</span>${b}`;
+
+/* ١ */
+document.getElementById('go1').onclick=()=>{if(unlocked)return;SFX.zip(8);document.querySelector('.s1').classList.add('open');setTimeout(()=>{unlocked=true;go(0);SFX.magic()},900)};
+
+/* ٢ */
+(()=>{const P=['استيقظْتُ.','توضّأْتُ.','صلّيْتُ.','أفطرْتُ.','ذهبْتُ إلى المدرسةِ.'];
+  const S=['استيقظْتُ',' <span class="cF cn jn">فَ</span>توضّأْتُ',' <span class="cW cn jn">وَ</span>صلّيْتُ،',' <span class="cT cn jn">ثُمَّ</span> أفطرْتُ',' <span class="cW cn jn">وَ</span>ذهبْتُ إلى المدرسةِ.'];
+  const box=document.getElementById('pieces'),b=document.getElementById('b2'),eq=document.getElementById('eq2');
+  function cut(){box.classList.remove('sewn');box.innerHTML=P.map(p=>`<span class="pc">${p}</span>`).join('');eq.textContent=''}
+  cut();
+  document.getElementById('robot').onclick=async()=>{cut();SFX.robot();const ps=[...box.children];for(const p of ps){p.style.background='#FFE3D6';await sleep(300);p.style.background=''};b.textContent='تبدو كأنّ روبوتًا يتكلّم… أين الخيوطُ الّتي تربطُها؟'};
+  document.getElementById('sew').onclick=async()=>{box.classList.add('sewn');box.innerHTML='';for(const s of S){box.insertAdjacentHTML('beforeend',`<span class="pc">${s}</span>`);SFX.stitch();await sleep(320)}
+    eq.textContent='ثلاثةُ خيوطٍ مختلفة: وَ، فَ، ثُمَّ… لكلٍّ منها معنًى!';b.textContent='خِطْتُها بثلاثةِ خيوط! هل تعرفونَ لماذا اخترْتُ كلَّ خيط؟'};})();
+
+/* ٣ */
+(()=>{let sw=false;const a=document.getElementById('i3a'),bb=document.getElementById('i3b'),s=document.getElementById('s3'),eq=document.getElementById('eq3');
+  document.getElementById('swap3').onclick=()=>{sw=!sw;SFX.stitch();a.style.transform=sw?'translateX(-380px)':'';bb.style.transform=sw?'translateX(380px)':'';
+    s.innerHTML=sw?'أكلْتُ اللّبنَ <span class="cW cn">وَ</span>التّمرَ.':'أكلْتُ التّمرَ <span class="cW cn">وَ</span>اللّبنَ.';
+    eq.textContent='✔ المعنى لم يتغيّر: أكلْتُهما كليهما!';setTimeout(()=>SFX.yes(),300)};})();
+
+/* ٤ ٥ الغرز */
+async function playTL(n,dist,delay,labels){const A=document.getElementById(`e${n}a`),B=document.getElementById(`e${n}b`),st=document.getElementById(`st${n}`),c=document.getElementById(`c${n}`),s=document.getElementById(`s${n}`);
+  A.classList.remove('on');B.classList.remove('on');st.style.transition='none';st.style.width='0';s.innerHTML='';c.textContent='';void st.offsetWidth;
+  const ra=parseInt(A.style.right)+95;st.style.right=ra+'px';
+  await sleep(200);A.classList.add('on');SFX.pop();await sleep(500);
+  st.style.transition=`width ${delay}ms linear`;st.style.width=dist+'px';
+  const steps=labels.length;for(let i=0;i<steps;i++){c.textContent=labels[i];SFX.tick();SFX.stitch();await sleep(delay/steps)}
+  B.classList.add('on');SFX.pop();return s}
+document.getElementById('go4').onclick=async()=>{const s=await playTL(4,220,500,['هُوب!']);s.innerHTML='رنَّ الجرسُ <span class="cF cn">فَ</span>خرجَ الطّلابُ.';document.getElementById('c4').textContent='⏱️ مباشرةً… بلا انتظار!';SFX.yes()};
+document.getElementById('go5').onclick=async()=>{const s=await playTL(5,650,3000,['⏳ شهرٌ…','⏳ سنةٌ…','⏳ سنتان…','⏳ ثلاثُ سنوات…','⏳ خمسُ سنوات…']);s.innerHTML='زرعَ جدّي النّخلةَ <span class="cT cn">ثُمَّ</span> أثمرَتْ.';document.getElementById('c5').textContent='⏳ بعدَ سنواتٍ طويلة!';SFX.yes()};
+
+/* ٦ حبل الوقت */
+(()=>{const D=[
+  [['👕','لبسْتُ ثوبي'],['🧢','لبسْتُ كُمّتي'],'W',{W:'✔ مناسب: لبسْتُهما كليهما، ولا يهمُّ أيُّهما أوّلًا.',F:'مقبول، لكنّه يعني: لبسْتُ الكُمّةَ مباشرةً بعدَ الثّوب.',T:'غريب! هل انتظرْتَ ساعاتٍ بعدَ الثّوبِ لتلبسَ الكُمّة؟ 😄'}],
+  [['🥛','سقطَ الكوبُ'],['💥','انكسرَ'],'F',{W:'ينقصُها شيء: الانكسارُ جاءَ بعدَ السّقوطِ مباشرةً، والواو لا تُبيِّنُ ذلك.',F:'✔ مناسب: انكسرَ مباشرةً بعدَ أن سقط.',T:'غريب! هل بقيَ الكوبُ سليمًا وقتًا طويلًا ثمّ انكسر؟ 😄'}],
+  [['🌱','زرعْنا البذرةَ'],['🌿','نبتَتْ'],'T',{W:'ينقصُها شيء: النّباتُ يحتاجُ وقتًا لينبت، والواو لا تُبيِّنُ ذلك.',F:'غريب! هل نبتَتِ البذرةُ في اللّحظةِ نفسِها؟ 😄',T:'✔ مناسب: نبتَتْ بعدَ أيّامٍ من الزّراعة.'}]];
+  let di=0;const pA=document.getElementById('pA'),pB=document.getElementById('pB'),s=document.getElementById('s6'),m=document.getElementById('m6'),b=document.getElementById('b6');
+  const RA=160;const POS={W:[RA,RA+60],F:[RA,RA+250],T:[RA,RA+900]};
+  function load(){const [a,z]=D[di];pA.querySelector('.e').textContent=a[0];pA.querySelector('.t').textContent=a[1];pB.querySelector('.e').textContent=z[0];pB.querySelector('.t').textContent=z[1];
+    pA.style.right=RA+'px';pB.style.right=(RA+500)+'px';pB.style.top='24px';s.innerHTML='';m.style.color='var(--ink)';m.textContent='اختَرْ أداةً وراقبِ الحبل!'}
+  window.__r6=load;
+  document.querySelectorAll('#set6 button').forEach(bt=>bt.onclick=()=>{di=+bt.dataset.i;document.querySelectorAll('#set6 button').forEach(x=>x.classList.toggle('sel',x===bt));load();SFX.pop()});
+  document.querySelectorAll('.s6 .cbtn').forEach(bt=>bt.onclick=()=>{const c=bt.dataset.c;const [a,z,best,msg]=D[di];
+    pA.style.right=POS[c][0]+'px';pB.style.right=POS[c][1]+'px';pB.style.top=c==='W'?'52px':'24px';
+    s.innerHTML=join(a[1],c,z[1])+'.';m.textContent=msg[c];m.style.color=c===best?'var(--ok)':(msg[c].includes('غريب')?'var(--bad)':'var(--fa2)');
+    c===best?SFX.yes():(msg[c].includes('غريب')?SFX.giggle():SFX.stitch());
+    b.textContent=c==='W'?'عقدة! الحدثانِ معًا في المكانِ نفسِه.':(c==='F'?'غرزةٌ قصيرة: الحدثانِ متقاربان.':'غرزةٌ طويلة: بينَ الحدثينِ مسافةٌ كبيرة.')});
+  load();})();
+
+/* ٧ */
+(()=>{const G=[['اشتريْتُ قلمًا','دفترًا.','W'],['رنَّ الجرسُ','خرجَ الطّلابُ.','F'],['زرعَ الفلّاحُ البذورَ','حصدَ القمحَ بعدَ شهور.','T'],['في حديقتِنا نخلةٌ','ليمونةٌ.','W'],
+  ['سقطَ الكوبُ','انكسرَ.','F'],['تعلّمْتُ الحروفَ','تعلّمْتُ القراءةَ.','T'],['فتحْتُ النّافذةَ','دخلَ الهواءُ.','F'],['سافرَ أبي','عادَ بعدَ أسبوع.','T']];
+  const H={W:'هما شيئانِ معًا بلا ترتيب… عُقدة!',F:'الثّاني حدثَ مباشرةً بعدَ الأوّل… غرزةٌ قصيرة!',T:'بينَ الحدثينِ وقتٌ طويل… غرزةٌ طويلة!'};
+  let gi=0,lock=false;const gs=document.getElementById('gs7'),m=document.getElementById('m7'),sc=document.getElementById('sc7'),b=document.getElementById('b7');
+  function set(){const [a,z]=G[gi];gs.innerHTML=`${a} <span class="gap"></span> ${z}`;m.textContent=''}
+  document.querySelectorAll('#pk7 .cbtn').forEach(bt=>bt.onclick=()=>{if(lock||gi>=G.length)return;const [a,z,ok]=G[gi];
+    if(bt.dataset.c===ok){lock=true;SFX.zip(4);SFX.yes();gs.innerHTML=join(a,ok,z);m.style.color='var(--ok)';m.textContent='✔ '+H[ok];sc.textContent=AR(gi+1)+' / '+AR(G.length);
+      setTimeout(()=>{gi++;lock=false;if(gi<G.length)set();else{gs.textContent='اكتملَ التّطريز! 🧵✨';SFX.cheer();b.textContent='غرزاتُكم متقنةٌ ومناسبة!'}},1600)}
+    else{SFX.no();shake(bt);m.style.color='var(--bad)';const c=bt.dataset.c;m.textContent=({W:'اخترْتَ الواو، ومعناها: الحدثانِ معًا بلا ترتيب.',F:'اخترْتَ الفاء، ومعناها: الثّاني بعدَ الأوّلِ مباشرةً.',T:'اخترْتَ ثُمَّ، ومعناها: الثّاني بعدَ مهلةٍ طويلة.'})[c]+' هل هذا ما حدث؟'}});
+  set();})();
+
+/* ٨ */
+(()=>{const P=[['قلمٌ و دفترٌ','قلمٌ ودفترٌ',1],['دخلَ فجلسَ','دخلَ ف جلسَ',0],['أكلْتُ ثُمَّ نمْتُ','أكلْتُ ثُمَّنمْتُ',0],['سالمٌ و أحمدُ','سالمٌ وأحمدُ',1],['قرأْتُ فَفهمْتُ','قرأْتُ فَ فهمْتُ',0]];
+  let qi=0,lock=false;const pair=document.getElementById('pair8'),r=document.getElementById('r8'),sc=document.getElementById('sc8'),box=document.getElementById('spL');
+  function set(){const [a,z,ok]=P[qi];pair.innerHTML='';r.textContent='';[a,z].forEach((w,k)=>{const bt=document.createElement('button');bt.textContent=w;bt.onclick=()=>{if(lock)return;
+      if(k===ok){lock=true;bt.classList.add('good');SFX.yes();r.style.color='var(--ok)';r.textContent='✔ كتابةٌ صحيحة!';sc.textContent=AR(qi+1)+' / '+AR(P.length);
+        setTimeout(()=>{qi++;lock=false;if(qi<P.length)set();else{pair.innerHTML='<span class="w" style="font-size:44px">خيوطُكم في مكانِها! ✍️</span>';SFX.cheer();stars(box.querySelector('.stars'))}},1300)}
+      else{bt.classList.add('bad');SFX.no();shake(bt);r.style.color='var(--bad)';r.textContent=w.includes('ثُمَّ')?'ثُمَّ كلمةٌ مستقلّة: بعدَها مسافة.':'الواو والفاء تلتصقانِ بالكلمةِ بعدَهما.';setTimeout(()=>bt.classList.remove('bad'),800)}};pair.appendChild(bt)})}
+  set();})();
+
+/* ٩ */
+(()=>{const S=[[['⏰','استيقظْتُ'],['🕌','صلّيْتُ الفجرَ'],['🎒','ذهبْتُ إلى المدرسةِ']],[['🏠','وصلْتُ إلى البيتِ'],['🍛','تغدّيْتُ'],['⚽','لعبْتُ مع إخوتي']],[['🚗','ذهبْنا إلى البحرِ'],['🏊','سبحْنا'],['🌙','عُدْنا مساءً']]];
+  const ORDER=['W','F','T'];let si=0,cs=[null,null];const chain=document.getElementById('chain9'),out=document.getElementById('out9'),b=document.getElementById('b9');
+  const MEAN={W:'معًا',F:'مباشرةً',T:'بعدَ مهلة'};
+  function render(){const ev=S[si];chain.innerHTML='';
+    ev.forEach((e,i)=>{chain.insertAdjacentHTML('beforeend',`<div class="ev9"><div class="e">${e[0]}</div><div class="t">${e[1]}</div></div>`);
+      if(i<2){const bt=document.createElement('button');bt.className='cyc '+(cs[i]||'');bt.textContent=cs[i]?CT[cs[i]]:'؟';bt.onclick=()=>{const k=cs[i]?ORDER.indexOf(cs[i]):-1;cs[i]=ORDER[(k+1)%3];SFX.stitch();render()};chain.appendChild(bt)}});
+    if(cs[0]&&cs[1]){out.innerHTML=join(join(ev[0][1],cs[0],ev[1][1]),cs[1],ev[2][1])+'.';b.textContent=`الحدثُ الثّاني ${MEAN[cs[0]]}، والثّالثُ ${MEAN[cs[1]]}. هل هذا ما حدثَ فعلًا؟`}
+    else out.innerHTML='<span class="ph">اضغطِ الدّائرتينِ لتختارَ أداتي الرّبط…</span>'}
+  document.querySelectorAll('#sets9 button').forEach(bt=>bt.onclick=()=>{si=+bt.dataset.i;cs=[null,null];document.querySelectorAll('#sets9 button').forEach(x=>x.classList.toggle('sel',x===bt));render();SFX.pop()});
+  render();})();
+
+/* ١٠ */
+const cv=document.getElementById('confetti'),cx=cv.getContext('2d');
+function closing(){const s=slides[cur];s.classList.remove('go');void s.offsetWidth;s.classList.add('go');setTimeout(()=>{SFX.zip(10);SFX.cheer();confetti()},400)}
+function confetti(){const cols=['#16A3A0','#F0643C','#5B4BD6','#E5B53A','#3B3355','#fff'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+go(0);
+</script>
+<script src="../assets/kawn-data.js" defer></script>
+</body>
+</html>

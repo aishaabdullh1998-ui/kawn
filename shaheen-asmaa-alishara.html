@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="../assets/kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>عينا شاهين: أسماء الإشارة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --sky1:#9ED6F2;--sky2:#FFE9C7;--mt1:#C98C5A;--mt2:#A96E43;--ground:#E8C79A;--paper:#FFFBF2;--ink:#2A2118;--ink2:#6B5A48;
+  --brown:#7A4F2A;--gold:#F2B233;--near:#2EAD65;--near2:#1E7F48;--far:#4B5BD6;--far2:#2F3C9E;--ok:#2EAD65;--bad:#E23B3B;--wing:#E0A21B;
+  --ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--word:"Noto Naskh Arabic","Traditional Arabic","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sky1:#78B8DA;--sky2:#F0D2A6}}
+:root[data-theme="dark"]{--sky1:#78B8DA;--sky2:#F0D2A6}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--ground);font-family:var(--ui);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;background:linear-gradient(var(--sky1),var(--sky2) 60%)}
+.mts{position:absolute;left:0;right:0;bottom:80px;height:380px}
+.mts i{position:absolute;bottom:0;width:0;height:0;border-style:solid;border-color:transparent}
+.gr{position:absolute;left:0;right:0;bottom:0;height:96px;background:var(--ground)}
+.slide{position:absolute;inset:0;display:none}
+.slide.active{display:block;animation:slideIn .45s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{position:absolute;inset:58px 30px 96px;background:var(--paper);border-radius:30px;border:14px solid var(--brown);box-shadow:0 20px 44px rgba(60,35,15,.35)}
+.card::before{content:"";position:absolute;inset:-9px;border:3px dashed var(--gold);border-radius:24px;pointer-events:none}
+.num{position:absolute;top:-46px;right:44px;width:96px;height:96px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--gold);display:flex;align-items:center;justify-content:center}
+.num b{font-size:38px;font-weight:800;color:var(--ink)}
+.head{position:absolute;top:10px;right:170px;left:30px;display:flex;align-items:baseline;gap:20px}
+.head h2{margin:0;font-size:50px;font-weight:800;line-height:1.35}
+.head p{margin:0;font-size:27px;font-weight:700;color:var(--ink2)}
+.content{position:absolute;top:96px;right:28px;left:28px;height:474px}
+.band{position:absolute;bottom:8px;right:20px;left:20px;height:126px;display:flex;align-items:flex-end;gap:20px}
+.guide{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;order:2}
+.guide svg{width:120px;height:112px;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:24px;padding:10px 20px;font-size:25px;line-height:1.5;font-weight:700;max-width:780px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:18px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.task{order:1;flex:0 0 590px;background:#FFF3D6;border:3px solid var(--gold);border-radius:18px;padding:10px 20px;font-size:24px;font-weight:700;line-height:1.5}
+.task b{color:#9A6400;margin-left:6px}
+.w{font-family:var(--word);font-weight:700}
+.nr{color:var(--near)}.fr{color:var(--far)}.lk{color:var(--wing)}
+.btn{border:0;border-radius:22px;padding:10px 26px;font-size:27px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.3)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.br{background:var(--brown)}.btn.lt{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(60,35,15,.2)}
+.btn.sel{outline:5px solid var(--gold);outline-offset:2px}
+.good{background:var(--ok)!important;color:#fff!important}.bad{background:var(--bad)!important;color:#fff!important}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+@keyframes popIn{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.tag{display:inline-flex;align-items:center;gap:6px;border-radius:14px;padding:0 14px;color:#fff;font-size:22px;font-weight:800}
+.tag.n{background:var(--near)}.tag.f{background:var(--far)}
+.rule{background:#fff;border-radius:22px;padding:12px 22px;font-size:26px;font-weight:700;line-height:1.6;border-right:12px solid}
+.rule h4{margin:0 0 2px;font-size:30px}
+
+#nav{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 20px;border-radius:27px;background:#fff;color:var(--ink);font-size:24px;font-weight:800;box-shadow:0 4px 0 #C9A06A}
+#nav button:disabled{opacity:.4;cursor:not-allowed}
+#nav .main{background:var(--brown);color:#fff;box-shadow:0 4px 0 #4E3218}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(242,178,51,.9)}50%{box-shadow:0 0 0 14px rgba(242,178,51,0)}}
+#counter{font-size:26px;font-weight:800;min-width:90px;text-align:center}
+#tools{position:absolute;top:10px;left:16px;display:flex;gap:10px;z-index:50}
+#tools button{border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:var(--ink);font-size:20px;font-weight:700}
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:#fff;z-index:60;box-shadow:12px 0 40px rgba(0,0,0,.3);transform:translateX(-105%);transition:transform .35s;padding:30px;font-size:23px;line-height:1.7;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-size:34px;margin:0 0 8px;color:var(--brown)}
+#notes dt{font-weight:800;color:var(--far2);margin-top:8px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px;font-size:20px}
+
+/* ١ */
+.s1 .title{position:absolute;top:50px;right:0;left:0;text-align:center}
+.s1 h1{margin:0;font-size:104px;font-weight:800;color:#fff;line-height:1.2;-webkit-text-stroke:3px var(--brown);paint-order:stroke fill;text-shadow:0 7px 0 var(--brown)}
+.s1 .title p{margin:6px 0 0;font-size:34px;font-weight:800}
+.fly{pointer-events:none;position:absolute;top:340px;left:1700px;width:330px;height:300px;transition:left 2.6s cubic-bezier(.25,.8,.3,1),top 2.6s}
+.s1.in .fly{left:640px;animation:bob 2.4s ease-in-out infinite 2.6s}
+@keyframes bob{50%{transform:translateY(-14px)}}
+.s1.open .fly{left:-500px;top:120px;transition:left 1.5s ease-in,top 1.5s}
+.fly svg{width:100%;height:100%}
+.s1 .go1{z-index:5;position:absolute;top:250px;left:50%;transform:translateX(-50%);font-size:34px;padding:14px 40px}
+.s1.open .go1{display:none}
+.mission{position:absolute;top:230px;right:230px;left:230px;background:var(--paper);border-radius:30px;padding:26px 46px;border:14px solid var(--brown);box-shadow:0 20px 44px rgba(0,0,0,.3);opacity:0;transform:scale(.6);pointer-events:none;transition:.6s .9s cubic-bezier(.3,1.5,.5,1)}
+.s1.open .mission{opacity:1;transform:none}
+.mission h3{margin:0;font-size:44px;color:var(--brown)}
+.mission p{margin:0;font-size:27px;font-weight:700}
+.mission ol{margin:0;padding-right:44px;font-size:29px;line-height:1.75;font-weight:700;list-style:arabic-indic}
+
+/* ٢ المشهد */
+.scene{position:absolute;inset:0;border-radius:22px;overflow:hidden;background:linear-gradient(#CFEAF8,#FFF1D8 70%,#E8C79A 70%)}
+.scene .m1{position:absolute;bottom:140px;left:-40px;width:0;height:0;border-left:380px solid transparent;border-right:380px solid transparent;border-bottom:260px solid #C99263}
+.scene .m2{position:absolute;bottom:140px;left:420px;width:0;height:0;border-left:300px solid transparent;border-right:300px solid transparent;border-bottom:200px solid #B57A4B}
+.obj{position:absolute;border:0;background:transparent;padding:0;display:flex;flex-direction:column;align-items:center;transition:transform .2s}
+.obj:active{transform:scale(.95)}
+.obj svg{display:block}
+.obj .lb{font-family:var(--word);font-size:30px;font-weight:700;background:#fff;border-radius:12px;padding:0 12px;margin-top:4px;opacity:.9}
+.say2{position:absolute;top:18px;left:50%;transform:translateX(-50%);background:#fff;border:4px solid var(--ink);border-radius:30px;padding:6px 36px;font-family:var(--word);font-size:56px;font-weight:700;white-space:nowrap;min-height:96px;display:flex;align-items:center;gap:18px}
+.say2 .tag{font-family:var(--ui)}
+.shaheen2{position:absolute;right:40px;bottom:40px;width:250px;height:230px}
+
+/* ٣ المنزلق */
+.dist{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+.track{position:relative;width:1400px;height:230px;flex:none;background:linear-gradient(#EAF6FC,#FFF4E0);border-radius:24px;border:4px solid #E6D3B5;overflow:hidden}
+.track .sh{position:absolute;right:16px;bottom:10px;width:190px;height:180px}
+.track .thing{position:absolute;bottom:18px;font-size:140px;line-height:1;transition:none;transform-origin:bottom center}
+.track .zone{position:absolute;top:10px;font-size:22px;font-weight:800;border-radius:12px;padding:0 12px;color:#fff}
+.slider{width:1300px;height:60px;-webkit-appearance:none;appearance:none;background:linear-gradient(270deg,var(--near) 0 50%,var(--far) 50% 100%);border-radius:30px;outline:none;direction:rtl}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:80px;height:80px;border-radius:50%;background:#fff;border:8px solid var(--gold);box-shadow:0 4px 10px rgba(0,0,0,.3);cursor:grab}
+.slider::-moz-range-thumb{width:70px;height:70px;border-radius:50%;background:#fff;border:8px solid var(--gold);cursor:grab}
+.dSay{font-family:var(--word);font-size:68px;font-weight:700;line-height:1.3;min-height:100px}
+.dSay .dw{display:inline-block;animation:popIn .35s}
+.row{display:flex;gap:14px;align-items:center}
+
+/* ٤ الشبكة */
+.g4{position:absolute;inset:0;display:flex;gap:30px}
+.grid4{display:grid;grid-template-columns:auto 1fr 1fr;gap:12px;width:720px;align-content:center}
+.grid4 .h{font-size:26px;font-weight:800;text-align:center;align-self:center}
+.grid4 button{height:120px;border-radius:22px;border:0;font-family:var(--word);font-size:62px;font-weight:700;color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.2)}
+.grid4 .n{background:var(--near)}.grid4 .f{background:var(--far)}
+.q4{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#FFF7E8;border-radius:24px;border:3px dashed var(--gold);position:relative}
+.q4 .ic{font-size:80px;line-height:1}
+.q4 .s{font-family:var(--word);font-size:58px;font-weight:700;text-align:center}
+.q4 .s .gap{display:inline-block;min-width:140px;border-bottom:6px dotted var(--ink2)}
+.q4 .res{font-size:26px;font-weight:800;min-height:40px;text-align:center}
+.scb{position:absolute;top:10px;left:14px;background:var(--brown);color:#fff;border-radius:12px;padding:0 14px;font-size:24px;font-weight:800}
+
+/* ٥–٦ */
+.twin{position:absolute;inset:0;display:flex;gap:30px}
+.twinL{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#fff;border-radius:24px;border:4px solid #EFE2CB}
+.icons{font-size:110px;line-height:1;min-height:120px;display:flex;gap:10px}
+.icons span{animation:popIn .4s}
+.tw{font-family:var(--word);font-size:66px;font-weight:700;text-align:center;line-height:1.4}
+.tw .pw{color:var(--gold)}
+.twinR{width:520px;display:flex;flex-direction:column;gap:14px;justify-content:center}
+
+/* ٧ لعبة */
+.game{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.gq{display:flex;align-items:center;gap:24px;background:#fff;border-radius:24px;padding:10px 40px;border:4px solid #EFE2CB;min-width:1100px;justify-content:center}
+.gq .ic{font-size:84px}
+.gq .s{font-family:var(--word);font-size:62px;font-weight:700}
+.gq .gap{display:inline-block;min-width:160px;border-bottom:6px dotted var(--ink2);text-align:center}
+.pad{display:grid;grid-template-columns:repeat(4,200px);gap:12px}
+.pad button{height:84px;border-radius:20px;border:0;font-family:var(--word);font-size:44px;font-weight:700;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.pad .n{background:var(--near)}.pad .f{background:var(--far)}
+.gMsg{font-size:28px;font-weight:800;min-height:44px}
+.sc7{position:absolute;top:0;left:10px;background:var(--brown);color:var(--gold);border-radius:14px;padding:0 18px;font-size:28px;font-weight:800}
+
+/* ٨ الألف المختبئة */
+.hid{position:absolute;inset:0;display:flex;gap:28px}
+.hidL{flex:1;display:flex;flex-direction:column;gap:12px}
+.words8{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.wcard{background:#fff;border-radius:20px;border:3px solid #EFE2CB;padding:4px 20px;text-align:center;min-width:170px;cursor:pointer}
+.wcard .wr{font-family:var(--word);font-size:54px;font-weight:700;line-height:1.5}
+.wcard .sn{font-size:22px;font-weight:700;color:var(--ink2)}
+.wcard .sn b{color:var(--wing)}
+.wcard.open{border-color:var(--gold);background:#FFF7E3}
+.ghost{color:var(--wing)}
+.hidR{width:560px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#F2F4FF;border-radius:24px;border:3px dashed var(--far);position:relative}
+.hidR .q{font-size:28px;font-weight:800}
+.pair{display:flex;gap:18px}
+.pair button{min-width:190px;height:100px;border-radius:20px;border:0;background:#fff;font-family:var(--word);font-size:54px;font-weight:700;box-shadow:0 5px 0 rgba(0,0,0,.15)}
+.res8{font-size:26px;font-weight:800;min-height:40px;text-align:center}
+
+/* ٩ */
+.fin{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:16px;justify-content:center;background:#fff;border-radius:24px;border:5px solid #EFE2CB;overflow:hidden}
+.fin .step{font-size:26px;font-weight:800;color:var(--ink2)}
+.fin .s{font-family:var(--word);font-size:64px;font-weight:700;display:flex;align-items:center;gap:20px}
+.fin .gap{display:inline-block;min-width:160px;border-bottom:6px dotted var(--ink2)}
+.fin .o{display:flex;gap:16px}
+.fin .o button{min-width:180px;height:96px;border-radius:20px;border:0;background:#F3F0EA;font-family:var(--word);font-size:50px;font-weight:700;box-shadow:0 5px 0 rgba(0,0,0,.12)}
+.fin .res{font-size:27px;font-weight:800;min-height:40px}
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;font-style:normal;font-size:42px;color:var(--gold);animation:fall 1.4s ease-in forwards}
+@keyframes fall{from{transform:translateY(-40px) rotate(0);opacity:1}to{transform:translateY(420px) rotate(260deg);opacity:0}}
+
+/* ١٠ */
+.chart{position:absolute;top:0;right:10px;width:880px}
+.chart h3{margin:0 0 8px;font-size:50px;color:var(--ok);transform:scale(0);transition:.6s cubic-bezier(.3,1.6,.5,1)}
+.s10.go .chart h3{transform:none}
+.chart table{width:100%;border-collapse:separate;border-spacing:6px}
+.chart th{font-size:24px;padding:4px;border-radius:12px;color:#fff}
+.chart td{background:#fff;border-radius:12px;text-align:center;font-family:var(--word);font-size:40px;font-weight:700;padding:2px 8px}
+.chart td.lab{font-family:var(--ui);font-size:23px;background:#F3EBDD}
+.chart td.na{color:#B8AC9A;font-size:22px;font-family:var(--ui)}
+.badge{position:absolute;top:10px;left:24px;width:500px;height:470px;border-radius:30px;background:linear-gradient(160deg,#FFF3C4,#F7CF6C);border:8px solid var(--brown);text-align:center;padding:14px 26px;box-shadow:0 16px 30px rgba(0,0,0,.2)}
+.badge svg{width:200px;height:170px}
+.badge h4{margin:0;font-size:42px;color:var(--brown)}
+.badge input{width:100%;font-family:var(--word);font-size:40px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed var(--brown);background:transparent;color:var(--ink);padding:4px;user-select:text}
+.badge input:focus{outline:none;background:rgba(255,255,255,.5)}
+.badge p{margin:10px 0 0;font-size:23px;font-weight:700;color:var(--brown)}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+#credit{position:absolute;right:12px;bottom:5px;z-index:55;pointer-events:none;font-family:"Noto Naskh Arabic","Tahoma",sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.22);padding:1px 9px 2px;border-radius:9px;opacity:.7;letter-spacing:0}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="falcon" viewBox="0 0 240 220">
+  <ellipse cx="130" cy="212" rx="70" ry="7" fill="#000" opacity=".14"/>
+  <path d="M150 180 L200 214 L176 214 L140 190 Z" fill="#6B4322"/>
+  <path d="M110 196 v12 M130 196 v12" stroke="#FFC23D" stroke-width="7" stroke-linecap="round"/>
+  <path d="M100 210 h20 M122 210 h20" stroke="#FFC23D" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="128" cy="134" rx="62" ry="70" fill="#9C6B3E"/>
+  <ellipse cx="116" cy="148" rx="40" ry="52" fill="#F3E3C4"/>
+  <g fill="#9C6B3E"><ellipse cx="104" cy="130" rx="5" ry="3"/><ellipse cx="126" cy="140" rx="5" ry="3"/><ellipse cx="108" cy="158" rx="5" ry="3"/><ellipse cx="130" cy="170" rx="5" ry="3"/><ellipse cx="112" cy="182" rx="5" ry="3"/></g>
+  <g class="wg" style="transform-origin:160px 100px"><path d="M150 88 Q226 116 204 204 Q164 178 150 88Z" fill="#7A4F2A"/>
+  <path d="M168 120 Q190 150 190 186 M160 110 Q176 150 174 178" stroke="#5A3A1E" stroke-width="4" fill="none"/></g>
+  <circle cx="102" cy="70" r="48" fill="#9C6B3E"/>
+  <path d="M60 60 Q100 26 146 54 Q120 40 102 40 Q76 42 60 60Z" fill="#6B4322"/>
+  <ellipse cx="98" cy="84" rx="34" ry="26" fill="#F3E3C4"/>
+  <circle cx="82" cy="70" r="15" fill="#FFD34D"/><circle cx="118" cy="70" r="15" fill="#FFD34D"/>
+  <circle cx="81" cy="71" r="9" fill="#2A2118"/><circle cx="117" cy="71" r="9" fill="#2A2118"/>
+  <circle cx="84" cy="67" r="3" fill="#fff"/><circle cx="120" cy="67" r="3" fill="#fff"/>
+  <path d="M72 88 q-4 16 4 26 M128 88 q4 16 -4 26" stroke="#5A3A1E" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M90 88 Q100 80 110 88 Q108 104 98 108 Q102 98 90 88Z" fill="#FFB020" stroke="#C9820A" stroke-width="2"/>
+  <circle cx="66" cy="92" r="6" fill="#F7A1B5" opacity=".6"/><circle cx="134" cy="92" r="6" fill="#F7A1B5" opacity=".6"/>
+</symbol>
+<symbol id="fort" viewBox="0 0 200 150">
+  <rect x="20" y="50" width="160" height="100" fill="#E1B887" stroke="#9C6B3E" stroke-width="4"/>
+  <rect x="10" y="30" width="44" height="120" rx="6" fill="#D9A874" stroke="#9C6B3E" stroke-width="4"/>
+  <rect x="146" y="30" width="44" height="120" rx="6" fill="#D9A874" stroke="#9C6B3E" stroke-width="4"/>
+  <path d="M10 30 h8v-10h8v10h8v-10h8v10h8" fill="none" stroke="#9C6B3E" stroke-width="4"/>
+  <path d="M146 30 h8v-10h8v10h8v-10h8v10h8" fill="none" stroke="#9C6B3E" stroke-width="4"/>
+  <path d="M84 150 v-40 a16 16 0 0 1 32 0 v40" fill="#7A4F2A"/>
+  <rect x="94" y="0" width="4" height="50" fill="#555"/><path d="M98 2 h30 v8 h-30z" fill="#DB161B"/><path d="M98 10 h30 v6 h-30z" fill="#fff"/><path d="M98 16 h30 v6 h-30z" fill="#008000"/>
+</symbol>
+<symbol id="palm" viewBox="0 0 140 200">
+  <path d="M66 200 Q60 120 72 70" stroke="#8B5A2B" stroke-width="14" fill="none"/>
+  <g fill="#3E9B4F"><path d="M72 70 Q30 40 0 70 Q40 50 72 74Z"/><path d="M72 70 Q110 40 140 70 Q100 50 72 74Z"/><path d="M72 70 Q50 20 20 20 Q54 34 70 72Z"/><path d="M72 70 Q96 20 126 22 Q92 34 74 72Z"/><path d="M72 70 Q70 20 76 0 Q82 30 76 72Z"/></g>
+  <g fill="#C9820A"><circle cx="64" cy="82" r="6"/><circle cx="76" cy="84" r="6"/><circle cx="70" cy="92" r="6"/></g>
+</symbol>
+<symbol id="nest" viewBox="0 0 160 90">
+  <ellipse cx="80" cy="60" rx="76" ry="26" fill="#A87C4F"/>
+  <path d="M8 56 Q80 90 152 56 M14 66 Q80 96 146 66" stroke="#7A5530" stroke-width="4" fill="none"/>
+  <ellipse cx="80" cy="40" rx="22" ry="28" fill="#FFF6E6" stroke="#E1CFB0" stroke-width="3"/>
+  <circle cx="72" cy="30" r="3" fill="#D9C3A0"/><circle cx="86" cy="44" r="3" fill="#D9C3A0"/>
+</symbol>
+<symbol id="feather" viewBox="0 0 60 140">
+  <path d="M30 0 Q60 50 34 120 L30 140 L26 120 Q0 50 30 0Z" fill="#9C6B3E"/>
+  <path d="M30 6 L30 136" stroke="#F3E3C4" stroke-width="3"/>
+  <path d="M30 40 l14 -10 M30 60 l16 -10 M30 80 l14 -8 M30 40 l-14 -10 M30 60 l-16 -10 M30 80 l-14 -8" stroke="#6B4322" stroke-width="2"/>
+</symbol>
+</svg>
+
+<div id="stage">
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+
+<div class="mts">
+  <i style="left:-80px;border-width:0 360px 300px 360px;border-bottom-color:#C99263"></i>
+  <i style="left:460px;border-width:0 300px 360px 300px;border-bottom-color:#B57A4B"></i>
+  <i style="left:960px;border-width:0 380px 280px 380px;border-bottom-color:#C99263"></i>
+</div>
+<div class="gr"></div>
+<div id="tools"><a href="../index.html" style="border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a><button id="bSound">🔊 الصوت</button><button id="bFull">⛶ ملء الشاشة</button><button id="bNotes">📋 ملاحظات المعلمة</button></div>
+
+<!-- ١ -->
+<section class="slide s1 active">
+  <div class="title"><h1>عَيْنا شاهين</h1><p>مغامرةٌ مع أسماءِ الإشارةِ للقريبِ والبعيد</p></div>
+  <button class="btn br go1" id="go1">🦅 أطلِقْ شاهين</button>
+  <div class="fly"><svg><use href="#falcon"/></svg></div>
+  <div class="mission">
+    <h3>مهمّةُ الصّقر</h3>
+    <p>بعدَ أن نحلّقَ مع شاهين سأستطيعُ أنْ:</p>
+    <ol>
+      <li>أشيرَ إلى القريبِ والبعيدِ بالاسمِ المناسب.</li>
+      <li>أميّزَ أسماءَ الإشارةِ للمذكّرِ والمؤنّث، وللمفردِ والمثنّى والجمع.</li>
+      <li>أكتبَ أسماءَ الإشارةِ كتابةً صحيحة.</li>
+      <li>أستخدمَها في جملٍ عن بيئتي.</li>
+    </ol>
+  </div>
+  <template class="notes"><h3>١. انطلاق شاهين</h3><dl>
+    <dt>الهدف</dt><dd>إثارة الدافعية وعرض الأهداف.</dd>
+    <dt>قولي</dt><dd>«شاهين صقر يعيش قرب جبل شمس. عيناه ترى القريب والبعيد، ويعلّمنا كيف نشير إليهما بالكلام!»</dd>
+    <dt>الزمن</dt><dd>دقيقتان</dd></dl></template>
+</section>
+
+<!-- ٢ -->
+<section class="slide s2">
+  <div class="card"><div class="num"><b>٢</b></div>
+    <div class="head"><h2>ماذا يرى شاهين؟</h2><p>اضغطْ ما حولَه</p></div>
+    <div class="content"><div class="scene">
+      <div class="m1"></div><div class="m2"></div>
+      <button class="obj" data-k="fort" style="left:120px;top:150px"><svg width="150" height="112"><use href="#fort"/></svg><span class="lb">الحِصن</span></button>
+      <button class="obj" data-k="palm" style="left:470px;top:120px"><svg width="96" height="140"><use href="#palm"/></svg><span class="lb">النّخلة</span></button>
+      <button class="obj" data-k="nest" style="right:300px;bottom:30px"><svg width="200" height="112"><use href="#nest"/></svg><span class="lb">العُشّ</span></button>
+      <button class="obj" data-k="feather" style="right:540px;bottom:40px"><svg width="54" height="126"><use href="#feather"/></svg><span class="lb">الرّيشة</span></button>
+      <svg class="shaheen2"><use href="#falcon"/></svg>
+      <div class="say2" id="say2"><span style="font-family:var(--ui);font-size:32px;color:var(--ink2)">اضغطْ شيئًا ليتحدّثَ عنه شاهين</span></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>سؤالُ الصّقر:</b>لماذا قالَ شاهين مرّةً «هذا» ومرّةً «ذلك»؟</div>
+      <div class="guide"><svg><use href="#falcon"/></svg><div class="bubble" id="b2">بعضُ الأشياءِ بجانبي… وبعضُها بعيدٌ على الجبل. استمعوا كيفَ أشيرُ إليها!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. ماذا يرى شاهين؟</h3><dl>
+    <dt>الهدف</dt><dd>ملاحظة أن اسم الإشارة يتغير بحسب القرب والبعد.</dd>
+    <dt>التنفيذ</dt><dd>اضغطي العش والريشة (قريبان)، ثم الحصن والنخلة (بعيدان). اسألي: ما الفرق بين الكلمات؟</dd>
+    <dt>نشاط حركي</dt><dd>يمسك الطالب قلمه ويقول «هذا قلمي»، ثم يشير إلى باب الفصل ويقول «ذلك البابُ».</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ٣ -->
+<section class="slide s3">
+  <div class="card"><div class="num"><b>٣</b></div>
+    <div class="head"><h2>منظارُ شاهين</h2><p>قرِّبْ… وأبعِدْ!</p></div>
+    <div class="content"><div class="dist">
+      <div class="row" id="pick3"><button class="btn lt sel" data-i="0">🐪 جَمَلٌ</button><button class="btn lt" data-i="1">🌴 نخلةٌ</button><button class="btn lt" data-i="2">⛰️ جبلٌ</button><button class="btn lt" data-i="3">🌹 وردةٌ</button></div>
+      <div class="track" id="track3"><svg class="sh"><use href="#falcon"/></svg><span class="zone" style="right:220px;background:var(--near)">✋ قريب</span><span class="zone" style="left:20px;background:var(--far)">🔭 بعيد</span><span class="thing" id="thing3">🐪</span></div>
+      <input type="range" class="slider" id="sl3" min="0" max="100" value="10" aria-label="المسافة">
+      <div class="dSay" id="say3"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>مفتاحُ الحفظ:</b>كلّما ابتعدَ الشّيءُ أخذَ اسمُ الإشارةِ جناحينِ: <span class="lk">لـ ك</span> ليطيرَ إليه.</div>
+      <div class="guide"><svg><use href="#falcon"/></svg><div class="bubble" id="b3">اسحبوا الدّائرةَ: قرِّبوا الشّيءَ منّي أو أبعِدوه، وراقبوا الكلمة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٣. منظار شاهين</h3><dl>
+    <dt>الهدف</dt><dd>ربط هذا/هذه بالقريب، وذلك/تلك بالبعيد، مع ملاحظة «لـ ك» في البعيد.</dd>
+    <dt>التنفيذ</dt><dd>يسحب الطالب المنزلق ببطء، ويقرأ الصف الجملة عند كل تغيير. جرّبي أسماء مذكرة ثم مؤنثة.</dd>
+    <dt>المفتاح</dt><dd>ذا + لـ + ك = ذلك، وتي + لـ + ك = تلك. (حرفا البُعد: اللام والكاف)</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٤ -->
+<section class="slide s4">
+  <div class="card"><div class="num"><b>٤</b></div>
+    <div class="head"><h2>للمذكّرِ وللمؤنّث</h2><p>هذا وهذه، ذلك وتلك</p></div>
+    <div class="content"><div class="g4">
+      <div class="grid4" id="grid4">
+        <span></span><span class="h"><span class="tag n">✋ قريب</span></span><span class="h"><span class="tag f">🔭 بعيد</span></span>
+        <span class="h">مذكّر 👦</span><button class="n" data-a="هذا">هذا</button><button class="f" data-a="ذلك">ذلك</button>
+        <span class="h">مؤنّث 👧</span><button class="n" data-a="هذه">هذه</button><button class="f" data-a="تلك">تلك</button>
+      </div>
+      <div class="q4" id="q4"><div class="scb" id="sc4">٠ / ٦</div><div class="ic" id="ic4"></div><div class="s" id="s4"></div><div class="res" id="r4"></div></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>سؤالانِ قبلَ الاختيار:</b>قريبٌ أم بعيد؟ مذكّرٌ أم مؤنّث؟</div>
+      <div class="guide"><svg><use href="#falcon"/></svg><div class="bubble" id="b4">انظروا إلى الرّمز: اليدُ للقريب، والمنظارُ للبعيد.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٤. المذكر والمؤنث</h3><dl>
+    <dt>الهدف</dt><dd>اختيار اسم الإشارة المفرد المناسب بحسب المسافة والجنس.</dd>
+    <dt>التنفيذ</dt><dd>يرى الطالب الرمز (✋ أو 🔭) والكلمة، ثم يضغط الاسم المناسب في الجدول.</dd>
+    <dt>الإجابات</dt><dd>هذا قلمٌ، تلك سحابةٌ، هذه حقيبتي، ذلك جبلٌ، هذه وردةٌ، ذلك قمرٌ.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٥ -->
+<section class="slide s5">
+  <div class="card"><div class="num"><b>٥</b></div>
+    <div class="head"><h2>في عُشِّ شاهين: المثنّى</h2><p>هذانِ وهاتانِ</p></div>
+    <div class="content"><div class="twin">
+      <div class="twinL">
+        <div class="row" id="pick5"><button class="btn lt sel" data-i="0">🐣 فرخٌ</button><button class="btn lt" data-i="1">🥚 بيضةٌ</button></div>
+        <div class="icons" id="ic5"></div>
+        <div class="tw" id="tw5"></div>
+        <div class="row"><button class="btn br" id="one5">واحد</button><button class="btn br" id="two5">اثنان</button></div>
+      </div>
+      <div class="twinR">
+        <div class="rule" style="border-color:var(--near)"><h4>للمثنّى القريب</h4><span class="w" style="font-size:40px">هذانِ</span> للمذكّر: هذانِ فرخانِ.<br><span class="w" style="font-size:40px">هاتانِ</span> للمؤنّث: هاتانِ بيضتانِ.</div>
+        <div class="rule" style="border-color:var(--gold);font-size:24px">لاحِظْ: الاسمُ بعدَهما مثنًّى أيضًا، ينتهي بـ <b>انِ</b>.</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>أمسِكْ قلمينِ وقُلْ: «هذانِ قلمانِ»، ثمّ مِمْحاتينِ وقُلْ: «هاتانِ مِمْحاتانِ».</div>
+      <div class="guide"><svg><use href="#falcon"/></svg><div class="bubble" id="b5">في عُشّي فرخانِ صغيرانِ وبيضتانِ… كيفَ أشيرُ إليهما؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٥. المثنى</h3><dl>
+    <dt>الهدف</dt><dd>استخدام هذان وهاتان للمثنى القريب.</dd>
+    <dt>التنفيذ</dt><dd>اختاري الفرخ أو البيضة، ثم «واحد» و«اثنان»، ليقارن الطلاب: هذا فرخٌ ← هذانِ فرخانِ.</dd>
+    <dt>تنبيه</dt><dd>أمثلة الدرس كلها في موضع الرفع (هذانِ، هاتانِ). للمثنى البعيد «ذانِكَ وتانِكَ» وهما قليلا الاستعمال، فلا حاجة للتوسع فيهما.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٦ -->
+<section class="slide s6">
+  <div class="card"><div class="num"><b>٦</b></div>
+    <div class="head"><h2>السِّربُ كلُّه: الجمع</h2><p>هؤلاءِ وأولئك</p></div>
+    <div class="content"><div class="twin">
+      <div class="twinL">
+        <div class="row" id="pick6"><button class="btn lt sel" data-i="0">👦 طلّاب</button><button class="btn lt" data-i="1">👧 طالبات</button><button class="btn lt" data-i="2">🎣 صيّادون</button></div>
+        <div class="icons" id="ic6"></div>
+        <div class="tw" id="tw6"></div>
+        <div class="row"><button class="btn" style="background:var(--near)" id="near6">✋ قريبون</button><button class="btn" style="background:var(--far)" id="far6">🔭 بعيدون</button></div>
+      </div>
+      <div class="twinR">
+        <div class="rule" style="border-color:var(--near)"><h4><span class="w nr" style="font-size:42px">هؤلاءِ</span> للجمعِ القريب</h4>هؤلاءِ طلّابٌ مجتهدون. هؤلاءِ طالباتٌ مجتهدات.</div>
+        <div class="rule" style="border-color:var(--far)"><h4><span class="w fr" style="font-size:42px">أولئكَ</span> للجمعِ البعيد</h4>أولئكَ صيّادونَ مَهَرة.</div>
+        <div class="rule" style="border-color:var(--gold);font-size:24px">خبرٌ سعيد: هؤلاءِ وأولئكَ للمذكّرِ والمؤنّثِ معًا!</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>أشِرْ إلى زملائِك وقُلْ: «هؤلاءِ…»، ثمّ إلى أطفالٍ في السّاحةِ من النّافذة: «أولئكَ…»</div>
+      <div class="guide"><svg><use href="#falcon"/></svg><div class="bubble" id="b6">من السّماءِ أرى جماعاتٍ كثيرة… قريبةً وبعيدة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٦. الجمع</h3><dl>
+    <dt>الهدف</dt><dd>استخدام هؤلاء للجمع القريب، وأولئك للجمع البعيد، للمذكر والمؤنث.</dd>
+    <dt>التنفيذ</dt><dd>اختاري الجماعة ثم «قريبون» أو «بعيدون». لاحظوا أن الاسم لا يتغير بين المذكر والمؤنث.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٧ -->
+<section class="slide s7">
+  <div class="card"><div class="num"><b>٧</b></div>
+    <div class="head"><h2>تحدّي عينِ الصّقر</h2><p>اختَرِ اسمَ الإشارةِ المناسب</p></div>
+    <div class="content"><div class="game">
+      <div class="sc7" id="sc7">٠ / ٨</div>
+      <div class="gq"><span class="ic" id="ic7"></span><span class="s" id="s7"></span></div>
+      <div class="pad" id="pad7"></div>
+      <div class="gMsg" id="m7"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>ثلاثةُ أسئلة:</b>قريبٌ أم بعيد؟ مذكّرٌ أم مؤنّث؟ واحدٌ أم اثنانِ أم جماعة؟</div>
+      <div class="guide"><svg><use href="#falcon"/></svg><div class="bubble" id="b7">عينا الصّقرِ لا تُخطئان! هل عيونُكم مثلُ عينيّ؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٧. تحدي عين الصقر</h3><dl>
+    <dt>الهدف</dt><dd>تطبيق أسماء الإشارة كلها.</dd>
+    <dt>التنفيذ</dt><dd>يجيب الطالب عن الأسئلة الثلاثة بصوت مسموع قبل الضغط. الخطأ يعطي تلميحًا.</dd>
+    <dt>الإجابات</dt><dd>هذا، تلك، هذان، ذلك، هاتان، هؤلاء، أولئك، هذه.</dd>
+    <dt>الزمن</dt><dd>٦ دقائق</dd></dl></template>
+</section>
+
+<!-- ٨ -->
+<section class="slide s8">
+  <div class="card"><div class="num"><b>٨</b></div>
+    <div class="head"><h2>الألفُ المختبئة</h2><p>نسمعُها ولا نكتبُها</p></div>
+    <div class="content"><div class="hid">
+      <div class="hidL">
+        <div class="rule" style="border-color:var(--wing);font-size:24px">في بعضِ أسماءِ الإشارةِ ألفٌ <b>نسمعُها ولا نكتبُها</b>. اضغطِ الكلمةَ لتكشفَ مكانَ الألفِ المختبئة!</div>
+        <div class="words8" id="words8"></div>
+        <div class="rule" style="border-color:var(--far);font-size:24px">وانتبِهْ: <span class="w" style="font-size:32px">هاتانِ</span> تُكتبُ ألفُها، و<span class="w" style="font-size:32px">أُولئكَ</span> فيها واوٌ نكتبُها ولا ننطقُها!</div>
+      </div>
+      <div class="hidR" id="hidR"><div class="scb" id="sc8">٠ / ٦</div>
+        <div class="q">أيُّ الكتابتينِ صحيحة؟</div>
+        <div class="pair" id="pair8"></div>
+        <div class="res8" id="r8"></div><div class="stars"></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ إملائيّ:</b>اكتبْ في الهواءِ بإصبعِك: هذا، هذه، ذلك… بلا ألف!</div>
+      <div class="guide"><svg><use href="#falcon"/></svg><div class="bubble" id="b8">ألفٌ خجولةٌ تختبئُ في الكتابة… لكنّنا نسمعُها!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٨. الألف المختبئة</h3><dl>
+    <dt>الهدف</dt><dd>كتابة أسماء الإشارة كتابة صحيحة.</dd>
+    <dt>التنفيذ</dt><dd>اضغطي كل كلمة لكشف الألف المحذوفة وقراءتها كما تُنطق. ثم اختبار الكتابتين (٦ أسئلة).</dd>
+    <dt>للتوضيح</dt><dd>نكتب: هذا، هذه، هذان، هؤلاء، ذلك، أولئك. ونكتب «هاتان» بالألف. وفي «أولئك» واو تُكتب ولا تُنطق.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٩ -->
+<section class="slide s9">
+  <div class="card"><div class="num"><b>٩</b></div>
+    <div class="head"><h2>التّحليقُ الأخير</h2><p>ثلاثةُ أسئلةٍ وتحصلُ على الشّارة</p></div>
+    <div class="content"><div class="fin" id="fin">
+      <div class="step" id="st9"></div>
+      <div class="s" id="s9"></div>
+      <div class="o" id="o9"></div>
+      <div class="res" id="r9"></div><div class="stars"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>قبلَ الضّغط:</b>فكِّرْ وحدَك، ثمّ يضغطُ زميلٌ واحد.</div>
+      <div class="guide"><svg><use href="#falcon"/></svg><div class="bubble">آخرُ تحليقٍ قبلَ أن نعودَ إلى العُشّ!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. التحليق الأخير</h3><dl>
+    <dt>الهدف</dt><dd>تقويم تكويني سريع.</dd>
+    <dt>الإجابات</dt><dd>(١) ذلك. (٢) هاتان. (٣) هذه.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ١٠ -->
+<section class="slide s10">
+  <div class="card"><div class="num"><b>١٠</b></div>
+    <div class="content" style="top:26px;height:560px">
+      <div class="chart"><h3>عادَ شاهينُ إلى عُشِّه!</h3>
+        <table>
+          <tr><th style="background:transparent"></th><th style="background:var(--near)">✋ للقريب</th><th style="background:var(--far)">🔭 للبعيد</th></tr>
+          <tr><td class="lab">المفردُ المذكّر</td><td>هذا</td><td>ذلك</td></tr>
+          <tr><td class="lab">المفردُ المؤنّث</td><td>هذه</td><td>تلك</td></tr>
+          <tr><td class="lab">المثنّى المذكّر</td><td>هذانِ</td><td class="na">قليلُ الاستعمال</td></tr>
+          <tr><td class="lab">المثنّى المؤنّث</td><td>هاتانِ</td><td class="na">قليلُ الاستعمال</td></tr>
+          <tr><td class="lab">الجمع</td><td>هؤلاءِ</td><td>أولئكَ</td></tr>
+        </table>
+      </div>
+      <div class="badge"><svg><use href="#falcon"/></svg><h4>شارةُ عينِ الصّقر</h4>
+        <input id="starName" placeholder="اكتبِ اسمَ الصّقرِ النّجم" aria-label="اسم النجم">
+        <p>يرى القريبَ والبعيدَ… ويكتبُ بلا خطأ</p></div>
+    </div>
+    <div class="band">
+      <div class="task"><b>في دفترك:</b>صِفْ منظرًا من نافذةِ بيتِك بأربعِ جمل: اثنتانِ للقريب، واثنتانِ للبعيد.</div>
+      <div class="guide"><svg><use href="#falcon"/></svg><div class="bubble">شكرًا يا صقوري الصّغار! عيونُكم حادّةٌ مثلُ عينيّ.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١٠. العودة إلى العش</h3><dl>
+    <dt>الهدف</dt><dd>تلخيص أسماء الإشارة وتعزيز المتميز.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب الجدول معًا صفًّا صفًّا، ثم اكتبي اسم النجم وصوّري الشاشة.</dd>
+    <dt>الواجب</dt><dd>وصف منظر من نافذة البيت بأربع جمل.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+<aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ١٠</span><button id="next" class="main">التّالي ◀</button></nav>
+</div>
+
+<script>
+const SFX=(()=>{let ctx=null,on=true;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ return{toggle(){on=!on;return on},
+  screech(){tone(2200,.5,{type:'sawtooth',v:.05,to:1400});tone(2600,.4,{type:'triangle',v:.06,at:.05,to:1700})},
+  flap(){for(let i=0;i<5;i++)noise(.08,{v:.25,type:'bandpass',f:800,q:.8,at:i*.1})},
+  near(){tone(880,.12,{type:'triangle',v:.14});tone(1175,.16,{type:'triangle',v:.12,at:.08})},
+  far(){tone(520,.5,{v:.12,to:260});noise(.4,{v:.08,type:'bandpass',f:600,to:200})},
+  pop(){tone(600,.08,{v:.15,to:1200})},
+  yes(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,{type:'triangle',v:.16,at:i*.08}))},
+  no(){tone(220,.25,{type:'square',v:.08,to:150})},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  cheer(){this.yes();for(let i=0;i<22;i++)noise(.05,{v:.12,type:'bandpass',f:1500+Math.random()*2000,at:.35+Math.random()*1.1})}
+ }})();
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+let cur=0,unlocked=false;
+const nextB=document.getElementById('next'),prevB=document.getElementById('prev'),counter=document.getElementById('counter');
+function go(i){if(i<0||i>=slides.length)return;if(i>0&&!unlocked)return;
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=cur===slides.length-1||!unlocked;nextB.classList.toggle('pulse',cur===0&&unlocked);
+  const t=slides[cur].querySelector('template.notes');document.getElementById('notesBody').innerHTML=t?t.innerHTML:'';
+  if(cur===9)closing();}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+document.getElementById('bSound').onclick=e=>{e.currentTarget.textContent=SFX.toggle()?'🔊 الصوت':'🔇 صامت'};
+document.getElementById('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+document.getElementById('bNotes').onclick=()=>document.getElementById('notes').classList.toggle('open');
+document.getElementById('closeNotes').onclick=()=>document.getElementById('notes').classList.remove('open');
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function stars(box){for(let i=0;i<14;i++){const s=document.createElement('i');s.textContent='★';s.style.left=Math.random()*95+'%';s.style.top=Math.random()*20+'%';s.style.animationDelay=Math.random()*.4+'s';box.appendChild(s);setTimeout(()=>s.remove(),2000)}}
+/* تلوين اسم الإشارة: البعيد يُبرز «لـ ك» */
+const FARHTML={'ذلك':'ذ<span class="lk">لك</span>','تلك':'ت<span class="lk">لك</span>'};
+const wrapN=w=>`<span class="nr">${w}</span>`,wrapF=w=>`<span class="fr">${FARHTML[w]||w}</span>`;
+
+/* ١ */
+(()=>{const s1=document.querySelector('.s1');setTimeout(()=>{s1.classList.add('in');SFX.flap()},300);
+  document.getElementById('go1').onclick=()=>{if(unlocked)return;SFX.screech();SFX.flap();s1.classList.add('open');setTimeout(()=>{unlocked=true;go(0);SFX.magic()},1200)};})();
+
+/* ٢ */
+(()=>{const D={nest:['n','هذا','عُشّي.'],feather:['n','هذه','ريشتي.'],fort:['f','ذلك','الحِصنُ القديمُ.'],palm:['f','تلك','النّخلةُ العاليةُ.']};
+  const say=document.getElementById('say2'),b=document.getElementById('b2');const seen=new Set();
+  document.querySelectorAll('.s2 .obj').forEach(o=>o.onclick=()=>{const [z,w,rest]=D[o.dataset.k];seen.add(z);
+    say.innerHTML=`<span class="tag ${z}">${z==='n'?'✋ قريب':'🔭 بعيد'}</span>${z==='n'?wrapN(w):wrapF(w)} ${rest}`;say.style.animation='none';void say.offsetWidth;say.style.animation='popIn .35s';
+    z==='n'?SFX.near():SFX.far();
+    if(seen.size===2)b.textContent='للقريبِ قلتُ: هذا وهذه. وللبعيدِ قلتُ: ذلك وتلك. هل لاحظتُم «لـ ك» في البعيد؟'});})();
+
+/* ٣ */
+(()=>{const O=[['🐪','m','جَمَلٌ'],['🌴','f','نخلةٌ'],['⛰️','m','جبلٌ'],['🌹','f','وردةٌ']];let oi=0,lastZ=null;
+  const th=document.getElementById('thing3'),sl=document.getElementById('sl3'),say=document.getElementById('say3'),track=document.getElementById('track3'),b=document.getElementById('b3');
+  function upd(force){const v=+sl.value;const far=v>50;const W=track.clientWidth;
+    const right=230+(W-450)*(v/100);th.style.right=right+'px';th.style.transform=`scale(${1.15-v*0.0085})`;th.textContent=O[oi][0];
+    const z=far?'f':'n';if(z!==lastZ||force){lastZ=z;const g=O[oi][1];const w=far?(g==='m'?'ذلك':'تلك'):(g==='m'?'هذا':'هذه');
+      say.innerHTML=`<span class="dw">${far?wrapF(w):wrapN(w)}</span> ${O[oi][2]}`;far?SFX.far():SFX.near();
+      b.innerHTML=far?`ابتعدَ فطارَ إليه اسمُ الإشارةِ بجناحي <span class="lk">لـ ك</span>: ${w}!`:`قريبٌ منّي… أشيرُ إليه بـ «${w}».`}}
+  sl.addEventListener('input',()=>upd(false));
+  document.querySelectorAll('#pick3 button').forEach(bt=>bt.onclick=()=>{oi=+bt.dataset.i;document.querySelectorAll('#pick3 button').forEach(x=>x.classList.toggle('sel',x===bt));upd(true)});
+  requestAnimationFrame(()=>upd(true));window.__up3=()=>upd(true);})();
+
+/* ٤ */
+(()=>{const Q=[['✋','قلمٌ جديدٌ.','هذا','m'],['🔭','سحابةٌ بيضاءُ.','تلك','f'],['✋','حقيبتي.','هذه','f'],['🔭','جبلٌ عالٍ.','ذلك','m'],['✋','وردةٌ حمراءُ.','هذه','f'],['🔭','قمرٌ منيرٌ.','ذلك','m']];
+  let qi=0,lock=false;const ic=document.getElementById('ic4'),s=document.getElementById('s4'),r=document.getElementById('r4'),sc=document.getElementById('sc4');
+  function set(){const [i,rest]=Q[qi];ic.textContent=i;s.innerHTML=`<span class="gap"></span> ${rest}`;r.textContent=''}
+  document.querySelectorAll('#grid4 button').forEach(bt=>bt.onclick=()=>{if(lock||qi>=Q.length)return;const [i,rest,ok,g]=Q[qi];
+    if(bt.dataset.a===ok){lock=true;SFX.yes();s.innerHTML=`${i==='✋'?wrapN(ok):wrapF(ok)} ${rest}`;r.style.color='var(--ok)';r.textContent=`✔ ${i==='✋'?'قريب':'بعيد'}، و${g==='m'?'مذكّر':'مؤنّث'}.`;sc.textContent=AR(qi+1)+' / '+AR(Q.length);
+      setTimeout(()=>{qi++;lock=false;if(qi<Q.length)set();else{s.textContent='أحسنتم! 🦅';ic.textContent='';SFX.cheer()}},1500)}
+    else{SFX.no();shake(bt);r.style.color='var(--bad)';const a=bt.dataset.a,near=['هذا','هذه'].includes(a),mas=['هذا','ذلك'].includes(a);
+      r.textContent=(near!==(i==='✋'))?'انظرْ إلى الرّمز: قريبٌ أم بعيد؟':((mas!==(g==='m'))?'المسافةُ صحيحة… لكن هل الكلمةُ مذكّرةٌ أم مؤنّثة؟':'حاولْ مرّةً أخرى')}});
+  set();})();
+
+/* ٥ */
+(()=>{const O=[['🐣','هذا','فرخٌ صغيرٌ.','هذانِ','فرخانِ صغيرانِ.'],['🥚','هذه','بيضةٌ.','هاتانِ','بيضتانِ.']];let oi=0,two=false;
+  const ic=document.getElementById('ic5'),tw=document.getElementById('tw5'),b=document.getElementById('b5');
+  function upd(){const [e,w1,r1,w2,r2]=O[oi];ic.innerHTML=two?`<span>${e}</span><span>${e}</span>`:`<span>${e}</span>`;
+    tw.innerHTML=two?`<span class="nr">${w2}</span> ${r2.replace(/انِ/g,'<span class="pw">انِ</span>')}`:`<span class="nr">${w1}</span> ${r1}`;SFX.pop();
+    b.textContent=two?(oi===0?'فرخانِ! أشيرُ إليهما بـ «هذانِ».':'بيضتانِ! أشيرُ إليهما بـ «هاتانِ».'):'واحدٌ فقط… فأقولُ: '+w1+'.'}
+  document.getElementById('one5').onclick=()=>{two=false;upd()};document.getElementById('two5').onclick=()=>{two=true;upd()};
+  document.querySelectorAll('#pick5 button').forEach(bt=>bt.onclick=()=>{oi=+bt.dataset.i;document.querySelectorAll('#pick5 button').forEach(x=>x.classList.toggle('sel',x===bt));upd()});upd();})();
+
+/* ٦ */
+(()=>{const O=[['👦','طلّابٌ مجتهدون.'],['👧','طالباتٌ مجتهداتٌ.'],['🎣','صيّادونَ مَهَرةٌ.']];let oi=0,far=false;
+  const ic=document.getElementById('ic6'),tw=document.getElementById('tw6'),b=document.getElementById('b6');
+  function upd(){const [e,r]=O[oi];ic.innerHTML=`<span style="font-size:${far?60:100}px">${e}</span>`.repeat(4);
+    tw.innerHTML=`${far?'<span class="fr">أولئكَ</span>':'<span class="nr">هؤلاءِ</span>'} ${r}`;far?SFX.far():SFX.near();
+    b.textContent=far?'بعيدونَ عنّي… فأقولُ: أولئكَ.':'قريبونَ منّي… فأقولُ: هؤلاءِ.'}
+  document.getElementById('near6').onclick=()=>{far=false;upd()};document.getElementById('far6').onclick=()=>{far=true;upd()};
+  document.querySelectorAll('#pick6 button').forEach(bt=>bt.onclick=()=>{oi=+bt.dataset.i;document.querySelectorAll('#pick6 button').forEach(x=>x.classList.toggle('sel',x===bt));upd()});upd();})();
+
+/* ٧ */
+(()=>{const K=[['هذا','n'],['هذه','n'],['هذانِ','n'],['هاتانِ','n'],['هؤلاءِ','n'],['ذلك','f'],['تلك','f'],['أولئكَ','f']];
+  const Q=[['✋','قلمٌ جديدٌ.','هذا','قريبٌ ومذكّرٌ ومفرد.'],['🔭','سحابةٌ بيضاءُ.','تلك','بعيدةٌ ومؤنّثةٌ ومفردة.'],['✋','كتابانِ مفيدانِ.','هذانِ','قريبانِ، ومذكّران، واثنان.'],['🔭','جبلٌ عالٍ.','ذلك','بعيدٌ ومذكّرٌ ومفرد.'],
+    ['✋','طالبتانِ نشيطتانِ.','هاتانِ','قريبتانِ، ومؤنّثتان، واثنتان.'],['✋','لاعبونَ ماهرون.','هؤلاءِ','جماعةٌ قريبة.'],['🔭','صيّادونَ مَهَرةٌ.','أولئكَ','جماعةٌ بعيدة.'],['✋','حقيبةٌ ثقيلةٌ.','هذه','قريبةٌ ومؤنّثةٌ ومفردة.']];
+  const pad=document.getElementById('pad7'),ic=document.getElementById('ic7'),s=document.getElementById('s7'),m=document.getElementById('m7'),sc=document.getElementById('sc7'),b=document.getElementById('b7');let qi=0,lock=false;
+  function set(){const [i,r]=Q[qi];ic.textContent=i;s.innerHTML=`<span class="gap">…</span> ${r}`;m.textContent=''}
+  K.forEach(([w,z])=>{const bt=document.createElement('button');bt.className=z;bt.textContent=w;pad.appendChild(bt);bt.onclick=()=>{if(lock||qi>=Q.length)return;const [i,r,ok,why]=Q[qi];
+    if(w===ok){lock=true;SFX.yes();s.innerHTML=`${z==='n'?wrapN(w):wrapF(w)} ${r}`;m.style.color='var(--ok)';m.textContent='✔ '+why;sc.textContent=AR(qi+1)+' / '+AR(Q.length);
+      setTimeout(()=>{qi++;lock=false;if(qi<Q.length)set();else{s.textContent='عيونُكم عيونُ صقور! 🦅';ic.textContent='';SFX.cheer();b.textContent='لم يفُتْكم شيء!'}},1500)}
+    else{SFX.no();shake(bt);m.style.color='var(--bad)';m.textContent='تأمّلْ: '+(z!==(i==='✋'?'n':'f')?'انظرْ إلى الرّمز: قريبٌ أم بعيد؟':'المسافةُ صحيحة… كم عددُهم؟ وما جنسُهم؟')}}});
+  set();})();
+
+/* ٨ */
+(()=>{const W=[['ه','ذا','ها ذا'],['ه','ذه','ها ذِه'],['ه','ذانِ','ها ذانِ'],['ه','ؤلاءِ','ها ؤلاءِ'],['ذ','لك','ذا لِك']];
+  const box=document.getElementById('words8'),b=document.getElementById('b8');
+  W.forEach(([a,z,sn])=>{const c=document.createElement('div');c.className='wcard';const plain=`<div class="wr">${a}${z}</div><div class="sn">اضغطْ لتكشفَ السِّرّ</div>`,shown=`<div class="wr">${a}<span class="ghost">ا</span>${z}</div><div class="sn">ننطقُها: <b>${sn}</b></div>`;c.innerHTML=plain;
+    c.onclick=()=>{c.classList.toggle('open');c.innerHTML=c.classList.contains('open')?shown:plain;SFX.pop();b.textContent='الألفُ الذّهبيّةُ نسمعُها في النّطق… لكنّنا لا نكتبُها!'};box.appendChild(c)});
+  const P=[['هاذا','هذا',1],['ذلك','ذالك',0],['هاؤلاء','هؤلاء',1],['هاتان','هتان',0],['ألائك','أولئك',1],['هذه','هاذه',0]];
+  let qi=0,lock=false;const pair=document.getElementById('pair8'),r=document.getElementById('r8'),sc=document.getElementById('sc8'),hr=document.getElementById('hidR');
+  function set(){const [a,z,ok]=P[qi];pair.innerHTML='';[a,z].forEach((w,k)=>{const bt=document.createElement('button');bt.textContent=w;bt.onclick=()=>{if(lock)return;
+      if(k===ok){lock=true;bt.classList.add('good');SFX.yes();r.style.color='var(--ok)';r.textContent='✔ كتابةٌ صحيحة!';sc.textContent=AR(qi+1)+' / '+AR(P.length);
+        setTimeout(()=>{qi++;lock=false;if(qi<P.length)set();else{pair.innerHTML='<span class="w" style="font-size:44px">أنتم إملائيّونَ ماهرون! ✍️</span>';SFX.cheer();stars(hr.querySelector('.stars'))}},1300)}
+      else{bt.classList.add('bad');SFX.no();shake(bt);r.style.color='var(--bad)';r.textContent=w.includes('هتان')?'«هاتانِ» تُكتبُ ألفُها!':(w.includes('ألائك')?'«أولئكَ» فيها واوٌ تُكتبُ ولا تُنطق.':'هنا ألفٌ مختبئة… لا نكتبُها!');setTimeout(()=>bt.classList.remove('bad'),800)}};pair.appendChild(bt)});r.textContent=''}
+  set();})();
+
+/* ٩ */
+(()=>{const Q=[['السّؤالُ ١ من ٣: 🔭 بعيد','<span class="gap"></span> الحِصنُ قديمٌ.',['هذا','ذلك','تلك'],'ذلك'],
+  ['السّؤالُ ٢ من ٣: ✋ قريب','<span class="gap"></span> أختانِ صغيرتانِ.',['هذانِ','هاتانِ','هؤلاءِ'],'هاتانِ'],
+  ['السّؤالُ ٣ من ٣: أيُّ كتابةٍ صحيحة؟','',['هاذه','هذه','هاذهِ'],'هذه']];
+  let qi=0,lock=false;const st=document.getElementById('st9'),s=document.getElementById('s9'),o=document.getElementById('o9'),r=document.getElementById('r9'),fin=document.getElementById('fin');
+  function set(){const [t,sent,opts,ok]=Q[qi];st.textContent=t;s.innerHTML=sent;o.innerHTML='';r.textContent='';
+    opts.forEach(w=>{const bt=document.createElement('button');bt.textContent=w;bt.onclick=()=>{if(lock)return;
+      if(w===ok){lock=true;bt.classList.add('good');SFX.yes();if(sent)s.innerHTML=sent.replace('<span class="gap"></span>',`<span style="color:var(--ok)">${w}</span>`);r.style.color='var(--ok)';r.textContent='✔ أحسنت!';
+        setTimeout(()=>{qi++;lock=false;if(qi<Q.length)set();else{st.textContent='';s.innerHTML='حصلْتُم على الشّارة! 🦅';o.innerHTML='';r.textContent='';SFX.cheer();stars(fin.querySelector('.stars'))}},1400)}
+      else{bt.classList.add('bad');SFX.no();shake(bt);r.style.color='var(--bad)';r.textContent='فكِّرْ مرّةً أخرى…';setTimeout(()=>bt.classList.remove('bad'),800)}};o.appendChild(bt)})}
+  set();})();
+
+/* ١٠ */
+const cv=document.getElementById('confetti'),cx=cv.getContext('2d');
+function closing(){const s=slides[cur];s.classList.remove('go');void s.offsetWidth;s.classList.add('go');setTimeout(()=>{SFX.screech();SFX.cheer();confetti()},400)}
+function confetti(){const cols=['#2EAD65','#4B5BD6','#F2B233','#9C6B3E','#E0A21B','#fff'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+const _go=go;go=function(i){_go(i);if(cur===2&&window.__up3)requestAnimationFrame(window.__up3)};
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+go(0);
+</script>
+<script src="../assets/kawn-data.js" defer></script>
+</body>
+</html>

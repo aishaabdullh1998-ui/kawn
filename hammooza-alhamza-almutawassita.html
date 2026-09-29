@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="../assets/kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>همّوزة والكراسي الموسيقية: الهمزة المتوسطة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --sky:#BFE6F5;--sky2:#FFF1CF;--ground:#F2D08A;--paper:#FFFCF4;--ink:#2B2233;--ink2:#6D6275;--rope:#B98549;--rope2:#8A5E2E;
+  --kas:#E4455B;--dam:#2F7BEA;--fat:#22A565;--suk:#8C94A3;--line:#8E5BD8;--ham:#FF6F91;--ham2:#D94A6F;--ok:#2EAD65;--bad:#E23B3B;--gold:#F4B63A;
+  --ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--word:"Noto Naskh Arabic","Traditional Arabic","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sky:#9ACFE6;--sky2:#F3DDAA}}
+:root[data-theme="dark"]{--sky:#9ACFE6;--sky2:#F3DDAA}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--ground);font-family:var(--ui);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;overflow:clip;background:linear-gradient(var(--sky),var(--sky2) 70%,var(--ground) 70%)}
+.slide{position:absolute;inset:0;display:none}
+.slide.active{display:block;animation:slideIn .45s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{position:absolute;inset:58px 30px 96px;border-radius:30px;border:16px solid transparent;
+  background:linear-gradient(var(--paper),var(--paper)) padding-box,repeating-linear-gradient(60deg,var(--rope) 0 12px,var(--rope2) 12px 16px,#D8AE73 16px 26px,var(--rope2) 26px 30px) border-box;box-shadow:0 20px 44px rgba(90,60,20,.3)}
+.num{position:absolute;top:-48px;right:44px;width:92px;height:104px;background:var(--ham);clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);display:flex;justify-content:center;padding-top:18px}
+.num b{font-size:38px;font-weight:800;color:#fff}
+.head{position:absolute;top:10px;right:170px;left:30px;display:flex;align-items:baseline;gap:20px}
+.head h2{margin:0;font-size:50px;font-weight:800;line-height:1.35}
+.head p{margin:0;font-size:27px;font-weight:700;color:var(--ink2)}
+.content{position:absolute;top:96px;right:28px;left:28px;height:474px}
+.band{position:absolute;bottom:8px;right:20px;left:20px;height:126px;display:flex;align-items:flex-end;gap:20px}
+.guide{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;order:2}
+.guide svg{width:80px;height:112px;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:24px;padding:10px 20px;font-size:25px;line-height:1.5;font-weight:700;max-width:800px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:18px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.task{order:1;flex:0 0 590px;background:#FFF0F4;border:3px dashed var(--ham);border-radius:18px;padding:10px 20px;font-size:24px;font-weight:700;line-height:1.5}
+.task b{color:var(--ham2);margin-left:6px}
+.w{font-family:var(--word);font-weight:700}
+.H{color:var(--ham)}
+.btn{border:0;border-radius:22px;padding:10px 26px;font-size:27px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.3)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.hm{background:var(--ham);box-shadow:0 5px 0 var(--ham2)}.btn.lt{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(90,60,20,.2)}
+.btn.sel{outline:5px solid var(--gold);outline-offset:2px}
+.good{background:var(--ok)!important;color:#fff!important}.bad{background:var(--bad)!important;color:#fff!important}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+@keyframes popIn{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.rule{background:#fff;border-radius:22px;padding:12px 22px;font-size:26px;font-weight:700;line-height:1.6;border-right:12px solid}
+.rule h4{margin:0 0 2px;font-size:30px}
+.msg{font-size:28px;font-weight:800;min-height:44px;text-align:center}
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;font-style:normal;font-size:42px;color:var(--gold);animation:fall 1.4s ease-in forwards}
+@keyframes fall{from{transform:translateY(-40px) rotate(0);opacity:1}to{transform:translateY(420px) rotate(260deg);opacity:0}}
+
+/* همّوزة */
+.hz{width:96px;height:134px;position:relative;touch-action:none;cursor:grab;filter:drop-shadow(0 6px 6px rgba(0,0,0,.15))}
+.hz svg{width:100%;height:100%;pointer-events:none}
+.hz.dragging{z-index:60;cursor:grabbing}
+.hz.hop{animation:hop .5s}
+@keyframes hop{40%{transform:translateY(-40px) rotate(-8deg)}}
+.hz.fall{animation:fallDown .7s}
+@keyframes fallDown{30%{transform:rotate(40deg) translateY(10px)}60%{transform:rotate(80deg) translateY(30px)}100%{transform:none}}
+.hz.dance{animation:dance .7s infinite}
+@keyframes dance{25%{transform:rotate(-10deg) translateY(-12px)}75%{transform:rotate(10deg) translateY(-12px)}}
+
+/* الكراسي */
+.chairs{display:flex;gap:26px;justify-content:center;align-items:flex-end}
+.chair{width:150px;height:230px;position:relative;--c:var(--ink2)}
+.chair .back{position:absolute;left:18px;right:18px;top:40px;height:110px;border:8px solid var(--c);border-bottom:0;border-radius:24px 24px 0 0;background:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:80px;font-weight:700;color:var(--c);line-height:1}
+.chair .seat{position:absolute;left:0;right:0;top:150px;height:22px;background:var(--c);border-radius:8px}
+.chair .legs{position:absolute;top:172px;left:14px;right:14px;height:44px;border-left:10px solid var(--c);border-right:10px solid var(--c)}
+.chair small{position:absolute;bottom:-26px;left:0;right:0;text-align:center;font-size:21px;font-weight:800;color:var(--c)}
+.chair.mat .back,.chair.mat .legs{display:none}
+.chair.mat .seat{top:196px;height:26px;border-radius:6px;background:repeating-linear-gradient(90deg,var(--c) 0 16px,#B99BEA 16px 32px)}
+.chair.mat::before{content:"ء";position:absolute;top:96px;left:0;right:0;text-align:center;font-family:var(--word);font-size:76px;font-weight:700;color:var(--c);opacity:.35}
+.chair.hot .back,.chair.hot .seat{box-shadow:0 0 0 6px rgba(244,182,58,.6)}
+.chair.wob{animation:wob .6s}
+@keyframes wob{20%{transform:rotate(-10deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-6deg)}80%{transform:rotate(4deg)}}
+.chair .sitter{position:absolute;left:28px;top:44px;width:96px;height:134px;pointer-events:none;animation:popIn .4s}
+.chair.mat .sitter{top:62px}
+.chair .sitter svg{width:100%;height:100%}
+
+/* المقاطع */
+.tiles{display:flex;gap:8px;justify-content:center}
+.tile{min-width:84px;height:96px;border-radius:16px;background:#F4EEE2;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:56px;font-weight:700;padding:0 8px;border:3px solid #E6DAC2}
+.tile.bf{border-color:var(--gold);background:#FFF6DC}
+.tile.hz0{border-color:var(--ham);background:#FFE8EF;color:var(--ham2)}
+.vw{font-size:21px;font-weight:800;display:block;text-align:center;margin-top:2px}
+.full{font-family:var(--word);font-size:74px;font-weight:700;min-height:96px;line-height:1.3}
+
+/* مخلوقات الحركات */
+.vc{display:flex;flex-direction:column;align-items:center;gap:0;border:0;background:transparent;padding:0;position:relative}
+.vc svg{width:110px;height:110px}
+.vc .hk{font-family:var(--word);font-size:64px;font-weight:700;line-height:.9;height:56px;color:inherit}
+.vc b{font-size:24px;font-weight:800;color:inherit}
+
+#nav{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 20px;border-radius:27px;background:#fff;color:var(--ink);font-size:24px;font-weight:800;box-shadow:0 4px 0 #C99E52}
+#nav button:disabled{opacity:.4;cursor:not-allowed}
+#nav .main{background:var(--ham);color:#fff;box-shadow:0 4px 0 var(--ham2)}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,111,145,.8)}50%{box-shadow:0 0 0 14px rgba(255,111,145,0)}}
+#counter{font-size:26px;font-weight:800;min-width:90px;text-align:center}
+#tools{position:absolute;top:10px;left:16px;display:flex;gap:10px;z-index:50}
+#tools button{border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:var(--ink);font-size:20px;font-weight:700}
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:#fff;z-index:70;box-shadow:12px 0 40px rgba(0,0,0,.3);transform:translateX(-105%);transition:transform .35s;padding:30px;font-size:23px;line-height:1.7;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-size:34px;margin:0 0 8px;color:var(--ham2)}
+#notes dt{font-weight:800;color:var(--dam);margin-top:8px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px;font-size:20px}
+
+/* ١ */
+.s1 .title{position:absolute;top:40px;right:0;left:0;text-align:center}
+.s1 h1{margin:0;font-size:96px;font-weight:800;color:#fff;line-height:1.25;-webkit-text-stroke:3px var(--ham2);paint-order:stroke fill;text-shadow:0 7px 0 var(--ham2)}
+.s1 .title p{margin:4px 0 0;font-size:34px;font-weight:800}
+.s1 .chairs{position:absolute;bottom:130px;left:0;right:0;gap:60px}
+.walker{position:absolute;bottom:150px;left:-160px;width:130px;height:180px;animation:walk 9s linear infinite}
+.walker svg{width:100%;height:100%}
+@keyframes walk{0%{left:-160px;transform:translateY(0)}10%{transform:translateY(-14px)}20%{transform:translateY(0)}30%{transform:translateY(-14px)}40%{transform:translateY(0)}50%{transform:translateY(-14px)}60%{transform:translateY(0)}70%{transform:translateY(-14px)}80%{transform:translateY(0)}90%{transform:translateY(-14px)}100%{left:1700px;transform:translateY(0)}}
+.s1 .go1{position:absolute;top:260px;left:50%;transform:translateX(-50%);font-size:34px;padding:14px 40px;z-index:5}
+.s1.open .go1{display:none}
+.mission{position:absolute;top:220px;right:230px;left:230px;background:var(--paper);border-radius:30px;padding:26px 46px;border:14px solid var(--rope);box-shadow:0 20px 44px rgba(0,0,0,.3);opacity:0;transform:scale(.6);pointer-events:none;transition:.6s .2s cubic-bezier(.3,1.5,.5,1);z-index:6}
+.s1.open .mission{opacity:1;transform:none}
+.mission h3{margin:0;font-size:44px;color:var(--ham2)}
+.mission p{margin:0;font-size:27px;font-weight:700}
+.mission ol{margin:0;padding-right:44px;font-size:29px;line-height:1.75;font-weight:700;list-style:arabic-indic}
+
+/* ٢ و٧: منطقة السحب */
+.play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+.dock{position:absolute;top:10px;left:20px;width:150px;height:170px;border:4px dashed var(--ham);border-radius:24px;display:flex;align-items:center;justify-content:center;background:#FFF5F8}
+.dock::after{content:"اسحبْني!";position:absolute;bottom:-34px;font-size:22px;font-weight:800;color:var(--ham2)}
+
+/* ٣ النزال */
+.duel{position:absolute;inset:0;display:flex;gap:24px}
+.bench{width:260px;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:center}
+.bench .vc{background:#fff;border-radius:20px;padding:6px;box-shadow:0 4px 0 rgba(0,0,0,.1)}
+.bench .vc svg{width:80px;height:80px}.bench .vc .hk{font-size:48px;height:40px}.bench .vc b{font-size:20px}
+.bench .vc.used{outline:4px solid var(--gold)}
+.arena{flex:1;position:relative;background:#fff;border-radius:24px;border:4px solid #F0E4CF;overflow:hidden}
+.table{position:absolute;left:50%;bottom:0;width:560px;margin-left:-280px;height:120px;background:#C58C4E;border-radius:20px 20px 0 0;border-top:10px solid #A56E35}
+.fighter{position:absolute;bottom:110px;width:170px;display:flex;flex-direction:column;align-items:center;transition:transform .5s}
+.fighter.R{right:120px}.fighter.L{left:120px}
+.fighter .vc svg{width:150px;height:150px}.fighter .vc .hk{font-size:84px;height:70px}
+.fighter.win{animation:hop .5s 2}
+.fighter.lose{transform:translateY(30px) rotate(20deg);opacity:.6}
+.fighter.L.lose{transform:translateY(30px) rotate(-20deg)}
+.arms{position:absolute;left:50%;bottom:118px;width:24px;height:190px;margin-left:-12px;transform-origin:bottom center;background:linear-gradient(90deg,#F2C29B,#E9A97A);border-radius:12px;transition:transform 1.2s cubic-bezier(.5,0,.3,1)}
+.arms::before{content:"";position:absolute;top:-24px;left:-12px;width:48px;height:48px;border-radius:50%;background:#E9A97A}
+.arms.shaking{animation:strain .12s 8 alternate}
+@keyframes strain{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+.dlabel{position:absolute;top:14px;left:0;right:0;text-align:center;font-size:32px;font-weight:800}
+.dgo{position:absolute;top:70px;left:50%;transform:translateX(-50%)}
+.power{width:340px;background:#fff;border-radius:24px;border:4px solid #F0E4CF;padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+.power h4{margin:0;font-size:28px;text-align:center}
+.prow{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800}
+.prow .mk{font-family:var(--word);font-size:40px;width:44px;text-align:center}
+.prow .pb{flex:1;height:26px;border-radius:13px;background:#F1ECE4;overflow:hidden}
+.prow .pb i{display:block;height:100%;width:0;transition:width .8s;border-radius:13px}
+
+/* ٤ المدّ */
+.stretch{position:absolute;inset:0;display:flex;gap:26px;justify-content:center;align-items:center}
+.sc4{width:440px;background:#fff;border-radius:26px;border:5px solid;padding:10px 16px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.sc4 .vc{transition:transform .8s cubic-bezier(.3,1.5,.5,1)}
+.sc4 .vc svg{width:80px;height:80px}.sc4 .vc .hk{font-size:50px;height:42px}
+.sc4.on .vc{transform:scaleX(1.5)}
+.sc4 .snd{font-family:var(--word);font-size:42px;font-weight:700;min-height:56px;line-height:1.3}
+.sc4 .chair{opacity:0;transform:translateY(40px) scale(.8);transition:.6s .5s;height:190px;margin-top:-16px}
+.sc4 .chair .back{top:0}.sc4 .chair .seat{top:110px}.sc4 .chair .legs{top:132px}
+.sc4.on .chair{opacity:1;transform:scale(.8)}
+
+/* ٥ شدّ الحبل */
+.tug{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.field{position:relative;width:1420px;height:270px;background:linear-gradient(transparent 70%,#E9C77E 70%);border-radius:22px;overflow:hidden}
+.mud{position:absolute;bottom:0;left:50%;width:160px;margin-left:-80px;height:40px;background:#8A6A3E;border-radius:50%}
+.pullg{position:absolute;inset:0;transition:transform 1.3s cubic-bezier(.5,0,.3,1)}
+.rp{position:absolute;top:160px;right:180px;left:180px;height:14px;border-radius:7px;background:repeating-linear-gradient(60deg,var(--rope) 0 10px,var(--rope2) 10px 14px)}
+.flag{position:absolute;top:130px;left:50%;margin-left:-4px;width:8px;height:60px;background:var(--ink)}
+.flag::after{content:"";position:absolute;left:8px;top:2px;border-left:36px solid var(--ham);border-top:14px solid transparent;border-bottom:14px solid transparent}
+.team{position:absolute;top:60px;width:190px;display:flex;flex-direction:column;align-items:center;transition:transform .6s}
+.team.R{right:20px;transform:rotate(-8deg)}.team.L{left:20px;transform:rotate(8deg)}
+.team .vc svg{width:130px;height:130px}.team .vc .hk{font-size:72px;height:60px}
+.team.win{animation:hop .5s 2}
+.team.lose{transform:translateY(80px) rotate(70deg)!important;opacity:.5}
+.team.L.lose{transform:translateY(80px) rotate(-70deg)!important}
+.pickers{display:flex;gap:40px;align-items:center}
+.pk{display:flex;flex-direction:column;align-items:center;gap:4px}
+.pk .h{font-size:22px;font-weight:800}
+.pk .bs{display:flex;gap:8px}
+.pk .bs button{width:80px;height:70px;border-radius:16px;border:0;background:#fff;font-family:var(--word);font-size:48px;font-weight:700;box-shadow:0 4px 0 rgba(0,0,0,.15);line-height:1}
+.pk .bs button.sel{outline:4px solid var(--gold)}
+.result5{position:absolute;top:10px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;font-size:28px;font-weight:800;background:rgba(255,255,255,.92);border-radius:20px;padding:4px 22px;opacity:0;transition:.4s}
+.result5.on{opacity:1}
+.result5 .ch{font-family:var(--word);font-size:70px;line-height:1}
+.result5 .exw{font-family:var(--word);font-size:48px}
+
+/* ٦ الكراسي الموسيقية */
+.mc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+.score{display:flex;gap:20px;align-items:center}
+.teamS{display:flex;align-items:center;gap:10px;background:#fff;border-radius:18px;padding:4px 18px;font-size:26px;font-weight:800;border:4px solid transparent}
+.teamS.turn{border-color:var(--gold);box-shadow:0 0 0 6px rgba(244,182,58,.3)}
+.teamS output{font-size:40px;min-width:40px;text-align:center}
+.ring{position:relative;width:1100px;height:250px;margin-top:-10px}
+.ring .chairs{position:absolute;bottom:0;left:0;right:0;gap:70px}
+.runner{position:absolute;top:-6px;left:0;width:96px;height:134px;z-index:3}
+.runner.go{animation:circle 3s linear infinite}
+@keyframes circle{0%{transform:translate(1000px,0)}25%{transform:translate(500px,-20px)}50%{transform:translate(0,0)}75%{transform:translate(500px,-20px)}100%{transform:translate(1000px,0)}}
+.runner svg{width:100%;height:100%}
+.qbox{display:flex;align-items:center;gap:20px;min-height:104px}
+.qbox .timer{visibility:hidden}.qbox.open .timer{visibility:visible}
+.timer{width:90px;height:90px;border-radius:50%;background:conic-gradient(var(--ham) calc(var(--p,1)*360deg),#F1ECE4 0);display:flex;align-items:center;justify-content:center}
+.timer b{width:66px;height:66px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800}
+.mcBtns{display:flex;gap:14px}
+
+.mc .msg{margin-top:22px}
+/* ٨ المحقق */
+.para8{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:16px}
+.ptext{background:#fff;border-radius:24px;border:4px solid #F0E4CF;padding:24px 40px;font-family:var(--word);font-size:44px;font-weight:700;line-height:2;max-width:1350px;text-align:right}
+.ptext span{cursor:pointer;border-radius:10px;padding:0 4px;transition:.3s}
+.ptext span:hover{background:#FFF6DC}
+.ptext span.fixed{background:#DFF6E7;color:var(--ok)}
+.ptext span.nope{background:#FFE8EC}
+.found{font-size:28px;font-weight:800}
+
+/* ٩ السباق */
+.race{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:10px;justify-content:center}
+.bar{width:900px;height:22px;border-radius:11px;background:#F1ECE4;overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--bad),var(--gold),var(--ok));transform-origin:right;transition:transform linear}
+
+/* ١٠ */
+.recap{position:absolute;top:0;right:20px;width:860px;display:flex;flex-direction:column;gap:10px}
+.recap h3{margin:0;font-size:50px;color:var(--ok);transform:scale(0);transition:.6s cubic-bezier(.3,1.6,.5,1)}
+.s10.go .recap h3{transform:none}
+.recap div{display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:6px 18px;font-size:25px;font-weight:700;line-height:1.45}
+.recap .ic{width:76px;height:76px;flex:none;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:50px;color:#fff;font-weight:700;line-height:1}
+.badge{position:absolute;top:10px;left:24px;width:490px;height:470px;border-radius:30px;background:linear-gradient(160deg,#FFF0F4,#FFC3D3);border:8px solid var(--ham2);text-align:center;padding:14px 26px;box-shadow:0 16px 30px rgba(0,0,0,.2)}
+.badge .hz{margin:0 auto;width:120px;height:170px;cursor:default}
+.badge h4{margin:0;font-size:40px;color:var(--ham2)}
+.badge input{width:100%;font-family:var(--word);font-size:40px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed var(--ham2);background:transparent;color:var(--ink);padding:4px;user-select:text}
+.badge input:focus{outline:none;background:rgba(255,255,255,.5)}
+.badge p{margin:10px 0 0;font-size:23px;font-weight:700;color:var(--ham2)}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+#credit{position:absolute;right:12px;bottom:5px;z-index:55;pointer-events:none;font-family:"Noto Naskh Arabic","Tahoma",sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.22);padding:1px 9px 2px;border-radius:9px;opacity:.7;letter-spacing:0}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="hzs" viewBox="20 -330 300 420">
+  <ellipse cx="170" cy="72" rx="100" ry="9" fill="#000" opacity=".12"/>
+  <path transform="scale(1,-1)" d="M189 206Q171 206 151.0 187.0Q131 168 131 126Q136 110 151.5 99.5Q167 89 175 87Q181 87 193.0 91.5Q205 96 233.0 106.5Q261 117 290 126L269 43Q152 8 55 -59Q72 -24 79.0 -11.0Q86 2 98.0 18.0Q110 34 128 50Q95 58 75.0 78.5Q55 99 55 131Q55 186 95.5 239.0Q136 292 184 292Q261 292 261 220Q261 172 234 145Q227 152 218.0 168.0Q209 184 202.0 195.0Q195 206 189 206Z" fill="#FF6F91" stroke="#D94A6F" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M190 -300 l26 -22 l8 28 l-30 6z M190 -300 l-32 -12 l2 30 l30 -6z" fill="#F4B63A" stroke="#C98A1C" stroke-width="3"/>
+  <circle cx="112" cy="-206" r="26" fill="#fff" stroke="#2B2233" stroke-width="4"/><circle cx="170" cy="-248" r="26" fill="#fff" stroke="#2B2233" stroke-width="4"/>
+  <circle cx="116" cy="-202" r="12" fill="#2B2233"/><circle cx="174" cy="-244" r="12" fill="#2B2233"/>
+  <circle cx="120" cy="-207" r="4" fill="#fff"/><circle cx="178" cy="-249" r="4" fill="#fff"/>
+  <circle cx="92" cy="-160" r="11" fill="#FFC1D1"/>
+  <path d="M100 -130 q16 14 34 2" stroke="#2B2233" stroke-width="6" fill="none" stroke-linecap="round"/>
+</symbol>
+<symbol id="vcs" viewBox="0 0 120 120">
+  <ellipse cx="60" cy="114" rx="36" ry="5" fill="#000" opacity=".12"/>
+  <path d="M40 104 v8 M80 104 v8" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="60" cy="64" r="44" fill="currentColor"/>
+  <circle cx="60" cy="64" r="44" fill="#fff" opacity=".12"/>
+  <circle cx="45" cy="56" r="11" fill="#fff"/><circle cx="75" cy="56" r="11" fill="#fff"/>
+  <circle cx="46" cy="58" r="5.5" fill="#2B2233"/><circle cx="76" cy="58" r="5.5" fill="#2B2233"/>
+  <path d="M46 78 q14 12 28 0" stroke="#2B2233" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <circle cx="34" cy="74" r="6" fill="#fff" opacity=".35"/><circle cx="86" cy="74" r="6" fill="#fff" opacity=".35"/>
+</symbol>
+</svg>
+
+<div id="stage">
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+
+<div id="tools"><a href="../index.html" style="border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a><button id="bSound">🔊 الصوت</button><button id="bFull">⛶ ملء الشاشة</button><button id="bNotes">📋 ملاحظات المعلمة</button></div>
+
+<!-- ١ -->
+<section class="slide s1 active">
+  <div class="title"><h1>همّوزةُ والكراسي الموسيقيّة</h1><p>الهمزةُ المتوسّطةُ على الألفِ والواوِ والنّبرةِ والسّطر</p></div>
+  <button class="btn hm go1" id="go1">🎵 ساعِدوا همّوزة</button>
+  <div class="chairs" data-chairs="all"></div>
+  <div class="walker"><svg><use href="#hzs"/></svg></div>
+  <div class="mission">
+    <h3>قوانينُ اللّعبة</h3>
+    <p>بعدَ أن نلعبَ مع همّوزة سأستطيعُ أنْ:</p>
+    <ol>
+      <li>أرتّبَ الحركاتِ حسبَ قوّتِها: الكسرة، فالضّمّة، فالفتحة، فالسّكون.</li>
+      <li>أقارنَ حركةَ الهمزةِ بحركةِ الحرفِ قبلَها لأختارَ الكرسيّ.</li>
+      <li>أكتبَ الهمزةَ المتوسّطةَ على الألفِ والواوِ والنّبرةِ والسّطر.</li>
+    </ol>
+  </div>
+  <template class="notes"><h3>١. همّوزة الحائرة</h3><dl>
+    <dt>الهدف</dt><dd>إثارة الدافعية وعرض الأهداف.</dd>
+    <dt>قولي</dt><dd>«هذه همّوزة، همزة صغيرة تسكن وسط الكلمات. كلما دخلت كلمة وجدت أمامها كراسي كثيرة… فعلى أيّها تجلس؟»</dd>
+    <dt>الزمن</dt><dd>دقيقتان</dd></dl></template>
+</section>
+
+<!-- ٢ -->
+<section class="slide s2">
+  <div class="card"><div class="num"><b>٢</b></div>
+    <div class="head"><h2>جرِّبوا بأنفسِكم!</h2><p>اسحبوا همّوزة إلى الكرسيِّ الّذي تظنّونه</p></div>
+    <div class="content"><div class="play">
+      <div class="tiles" id="tl2"></div>
+      <div class="full" id="fl2"></div>
+      <div class="chairs" id="ch2" data-chairs="3"></div>
+      <div class="dock" id="dock2"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>سؤالُ اللّغز:</b>همّوزة واحدة… فلماذا يتغيّرُ كرسيُّها من كلمةٍ إلى أخرى؟</div>
+      <div class="guide"><svg><use href="#hzs"/></svg><div class="bubble" id="b2">ساعدوني! أين أجلسُ في هذه الكلمة؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. جرّبوا بأنفسكم</h3><dl>
+    <dt>الهدف</dt><dd>الاكتشاف بالتجربة وإثارة السؤال: ما الذي يحدد الكرسي؟</dd>
+    <dt>التنفيذ</dt><dd>يسحب طالب همّوزة إلى كرسي يتوقعه. الكرسي الخطأ يهتز ويرفضها بطريقة مضحكة. ثلاث كلمات: سَأَلَ، بِئْر، مُؤْمِن.</dd>
+    <dt>سؤال</dt><dd>لاحظوا الحرف الذهبي قبل الهمزة وحركته… هل له علاقة؟</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٣ -->
+<section class="slide s3">
+  <div class="card"><div class="num"><b>٣</b></div>
+    <div class="head"><h2>نزالُ الأذرع</h2><p>مَن أقوى الحركات؟</p></div>
+    <div class="content"><div class="duel">
+      <div class="bench" id="bench3"></div>
+      <div class="arena" id="arena3">
+        <div class="dlabel" id="dl3">اختاروا بطلينِ من المقاعد</div>
+        <button class="btn hm dgo" id="dgo">💪 ابدأِ النّزال!</button>
+        <div class="table"></div>
+        <div class="arms" id="arms3"></div>
+        <div class="fighter R" id="fR"></div><div class="fighter L" id="fL"></div>
+      </div>
+      <div class="power" id="pw3"><h4>🏆 لوحةُ القوّة</h4></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>للحفظ:</b>الكسرةُ أقوى، ثمّ الضّمّةُ، ثمّ الفتحةُ، والسّكونُ أضعفُها.</div>
+      <div class="guide"><svg><use href="#hzs"/></svg><div class="bubble" id="b3">سرُّ الكرسيّ في مباراةٍ بينَ الحركات… هيّا نعرفِ الأقوى!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٣. نزال الأذرع</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف ترتيب قوة الحركات.</dd>
+    <dt>التنفيذ</dt><dd>يختار طالب بطلين (يضغط اثنين من المقاعد) ثم «ابدأ النزال». يتوقع الصف الفائز قبل الضغط. تمتلئ لوحة القوة تدريجيًّا حتى يظهر الترتيب كاملًا.</dd>
+    <dt>حركة</dt><dd>يمكن أن يتقمّص طالبان دور حركتين ويتصارعان بالأذرع بلطف!</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٤ -->
+<section class="slide s4">
+  <div class="card"><div class="num"><b>٤</b></div>
+    <div class="head"><h2>مُدّوا الصّوت!</h2><p>كلُّ حركةٍ لها كرسيٌّ من عائلتِها</p></div>
+    <div class="content"><div class="stretch" id="st4"></div></div>
+    <div class="band">
+      <div class="task"><b>جرِّبوا بأصواتِكم:</b>قولوا «بِ» ومدّوها: بِـيـي… ماذا سمعْتُم؟</div>
+      <div class="guide"><svg><use href="#hzs"/></svg><div class="bubble" id="b4">اضغطوا «مُدّي صوتَك»… واستمعوا كيفَ تصيرُ الحركةُ حرفًا!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٤. مدّوا الصوت</h3><dl>
+    <dt>الهدف</dt><dd>ربط كل حركة بكرسيّها: الكسرة ← الياء (النبرة)، الضمة ← الواو، الفتحة ← الألف.</dd>
+    <dt>التنفيذ</dt><dd>يمدّ الصف صوت الحركة قبل الضغط، فيكتشف الحرف بأذنه. ثم يضغط الطالب فتتمدد الحركة ويظهر الكرسي.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ٥ -->
+<section class="slide s5">
+  <div class="card"><div class="num"><b>٥</b></div>
+    <div class="head"><h2>شدُّ الحبل</h2><p>الفائزُ يُحضِرُ كرسيَّه</p></div>
+    <div class="content"><div class="tug">
+      <div class="field" id="field5"><div class="mud"></div>
+        <div class="pullg" id="pg5"><div class="rp"></div><div class="flag"></div>
+          <div class="team R" id="tR"></div><div class="team L" id="tL"></div></div>
+        <div class="result5" id="res5"></div>
+      </div>
+      <div class="pickers">
+        <div class="pk"><div class="h">الحرفُ قبلَ الهمزة</div><div class="bs" id="pR"></div></div>
+        <button class="btn hm" id="pull">💪 اسحبوا!</button>
+        <div class="pk"><div class="h">حركةُ الهمزة</div><div class="bs" id="pL"></div></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>جرِّبوا:</b>كسرة ضدّ سكون، ضمّة ضدّ فتحة، سكون ضدّ فتحة. توقّعوا الفائزَ قبلَ السّحب!</div>
+      <div class="guide"><svg><use href="#hzs"/></svg><div class="bubble" id="b5">الفريقُ الأقوى يسحبُ الحبل… والخاسرُ يقعُ في الطّين!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٥. شد الحبل</h3><dl>
+    <dt>الهدف</dt><dd>القاعدة كاملة: نقارن حركة الهمزة بحركة ما قبلها، والأقوى يحدد الكرسي.</dd>
+    <dt>التنفيذ</dt><dd>يختار طالبان حركتي الفريقين، ويهتف الصف لتوقعه، ثم «اسحبوا!». تظهر كلمة مثال لكل تركيبة.</dd>
+    <dt>ملاحظة</dt><dd>سكون ضد سكون لا يحدث في الكلمة العربية.</dd>
+    <dt>الزمن</dt><dd>٦ دقائق</dd></dl></template>
+</section>
+
+<!-- ٦ -->
+<section class="slide s6">
+  <div class="card"><div class="num"><b>٦</b></div>
+    <div class="head"><h2>الكراسي الموسيقيّة</h2><p>مسابقةُ الفريقين</p></div>
+    <div class="content"><div class="mc">
+      <div class="score"><div class="teamS turn" id="tA">🌴 فريقُ النّخيل <output id="sA">٠</output></div><div class="teamS" id="tB">⛰️ فريقُ الجبال <output id="sB">٠</output></div><button class="btn hm" id="music6">🎵 شغِّلِ الموسيقى</button><button class="btn" id="stop6">⏹ توقّفْ!</button></div>
+      <div class="qbox" id="qb6"><div class="tiles" id="tl6"></div><div class="timer" id="tm6"><b>١٠</b></div></div>
+      <div class="ring"><div class="runner" id="run6"><svg><use href="#hzs"/></svg></div><div class="chairs" id="ch6" data-chairs="3"></div></div>
+      
+      <div class="msg" id="m6"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>قانونُ اللّعبة:</b>حينَ تتوقّفُ الموسيقى تظهرُ كلمة… أمامَ الفريقِ عشرُ ثوانٍ ليختارَ الكرسيّ!</div>
+      <div class="guide"><svg><use href="#hzs"/></svg><div class="bubble" id="b6">أدورُ حولَ الكراسي… وحينَ تتوقّفُ الموسيقى أجلسُ بسرعة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٦. الكراسي الموسيقية</h3><dl>
+    <dt>الهدف</dt><dd>تطبيق القاعدة في جو تنافسي.</dd>
+    <dt>التنفيذ</dt><dd>قسّمي الصف فريقين. اضغطي «شغّل الموسيقى» فتدور همّوزة، ثم «توقّف!» فتظهر كلمة ويبدأ العدّ. يتشاور الفريق ويضغط ممثله الكرسي. الإجابة الصحيحة نقطة، والدور ينتقل للفريق الآخر.</dd>
+    <dt>الكلمات</dt><dd>يَسْأَلُ، سُئِلَ، فِئَة، مَسْؤُول، رَأْس، ذِئْب، سُؤَال، شُؤُون.</dd>
+    <dt>الزمن</dt><dd>٧ دقائق</dd></dl></template>
+</section>
+
+<!-- ٧ -->
+<section class="slide s7">
+  <div class="card"><div class="num"><b>٧</b></div>
+    <div class="head"><h2>ألفانِ لا تجتمعان!</h2><p>الهمزةُ على السّطر</p></div>
+    <div class="content"><div class="play">
+      <div class="tiles" id="tl7"></div>
+      <div class="full" id="fl7"></div>
+      <div class="chairs" id="ch7" data-chairs="alifmat"></div>
+      <div class="dock" id="dock7"></div>
+      <div style="position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:10px" id="w7x"><button class="btn lt sel" data-i="0">عَباءَة</button><button class="btn lt" data-i="1">قِراءَة</button><button class="btn lt" data-i="2">تَساءَلَ</button></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>القاعدة:</b>همزةٌ <b>مفتوحة</b> قبلَها <b>ألفٌ ساكنة</b> ← تقفُ على السّطر، لأنّ ألفينِ متجاورتينِ لا تُكتبان.</div>
+      <div class="guide"><svg><use href="#hzs"/></svg><div class="bubble" id="b7">الفتحةُ فازت… لكنْ هل يقبلُ كرسيُّ الألفِ أن أجلسَ عليه؟ جرّبوا!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٧. الهمزة على السطر</h3><dl>
+    <dt>الهدف</dt><dd>كتابة الهمزة المفتوحة بعد ألف ساكنة على السطر.</dd>
+    <dt>التنفيذ</dt><dd>اسحبي همّوزة إلى كرسي الألف أولًا: ستُدفع بعيدًا لأن ألفين لا تتجاوران (اأ). ثم إلى السطر.</dd>
+    <dt>للمتمكنين</dt><dd>وكذلك بعد الواو الساكنة: مُروءَة (دون توسع).</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٨ -->
+<section class="slide s8">
+  <div class="card"><div class="num"><b>٨</b></div>
+    <div class="head"><h2>رسالةٌ فيها أخطاء!</h2><p>اكتشفِ الكلماتِ الثّلاثَ الخطأ</p></div>
+    <div class="content"><div class="para8">
+      <div class="ptext" id="p8"></div>
+      <div class="found" id="f8">الأخطاءُ المكتشفة: ٠ / ٣</div>
+      <div class="msg" id="m8"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>مهمّتُك:</b>اقرأْ رسالةَ سالم، واضغطْ كلَّ كلمةٍ همزتُها في غيرِ مكانِها.</div>
+      <div class="guide"><svg><use href="#hzs"/></svg><div class="bubble" id="b8">كتبَ سالمٌ رسالةً عن رحلته… لكنّه أجلسَني على كراسٍ خاطئة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٨. رسالة فيها أخطاء</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف أخطاء الهمزة المتوسطة في سياق حقيقي.</dd>
+    <dt>الأخطاء</dt><dd>المَسْأُول ← المَسْؤُول، القِراأَة ← القِراءَة، البِأْر ← البِئْر.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب الرسالة، ويضغط كل طالب كلمة يظنها خطأ ويعلّل.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٩ -->
+<section class="slide s9">
+  <div class="card"><div class="num"><b>٩</b></div>
+    <div class="head"><h2>السّباقُ الأخير</h2><p>خمسُ كلماتٍ… والوقتُ يمضي!</p></div>
+    <div class="content"><div class="race" id="race9">
+      <div class="bar"><i id="bar9"></i></div>
+      <div class="tiles" id="tl9"></div>
+      <div class="full" id="fl9"></div>
+      <div class="chairs" id="ch9" data-chairs="all"></div>
+      <div class="msg" id="m9"></div>
+      <button class="btn hm" id="start9">🏁 ابدأِ السّباق</button>
+      <div class="stars"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>انتبِهْ:</b>في هذا السّباقِ الكراسي الأربعةُ كلُّها، ومعها السّطر!</div>
+      <div class="guide"><svg><use href="#hzs"/></svg><div class="bubble" id="b9">أسرعوا! لكلِّ كلمةٍ ثماني ثوانٍ فقط.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. السباق الأخير</h3><dl>
+    <dt>الهدف</dt><dd>تقويم سريع يشمل الكراسي الأربعة.</dd>
+    <dt>الكلمات</dt><dd>بِئْر، مُؤْمِن، سَأَلَ، عَباءَة، أَسْئِلَة.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ١٠ -->
+<section class="slide s10">
+  <div class="card"><div class="num"><b>١٠</b></div>
+    <div class="content" style="top:26px;height:560px">
+      <div class="recap">
+        <h3>وجدَتْ همّوزة كراسيَّها!</h3>
+        <div><span class="ic" style="background:var(--gold);font-size:30px">💪</span>قارِنْ حركتَها بحركةِ ما قبلَها: الكسرة ← الضّمّة ← الفتحة ← السّكون.</div>
+        <div><span class="ic" style="background:var(--kas)">ئ</span>الكسرةُ فازَتْ ← على النّبرة: بِئْر، سُئِلَ</div>
+        <div><span class="ic" style="background:var(--dam)">ؤ</span>الضّمّةُ فازَتْ ← على الواو: مُؤْمِن، مَسْؤُول</div>
+        <div><span class="ic" style="background:var(--fat)">أ</span>الفتحةُ فازَتْ ← على الألف: سَأَلَ، رَأْس</div>
+        <div><span class="ic" style="background:var(--line)">ء</span>مفتوحةٌ بعدَ ألفٍ ساكنة ← على السّطر: عَباءَة</div>
+      </div>
+      <div class="badge"><div class="hz dance"><svg><use href="#hzs"/></svg></div><h4>بطلُ الكراسي الموسيقيّة</h4>
+        <input id="starName" placeholder="اكتبِ اسمَ البطل" aria-label="اسم البطل">
+        <p>يُجلِسُ همّوزة في مكانِها الصّحيحِ دائمًا</p></div>
+    </div>
+    <div class="band">
+      <div class="task"><b>في دفترك:</b>اجمعْ من كتابِ القراءةِ ستَّ كلماتٍ فيها همزةٌ متوسّطة، وصنِّفْها حسبَ كرسيِّها.</div>
+      <div class="guide"><svg><use href="#hzs"/></svg><div class="bubble">شكرًا يا أبطال! الآنَ أعرفُ أين أجلسُ دائمًا.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١٠. الختام</h3><dl>
+    <dt>الهدف</dt><dd>تلخيص القاعدة وتعزيز الفريق الفائز.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب الملخص، ثم اكتبي اسم البطل أو اسم الفريق الفائز وصوّري الشاشة.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+<aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ١٠</span><button id="next" class="main">التّالي ◀</button></nav>
+</div>
+
+<script>
+const SFX=(()=>{let ctx=null,on=true,musicT=null;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ const MEL=[523,659,784,659,587,698,880,698,523,659,784,1047,988,784,659,587];
+ return{toggle(){on=!on;if(!on)this.stopMusic();return on},
+  music(){this.stopMusic();let i=0;musicT=setInterval(()=>{tone(MEL[i%MEL.length],.18,{type:'triangle',v:.1});if(i%2===0)tone(MEL[i%MEL.length]/2,.2,{type:'sine',v:.07});i++},200)},
+  stopMusic(){if(musicT){clearInterval(musicT);musicT=null}},
+  scratch(){noise(.35,{v:.3,type:'bandpass',f:2500,to:300,q:3})},
+  whistle(){tone(2400,.12,{v:.12});tone(2600,.35,{v:.12,at:.13})},
+  boing(){tone(300,.4,{type:'sine',v:.2,to:900});tone(900,.3,{type:'sine',v:.1,at:.15,to:300})},
+  pull(){for(let i=0;i<5;i++){tone(140,.12,{type:'square',v:.07,at:i*.22});noise(.1,{v:.18,f:600,at:i*.22})}},
+  grunt(){for(let i=0;i<6;i++)tone(110+Math.random()*40,.1,{type:'sawtooth',v:.06,at:i*.12})},
+  splash(){noise(.6,{v:.4,f:1500,to:200})},
+  crowd(){for(let i=0;i<30;i++)noise(.06,{v:.12,type:'bandpass',f:900+Math.random()*1600,at:Math.random()*1.3})},
+  stretch(f){tone(f,1,{type:'triangle',v:.14,to:f*1.02})},
+  sit(){tone(300,.12,{v:.2,to:180});tone(900,.1,{type:'triangle',v:.1,at:.1})},
+  tick(){tone(1500,.04,{type:'square',v:.05})},
+  pop(){tone(600,.08,{v:.15,to:1200})},
+  yes(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,{type:'triangle',v:.16,at:i*.08}))},
+  no(){tone(220,.25,{type:'square',v:.08,to:150})},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  cheer(){this.yes();this.crowd()}
+ }})();
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`;window.__s=s}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let cur=0,unlocked=false;
+const nextB=document.getElementById('next'),prevB=document.getElementById('prev'),counter=document.getElementById('counter');
+function go(i){if(i<0||i>=slides.length)return;if(i>0&&!unlocked)return;stage.scrollLeft=0;stage.scrollTop=0;
+  SFX.stopMusic();
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=cur===slides.length-1||!unlocked;nextB.classList.toggle('pulse',cur===0&&unlocked);
+  const t=slides[cur].querySelector('template.notes');document.getElementById('notesBody').innerHTML=t?t.innerHTML:'';
+  if(cur===9)closing();}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown'].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+document.getElementById('bSound').onclick=e=>{e.currentTarget.textContent=SFX.toggle()?'🔊 الصوت':'🔇 صامت'};
+document.getElementById('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+document.getElementById('bNotes').onclick=()=>document.getElementById('notes').classList.toggle('open');
+document.getElementById('closeNotes').onclick=()=>document.getElementById('notes').classList.remove('open');
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function stars(box){for(let i=0;i<14;i++){const s=document.createElement('i');s.textContent='★';s.style.left=Math.random()*95+'%';s.style.top=Math.random()*20+'%';s.style.animationDelay=Math.random()*.4+'s';box.appendChild(s);setTimeout(()=>s.remove(),2000)}}
+
+/* ===== بيانات ===== */
+const V={k:['ِ','الكسرة','var(--kas)',3,'ئ','الياء','النّبرة'],d:['ُ','الضّمّة','var(--dam)',2,'ؤ','الواو','الواو'],f:['َ','الفتحة','var(--fat)',1,'أ','الألف','الألف'],s:['ْ','السّكون','var(--suk)',0,'','','']};
+const mk=k=>'ـ'+V[k][0];
+const CH={'ئ':['ٮ','var(--kas)','النّبرة'],'ؤ':['و','var(--dam)','الواو'],'أ':['ا','var(--fat)','الألف'],'ء':['','var(--line)','السّطر']};
+function chairHTML(c){const [b,col,lab]=CH[c];return `<div class="chair${c==='ء'?' mat':''}" data-c="${c}" style="--c:${col}"><div class="back">${b}</div><div class="seat"></div><div class="legs"></div><small>على ${lab}</small></div>`}
+document.querySelectorAll('[data-chairs]').forEach(el=>{const t=el.dataset.chairs;const L=t==='3'?['ئ','ؤ','أ']:t==='alifmat'?['أ','ء']:['ئ','ؤ','أ','ء'];el.innerHTML=L.map(chairHTML).join('')});
+function vcHTML(k){return `<div class="vc" style="color:${V[k][2]}"><span class="hk">${mk(k)}</span><svg><use href="#vcs"/></svg><b>${V[k][1]}</b></div>`}
+function tiles(el,T,labels=true){el.innerHTML=T.map(([t,r,v])=>`<div><div class="tile ${r==='b'?'bf':r==='h'?'hz0':''}">${t}</div>${labels&&v?`<span class="vw" style="color:${V[v][2]}">${V[v][1]}</span>`:''}</div>`).join('')}
+function clearSit(box){box.querySelectorAll('.sitter').forEach(s=>s.remove())}
+function sitOn(chair){clearSit(chair.parentElement);const s=document.createElement('div');s.className='sitter';s.innerHTML='<svg><use href="#hzs"/></svg>';chair.appendChild(s);SFX.sit()}
+function wobble(ch){ch.classList.remove('wob');void ch.offsetWidth;ch.classList.add('wob')}
+/* كلمة: [مقاطع، الكرسي، قبل، الهمزة بحركتها، بعد] */
+const W={
+ سأل:[[['سَ','b','f'],['ءَ','h','f'],['لَ']],'أ','سَ','أَ','لَ'],بئر:[[['بِ','b','k'],['ءْ','h','s'],['ر']],'ئ','بِ','ئْ','ر'],مؤمن:[[['مُ','b','d'],['ءْ','h','s'],['مِ'],['ن']],'ؤ','مُ','ؤْ','مِن'],
+ يسأل:[[['يَ'],['سْ','b','s'],['ءَ','h','f'],['لُ']],'أ','يَسْ','أَ','لُ'],سئل:[[['سُ','b','d'],['ءِ','h','k'],['لَ']],'ئ','سُ','ئِ','لَ'],فئة:[[['فِ','b','k'],['ءَ','h','f'],['ة']],'ئ','فِ','ئَ','ة'],
+ مسؤول:[[['مَ'],['سْ','b','s'],['ءُ','h','d'],['و'],['ل']],'ؤ','مَسْ','ؤُ','ول'],رأس:[[['رَ','b','f'],['ءْ','h','s'],['س']],'أ','رَ','أْ','س'],ذئب:[[['ذِ','b','k'],['ءْ','h','s'],['ب']],'ئ','ذِ','ئْ','ب'],
+ سؤال:[[['سُ','b','d'],['ءَ','h','f'],['ا'],['ل']],'ؤ','سُ','ؤَ','ال'],شؤون:[[['شُ','b','d'],['ءُ','h','d'],['و'],['ن']],'ؤ','شُ','ؤُ','ون'],أسئلة:[[['أَ'],['سْ','b','s'],['ءِ','h','k'],['لَ'],['ة']],'ئ','أَسْ','ئِ','لَة'],
+ عباءة:[[['عَ'],['با','b','s'],['ءَ','h','f'],['ة']],'ء','عَبا','ءَ','ة']};
+function reason(key){const T=W[key][0];const b=T.find(x=>x[1]==='b')[2],h=T.find(x=>x[1]==='h')[2];if(key==='عباءة')return 'مفتوحةٌ بعدَ ألفٍ ساكنة ← على السّطر';const w=V[b][3]>=V[h][3]?b:h;return `${V[b][1]} ضدّ ${V[h][1]}: فازَتْ ${V[w][1]} ← ${V[w][4]}`}
+const fullHTML=key=>{const [,c,a,h,z]=W[key];return `${a}<span class="H">${h}</span>${z}`};
+
+/* ===== سحب همّوزة ===== */
+function makeHz(dock,targets,onDrop){dock.innerHTML='<div class="hz"><svg><use href="#hzs"/></svg></div>';const el=dock.firstChild;
+  el.addEventListener('pointerdown',e=>{e.preventDefault();const sx=e.clientX,sy=e.clientY;el.setPointerCapture(e.pointerId);el.classList.add('dragging');SFX.pop();
+    const hit=ev=>targets().find(t=>{const r=t.getBoundingClientRect();return ev.clientX>r.left&&ev.clientX<r.right&&ev.clientY>r.top&&ev.clientY<r.bottom});
+    const mv=ev=>{const s=window.__s||1;el.style.transform=`translate(${(ev.clientX-sx)/s}px,${(ev.clientY-sy)/s}px) rotate(-6deg) scale(1.08)`;const h=hit(ev);targets().forEach(t=>t.classList.toggle('hot',t===h))};
+    const up=ev=>{el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);el.classList.remove('dragging');const h=hit(ev);targets().forEach(t=>t.classList.remove('hot'));
+      el.style.transition='transform .45s cubic-bezier(.3,1.6,.5,1)';el.style.transform='';setTimeout(()=>el.style.transition='',460);
+      if(h)onDrop(h,el)};
+    el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up)});return el}
+
+/* ١ */
+document.getElementById('go1').onclick=()=>{if(unlocked)return;SFX.magic();document.querySelector('.s1').classList.add('open');setTimeout(()=>{unlocked=true;go(0)},700)};
+
+/* ٢ */
+(()=>{const L=['سأل','بئر','مؤمن'];let i=0,tries=0;const tl=document.getElementById('tl2'),fl=document.getElementById('fl2'),ch=document.getElementById('ch2'),b=document.getElementById('b2');
+  const FUN=['آه! هذا الكرسيُّ يهتزّ… لا يناسبُني!','بووينغ! قفزْتُ منه!','لا لا، ليس هذا… جرّبوا غيرَه!'];
+  function set(){tiles(tl,W[L[i]][0],false);fl.innerHTML='';clearSit(ch);tries=0;b.textContent='ساعدوني! أين أجلسُ في هذه الكلمة؟'}
+  makeHz(document.getElementById('dock2'),()=>[...ch.querySelectorAll('.chair')],(c,el)=>{const ok=W[L[i]][1];
+    if(c.dataset.c===ok){sitOn(c);SFX.yes();fl.innerHTML=fullHTML(L[i]);
+      b.textContent=i<2?'جلسْتُ! انظروا إلى الحرفِ الذّهبيِّ وحركتي… هيّا إلى الكلمةِ التّالية!':'ثلاثُ كلماتٍ وثلاثةُ كراسيّ… مَن يختارُ لي الكرسيّ؟ هناك سرّ!';
+      if(i<2)setTimeout(()=>{i++;set()},2200)}
+    else{wobble(c);SFX.boing();el.classList.add('fall');setTimeout(()=>el.classList.remove('fall'),700);b.textContent=FUN[tries++%3]}});
+  set();})();
+
+/* ٣ النزال */
+(()=>{const bench=document.getElementById('bench3'),fR=document.getElementById('fR'),fL=document.getElementById('fL'),arms=document.getElementById('arms3'),dl=document.getElementById('dl3'),pw=document.getElementById('pw3'),b=document.getElementById('b3');
+  let pick=[];const seen=new Set();
+  ['k','d','f','s'].forEach(k=>{pw.insertAdjacentHTML('beforeend',`<div class="prow" data-k="${k}"><span class="mk" style="color:${V[k][2]}">${mk(k)}</span><div class="pb"><i style="background:${V[k][2]}"></i></div><span class="lv">؟</span></div>`);
+    const bt=document.createElement('button');bt.className='vc';bt.style.color=V[k][2];bt.innerHTML=`<span class="hk">${mk(k)}</span><svg><use href="#vcs"/></svg><b>${V[k][1]}</b>`;
+    bt.onclick=()=>{if(pick.includes(k))return;if(pick.length===2){pick=[];bench.querySelectorAll('.vc').forEach(x=>x.classList.remove('used'))}pick.push(k);bt.classList.add('used');SFX.pop();
+      const f=pick.length===1?fR:fL;f.className='fighter '+(pick.length===1?'R':'L');f.innerHTML=vcHTML(k);arms.style.transform='';dl.textContent=pick.length===2?`${V[pick[0]][1]} ضدّ ${V[pick[1]][1]}`:'اختاروا بطلًا ثانيًا'};bench.appendChild(bt)});
+  document.getElementById('dgo').onclick=()=>{if(pick.length<2){SFX.no();dl.textContent='اختاروا بطلين أوّلًا!';return}
+    const [a,c]=pick;fR.classList.remove('win','lose');fL.classList.remove('win','lose');arms.style.transform='';arms.classList.add('shaking');SFX.grunt();dl.textContent='💪 … 💪 … 💪';
+    setTimeout(()=>{arms.classList.remove('shaking');const w=V[a][3]>V[c][3]?'R':'L';const wk=w==='R'?a:c;
+      arms.style.transform=w==='R'?'rotate(70deg)':'rotate(-70deg)';SFX.crowd();
+      setTimeout(()=>{(w==='R'?fR:fL).classList.add('win');(w==='R'?fL:fR).classList.add('lose');dl.innerHTML=`فازَتْ <span style="color:${V[wk][2]}">${V[wk][1]}</span>! 🏆`;SFX.yes();
+        [a,c].forEach(k=>{seen.add(k);const r=pw.querySelector(`[data-k="${k}"]`);r.querySelector('i').style.width=[10,40,70,100][V[k][3]]+'%';r.querySelector('.lv').textContent=['صفر','١','٢','٣'][V[k][3]]});
+        b.textContent=seen.size===4?'اكتملَتْ لوحةُ القوّة: الكسرةُ ملكة 👑، ثمّ الضّمّة، ثمّ الفتحة، والسّكونُ نائم 😴':`${V[wk][1]} أقوى من ${V[wk===a?c:a][1]}.`},1200)},1000)};})();
+
+/* ٤ المد */
+(()=>{const box=document.getElementById('st4'),b=document.getElementById('b4');
+  const D={k:['بِ','بِـيـي','ئ',330],d:['بُ','بُـوو','ؤ',262],f:['بَ','بَـاا','أ',392]};
+  ['k','d','f'].forEach(k=>{const [s,l,c,fr]=D[k];const cd=document.createElement('div');cd.className='sc4';cd.style.borderColor=V[k][2];
+    cd.innerHTML=`${vcHTML(k)}<div class="snd" style="color:${V[k][2]}">${s}</div><button class="btn" style="background:${V[k][2]}">🗣️ مُدّي صوتَك</button>${chairHTML(c)}`;
+    cd.querySelector('button').onclick=()=>{cd.classList.remove('on');void cd.offsetWidth;cd.classList.add('on');SFX.stretch(fr);cd.querySelector('.snd').textContent=l;
+      setTimeout(()=>{SFX.sit();b.textContent=`${V[k][1]} إذا مُدَّتْ صارَتْ ${V[k][5]}… فكرسيُّها ${c} (على ${V[k][6]})!`},900)};box.appendChild(cd)});})();
+
+/* ٥ شد الحبل */
+(()=>{const EX={'f,f':'سَأَلَ','f,s':'رَأْس','f,d':'رَؤُوف','f,k':'سَئِمَ','d,f':'سُؤَال','d,s':'مُؤْمِن','d,d':'شُؤُون','d,k':'سُئِلَ','k,f':'فِئَة','k,s':'بِئْر','k,d':'مُنْشِئُون','k,k':'قارِئِين','s,f':'يَسْأَلُ','s,d':'مَسْؤُول','s,k':'أَسْئِلَة'};
+  let r='k',l='s';const pR=document.getElementById('pR'),pL=document.getElementById('pL'),tR=document.getElementById('tR'),tL=document.getElementById('tL'),pg=document.getElementById('pg5'),res=document.getElementById('res5'),b=document.getElementById('b5');
+  function show(){tR.className='team R';tL.className='team L';tR.innerHTML=vcHTML(r);tL.innerHTML=vcHTML(l);pg.style.transform='';res.classList.remove('on')}
+  function mkPick(box,side){['k','d','f','s'].forEach(k=>{const bt=document.createElement('button');bt.textContent=mk(k);bt.style.color=V[k][2];bt.title=V[k][1];if((side==='r'?r:l)===k)bt.classList.add('sel');
+    bt.onclick=()=>{[...box.children].forEach(x=>x.classList.toggle('sel',x===bt));if(side==='r')r=k;else l=k;show();SFX.pop()};box.appendChild(bt)})}
+  mkPick(pR,'r');mkPick(pL,'l');show();
+  document.getElementById('pull').onclick=()=>{if(r==='s'&&l==='s'){SFX.no();b.textContent='😴😴 ساكنانِ متتاليانِ لا يلتقيانِ هنا!';return}
+    show();SFX.pull();SFX.grunt();const side=V[r][3]>V[l][3]?'r':(V[l][3]>V[r][3]?'l':'=');const w=side==='l'?l:r;
+    pg.style.transform=side==='r'?'translateX(-230px)':(side==='l'?'translateX(230px)':'');
+    setTimeout(()=>{if(side!=='='){(side==='r'?tR:tL).classList.add('win');(side==='r'?tL:tR).classList.add('lose');SFX.splash()}SFX.crowd();
+      res.innerHTML=`<span>فازَتْ <span style="color:${V[w][2]}">${V[w][1]}</span>${side==='='?' (متساويتان)':''}</span><span class="ch" style="color:${V[w][2]}">${V[w][4]}</span><span class="exw">${EX[r+','+l]}</span>`;res.classList.add('on');
+      b.textContent=side==='='?`حركتانِ متساويتان، فالكرسيُّ كرسيُّ ${V[w][5]}.`:`${V[w][1]} أقوى! أحضرَتْ كرسيَّ أختِها ${V[w][5]}… والخاسرُ في الطّين! 😄`},1300)};})();
+
+/* ٦ الكراسي الموسيقية */
+(()=>{const L=['يسأل','سئل','فئة','مسؤول','رأس','ذئب','سؤال','شؤون'];let qi=0,team=0,score=[0,0],timer=null,open=false,left=10;
+  const run=document.getElementById('run6'),ch=document.getElementById('ch6'),tl=document.getElementById('tl6'),tm=document.getElementById('tm6'),m=document.getElementById('m6'),b=document.getElementById('b6');
+  const tA=document.getElementById('tA'),tB=document.getElementById('tB');
+  function turnUI(){tA.classList.toggle('turn',team===0);tB.classList.toggle('turn',team===1)}
+  function setT(v){left=v;tm.style.setProperty('--p',v/10);tm.querySelector('b').textContent=AR(v)}
+  function end(ok,c){clearInterval(timer);open=false;document.getElementById('qb6').classList.remove('open');run.classList.remove('go');run.style.visibility='hidden';
+    const key=L[qi];const right=ch.querySelector(`[data-c="${W[key][1]}"]`);sitOn(right);
+    if(ok){score[team]++;document.getElementById(team?'sB':'sA').textContent=AR(score[team]);SFX.cheer();m.style.color='var(--ok)';m.innerHTML=`✔ نقطةٌ لـ${team?'فريقِ الجبال':'فريقِ النّخيل'}! <span class="w">${fullHTML(key)}</span>: ${reason(key)}`}
+    else{SFX.no();if(c)wobble(c);m.style.color='var(--bad)';m.innerHTML=`✘ الصّحيح: <span class="w">${fullHTML(key)}</span>: ${reason(key)}`}
+    qi++;team=1-team;turnUI();
+    if(qi>=L.length){setTimeout(()=>{const w=score[0]===score[1]?'تعادلَ الفريقان! 🤝':(score[0]>score[1]?'فازَ فريقُ النّخيل! 🌴🏆':'فازَ فريقُ الجبال! ⛰️🏆');b.textContent=w;m.textContent=w;SFX.cheer()},1500)}}
+  document.getElementById('music6').onclick=()=>{if(open||qi>=L.length)return;clearSit(ch);tl.innerHTML='';setT(10);m.textContent='';run.style.visibility='visible';run.classList.add('go');SFX.music();b.textContent='🎵 أدورُ وأدور… انتبهوا!';
+    setTimeout(()=>{if(run.classList.contains('go'))document.getElementById('stop6').click()},3000+Math.random()*3000)};
+  document.getElementById('stop6').onclick=()=>{if(!run.classList.contains('go')||open)return;SFX.stopMusic();SFX.scratch();run.classList.remove('go');open=true;document.getElementById('qb6').classList.add('open');
+    tiles(tl,W[L[qi]][0]);b.textContent=`توقّفَتِ الموسيقى! دورُ ${team?'فريقِ الجبال':'فريقِ النّخيل'}… أين أجلس؟`;setT(10);
+    timer=setInterval(()=>{setT(left-1);SFX.tick();if(left<=0)end(false)},1000)};
+  ch.querySelectorAll('.chair').forEach(c=>c.onclick=()=>{if(!open)return;end(c.dataset.c===W[L[qi]][1],c)});
+  run.style.visibility='hidden';turnUI();})();
+
+/* ٧ السطر */
+(()=>{const L=['عباءة',[[['قِ'],['را','b','s'],['ءَ','h','f'],['ة']],'ء','قِرا','ءَ','ة'],[[['تَ'],['سا','b','s'],['ءَ','h','f'],['لَ']],'ء','تَسا','ءَ','لَ']];
+  let wi=0;const tl=document.getElementById('tl7'),fl=document.getElementById('fl7'),ch=document.getElementById('ch7'),b=document.getElementById('b7');
+  const get=i=>i===0?W['عباءة']:L[i];
+  function set(){const w=get(wi);tiles(tl,w[0]);const v=tl.querySelector('.tile.bf+.vw')||tl.querySelectorAll('.vw')[0];if(v){v.textContent='ألفٌ ساكنة';v.style.color='var(--line)'}fl.innerHTML='';clearSit(ch)}
+  makeHz(document.getElementById('dock7'),()=>[...ch.querySelectorAll('.chair')],(c,el)=>{const w=get(wi);
+    if(c.dataset.c==='أ'){wobble(c);SFX.boing();el.classList.add('fall');setTimeout(()=>el.classList.remove('fall'),700);fl.innerHTML=`<span style="color:var(--bad);text-decoration:line-through">${w[2]}<span>أَ</span>${w[4]}</span>`;b.textContent='دفعَتْني الألف! قالت: «لا مكانَ لألفينِ متجاورتين (اأ)!» 😖'}
+    else{sitOn(c);SFX.yes();fl.innerHTML=`${w[2]}<span class="H">${w[3]}</span>${w[4]}`;b.textContent='وقفْتُ على السّطرِ بأمان! همزةٌ مفتوحةٌ بعدَ ألفٍ ساكنة.'}});
+  document.querySelectorAll('#w7x button').forEach(bt=>bt.onclick=()=>{wi=+bt.dataset.i;document.querySelectorAll('#w7x button').forEach(x=>x.classList.toggle('sel',x===bt));set();SFX.pop()});
+  set();})();
+
+/* ٨ رسالة */
+(()=>{const T=[['زُرْنا'],['المكتبةَ'],['وسَأَلْنا'],['المَسْأُولَ','المَسْؤُولَ','الضّمّةُ أقوى من السّكون ← واو'],['عن'],['كتابٍ'],['في'],['القِراأَةِ','القِراءَةِ','مفتوحةٌ بعدَ ألفٍ ساكنة ← السّطر'],['فقالَ:'],['خُذوا'],['قصّةَ'],['البِأْرِ','البِئْرِ','الكسرةُ أقوى من السّكون ← نبرة'],['والذِّئْبِ'],['الذّكيِّ.']];
+  const p=document.getElementById('p8'),f=document.getElementById('f8'),m=document.getElementById('m8'),b=document.getElementById('b8');let n=0;
+  T.forEach(([w,fix,why])=>{const s=document.createElement('span');s.textContent=w;s.onclick=()=>{if(s.classList.contains('fixed'))return;
+      if(fix){s.textContent=fix;s.classList.add('fixed');n++;SFX.sit();SFX.yes();f.textContent=`الأخطاءُ المكتشفة: ${AR(n)} / ٣`;m.style.color='var(--ok)';m.textContent=`✔ ${w} ← ${fix}: ${why}`;if(n===3){b.textContent='أصلحْتُم الرّسالةَ كلَّها! أجلستُموني في الأماكنِ الصّحيحة.';SFX.cheer()}}
+      else{s.classList.add('nope');SFX.no();m.style.color='var(--bad)';m.textContent=`«${w}» مكتوبةٌ صحيحة… ابحثْ عن غيرِها.`;setTimeout(()=>s.classList.remove('nope'),900)}};p.appendChild(s);p.append(' ')});})();
+
+/* ٩ السباق */
+(()=>{const L=['بئر','مؤمن','سأل','عباءة','أسئلة'];let qi=0,t=null,open=false,pts=0;
+  const tl=document.getElementById('tl9'),fl=document.getElementById('fl9'),ch=document.getElementById('ch9'),m=document.getElementById('m9'),bar=document.getElementById('bar9'),st=document.getElementById('start9'),b=document.getElementById('b9');
+  function next(){if(qi>=L.length){st.style.display='';st.textContent='🔁 أعِدِ السّباق';tl.innerHTML='';fl.innerHTML=`النّتيجة: ${AR(pts)} / ${AR(L.length)} ${pts===L.length?'🏆':''}`;m.textContent='';if(pts>=4){SFX.cheer();stars(document.getElementById('race9').querySelector('.stars'))}return}
+    clearSit(ch);tiles(tl,W[L[qi]][0]);fl.innerHTML='';m.textContent='';open=true;
+    bar.style.transition='none';bar.style.transform='scaleX(1)';void bar.offsetWidth;bar.style.transition='transform 8s linear';bar.style.transform='scaleX(0)';
+    t=setTimeout(()=>done(false),8000)}
+  function done(ok,c){clearTimeout(t);open=false;const key=L[qi];sitOn(ch.querySelector(`[data-c="${W[key][1]}"]`));fl.innerHTML=fullHTML(key);
+    if(ok){pts++;SFX.yes();m.style.color='var(--ok)';m.textContent='✔ '+reason(key)}else{SFX.no();if(c)wobble(c);m.style.color='var(--bad)';m.textContent='✘ '+reason(key)}
+    qi++;setTimeout(next,1900)}
+  st.onclick=()=>{qi=0;pts=0;st.style.display='none';next()};
+  ch.querySelectorAll('.chair').forEach(c=>c.onclick=()=>{if(!open)return;done(c.dataset.c===W[L[qi]][1],c)});})();
+
+/* ١٠ */
+const cv=document.getElementById('confetti'),cx=cv.getContext('2d');
+function closing(){const s=slides[cur];s.classList.remove('go');void s.offsetWidth;s.classList.add('go');setTimeout(()=>{SFX.whistle();SFX.cheer();confetti()},400)}
+function confetti(){const cols=['#E4455B','#2F7BEA','#22A565','#8E5BD8','#FF6F91','#F4B63A'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+go(0);
+</script>
+<script src="../assets/kawn-data.js" defer></script>
+</body>
+</html>

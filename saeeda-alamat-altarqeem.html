@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="../assets/kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>سعيدة في مدينة الكلام: علامات الترقيم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --sky1:#9FDBFF;--sky2:#E6F6FF;--road:#2F343D;--bus:#FFC61A;--bus2:#D99A00;--paper:#FFFDF6;--ink:#1F2A3A;--ink2:#566175;
+  --stop:#E23B3B;--comma:#2F80ED;--semi:#F59E0B;--colon:#8B5CF6;--quote:#0FA89A;--q:#E0468F;--ex:#F9731B;--ok:#2EAD65;
+  --ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--word:"Noto Naskh Arabic","Traditional Arabic","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sky1:#6FB9E6;--sky2:#BFE3F7}}
+:root[data-theme="dark"]{--sky1:#6FB9E6;--sky2:#BFE3F7}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--road);font-family:var(--ui);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--bus);outline-offset:3px}
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;background:linear-gradient(var(--sky1),var(--sky2) 80%)}
+.city{position:absolute;bottom:80px;left:0;right:0;height:260px;display:flex;align-items:flex-end;gap:14px;padding:0 20px;opacity:.55}
+.city i{flex:1;background:#fff;border-radius:10px 10px 0 0;background-image:repeating-linear-gradient(transparent 0 26px,rgba(159,219,255,.6) 26px 44px)}
+.street{position:absolute;bottom:0;left:0;right:0;height:84px;background:var(--road)}
+.street::after{content:"";position:absolute;top:40px;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--bus) 0 50px,transparent 50px 100px)}
+.slide{position:absolute;inset:0;display:none}
+.slide.active{display:block;animation:slideIn .45s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{position:absolute;inset:60px 30px 96px;background:var(--paper);border-radius:28px;border:14px solid var(--road);box-shadow:0 20px 44px rgba(31,42,58,.3)}
+.card::before{content:"";position:absolute;inset:-9px;border:3px dashed var(--bus);border-radius:22px;pointer-events:none}
+.num{position:absolute;top:-50px;right:46px;width:92px;height:92px;background:var(--bus);border:6px solid var(--road);border-radius:14px;transform:rotate(45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 12px rgba(0,0,0,.2)}
+.num b{transform:rotate(-45deg);font-size:38px;font-weight:800}
+.head{position:absolute;top:10px;right:170px;left:30px;display:flex;align-items:baseline;gap:20px}
+.head h2{margin:0;font-size:52px;font-weight:800;line-height:1.35}
+.head p{margin:0;font-size:27px;font-weight:700;color:var(--ink2)}
+.content{position:absolute;top:96px;right:28px;left:28px;height:470px}
+.band{position:absolute;bottom:8px;right:20px;left:20px;height:126px;display:flex;align-items:flex-end;gap:20px}
+.guide{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;order:2}
+.guide svg{width:150px;height:92px;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:24px;padding:10px 20px;font-size:25px;line-height:1.5;font-weight:700;max-width:780px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:18px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.task{order:1;flex:0 0 590px;background:#FFF4CC;border:3px solid var(--bus2);border-radius:16px;padding:10px 20px;font-size:24px;font-weight:700;line-height:1.5}
+.task b{color:#9A6A00;margin-left:6px}
+.w{font-family:var(--word);font-weight:700}
+.mk{font-family:var(--word);font-weight:700;display:inline-block;padding:0 3px}
+.c-stop{color:var(--stop)}.c-comma{color:var(--comma)}.c-semi{color:var(--semi)}.c-colon{color:var(--colon)}.c-quote{color:var(--quote)}.c-q{color:var(--q)}.c-ex{color:var(--ex)}
+.btn{border:0;border-radius:22px;padding:10px 26px;font-size:27px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.3)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.y{background:var(--bus);color:var(--ink);box-shadow:0 5px 0 var(--bus2)}.btn.lt{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(31,42,58,.2)}
+.good{background:var(--ok)!important;color:#fff!important}.bad{background:var(--stop)!important;color:#fff!important}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+@keyframes popIn{0%{transform:scale(.4)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+.rule{background:#fff;border-radius:20px;padding:12px 22px;font-size:26px;font-weight:700;line-height:1.55;border-right:12px solid}
+.rule h4{margin:0 0 2px;font-size:30px;display:flex;align-items:center;gap:12px}
+.rule h4 .mk{font-size:54px;line-height:.8}
+.ex{font-family:var(--word);font-size:30px;background:#F3F6FB;border-radius:12px;padding:2px 14px;display:inline-block;margin-top:6px}
+
+#nav{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 20px;border-radius:27px;background:#fff;color:var(--ink);font-size:24px;font-weight:800}
+#nav button:disabled{opacity:.35;cursor:not-allowed}
+#nav .main{background:var(--bus)}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,198,26,.8)}50%{box-shadow:0 0 0 14px rgba(255,198,26,0)}}
+#counter{font-size:26px;font-weight:800;min-width:90px;text-align:center;color:#fff}
+#tools{position:absolute;top:10px;left:16px;display:flex;gap:10px;z-index:50}
+#tools button{border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.8);color:var(--ink);font-size:20px;font-weight:700}
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:#fff;z-index:60;box-shadow:12px 0 40px rgba(0,0,0,.3);transform:translateX(-105%);transition:transform .35s;padding:30px;font-size:23px;line-height:1.7;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-size:34px;margin:0 0 8px;color:var(--comma)}
+#notes dt{font-weight:800;color:#9A6A00;margin-top:8px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px;font-size:20px}
+
+/* ١ */
+.s1 .title{position:absolute;top:60px;right:0;left:0;text-align:center}
+.s1 h1{margin:0;font-size:96px;font-weight:800;color:var(--bus);line-height:1.2;-webkit-text-stroke:3px var(--road);paint-order:stroke fill;text-shadow:0 8px 0 var(--road)}
+.s1 .title p{margin:8px 0 0;font-size:34px;font-weight:800}
+.bigBus{position:absolute;bottom:60px;left:1700px;width:560px;height:330px;transition:left 2.2s cubic-bezier(.25,.8,.3,1)}
+.s1.rolling .bigBus{left:520px}
+.s1.open .bigBus{left:-700px;transition:left 1.6s ease-in}
+.bigBus svg{width:100%;height:100%}
+.s1 .startB{position:absolute;top:300px;left:50%;transform:translateX(-50%);font-size:34px;padding:14px 40px}
+.s1.open .startB{display:none}
+.mission{position:absolute;top:240px;right:230px;left:230px;background:var(--paper);border-radius:28px;padding:26px 46px;border:14px solid var(--road);box-shadow:0 20px 44px rgba(0,0,0,.3);opacity:0;transform:scale(.6);pointer-events:none;transition:.6s .9s cubic-bezier(.3,1.5,.5,1)}
+.s1.open .mission{opacity:1;transform:none}
+.mission h3{margin:0;font-size:44px;color:var(--comma)}
+.mission p{margin:0;font-size:27px;font-weight:700}
+.mission ol{margin:0;padding-right:44px;font-size:30px;line-height:1.7;font-weight:700;list-style:arabic-indic}
+.signs7{display:flex;gap:12px;margin-top:10px;justify-content:center}
+.signs7 span{width:62px;height:62px;border-radius:50%;background:#fff;border:5px solid;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:40px;font-weight:700;line-height:1}
+
+/* ٢ */
+.crash{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:22px}
+.para{width:1300px;min-height:250px;background:#fff;border-radius:22px;padding:26px 40px;font-family:var(--word);font-size:44px;font-weight:700;line-height:2.1;border:4px solid #E3E8F0;text-align:right}
+.para span.t{display:inline-block;transition:transform .5s,margin .5s}
+.para.jam span.t{margin-left:-14px}
+.para.boom span.t{transform:rotate(var(--r)) translateY(var(--y))}
+.para .mk{font-size:54px;animation:popIn .5s both}
+.ctr2{display:flex;gap:20px}
+
+/* ٣ الطريق */
+.drive{position:relative;background:#E9EDF3;border-radius:22px;padding:90px 40px 26px;border:4px solid #D5DCE6}
+.drive .line{font-family:var(--word);font-size:58px;font-weight:700;line-height:1.6;white-space:nowrap}
+.drive .tk{display:inline-block;padding:0 4px;border-radius:10px;transition:background .3s}
+.drive .tk.on{background:#FFF1B8}
+.drive .mk{font-size:74px}
+.mini{position:absolute;top:10px;width:120px;height:72px;transition:right .45s linear;right:10px}
+.mini svg{width:100%;height:100%}
+.mini.bump{animation:bump .5s}
+@keyframes bump{30%{transform:translateY(-22px) rotate(-6deg)}60%{transform:translateY(0)}80%{transform:translateY(-8px)}}
+.pop{position:absolute;top:14px;left:24px;font-size:26px;font-weight:800;color:#fff;border-radius:14px;padding:2px 14px;white-space:nowrap;animation:popIn .4s}
+.row3{display:flex;gap:24px;margin-top:22px}
+.row3 .rule{flex:1}
+
+/* ٤ الإشارة الصفراء */
+.semiWrap{position:absolute;inset:0;display:flex;gap:34px}
+.light{width:180px;background:var(--road);border-radius:40px;padding:22px;display:flex;flex-direction:column;gap:18px;align-items:center;align-self:flex-start}
+.light i{width:110px;height:110px;border-radius:50%;background:#4A505C;display:flex;align-items:center;justify-content:center;font-style:normal;font-family:var(--word);font-size:70px;font-weight:700;color:rgba(255,255,255,.25);transition:.4s}
+.light i.onR{background:var(--stop);color:#fff;box-shadow:0 0 30px var(--stop)}
+.light i.onY{background:var(--semi);color:#fff;box-shadow:0 0 30px var(--semi)}
+.light i.onB{background:var(--comma);color:#fff;box-shadow:0 0 30px var(--comma)}
+.semiR{flex:1;display:flex;flex-direction:column;gap:10px}
+.meter{display:flex;flex-direction:row;align-items:center;gap:24px;background:#fff;border-radius:18px;padding:6px 20px}
+.meter div{display:flex;align-items:center;gap:14px;font-size:24px;font-weight:700}
+.meter .mk{font-size:44px;width:40px;text-align:center}
+.meter em{height:22px;border-radius:11px;display:block}
+.semiQ{background:#FFF7E6;border-radius:18px;padding:12px 20px;border:3px dashed var(--semi)}
+.semiQ .s{font-family:var(--word);font-size:36px;font-weight:700}
+.semiQ .o{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}
+.semiQ .o button{border:0;background:#fff;border-radius:14px;font-family:var(--word);font-size:30px;font-weight:700;padding:4px 18px;box-shadow:0 4px 0 rgba(0,0,0,.12)}
+
+/* ٥ الباب */
+.doorWrap{position:absolute;inset:0;display:flex;gap:30px}
+.doorBus{width:560px;height:430px;position:relative;background:var(--bus);border-radius:40px 40px 18px 18px;border:6px solid var(--bus2);flex:none}
+.doorBus .win{position:absolute;top:36px;height:110px;width:130px;background:#CFEFFF;border:5px solid var(--road);border-radius:14px}
+.door{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:230px;height:300px;background:var(--road);border-radius:14px 14px 0 0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.door .inside{font-family:var(--word);font-size:130px;font-weight:700;color:var(--colon)}
+.door i{position:absolute;top:0;bottom:0;width:50%;background:#CFEFFF;border:5px solid var(--road);transition:transform .8s}
+.door i.l{left:0}.door i.r{right:0}
+.doorBus.open .door i.l{transform:translateX(-100%)}.doorBus.open .door i.r{transform:translateX(100%)}
+.doorR{flex:1;display:flex;flex-direction:column;gap:16px}
+.scene{background:#fff;border-radius:20px;padding:14px 22px;border:3px solid #E3E8F0}
+.scene .s{font-family:var(--word);font-size:40px;font-weight:700;line-height:1.7;min-height:70px}
+.out{display:inline-flex;gap:10px;opacity:0}
+.out.on{opacity:1}
+.out span{display:inline-block;border-radius:14px;padding:0 14px;animation:popIn .5s both}
+.speech{display:inline-block;background:#F1EBFF;border-radius:20px;padding:0 18px;border:3px solid var(--colon)}
+.scBtns{display:flex;gap:14px}
+
+/* ٦ النافذة */
+.qWrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:18px}
+.people{display:flex;gap:60px;align-items:flex-end}
+.pp{display:flex;flex-direction:column;align-items:center;gap:8px}
+.pp .face{width:120px;height:120px;border-radius:50%;background:#FFD9B8;border:5px solid var(--road);position:relative}
+.pp .face::before,.pp .face::after{content:"";position:absolute;top:44px;width:14px;height:18px;border-radius:50%;background:var(--road)}
+.pp .face::before{right:34px}.pp .face::after{left:34px}
+.pp .face b{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);width:40px;height:18px;border-bottom:5px solid var(--road);border-radius:0 0 30px 30px}
+.pp .face.g{background:#FFE3C9}
+.pp .face.g::marker{}
+.pp .hij{position:absolute;inset:-8px;border-radius:50% 50% 40% 40%;border:12px solid #E0468F;border-bottom-color:transparent;pointer-events:none}
+.say{background:#fff;border:3px solid var(--ink);border-radius:22px;padding:6px 20px;font-family:var(--word);font-size:36px;font-weight:700;position:relative}
+.say::after{content:"";position:absolute;bottom:-16px;left:50%;border:10px solid transparent;border-top:14px solid var(--ink)}
+.pp button{font-size:22px;padding:6px 18px}
+.frame{background:#fff;border-radius:22px;padding:14px 30px;font-family:var(--word);font-size:48px;font-weight:700;border:4px solid #E3E8F0;min-width:1000px;text-align:center;min-height:100px}
+.frame .qt{color:var(--quote);font-size:58px}
+.frame .got{background:#DDF7F3;border-radius:12px;padding:0 10px;animation:popIn .5s}
+
+/* ٧ الصوت */
+.voice{position:absolute;inset:0;display:flex;gap:30px}
+.vL{flex:1;display:flex;flex-direction:column;align-items:center;gap:14px}
+.vSent{font-family:var(--word);font-size:96px;font-weight:700;background:#fff;border-radius:26px;padding:0 50px;border:4px solid #E3E8F0}
+.vSent .slot{display:inline-block;min-width:60px;border-bottom:6px dotted var(--ink2);text-align:center}
+.vBtns{display:flex;gap:18px}
+.vBtns button{width:110px;height:100px;border-radius:24px;border:0;background:#fff;font-family:var(--word);font-size:72px;font-weight:700;box-shadow:0 6px 0 rgba(0,0,0,.15);line-height:1}
+.wave{width:560px;height:110px}
+.wave path{fill:none;stroke-width:8;stroke-linecap:round;transition:d .5s}
+.mood{font-size:30px;font-weight:800;min-height:48px;text-align:center}
+.vR{width:560px;display:flex;flex-direction:column;gap:14px}
+
+/* ٨ اللعبة */
+.game{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:18px}
+.gRoad{position:relative;width:1400px;height:200px;background:#E9EDF3;border-radius:22px;border:4px solid #D5DCE6;display:flex;align-items:center;justify-content:center}
+.gRoad .s{font-family:var(--word);font-size:54px;font-weight:700}
+.gRoad .gap{display:inline-block;min-width:70px;height:74px;border:4px dashed var(--ink2);border-radius:14px;vertical-align:middle;text-align:center;line-height:1.2;margin:0 6px}
+.gRoad .mini{top:auto;bottom:6px;right:14px;transition:right 1.2s ease-in}
+.gRoad.crash{animation:shake .5s}
+.pad{display:flex;gap:14px}
+.pad button{width:120px;height:120px;border-radius:50%;border:8px solid;background:#fff;font-family:var(--word);font-size:64px;font-weight:700;line-height:1;box-shadow:0 6px 0 rgba(0,0,0,.15)}
+.gMsg{font-size:30px;font-weight:800;min-height:48px}
+.gScore{position:absolute;top:-2px;left:10px;z-index:3;background:var(--road);color:var(--bus);border-radius:14px;padding:0 18px;font-size:28px;font-weight:800}
+
+/* ٩ */
+.chal{position:absolute;inset:0;display:flex;gap:30px}
+.pan{flex:1;background:#fff;border-radius:26px;border:5px solid #E3E8F0;padding:20px 26px;display:flex;flex-direction:column;align-items:center;gap:16px;position:relative;overflow:hidden}
+.pan h4{margin:0;font-size:31px;color:var(--comma)}
+.ord{display:flex;gap:16px}
+.ord button{width:120px;height:120px;border-radius:24px;border:0;background:#F3F6FB;font-family:var(--word);font-size:84px;font-weight:700;line-height:1;box-shadow:0 5px 0 rgba(0,0,0,.12);position:relative}
+.ord button i{position:absolute;top:-12px;right:-12px;width:40px;height:40px;border-radius:50%;background:var(--ok);color:#fff;font-style:normal;font-size:24px;font-family:var(--ui);display:flex;align-items:center;justify-content:center}
+.slots{display:flex;gap:14px;font-size:24px;font-weight:700;color:var(--ink2);align-items:center}
+.slots b{width:90px;height:90px;border-radius:20px;border:4px dashed #C9D2E0;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:64px}
+.pick{border:0;width:100%;background:#F7F9FC;border-radius:16px;padding:14px;font-family:var(--word);font-size:40px;font-weight:700;box-shadow:0 5px 0 rgba(0,0,0,.1)}
+.res{font-size:27px;font-weight:800;min-height:44px;text-align:center}
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;font-style:normal;font-size:42px;color:var(--bus);animation:fall 1.4s ease-in forwards}
+@keyframes fall{from{transform:translateY(-40px) rotate(0);opacity:1}to{transform:translateY(420px) rotate(260deg);opacity:0}}
+
+/* ١٠ */
+.recap{position:absolute;top:0;right:20px;width:820px;display:grid;grid-template-columns:1fr;gap:8px}
+.recap h3{grid-column:1/-1;margin:0;font-size:50px;line-height:1.3;color:var(--ok);transform:scale(0);transition:.6s cubic-bezier(.3,1.6,.5,1)}
+.s10.go .recap h3{transform:none}
+.recap div{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:2px 14px;height:58px;font-size:25px;font-weight:700;line-height:1.35;border-right:10px solid}
+.recap div .mk{font-size:46px;width:70px;text-align:center;line-height:1}
+.badge{position:absolute;top:20px;left:30px;width:480px;height:450px;border-radius:30px;background:linear-gradient(160deg,#FFF3C4,#FFD66B);border:8px solid #E0A400;text-align:center;padding:16px 26px;box-shadow:0 16px 30px rgba(0,0,0,.2)}
+.badge svg{width:250px;height:150px}
+.badge h4{margin:0;font-size:42px;color:#8A5A00}
+.badge input{width:100%;font-family:var(--word);font-size:40px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed #8A5A00;background:transparent;color:var(--ink);padding:4px;user-select:text}
+.badge input:focus{outline:none;background:rgba(255,255,255,.5)}
+.badge p{margin:10px 0 0;font-size:23px;font-weight:700;color:#8A5A00}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+#credit{position:absolute;right:12px;bottom:5px;z-index:55;pointer-events:none;font-family:"Noto Naskh Arabic","Tahoma",sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.22);padding:1px 9px 2px;border-radius:9px;opacity:.7;letter-spacing:0}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="bus" viewBox="0 0 320 190">
+  <ellipse cx="160" cy="180" rx="140" ry="8" fill="#000" opacity=".15"/>
+  <rect x="18" y="26" width="284" height="126" rx="28" fill="#FFC61A" stroke="#D99A00" stroke-width="5"/>
+  <rect x="26" y="40" width="64" height="60" rx="14" fill="#CFEFFF" stroke="#2F343D" stroke-width="4"/>
+  <circle cx="44" cy="66" r="12" fill="#fff"/><circle cx="72" cy="66" r="12" fill="#fff"/>
+  <circle cx="42" cy="68" r="6.5" fill="#2F343D"/><circle cx="70" cy="68" r="6.5" fill="#2F343D"/>
+  <circle cx="44" cy="65" r="2.2" fill="#fff"/><circle cx="72" cy="65" r="2.2" fill="#fff"/>
+  <circle cx="36" cy="86" r="5" fill="#F7A1B5" opacity=".7"/><circle cx="80" cy="86" r="5" fill="#F7A1B5" opacity=".7"/>
+  <rect x="104" y="42" width="40" height="42" rx="8" fill="#CFEFFF" stroke="#2F343D" stroke-width="4"/>
+  <rect x="154" y="42" width="40" height="42" rx="8" fill="#CFEFFF" stroke="#2F343D" stroke-width="4"/>
+  <rect x="204" y="42" width="40" height="42" rx="8" fill="#CFEFFF" stroke="#2F343D" stroke-width="4"/>
+  <rect x="254" y="42" width="36" height="42" rx="8" fill="#CFEFFF" stroke="#2F343D" stroke-width="4"/>
+  <rect x="18" y="106" width="284" height="12" fill="#2F343D"/>
+  <path d="M36 128 q22 16 44 0" stroke="#2F343D" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <circle cx="24" cy="132" r="7" fill="#FFF3B0" stroke="#D99A00" stroke-width="2"/>
+  <rect x="290" y="124" width="12" height="16" rx="3" fill="#E23B3B"/>
+  <circle cx="82" cy="152" r="25" fill="#2F343D"/><circle cx="82" cy="152" r="10" fill="#BFC5CF"/>
+  <circle cx="240" cy="152" r="25" fill="#2F343D"/><circle cx="240" cy="152" r="10" fill="#BFC5CF"/>
+</symbol>
+</svg>
+
+<div id="stage">
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+
+<div class="city"><i style="height:60%"></i><i style="height:85%"></i><i style="height:45%"></i><i style="height:100%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:50%"></i></div>
+<div class="street"></div>
+
+<div id="tools"><a href="../index.html" style="border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a><button id="bSound">🔊 الصوت</button><button id="bFull">⛶ ملء الشاشة</button><button id="bNotes">📋 ملاحظات المعلمة</button></div>
+
+<!-- ١ -->
+<section class="slide s1 active">
+  <div class="title"><h1>سعيدةُ في مدينةِ الكلامِ</h1><p>رحلةٌ مع علاماتِ التّرقيمِ</p></div>
+  <button class="btn y startB" id="startB">🔑 شغِّلِ المُحرِّكَ</button>
+  <div class="bigBus"><svg><use href="#bus"/></svg></div>
+  <div class="mission">
+    <h3>خريطةُ الرّحلةِ</h3>
+    <p>في نهايةِ الرّحلةِ سأستطيعُ أنْ:</p>
+    <ol>
+      <li>أعرفَ سبعَ علاماتِ ترقيمٍ ومواضعَ استخدامِها.</li>
+      <li>أقرأَ الجملةَ بنبرةٍ ووقفةٍ تناسبانِ علامتَها.</li>
+      <li>أضعَ العلامةَ المناسبةَ في مكانِها الصّحيح.</li>
+    </ol>
+    <div class="signs7"><span style="border-color:var(--stop)" class="c-stop">.</span><span style="border-color:var(--comma)" class="c-comma">،</span><span style="border-color:var(--semi)" class="c-semi">؛</span><span style="border-color:var(--colon)" class="c-colon">:</span><span style="border-color:var(--quote)" class="c-quote">« »</span><span style="border-color:var(--q)" class="c-q">؟</span><span style="border-color:var(--ex)" class="c-ex">!</span></div>
+  </div>
+  <template class="notes"><h3>١. انطلاق الرحلة</h3><dl>
+    <dt>الهدف</dt><dd>إثارة الدافعية وعرض أهداف الدرس والعلامات السبع.</dd>
+    <dt>قولي</dt><dd>«هذه سعيدة، حافلة مدرستنا. تنقل الكلمات في مدينة الكلام، ولا تسير بأمان إلا إذا عرفت إشارات المرور!»</dd>
+    <dt>تنبيه للخطة</dt><dd>سبع علامات كثيرة على حصة واحدة. أقترح حصتين: الأولى الشرائح ١–٤ (النقطة والفاصلة والفاصلة المنقوطة)، والثانية ٥–١٠، وتبدأ الثانية بمراجعة سريعة من الشريحة ٨.</dd></dl></template>
+</section>
+
+<!-- ٢ -->
+<section class="slide s2">
+  <div class="card"><div class="num"><b>٢</b></div>
+    <div class="head"><h2>حادثٌ في مدينةِ الكلامِ!</h2><p>ماذا يحدثُ حين تختفي الإشارات؟</p></div>
+    <div class="content"><div class="crash">
+      <div class="para" id="para"></div>
+      <div class="ctr2"><button class="btn lt" id="readFast">😵 اقرأْها بلا توقُّف</button><button class="btn y" id="fixB">🚦 أعِدِ الإشاراتِ</button></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>حاولْ قراءةَ الفقرةِ بلا توقُّف… ثمّ اقرأْها بعدَ عودةِ الإشارات. ما الفرق؟</div>
+      <div class="guide"><svg><use href="#bus"/></svg><div class="bubble" id="b2">اختفَتْ إشاراتُ المرورِ من هذه الفقرة… فاصطدمَتِ الكلماتُ ببعضِها!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. حادث في مدينة الكلام</h3><dl>
+    <dt>الهدف</dt><dd>إدراك حاجة الكتابة إلى علامات الترقيم.</dd>
+    <dt>التنفيذ</dt><dd>اطلبي من متطوع قراءة الفقرة دون توقف (سيضحك الطلاب)، واضغطي «اقرأها بلا توقف». ثم اضغطي «أعد الإشارات» واقرئيها بالوقفات والنبرة الصحيحة.</dd>
+    <dt>سؤال</dt><dd>أيّ القراءتين أوضح؟ لماذا؟</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ٣ -->
+<section class="slide s3">
+  <div class="card"><div class="num"><b>٣</b></div>
+    <div class="head"><h2>إشارةُ «قِفْ» ومطبُّ التّهدئةِ</h2><p>النّقطةُ والفاصلةُ</p></div>
+    <div class="content">
+      <div class="drive" id="drive3">
+        <div class="mini" id="mini3"><svg><use href="#bus"/></svg></div>
+        <div class="line" id="line3"></div>
+      </div>
+      <div style="display:flex;gap:16px;justify-content:center;margin-top:14px"><button class="btn y" id="go3">🚍 سِيري يا سعيدة</button></div>
+      <div class="row3">
+        <div class="rule" style="border-color:var(--stop)"><h4><span class="mk c-stop">.</span>النّقطةُ: إشارةُ «قِفْ»</h4>توقُّفٌ تامٌّ في نهايةِ الجملةِ الّتي اكتملَ معناها.</div>
+        <div class="rule" style="border-color:var(--comma)"><h4><span class="mk c-comma">،</span>الفاصلةُ: مطبُّ تهدئةٍ</h4>توقُّفٌ قصيرٌ بينَ الأشياءِ المعدودةِ، وبعدَ المنادى.<br><span class="ex">يا سالمُ<span class="c-comma">،</span> تعالَ.</span></div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>اقرأِ الجملةَ مع سعيدة: تمهَّلْ عندَ المطبّ، وقِفْ عندَ الإشارةِ الحمراء.</div>
+      <div class="guide"><svg><use href="#bus"/></svg><div class="bubble" id="b3">راقبوني: أين أُبطِئُ؟ وأين أتوقّفُ تمامًا؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٣. النقطة والفاصلة</h3><dl>
+    <dt>الهدف</dt><dd>التمييز بين التوقف التام (النقطة) والتوقف القصير (الفاصلة).</dd>
+    <dt>التنفيذ</dt><dd>اضغطي «سيري»، ويقرأ الطلاب مع حركة الحافلة، فيتمهّلون عند المطب ويتوقفون عند النقطة. كرّري مرة ثانية ليقرأها طالب وحده.</dd>
+    <dt>أمثلة إضافية</dt><dd>أحبُّ التّمرَ، والحليبَ، والعسلَ. / يا مريمُ، افتحي النّافذةَ.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٤ -->
+<section class="slide s4">
+  <div class="card"><div class="num"><b>٤</b></div>
+    <div class="head"><h2>الإشارةُ الصّفراءُ</h2><p>الفاصلةُ المنقوطةُ</p></div>
+    <div class="content"><div class="semiWrap">
+      <div class="light"><i id="lR">.</i><i id="lY">؛</i><i id="lB">،</i></div>
+      <div class="semiR">
+        <div class="rule" style="border-color:var(--semi)"><h4><span class="mk c-semi">؛</span>الفاصلةُ المنقوطةُ: الإشارةُ الصّفراء</h4>نضعُها بينَ جملتينِ، الثّانيةُ سببٌ للأولى أو نتيجةٌ لها.<br>
+          <span class="ex">تأخَّرَ خالدٌ<span class="c-semi">؛</span> لأنّه استيقظَ متأخِّرًا.</span> <span class="ex">اجتهدَ سالمٌ<span class="c-semi">؛</span> فنجحَ.</span></div>
+        <div class="meter"><b style="font-size:24px">مقياسُ الوقوف:</b>
+          <div><span class="mk c-comma">،</span><em style="width:50px;background:var(--comma)"></em>قصيرٌ</div>
+          <div><span class="mk c-semi">؛</span><em style="width:100px;background:var(--semi)"></em>أطولُ قليلًا</div>
+          <div><span class="mk c-stop">.</span><em style="width:170px;background:var(--stop)"></em>توقُّفٌ تامٌّ</div>
+        </div>
+        <div class="semiQ" id="semiQ"><div class="s" id="sq">حملْتُ المظلّةَ<span class="c-semi">؛</span> ……</div><div class="o" id="so"></div></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>اختَرِ الجملةَ الّتي تُبيِّنُ السّببَ، لتعبرَ الإشارةَ الصّفراء.</div>
+      <div class="guide"><svg><use href="#bus"/></svg><div class="bubble" id="b4">الإشارةُ الصّفراءُ تقول: تمهَّلي يا سعيدة… فما بعدَها سببٌ أو نتيجة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٤. الفاصلة المنقوطة</h3><dl>
+    <dt>الهدف</dt><dd>معرفة موضع الفاصلة المنقوطة: بين جملتين بينهما سبب ونتيجة.</dd>
+    <dt>التنفيذ</dt><dd>اضغطي على مصابيح الإشارة لمقارنة الوقفات الثلاث، ثم حلّوا التحدي (سؤالان).</dd>
+    <dt>تلميح</dt><dd>كلمة «لأنّ» بعدها غالبًا تدل على السبب، و«فـ» تدل على النتيجة.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٥ -->
+<section class="slide s5">
+  <div class="card"><div class="num"><b>٥</b></div>
+    <div class="head"><h2>بابُ الحافلةِ</h2><p>النّقطتانِ</p></div>
+    <div class="content"><div class="doorWrap">
+      <div class="doorBus" id="doorBus"><div class="win" style="right:30px"></div><div class="win" style="left:30px"></div>
+        <div class="door"><span class="inside">:</span><i class="l"></i><i class="r"></i></div></div>
+      <div class="doorR">
+        <div class="rule" style="border-color:var(--colon)"><h4><span class="mk c-colon">:</span>النّقطتانِ: بابُ الحافلة</h4>يُفتَحُ البابُ فينزلُ بعدَه: <b>كلامُ القائلِ</b>، أو <b>قائمةُ الأشياءِ وتفصيلُها</b>.</div>
+        <div class="scene"><div class="s" id="sc1">ألوانُ عَلَمِ بلادي ثلاثةٌ<span class="c-colon">:</span> <span class="out" id="o1"><span style="background:#FFE1E1">الأحمرُ،</span><span style="background:#F3F3F3">والأبيضُ،</span><span style="background:#DDF5E6">والأخضرُ.</span></span></div></div>
+        <div class="scene"><div class="s" id="sc2">قالَ السّائقُ<span class="c-colon">:</span> <span class="out" id="o2"><span class="speech">اربِطوا أحزمةَ الأمانِ.</span></span></div></div>
+        <div class="scBtns"><button class="btn y" data-o="o1">🚪 افتحِ البابَ: قائمة</button><button class="btn y" data-o="o2">🚪 افتحِ البابَ: كلام</button></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>أكمِلْ شفويًّا: «فصولُ السّنةِ أربعةٌ: …»</div>
+      <div class="guide"><svg><use href="#bus"/></svg><div class="bubble" id="b5">كلّما رأيتُم النّقطتينِ فانتظروا: شيءٌ سينزلُ من بابي!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٥. النقطتان</h3><dl>
+    <dt>الهدف</dt><dd>معرفة موضعي النقطتين: بعد القول، وقبل التعداد والتفصيل.</dd>
+    <dt>التنفيذ</dt><dd>اضغطي زري الباب واحدًا بعد الآخر. اسألي: ماذا نزل من الباب في كل مرة؟</dd>
+    <dt>ربط</dt><dd>علم عُمان مثال قريب من الطلاب. اطلبي أمثلة: أيام الأسبوع، ألوان إشارة المرور.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٦ -->
+<section class="slide s6">
+  <div class="card"><div class="num"><b>٦</b></div>
+    <div class="head"><h2>نافذةُ الكلامِ المنقولِ</h2><p>علامتا التّنصيصِ « »</p></div>
+    <div class="content"><div class="qWrap">
+      <div class="people">
+        <div class="pp"><div class="say" id="say1">أحبُّ مدرستي</div><div class="face"><b></b></div><button class="btn y" data-p="1">انقُلْ كلامَ سالمٍ</button></div>
+        <div class="pp"><div class="say" id="say2">الماءُ سِرُّ الحياةِ</div><div class="face g"><span class="hij"></span><b></b></div><button class="btn y" data-p="2">انقُلْ كلامَ المعلّمةِ</button></div>
+      </div>
+      <div class="frame" id="frame6">قالَ سالمٌ<span class="c-colon">:</span> <span class="qt">«</span> …… <span class="qt">»</span></div>
+      <div class="rule" style="border-color:var(--quote);max-width:1150px"><h4><span class="mk c-quote">« »</span>علامتا التّنصيص: نافذةٌ تحفظُ الكلامَ</h4>نضعُ بينَهما الكلامَ المنقولَ كما قالَه صاحبُه تمامًا، بلا زيادةٍ ولا نقصان. وتسبقُهما غالبًا النّقطتان.</div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>ماذا قالَتْ لكَ أمُّكَ هذا الصّباح؟ انقُلْ كلامَها شفويًّا: قالَتْ أمّي: «…»</div>
+      <div class="guide"><svg><use href="#bus"/></svg><div class="bubble" id="b6">الكلامُ المنقولُ راكبٌ مهمٌّ، يجلسُ في نافذتِه الخاصّة ولا يتغيّر!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٦. علامتا التنصيص</h3><dl>
+    <dt>الهدف</dt><dd>وضع الكلام المنقول بنصه بين علامتي التنصيص.</dd>
+    <dt>التنفيذ</dt><dd>اضغطي «انقل كلام سالم» ثم «انقل كلام المعلمة». لاحظوا أن الكلام نُقل كما هو، وأن النقطتين جاءتا قبله.</dd>
+    <dt>ربط بالشريحة السابقة</dt><dd>باب الحافلة (:) يُفتح، فينزل الكلام ويجلس في نافذته « ».</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٧ -->
+<section class="slide s7">
+  <div class="card"><div class="num"><b>٧</b></div>
+    <div class="head"><h2>محطّةُ الأسئلةِ ونافذةُ الدّهشةِ</h2><p>علامتا الاستفهامِ والتّعجّبِ</p></div>
+    <div class="content"><div class="voice">
+      <div class="vL">
+        <div class="vSent w">نجحَ أحمدُ<span class="slot" id="slot7"> </span></div>
+        <div class="vBtns"><button class="c-stop" data-m=".">.</button><button class="c-q" data-m="؟">؟</button><button class="c-ex" data-m="!">!</button></div>
+        <svg class="wave" viewBox="0 0 560 110"><path id="wave" d="M20 60 L540 60" stroke="#566175"/></svg>
+        <div class="mood" id="mood">اختَرْ علامةً… ثمّ اقرأِ الجملةَ بصوتِك!</div>
+      </div>
+      <div class="vR">
+        <div class="rule" style="border-color:var(--q)"><h4><span class="mk c-q">؟</span>محطّةُ الأسئلة</h4>بعدَ السّؤال: هل، مَن، ما، متى، أين، كيف.<br><span class="ex">متى تبدأُ الإجازةُ<span class="c-q">؟</span></span></div>
+        <div class="rule" style="border-color:var(--ex)"><h4><span class="mk c-ex">!</span>نافذةُ الدّهشة</h4>بعدَ التّعجّبِ والفرحِ والدّهشةِ والحزن.<br><span class="ex">ما أجملَ البحرَ<span class="c-ex">!</span></span></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ صوتيّ:</b>اقرؤوا «نجحَ أحمدُ» ثلاثَ مرّاتٍ بثلاثِ نبراتٍ مختلفة.</div>
+      <div class="guide"><svg><use href="#bus"/></svg><div class="bubble">كلماتٌ متشابهة… لكنّ العلامةَ تُغيِّرُ صوتَنا ومعنانا!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٧. الاستفهام والتعجب</h3><dl>
+    <dt>الهدف</dt><dd>ربط العلامة بالمعنى والنبرة الصوتية.</dd>
+    <dt>التنفيذ</dt><dd>اختاري العلامة، ويقرأ الصف الجملة بالنبرة المناسبة. موجة الصوت ترسم شكل النبرة: هادئة، صاعدة في آخرها، أو قمة متحمسة.</dd>
+    <dt>أسئلة</dt><dd>متى نقولها سؤالًا؟ متى نقولها فرحًا؟ من يؤلف جملة تعجب عن عُمان؟</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٨ -->
+<section class="slide s8">
+  <div class="card"><div class="num"><b>٨</b></div>
+    <div class="head"><h2>غرفةُ المرورِ</h2><p>ضعِ الإشارةَ المناسبةَ</p></div>
+    <div class="content"><div class="game">
+      <div class="gScore" id="gScore">٠ / ٧</div>
+      <div class="gRoad" id="gRoad"><div class="mini" id="mini8"><svg><use href="#bus"/></svg></div><div class="s" id="gS"></div></div>
+      <div class="pad" id="pad"></div>
+      <div class="gMsg" id="gMsg"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>قاعدةُ الغرفة:</b>اقرأِ الجملةَ بصوتٍ مسموعٍ، ثمّ اختَرِ الإشارة.</div>
+      <div class="guide"><svg><use href="#bus"/></svg><div class="bubble" id="b8">أنتم الآنَ شرطةُ المرور! لا أعبرُ إلّا بإشارةٍ صحيحة.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٨. غرفة المرور</h3><dl>
+    <dt>الهدف</dt><dd>تطبيق العلامات السبع في جمل.</dd>
+    <dt>التنفيذ</dt><dd>يخرج طالب لكل جملة، يقرؤها ثم يختار. الخطأ يسبب «حادثًا» مضحكًا مع تلميح، ويمكن المحاولة مجددًا.</dd>
+    <dt>الإجابات</dt><dd>؟ ، ! ، : ، «ثم» ، ، ، ؛ ، .</dd>
+    <dt>الزمن</dt><dd>٦ دقائق</dd></dl></template>
+</section>
+
+<!-- ٩ -->
+<section class="slide s9">
+  <div class="card"><div class="num"><b>٩</b></div>
+    <div class="head"><h2>امتحانُ رخصةِ القيادةِ</h2><p>هل تستحقُّ الرّخصة؟</p></div>
+    <div class="content"><div class="chal">
+      <div class="pan" id="p1">
+        <h4>١. رتِّبِ الوقفاتِ من الأقصرِ إلى الأطول</h4>
+        <div class="ord" id="ord"><button data-v="2" class="c-stop">.</button><button data-v="0" class="c-comma">،</button><button data-v="1" class="c-semi">؛</button></div>
+        <div class="slots">الأقصر <b id="o0"></b><b id="o1"></b><b id="o2"></b> الأطول</div>
+        <div class="res" id="r1"></div><div class="stars"></div>
+      </div>
+      <div class="pan" id="p2">
+        <h4>٢. أيُّ الجملتينِ ترقيمُها صحيح؟</h4>
+        <button class="pick" data-ok="0">قالَ المعلّمُ، افتحوا الكتابَ؟</button>
+        <button class="pick" data-ok="1">قالَ المعلّمُ: «افتحوا الكتابَ.»</button>
+        <div class="res" id="r2"></div><div class="stars"></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>قبلَ الضّغط:</b>فكِّرْ وحدَك، ثمّ يضغطُ زميلٌ واحد.</div>
+      <div class="guide"><svg><use href="#bus"/></svg><div class="bubble">آخرُ اختبارٍ قبلَ أن تحصلوا على رخصةِ القيادة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. امتحان الرخصة</h3><dl>
+    <dt>الهدف</dt><dd>تقويم تكويني: طول الوقفات، وترقيم جملة القول.</dd>
+    <dt>الإجابات</dt><dd>(١) ، ثم ؛ ثم . (٢) الجملة الثانية.</dd>
+    <dt>التنفيذ</dt><dd>في التحدي الأول يضغط الطالب العلامات بالترتيب؛ الخطأ يعيد الترتيب.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ١٠ -->
+<section class="slide s10">
+  <div class="card"><div class="num"><b>١٠</b></div>
+    <div class="content" style="top:26px;height:560px">
+      <div class="recap">
+        <h3>وصلْنا إلى المدرسةِ بأمان!</h3>
+        <div style="border-color:var(--stop)"><span class="mk c-stop">.</span>قِفْ: نهايةُ الجملة</div>
+        <div style="border-color:var(--comma)"><span class="mk c-comma">،</span>مطبّ: بينَ المعدوداتِ وبعدَ المنادى</div>
+        <div style="border-color:var(--semi)"><span class="mk c-semi">؛</span>إشارةٌ صفراء: قبلَ السّببِ والنّتيجة</div>
+        <div style="border-color:var(--colon)"><span class="mk c-colon">:</span>البابُ: بعدَ القولِ وقبلَ التّعداد</div>
+        <div style="border-color:var(--quote)"><span class="mk c-quote">« »</span>النّافذة: الكلامُ المنقولُ بنصِّه</div>
+        <div style="border-color:var(--q)"><span class="mk c-q">؟</span>محطّةُ الأسئلة: بعدَ السّؤال</div>
+        <div style="border-color:var(--ex)"><span class="mk c-ex">!</span>الدّهشة: بعدَ التّعجّبِ والفرح</div>
+      </div>
+      <div class="badge"><svg><use href="#bus"/></svg><h4>رخصةُ السّائقِ الماهرِ</h4>
+        <input id="starName" placeholder="اكتبِ اسمَ السّائقِ النّجم" aria-label="اسم السائق النجم">
+        <p>يعرفُ إشاراتِ مدينةِ الكلامِ كلَّها</p></div>
+    </div>
+    <div class="band">
+      <div class="task"><b>في دفترك:</b>اكتبْ فقرةً قصيرةً عن رحلتِك إلى المدرسة، واستخدِمْ أربعَ علاماتٍ على الأقلّ.</div>
+      <div class="guide"><svg><use href="#bus"/></svg><div class="bubble">شكرًا يا سائقِيَّ الصّغار! كانت رحلةً رائعة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١٠. الوصول</h3><dl>
+    <dt>الهدف</dt><dd>تلخيص العلامات السبع وتعزيز المتميز.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب لوحة الإشارات معًا، ثم اكتبي اسم السائق النجم وصوّري الشاشة.</dd>
+    <dt>الواجب</dt><dd>فقرة قصيرة عن الرحلة إلى المدرسة بأربع علامات على الأقل.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+<aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ١٠</span><button id="next" class="main">التّالي ◀</button></nav>
+</div>
+
+<script>
+const SFX=(()=>{let ctx=null,on=true;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ return{toggle(){on=!on;return on},
+  horn(){tone(392,.18,{type:'square',v:.07});tone(494,.18,{type:'square',v:.06});tone(392,.3,{type:'square',v:.07,at:.22});tone(494,.3,{type:'square',v:.06,at:.22})},
+  engine(){tone(55,1.4,{type:'sawtooth',v:.12,to:110});noise(1.4,{v:.12,f:200,to:500})},
+  crash(){noise(.6,{v:.5,f:2500,to:200});tone(90,.5,{v:.4,to:40});for(let i=0;i<8;i++)tone(1500+Math.random()*1500,.08,{type:'triangle',v:.06,at:.1+i*.05})},
+  bump(){tone(120,.18,{v:.35,to:70});noise(.1,{v:.2,f:500})},
+  brake(){noise(.6,{v:.25,type:'bandpass',f:2600,q:6,to:1800})},
+  ding(){tone(1320,.25,{v:.12});tone(1760,.35,{v:.1,at:.12})},
+  pop(){tone(600,.08,{v:.15,to:1200})},
+  yes(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,{type:'triangle',v:.16,at:i*.08}))},
+  no(){tone(220,.25,{type:'square',v:.08,to:150})},
+  door(){noise(.7,{v:.25,type:'bandpass',f:500,to:1500,q:2});tone(880,.1,{v:.08,at:.7})},
+  whoosh(){noise(.6,{v:.35,type:'bandpass',f:400,to:3500,q:1})},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  cheer(){this.yes();for(let i=0;i<22;i++)noise(.05,{v:.12,type:'bandpass',f:1500+Math.random()*2000,at:.35+Math.random()*1.1})}
+ }})();
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`;window.__s=s}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let cur=0,unlocked=false;
+const nextB=document.getElementById('next'),prevB=document.getElementById('prev'),counter=document.getElementById('counter');
+function go(i){if(i<0||i>=slides.length)return;if(i>0&&!unlocked)return;
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=cur===slides.length-1||!unlocked;nextB.classList.toggle('pulse',cur===0&&unlocked);
+  const t=slides[cur].querySelector('template.notes');document.getElementById('notesBody').innerHTML=t?t.innerHTML:'';
+  if(cur===9)closing();}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+document.getElementById('bSound').onclick=e=>{e.currentTarget.textContent=SFX.toggle()?'🔊 الصوت':'🔇 صامت'};
+document.getElementById('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+document.getElementById('bNotes').onclick=()=>document.getElementById('notes').classList.toggle('open');
+document.getElementById('closeNotes').onclick=()=>document.getElementById('notes').classList.remove('open');
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function stars(box){for(let i=0;i<14;i++){const s=document.createElement('i');s.textContent='★';s.style.left=Math.random()*95+'%';s.style.top=Math.random()*20+'%';s.style.animationDelay=Math.random()*.4+'s';box.appendChild(s);setTimeout(()=>s.remove(),2000)}}
+const MC={'.':'c-stop','،':'c-comma','؛':'c-semi',':':'c-colon','«':'c-quote','»':'c-quote','؟':'c-q','!':'c-ex'};
+const mk=m=>`<span class="mk ${MC[m]}">${m}</span>`;
+
+/* ١ */
+(()=>{const s1=document.querySelector('.s1');setTimeout(()=>s1.classList.add('rolling'),300);
+  document.getElementById('startB').onclick=()=>{if(unlocked)return;SFX.engine();setTimeout(()=>SFX.horn(),500);s1.classList.add('open');setTimeout(()=>{unlocked=true;go(0);SFX.magic()},1200)};})();
+
+/* ٢ */
+(()=>{const T=[['ذهبْتُ'],['مع'],['أبي'],['إلى'],['السّوقِ','،'],['واشترَيْنا'],['تمرًا'],['وحلوى','.'],['قالَ'],['أبي',':'],['هل','','«'],['تريدُ'],['عصيرًا','؟»'],['يا'],['لَه'],['من'],['يومٍ'],['جميلٍ','!']];
+  const para=document.getElementById('para'),b=document.getElementById('b2');
+  function render(fixed){para.innerHTML=T.map(([w,after='',before=''])=>{
+      const pre=fixed&&before?mk(before):'';const post=fixed&&after?[...after].map(mk).join(''):'';
+      return `<span class="t" style="--r:${(Math.random()*30-15).toFixed(0)}deg;--y:${(Math.random()*30-15).toFixed(0)}px">${pre}${w}${post}</span>`}).join(fixed?' ':' ');
+    para.classList.toggle('jam',!fixed)}
+  render(false);
+  document.getElementById('readFast').onclick=()=>{render(false);para.classList.add('boom');SFX.crash();b.textContent='يا للهول! اصطدمَتِ الكلماتُ! لم نعرفْ أين تنتهي الجملةُ ولا أين السّؤال.';setTimeout(()=>para.classList.remove('boom'),1400)};
+  document.getElementById('fixB').onclick=()=>{para.classList.remove('boom');render(true);SFX.magic();b.textContent='عادَتِ الإشاراتُ فعادَ النّظام! اقرؤوها الآنَ بالوقفاتِ والنّبرةِ الصّحيحة.'};})();
+
+/* ٣ */
+(()=>{const T=[['في'],['حقيبتي'],['كتابٌ','،'],['ودفترٌ','،'],['وقلمٌ','.']];
+  const line=document.getElementById('line3'),mini=document.getElementById('mini3'),drive=document.getElementById('drive3'),b=document.getElementById('b3');
+  line.innerHTML=T.map(([w,m])=>`<span class="tk">${w}</span>`+(m?`<span class="tk m">${mk(m)}</span>`:'')).join(' ');
+  let busy=false;
+  document.getElementById('go3').onclick=async()=>{if(busy)return;busy=true;drive.querySelectorAll('.pop').forEach(p=>p.remove());
+    mini.style.transition='none';mini.style.right='10px';void mini.offsetWidth;mini.style.transition='';SFX.engine();
+    const s=window.__s||1,dr=drive.getBoundingClientRect();
+    for(const tk of line.querySelectorAll('.tk')){const r=tk.getBoundingClientRect();
+      mini.style.right=((dr.right-r.right)/s-10)+'px';tk.classList.add('on');await sleep(480);tk.classList.remove('on');
+      if(tk.classList.contains('m')){const m=tk.textContent.trim();drive.querySelectorAll('.pop').forEach(p=>p.remove());const pop=document.createElement('div');pop.className='pop';
+        if(m==='،'){mini.classList.remove('bump');void mini.offsetWidth;mini.classList.add('bump');SFX.bump();pop.textContent='مطبّ: تمهَّلْ قليلًا';pop.style.background='var(--comma)';drive.appendChild(pop);b.textContent='مطبٌّ! أبطأْتُ قليلًا ثمّ أكملْتُ الجملة.';await sleep(900)}
+        else{SFX.brake();pop.textContent='قِفْ! انتهَتِ الجملة';pop.style.background='var(--stop)';drive.appendChild(pop);b.textContent='إشارةٌ حمراء! توقّفْتُ تمامًا لأنّ الجملةَ انتهت.';await sleep(600)}}}
+    busy=false};})();
+
+/* ٤ */
+(()=>{const L={lR:['onR','النّقطة: توقُّفٌ تامّ'],lY:['onY','الفاصلةُ المنقوطة: توقُّفٌ أطولُ من الفاصلة'],lB:['onB','الفاصلة: توقُّفٌ قصير']};
+  const b=document.getElementById('b4');
+  Object.keys(L).forEach(id=>{const el=document.getElementById(id);el.style.cursor='pointer';el.onclick=()=>{Object.keys(L).forEach(k=>document.getElementById(k).className='');el.className=L[id][0];b.textContent=L[id][1]+'.';SFX.ding()}});
+  document.getElementById('lY').className='onY';
+  const Q=[['حملْتُ المظلّةَ','لأنّ المطرَ غزيرٌ.',['والبحرُ أزرقُ.','لأنّ المطرَ غزيرٌ.','يا سالمُ؟']],['نامَ الطّفلُ مبكِّرًا','لأنّه متعبٌ.',['لأنّه متعبٌ.','وقلمٌ ودفترٌ.','ما أجملَ!']]];
+  let qi=0;const sq=document.getElementById('sq'),so=document.getElementById('so');
+  function set(){const [a,ok,xs]=Q[qi];sq.innerHTML=`${a}<span class="c-semi">؛</span> ……`;so.innerHTML='';
+    xs.forEach(x=>{const bt=document.createElement('button');bt.textContent=x;bt.onclick=()=>{
+      if(x===ok){bt.classList.add('good');sq.innerHTML=`${a}<span class="c-semi">؛</span> ${ok}`;SFX.yes();b.textContent='عبرْتُ الإشارةَ الصّفراء! ما بعدَها سببٌ لما قبلَها.';
+        if(qi<Q.length-1)setTimeout(()=>{qi++;set()},1800)}
+      else{bt.classList.add('bad');SFX.no();shake(bt);b.textContent='هذه ليست سببًا… ابحثْ عن جملةٍ تُجيبُ: لماذا؟';setTimeout(()=>bt.classList.remove('bad'),800)}};so.appendChild(bt)})}
+  set();})();
+
+/* ٥ */
+(()=>{const db=document.getElementById('doorBus'),b=document.getElementById('b5');
+  document.querySelectorAll('.s5 .scBtns button').forEach(bt=>bt.onclick=()=>{db.classList.remove('open');void db.offsetWidth;db.classList.add('open');SFX.door();
+    const o=document.getElementById(bt.dataset.o);setTimeout(()=>{o.classList.add('on');SFX.pop();
+      b.textContent=bt.dataset.o==='o1'?'فُتِحَ البابُ فنزلَتْ قائمةٌ: ألوانُ العَلَم!':'فُتِحَ البابُ فنزلَ كلامُ السّائق!'},700)});})();
+
+/* ٦ */
+(()=>{const f=document.getElementById('frame6'),b=document.getElementById('b6');
+  const D={1:['قالَ سالمٌ','أحبُّ مدرستي.'],2:['قالَتِ المعلّمةُ','الماءُ سِرُّ الحياةِ.']};
+  document.querySelectorAll('.s6 .pp button').forEach(bt=>bt.onclick=()=>{const [who,txt]=D[bt.dataset.p];SFX.whoosh();
+    f.innerHTML=`${who}<span class="c-colon">:</span> <span class="qt">«</span><span class="got">${txt}</span><span class="qt">»</span>`;
+    setTimeout(()=>SFX.ding(),400);b.textContent='نُقِلَ الكلامُ كما قيلَ تمامًا، وجلسَ في نافذتِه « ».'});})();
+
+/* ٧ */
+(()=>{const slot=document.getElementById('slot7'),wave=document.getElementById('wave'),mood=document.getElementById('mood');
+  const M={'.':['c-stop','M20 60 L540 60','#E23B3B','خبرٌ عاديّ 🙂: نقرؤها بصوتٍ هادئ، وننزلُ في آخرِها.'],
+           '؟':['c-q','M20 70 L380 70 Q470 70 540 16','#E0468F','سؤالٌ 🤔: يرتفعُ صوتُنا في آخرِ الجملة.'],
+           '!':['c-ex','M20 80 Q140 80 200 20 Q260 -10 320 50 Q400 90 540 40','#F9731B','دهشةٌ وفرحٌ 🤩: نقرؤها بحماسٍ وقوّة!']};
+  document.querySelectorAll('.s7 .vBtns button').forEach(bt=>bt.onclick=()=>{const [c,d,col,t]=M[bt.dataset.m];
+    slot.className='slot '+c;slot.textContent=bt.dataset.m;slot.style.animation='none';void slot.offsetWidth;slot.style.animation='popIn .4s';
+    wave.setAttribute('d',d);wave.setAttribute('stroke',col);mood.textContent=t;SFX.pop()});})();
+
+/* ٨ */
+(()=>{const G=[['متى تبدأُ الإجازةُ','','؟','نحنُ نسألُ… فأيُّ محطّةٍ نحتاج؟'],
+  ['اشترَتْ أمّي تفّاحًا',' وموزًا، وعنبًا.','،','هذه أشياءُ معدودة… نحتاجُ مطبًّا بينها.'],
+  ['ما أجملَ البحرَ','','!','هذه دهشةٌ وإعجاب!'],
+  ['قالَ الطّالبُ',' «صباحُ الخيرِ.»',':','بعدَ القولِ يُفتَحُ باب…'],
+  ['يا فاطمةُ',' أغلقي البابَ.','،','بعدَ المنادى مطبٌّ قصير.'],
+  ['تأخَّرَ خالدٌ',' لأنّه استيقظَ متأخِّرًا.','؛','الجملةُ الثّانيةُ سببٌ للأولى…'],
+  ['الشّمسُ مشرقةٌ','','.','اكتملَ المعنى… ماذا نفعل؟']];
+  const K=['.','،','؛',':','«»','؟','!'],KC={'.':'var(--stop)','،':'var(--comma)','؛':'var(--semi)',':':'var(--colon)','«»':'var(--quote)','؟':'var(--q)','!':'var(--ex)'};
+  const pad=document.getElementById('pad'),gS=document.getElementById('gS'),road=document.getElementById('gRoad'),mini=document.getElementById('mini8'),msg=document.getElementById('gMsg'),sc=document.getElementById('gScore'),b=document.getElementById('b8');
+  let gi=0,lock=false;
+  function set(){const [a,z]=G[gi];gS.innerHTML=`${a}<span class="gap" id="gap8"></span>${z}`;msg.textContent='';mini.style.transition='none';mini.style.right='14px';void mini.offsetWidth;mini.style.transition=''}
+  K.forEach(k=>{const bt=document.createElement('button');bt.textContent=k==='«»'?'« »':k;bt.style.borderColor=KC[k];bt.style.color=KC[k];pad.appendChild(bt);
+    bt.onclick=()=>{if(lock||gi>=G.length)return;const [,,ok,hint]=G[gi];
+      if(k===ok){lock=true;const g=document.getElementById('gap8');g.innerHTML=mk(k);g.style.border='0';SFX.horn();mini.style.right='1250px';msg.style.color='var(--ok)';msg.textContent='✔ عبرَتِ الحافلةُ بأمان!';
+        sc.textContent=AR(gi+1)+' / '+AR(G.length);
+        setTimeout(()=>{gi++;lock=false;if(gi<G.length)set();else{gS.textContent='أنتم شرطةُ مرورٍ ماهرون! 🚦';SFX.cheer();b.textContent='عبرْتُ كلَّ الشّوارعِ بأمان. شكرًا!'}},1500)}
+      else{road.classList.remove('crash');void road.offsetWidth;road.classList.add('crash');SFX.crash();msg.style.color='var(--stop)';msg.textContent='💥 حادث! '+hint}}});
+  set();})();
+
+/* ٩ */
+(()=>{const p1=document.getElementById('p1'),r1=document.getElementById('r1');let step=0;
+  const bs=[...document.querySelectorAll('#ord button')];
+  bs.forEach(bt=>bt.onclick=()=>{if(step>2||bt.dataset.done)return;
+    if(+bt.dataset.v===step){bt.dataset.done=1;bt.innerHTML+=`<i>${AR(step+1)}</i>`;document.getElementById('o'+step).innerHTML=mk(bt.textContent[0]);SFX.pop();step++;
+      if(step===3){r1.style.color='var(--ok)';r1.textContent='صحيح: الفاصلةُ ثمّ المنقوطةُ ثمّ النّقطة.';SFX.cheer();stars(p1.querySelector('.stars'))}}
+    else{SFX.no();shake(bt);r1.style.color='var(--stop)';r1.textContent='ليس بعد… أيُّ علامةٍ وقفتُها أقصر؟';step=0;
+      bs.forEach(x=>{delete x.dataset.done;const i=x.querySelector('i');if(i)i.remove()});[0,1,2].forEach(n=>document.getElementById('o'+n).innerHTML='')}});
+  const p2=document.getElementById('p2'),r2=document.getElementById('r2');
+  p2.querySelectorAll('.pick').forEach(bt=>bt.onclick=()=>{if(bt.dataset.ok==='1'){bt.classList.add('good');SFX.cheer();stars(p2.querySelector('.stars'));r2.style.color='var(--ok)';r2.textContent='أحسنت! نقطتانِ بعدَ القول، والكلامُ في نافذتِه « ».'}
+    else{bt.classList.add('bad');SFX.no();shake(bt);r2.style.color='var(--stop)';r2.textContent='بعدَ القولِ نحتاجُ بابًا… وهل هي سؤال؟';setTimeout(()=>bt.classList.remove('bad'),800)}});})();
+
+/* ١٠ */
+const cv=document.getElementById('confetti'),cx=cv.getContext('2d');
+function closing(){const s=slides[cur];s.classList.remove('go');void s.offsetWidth;s.classList.add('go');setTimeout(()=>{SFX.horn();SFX.cheer();confetti()},400)}
+function confetti(){const cols=['#E23B3B','#2F80ED','#F59E0B','#8B5CF6','#0FA89A','#E0468F','#F9731B','#FFC61A'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+go(0);
+</script>
+<script src="../assets/kawn-data.js" defer></script>
+</body>
+</html>

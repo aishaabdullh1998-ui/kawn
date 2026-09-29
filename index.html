@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="كون: دروس اللغة العربية للصف الرابع بأسلوب القصة والمغامرة التفاعلية.">
+<meta property="og:title" content="كون: حيث كل درس عالم جديد">
+<meta property="og:description" content="قصص مشوقة ومغامرات تفاعلية تأخذك إلى أعماق اللغة.">
+<meta property="og:image" content="assets/kawn-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>كون: حيثُ كلُّ درسٍ عالَمٌ جديد</title>
+<link rel="icon" href="assets/kawn-icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --cream:#FBF4E6;--sky:#DCE9F5;--powder:#A9CBEA;--sage:#8FAF7A;--deep:#4A6B52;--coral:#E98A6A;--coral2:#C8664A;--gold:#E9B949;--ink:#26324A;--ink2:#5B6679;
+  --card:#FFFDF8;--bg:var(--cream);
+  --logo:"Aref Ruqaa","Noto Naskh Arabic",serif;--ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--body:"Noto Naskh Arabic","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1E2433;--card:#2A3246;--ink:#F3EEE4;--ink2:#C3C9D6;--cream:#232B3D}}
+:root[data-theme="dark"]{--bg:#1E2433;--card:#2A3246;--ink:#F3EEE4;--ink2:#C3C9D6;--cream:#232B3D}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ui);overflow-x:hidden}
+a{color:inherit}
+img,svg{max-width:100%}
+
+/* ===== شريط علوي ===== */
+.top{position:fixed;top:0;right:0;left:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(8px + env(safe-area-inset-top,0px)) 4vw 8px;background:rgba(251,244,230,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:box-shadow .3s}
+.top.solid{box-shadow:0 4px 18px rgba(38,50,74,.10)}
+.top .mini{font-family:var(--logo);font-size:34px;color:#26324A;text-decoration:none;line-height:1}
+.top nav{display:flex;gap:8px}
+.top nav a{text-decoration:none;font-weight:800;font-size:16px;padding:6px 14px;border-radius:20px;background:#fff;color:#26324A;display:flex;align-items:center;gap:6px;box-shadow:0 3px 0 rgba(38,50,74,.10);transition:transform .2s,background .2s}
+.top nav a:hover{transform:translateY(-2px);background:#FFF3D1}
+.top nav a:active{transform:translateY(1px)}
+.top nav a.on{background:#26324A;color:#fff}
+.prog{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;color:#26324A;white-space:nowrap}
+.prog .pbar{width:110px;height:12px;border-radius:6px;background:rgba(38,50,74,.12);overflow:hidden}
+.prog .pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#F2994A);border-radius:6px;transition:width .6s}
+.prog .st{font-size:18px}
+
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.logo svg{display:block;width:clamp(240px,32vw,420px);height:auto}
+.top .mini svg{display:block;height:46px;width:auto}
+footer .f-logo svg{width:220px;height:auto;margin:0 auto;display:block}
+/* ===== الواجهة ===== */
+.hero{position:relative;height:100svh;min-height:600px;overflow:hidden;background:linear-gradient(#CFE2F3,#E7F0F8 55%,#F7EFDD 100%)}
+.layer{position:absolute;left:0;right:0;will-change:transform}
+.layer svg{display:block;width:100%;height:100%}
+.l-clouds{top:6%;height:40%}
+.l-far{bottom:18%;height:38%}
+.l-mid{bottom:6%;height:30%}
+.l-near{bottom:-2%;height:24%}
+.sun{position:absolute;top:13%;left:14%;width:clamp(70px,10vw,140px);aspect-ratio:1;border-radius:50%;background:radial-gradient(#FFF6D6,#F4D48A);box-shadow:0 0 60px rgba(244,212,138,.8)}
+.orb{position:absolute;border-radius:50%;background:var(--powder);opacity:.8;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-14px)}}
+.brand{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:clamp(84px,13vh,140px);text-align:center;z-index:5}
+.panel{display:flex;flex-direction:column;align-items:center;background:rgba(251,244,230,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:48px;padding:clamp(18px,3vw,30px) clamp(18px,4vw,56px) clamp(20px,3vw,32px);box-shadow:0 18px 50px rgba(38,50,74,.12);margin:0 14px}
+.logo{position:relative;display:inline-block}
+.logo h1{margin:0;font-family:var(--logo);font-weight:700;font-size:clamp(100px,17vw,210px);line-height:1;color:#1F2A40;letter-spacing:0;text-shadow:0 5px 0 #fff,0 10px 24px rgba(38,50,74,.18)}
+.orbit{position:absolute;inset:-12% -18%;border:3px dashed rgba(38,50,74,.35);border-radius:50%;transform:rotate(-14deg);animation:spin 18s linear infinite}
+.orbit i{position:absolute;top:-10px;left:50%;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:var(--gold);box-shadow:0 0 16px var(--gold)}
+@keyframes spin{to{transform:rotate(346deg)}}
+.tag{margin:10px 0 4px;font-size:clamp(28px,3.6vw,44px);font-weight:800;line-height:1.3;color:#2F5139}
+.sub{margin:0;font-family:var(--ui);font-weight:600;font-size:clamp(15px,1.5vw,19px);color:#26324A;max-width:600px;line-height:1.7}
+.cta{display:flex;gap:12px;margin-top:24px;flex-wrap:nowrap;justify-content:center;padding:0 8px}
+.cta a{justify-content:center;min-width:clamp(120px,16vw,210px);white-space:nowrap}
+@media (max-width:420px){.cta a{padding:12px 18px;font-size:17px;min-width:0}}
+.cta a{text-decoration:none;font-weight:800;font-size:clamp(18px,1.7vw,22px);padding:13px 28px;border-radius:30px;color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.18);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s;display:inline-flex;align-items:center;gap:8px}
+.cta a .ic{display:inline-block;transition:transform .4s}
+.cta a:hover{transform:translateY(-5px) scale(1.04);box-shadow:0 11px 0 rgba(0,0,0,.14),0 0 0 6px rgba(233,185,73,.35)}
+.cta a:hover .ic{animation:wig .6s}
+.cta a:active{transform:translateY(3px) scale(.98);box-shadow:0 2px 0 rgba(0,0,0,.18)}
+@keyframes wig{25%{transform:rotate(-18deg) scale(1.2)}75%{transform:rotate(14deg) scale(1.2)}}
+.cta .g{background:var(--deep)}.cta .s{background:var(--coral2)}
+.scroll{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:6px;color:#fff;font-weight:800;font-size:16px;text-decoration:none;background:rgba(38,50,74,.78);padding:10px 20px 8px;border-radius:24px;animation:bob 1.8s ease-in-out infinite}
+.scroll::before{content:"";position:absolute;inset:0;border-radius:24px;box-shadow:0 0 0 0 rgba(233,185,73,.7);animation:ring 1.8s infinite}
+@keyframes bob{50%{transform:translate(-50%,-8px)}}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(233,185,73,.7)}100%{box-shadow:0 0 0 18px rgba(233,185,73,0)}}
+.scroll span{width:26px;height:40px;border:3px solid #fff;border-radius:14px;position:relative}
+.scroll span::after{content:"";position:absolute;top:7px;left:50%;width:5px;height:9px;margin-left:-2.5px;border-radius:3px;background:#fff;animation:wheel 1.6s infinite}
+@keyframes wheel{to{transform:translateY(12px);opacity:0}}
+
+/* ===== كيف تستخدمين كون ===== */
+.how{max-width:1100px;margin:0 auto;padding:70px 5vw 30px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.how div{background:var(--card);border-radius:24px;padding:22px 20px;box-shadow:0 10px 30px rgba(38,50,74,.07);display:flex;gap:14px;align-items:flex-start}
+.how b{flex:none;width:46px;height:46px;border-radius:50%;background:var(--gold);color:#26324A;display:flex;align-items:center;justify-content:center;font-size:24px}
+.how h3{margin:0 0 4px;font-size:21px}
+.how p{margin:0;font-family:var(--ui);font-weight:500;color:var(--ink);opacity:.85;line-height:1.6;font-size:17px}
+
+/* ===== المجرّات ===== */
+.galaxy{position:relative;padding:90px 0 70px;margin-top:40px}
+.galaxy::before{content:"";position:absolute;top:-1px;left:0;right:0;height:70px;background:var(--bg);-webkit-mask:radial-gradient(60px 50px at 50% 0,#000 98%,#0000) 0 0/120px 70px repeat-x;mask:radial-gradient(60px 50px at 50% 0,#000 98%,#0000) 0 0/120px 70px repeat-x}
+.galaxy.g{background:linear-gradient(#E4EEDB,#D5E4C8)}
+.galaxy.s{background:linear-gradient(#FBE3D6,#F6D2BF)}
+:root[data-theme="dark"] .galaxy.g{background:linear-gradient(#2C3A33,#26332C)}
+:root[data-theme="dark"] .galaxy.s{background:linear-gradient(#3D2E2B,#352826)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .galaxy.g{background:linear-gradient(#2C3A33,#26332C)}:root:not([data-theme="light"]) .galaxy.s{background:linear-gradient(#3D2E2B,#352826)}}
+.ghead{max-width:1320px;margin:0 auto 30px;padding:0 5vw;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.ghead .k{display:inline-block;font-size:15px;font-weight:800;padding:4px 14px;border-radius:14px;color:#fff;margin-bottom:8px}
+.g .ghead .k{background:var(--deep)}.s .ghead .k{background:var(--coral2)}
+.ghead h2{margin:0;font-size:clamp(34px,5vw,58px);line-height:1.2}
+.ghead p{margin:6px 0 0;font-family:var(--ui);font-weight:600;font-size:19px;color:var(--ink);opacity:.85;max-width:600px;line-height:1.7}
+.ghead .hint{font-size:15px;font-weight:700;color:var(--ink2)}
+.rail{display:grid;grid-template-columns:repeat(auto-fit,280px);justify-content:center;gap:24px;max-width:1360px;margin:0 auto;padding:0 5vw}
+
+/* بطاقة العالم */
+.world{background:var(--card);border-radius:28px;overflow:hidden;box-shadow:0 14px 34px rgba(38,50,74,.10);display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .35s cubic-bezier(.3,1.4,.5,1),box-shadow .35s;opacity:0;transform:translateY(40px)}
+.world.in{opacity:1;transform:none}
+.world:hover{transform:translateY(-8px) scale(1.015);box-shadow:0 22px 44px rgba(38,50,74,.16)}
+.pic{position:relative;aspect-ratio:16/10;overflow:hidden}
+.pic .skyb{position:absolute;inset:0}
+.pic .hills{position:absolute;left:0;right:0;bottom:0;height:46%}
+.pic .ch{position:absolute;left:50%;bottom:8%;height:66%;width:60%;transform:translateX(-50%);transition:transform .5s cubic-bezier(.3,1.5,.5,1);filter:drop-shadow(0 8px 10px rgba(0,0,0,.12))}
+.world:hover .ch{transform:translateX(-50%) translateY(-8px) rotate(-4deg)}
+.pic .cl{position:absolute;background:#fff;border-radius:40px;opacity:.9}
+.pic .badge{position:absolute;top:14px;right:14px;font-size:13px;font-weight:800;color:#fff;padding:3px 12px;border-radius:12px}
+.g .badge{background:var(--deep)}.s .badge{background:var(--coral2)}
+.info{padding:18px 22px 22px;display:flex;flex-direction:column;gap:6px;flex:1}
+.info .wn{font-size:15px;font-weight:800;color:var(--ink2)}
+.info h3{margin:0;font-size:30px;line-height:1.25}
+.info p{margin:0;font-family:var(--ui);font-weight:500;font-size:17.5px;line-height:1.7;color:var(--ink);opacity:.85;flex:1}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.meta span{font-size:13px;font-weight:700;background:rgba(38,50,74,.07);padding:3px 10px;border-radius:10px}
+.go{margin-top:10px;align-self:flex-start;font-weight:800;font-size:17px;padding:8px 20px;border-radius:22px;color:#fff}
+.g .go{background:var(--deep)}.s .go{background:var(--coral2)}
+
+/* ختم الزيارة */
+.visited{position:absolute;top:12px;left:12px;background:#fff;color:var(--deep);font-size:13px;font-weight:800;padding:3px 10px;border-radius:12px;box-shadow:0 3px 8px rgba(0,0,0,.12);display:none;align-items:center;gap:4px}
+.world.seen .visited{display:inline-flex;animation:popIn .5s}
+@keyframes popIn{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+/* المرشدة نُجَيْمة */
+.buddy{position:fixed;left:18px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:flex-end;gap:8px;transition:transform .5s cubic-bezier(.3,1.5,.5,1)}
+.buddy.hide{transform:translateX(-86%)}
+.buddy button{border:0;background:transparent;padding:0;cursor:pointer;width:86px;height:86px;flex:none;animation:twinkle 3s ease-in-out infinite}
+.buddy button svg{width:100%;height:100%;filter:drop-shadow(0 6px 8px rgba(0,0,0,.18))}
+@keyframes twinkle{50%{transform:translateY(-6px) rotate(6deg)}}
+.say{background:#fff;border:3px solid #26324A;border-radius:20px 20px 20px 4px;padding:10px 16px;font-weight:700;font-size:16px;line-height:1.5;color:#26324A;max-width:260px;box-shadow:0 8px 20px rgba(0,0,0,.12);transition:opacity .3s}
+.buddy.hide .say{opacity:0;pointer-events:none}
+/* انتقال التكبير */
+#zoom{position:fixed;z-index:50;pointer-events:none;border-radius:28px;opacity:0;transition:all .6s cubic-bezier(.7,0,.2,1)}
+
+/* رسائل الزوار */
+.msgs{position:relative;max-width:1200px;margin:0 auto;padding:80px 5vw 70px;display:grid;grid-template-columns:minmax(300px,440px) 1fr;gap:30px;align-items:start}
+.msgs h2{margin:0 0 6px;font-size:clamp(32px,4.4vw,50px)}
+.msgs .intro{margin:0 0 18px;font-weight:600;font-size:18px;line-height:1.7;opacity:.85}
+.form{background:var(--card);border-radius:28px;padding:24px;box-shadow:0 14px 34px rgba(38,50,74,.10);display:flex;flex-direction:column;gap:12px}
+.form label{font-weight:800;font-size:16px;display:flex;flex-direction:column;gap:6px}
+.form input,.form select,.form textarea{font-family:var(--ui);font-size:17px;padding:10px 14px;border-radius:16px;border:2px solid #E6DCC8;background:#FFFDF8;color:#26324A}
+.form textarea{min-height:120px;resize:vertical;line-height:1.6}
+.form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(233,185,73,.25)}
+.roles{display:flex;gap:8px;flex-wrap:wrap}
+.roles button{border:2px solid #E6DCC8;background:#fff;border-radius:18px;padding:6px 14px;font-family:var(--ui);font-weight:800;font-size:15px;color:#26324A;cursor:pointer}
+.roles button.on{background:#26324A;color:#fff;border-color:#26324A}
+.hp{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;clip-path:inset(50%);border:0;padding:0}
+.send{border:0;border-radius:20px;padding:12px;font-family:var(--ui);font-weight:800;font-size:19px;background:var(--deep);color:#fff;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.18);transition:transform .2s}
+.send:hover{transform:translateY(-3px)}.send:active{transform:translateY(2px)}.send:disabled{opacity:.6;cursor:wait}
+.fnote{font-size:15px;font-weight:700;min-height:22px;line-height:1.6}
+.small{font-size:13px;opacity:.7;line-height:1.6}
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.cm{background:var(--card);border-radius:22px;padding:18px 20px;box-shadow:0 8px 22px rgba(38,50,74,.08);position:relative}
+.cm::before{content:"❝";position:absolute;top:6px;left:14px;font-size:40px;color:var(--gold);opacity:.6;line-height:1}
+.cm p{margin:0 0 10px;font-size:17px;line-height:1.7;font-weight:600}
+.cm .who{font-size:14px;font-weight:800;color:var(--deep)}
+.cm .who span{opacity:.6;font-weight:600}
+.empty{grid-column:1/-1;background:rgba(38,50,74,.05);border-radius:22px;padding:30px;text-align:center;font-weight:700;opacity:.8;line-height:1.7}
+@media (max-width:760px){.msgs{grid-template-columns:1fr}}
+/* التذييل */
+footer{background:#26324A;color:#EDE6D6;padding:60px 5vw 40px;text-align:center;position:relative}
+footer .f-logo{font-family:var(--logo);font-size:84px;line-height:1}
+footer .slog{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+footer .slog span{border:1px solid rgba(237,230,214,.3);border-radius:20px;padding:5px 14px;font-weight:700;font-size:15px}
+footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15px;opacity:.8;line-height:1.8}
+
+@media (max-width:760px){
+  .how{grid-template-columns:1fr}
+  .rail{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-bottom:18px;-webkit-overflow-scrolling:touch}
+  .rail .world{flex:0 0 82%;scroll-snap-align:center}
+  .top nav a{font-size:14px;padding:5px 9px}
+  .top nav a .lbl{display:none}
+  .prog .pbar{width:60px}
+  .say{max-width:190px;font-size:14px}
+  .buddy button{width:66px;height:66px}
+}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.world{opacity:1;transform:none}}
+</style>
+<script src="assets/kawn-data.js"></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="s-zajil" viewBox="0 0 250 230">
+  <ellipse cx="128" cy="214" rx="70" ry="9" fill="#000" opacity=".12"/>
+  <path d="M112 186 v18 M140 186 v18" stroke="#F2991E" stroke-width="7" stroke-linecap="round"/>
+  <path d="M104 206 h18 M132 206 h18" stroke="#F2991E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M180 128 L236 104 L232 146 Z" fill="#7E86B3"/>
+  <ellipse cx="130" cy="136" rx="72" ry="56" fill="#A9B0D6"/>
+  <ellipse cx="112" cy="150" rx="46" ry="36" fill="#EEF0FA"/>
+  <g class="wing" style="transform-origin:150px 118px"><ellipse cx="160" cy="124" rx="46" ry="28" fill="#7E86B3" transform="rotate(-18 160 124)"/>
+  <path d="M130 118 q20 18 58 10" stroke="#6A7299" stroke-width="4" fill="none"/></g>
+  <path d="M68 96 Q120 150 150 196" stroke="#8A5A2B" stroke-width="7" fill="none"/>
+  <rect x="120" y="160" width="64" height="46" rx="9" fill="#C9853F"/>
+  <rect x="130" y="150" width="40" height="22" rx="2" fill="#fff" transform="rotate(-8 150 160)"/>
+  <path d="M120 170 Q152 190 184 170 L184 164 Q152 180 120 164 Z" fill="#A86A2C"/>
+  <circle cx="152" cy="182" r="5" fill="#FFC83D"/>
+  <ellipse cx="86" cy="106" rx="34" ry="14" fill="#6FC7B5" opacity=".85"/>
+  <circle cx="78" cy="72" r="46" fill="#B9C0E6"/>
+  <circle cx="60" cy="68" r="15" fill="#fff"/><circle cx="96" cy="68" r="15" fill="#fff"/>
+  <circle cx="58" cy="70" r="8.5" fill="#1F2D4D"/><circle cx="94" cy="70" r="8.5" fill="#1F2D4D"/>
+  <circle cx="61" cy="66" r="3" fill="#fff"/><circle cx="97" cy="66" r="3" fill="#fff"/>
+  <path d="M70 84 Q78 102 86 84 Z" fill="#F2991E"/>
+  <circle cx="44" cy="90" r="8" fill="#F7A1B5" opacity=".7"/><circle cx="112" cy="90" r="8" fill="#F7A1B5" opacity=".7"/>
+  <path d="M38 44 Q78 0 118 44 Z" fill="#2F6FE0"/>
+  <path d="M30 44 Q78 34 126 44 L126 52 Q78 42 30 52 Z" fill="#1E4FA8"/>
+  <rect x="66" y="20" width="24" height="16" rx="2" fill="#FFC83D"/><path d="M66 20 L78 30 L90 20" stroke="#B98A00" stroke-width="2" fill="none"/>
+</symbol>
+<symbol id="s-bus" viewBox="0 0 320 190">
+  <ellipse cx="160" cy="180" rx="140" ry="8" fill="#000" opacity=".15"/>
+  <rect x="18" y="26" width="284" height="126" rx="28" fill="#FFC61A" stroke="#D99A00" stroke-width="5"/>
+  <rect x="26" y="40" width="64" height="60" rx="14" fill="#CFEFFF" stroke="#2F343D" stroke-width="4"/>
+  <circle cx="44" cy="66" r="12" fill="#fff"/><circle cx="72" cy="66" r="12" fill="#fff"/>
+  <circle cx="42" cy="68" r="6.5" fill="#2F343D"/><circle cx="70" cy="68" r="6.5" fill="#2F343D"/>
+  <circle cx="44" cy="65" r="2.2" fill="#fff"/><circle cx="72" cy="65" r="2.2" fill="#fff"/>
+  <circle cx="36" cy="86" r="5" fill="#F7A1B5" opacity=".7"/><circle cx="80" cy="86" r="5" fill="#F7A1B5" opacity=".7"/>
+  <rect x="104" y="42" width="40" height="42" rx="8" fill="#CFEFFF" stroke="#2F343D" stroke-width="4"/>
+  <rect x="154" y="42" width="40" height="42" rx="8" fill="#CFEFFF" stroke="#2F343D" stroke-width="4"/>
+  <rect x="204" y="42" width="40" height="42" rx="8" fill="#CFEFFF" stroke="#2F343D" stroke-width="4"/>
+  <rect x="254" y="42" width="36" height="42" rx="8" fill="#CFEFFF" stroke="#2F343D" stroke-width="4"/>
+  <rect x="18" y="106" width="284" height="12" fill="#2F343D"/>
+  <path d="M36 128 q22 16 44 0" stroke="#2F343D" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <circle cx="24" cy="132" r="7" fill="#FFF3B0" stroke="#D99A00" stroke-width="2"/>
+  <rect x="290" y="124" width="12" height="16" rx="3" fill="#E23B3B"/>
+  <circle cx="82" cy="152" r="25" fill="#2F343D"/><circle cx="82" cy="152" r="10" fill="#BFC5CF"/>
+  <circle cx="240" cy="152" r="25" fill="#2F343D"/><circle cx="240" cy="152" r="10" fill="#BFC5CF"/>
+</symbol>
+<symbol id="tbody" viewBox="0 0 300 180">
+  <ellipse cx="160" cy="170" rx="120" ry="8" fill="#000" opacity=".14"/>
+  <ellipse cx="240" cy="142" rx="34" ry="14" fill="#6DBB68" transform="rotate(25 240 142)"/>
+  <ellipse cx="96" cy="146" rx="46" ry="15" fill="#6DBB68" transform="rotate(-24 96 146)"/>
+  <path d="M262 118 L284 124 L262 130 Z" fill="#6DBB68"/>
+  <path d="M72 112 Q160 158 262 112 L262 104 L72 104 Z" fill="#CDEBA7"/>
+  <path d="M60 96 Q70 118 96 116" stroke="#8FD18A" stroke-width="18" fill="none" stroke-linecap="round"/>
+  <circle cx="50" cy="88" r="38" fill="#8FD18A"/>
+  <circle cx="36" cy="80" r="11" fill="#fff"/><circle cx="62" cy="80" r="11" fill="#fff"/>
+  <circle cx="34" cy="82" r="6.5" fill="#1F3440"/><circle cx="60" cy="82" r="6.5" fill="#1F3440"/>
+  <circle cx="36" cy="79" r="2.3" fill="#fff"/><circle cx="62" cy="79" r="2.3" fill="#fff"/>
+  <circle cx="26" cy="98" r="6" fill="#F7A1B5" opacity=".7"/><circle cx="72" cy="98" r="6" fill="#F7A1B5" opacity=".7"/>
+  <path d="M34 102 q14 12 28 0" stroke="#1F3440" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+</symbol>
+<symbol id="s-turtle" viewBox="0 0 300 180">
+  <use href="#tbody"/>
+  <path d="M80 116 Q88 30 170 30 Q252 30 260 116 Z" fill="#2FB67C" stroke="#1E8757" stroke-width="6"/>
+  <path d="M130 116 L140 70 L200 70 L210 116 M140 70 L170 40 L200 70 M100 90 L140 70 M240 90 L200 70" stroke="#1E8757" stroke-width="4" fill="none" opacity=".7"/>
+</symbol>
+<symbol id="s-falcon" viewBox="0 0 240 220">
+  <ellipse cx="130" cy="212" rx="70" ry="7" fill="#000" opacity=".14"/>
+  <path d="M150 180 L200 214 L176 214 L140 190 Z" fill="#6B4322"/>
+  <path d="M110 196 v12 M130 196 v12" stroke="#FFC23D" stroke-width="7" stroke-linecap="round"/>
+  <path d="M100 210 h20 M122 210 h20" stroke="#FFC23D" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="128" cy="134" rx="62" ry="70" fill="#9C6B3E"/>
+  <ellipse cx="116" cy="148" rx="40" ry="52" fill="#F3E3C4"/>
+  <g fill="#9C6B3E"><ellipse cx="104" cy="130" rx="5" ry="3"/><ellipse cx="126" cy="140" rx="5" ry="3"/><ellipse cx="108" cy="158" rx="5" ry="3"/><ellipse cx="130" cy="170" rx="5" ry="3"/><ellipse cx="112" cy="182" rx="5" ry="3"/></g>
+  <g class="wg" style="transform-origin:160px 100px"><path d="M150 88 Q226 116 204 204 Q164 178 150 88Z" fill="#7A4F2A"/>
+  <path d="M168 120 Q190 150 190 186 M160 110 Q176 150 174 178" stroke="#5A3A1E" stroke-width="4" fill="none"/></g>
+  <circle cx="102" cy="70" r="48" fill="#9C6B3E"/>
+  <path d="M60 60 Q100 26 146 54 Q120 40 102 40 Q76 42 60 60Z" fill="#6B4322"/>
+  <ellipse cx="98" cy="84" rx="34" ry="26" fill="#F3E3C4"/>
+  <circle cx="82" cy="70" r="15" fill="#FFD34D"/><circle cx="118" cy="70" r="15" fill="#FFD34D"/>
+  <circle cx="81" cy="71" r="9" fill="#2A2118"/><circle cx="117" cy="71" r="9" fill="#2A2118"/>
+  <circle cx="84" cy="67" r="3" fill="#fff"/><circle cx="120" cy="67" r="3" fill="#fff"/>
+  <path d="M72 88 q-4 16 4 26 M128 88 q4 16 -4 26" stroke="#5A3A1E" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M90 88 Q100 80 110 88 Q108 104 98 108 Q102 98 90 88Z" fill="#FFB020" stroke="#C9820A" stroke-width="2"/>
+  <circle cx="66" cy="92" r="6" fill="#F7A1B5" opacity=".6"/><circle cx="134" cy="92" r="6" fill="#F7A1B5" opacity=".6"/>
+</symbol>
+<linearGradient id="gSil" x1="0" x2="1"><stop offset="0" stop-color="#DDE3EC"/><stop offset=".5" stop-color="#FFFFFF"/><stop offset="1" stop-color="#B7C0CE"/></linearGradient>
+<symbol id="s-needle" viewBox="0 0 120 240">
+  <path class="thr0" d="M60 26 C 18 -4 -2 64 30 92 S 6 170 40 200 S 20 230 6 236" stroke="#F0643C" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M50 22 Q60 2 70 22 L67 196 L60 236 L53 196 Z" fill="url(#gSil)" stroke="#8A93A6" stroke-width="3"/>
+  <ellipse cx="60" cy="28" rx="4.5" ry="11" fill="#FFFDF7" stroke="#8A93A6" stroke-width="2"/>
+  <circle cx="54" cy="92" r="6" fill="#262234"/><circle cx="67" cy="92" r="6" fill="#262234"/>
+  <circle cx="55.5" cy="90" r="2" fill="#fff"/><circle cx="68.5" cy="90" r="2" fill="#fff"/>
+  <circle cx="50" cy="104" r="4" fill="#F7A1B5" opacity=".8"/><circle cx="71" cy="104" r="4" fill="#F7A1B5" opacity=".8"/>
+  <path d="M55 106 q5 6 10 0" stroke="#262234" stroke-width="3" fill="none" stroke-linecap="round"/>
+</symbol>
+<radialGradient id="gLens" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#F4FDFF"/><stop offset="1" stop-color="#9ED7E7"/></radialGradient>
+<symbol id="s-det" viewBox="0 0 220 250">
+  <path d="M140 164 L186 236" stroke="#7A4E2D" stroke-width="24" stroke-linecap="round"/>
+  <path d="M140 164 L152 183" stroke="#3B4455" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="104" cy="116" r="66" fill="url(#gLens)" stroke="#3B4455" stroke-width="13"/>
+  <path d="M62 90 A48 48 0 0 1 96 64" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".8"/>
+  <g class="wink" style="transform-origin:80px 112px"><path d="M72 112 q10 -9 20 0" stroke="#2B1D12" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+  <ellipse cx="128" cy="108" rx="9" ry="11" fill="#2B1D12"/><circle cx="131" cy="104" r="3" fill="#fff"/>
+  <path d="M116 88 q12 -6 24 2" stroke="#2B1D12" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <path d="M82 136 q24 20 48 0" stroke="#2B1D12" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <circle cx="70" cy="128" r="7" fill="#F08A8A" opacity=".5"/>
+  <ellipse cx="104" cy="56" rx="86" ry="13" fill="#6B4A34"/>
+  <path d="M56 54 Q58 10 104 8 Q150 10 152 54 Z" fill="#7E5A40"/>
+  <path d="M58 40 Q104 32 150 40 L151 51 Q104 45 57 51 Z" fill="#2B1D12"/>
+  <path d="M104 12 Q98 26 104 34" stroke="#5E4230" stroke-width="4" fill="none"/>
+</symbol>
+<symbol id="s-hz" viewBox="20 -330 300 420">
+  <ellipse cx="170" cy="72" rx="100" ry="9" fill="#000" opacity=".12"/>
+  <path transform="scale(1,-1)" d="M189 206Q171 206 151.0 187.0Q131 168 131 126Q136 110 151.5 99.5Q167 89 175 87Q181 87 193.0 91.5Q205 96 233.0 106.5Q261 117 290 126L269 43Q152 8 55 -59Q72 -24 79.0 -11.0Q86 2 98.0 18.0Q110 34 128 50Q95 58 75.0 78.5Q55 99 55 131Q55 186 95.5 239.0Q136 292 184 292Q261 292 261 220Q261 172 234 145Q227 152 218.0 168.0Q209 184 202.0 195.0Q195 206 189 206Z" fill="#FF6F91" stroke="#D94A6F" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M190 -300 l26 -22 l8 28 l-30 6z M190 -300 l-32 -12 l2 30 l30 -6z" fill="#F4B63A" stroke="#C98A1C" stroke-width="3"/>
+  <circle cx="112" cy="-206" r="26" fill="#fff" stroke="#2B2233" stroke-width="4"/><circle cx="170" cy="-248" r="26" fill="#fff" stroke="#2B2233" stroke-width="4"/>
+  <circle cx="116" cy="-202" r="12" fill="#2B2233"/><circle cx="174" cy="-244" r="12" fill="#2B2233"/>
+  <circle cx="120" cy="-207" r="4" fill="#fff"/><circle cx="178" cy="-249" r="4" fill="#fff"/>
+  <circle cx="92" cy="-160" r="11" fill="#FFC1D1"/>
+  <path d="M100 -130 q16 14 34 2" stroke="#2B2233" stroke-width="6" fill="none" stroke-linecap="round"/>
+</symbol>
+</svg>
+
+<header class="top" id="top">
+  <a class="mini" href="#home" aria-label="الرئيسية: كون"><svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="كون"><title>كون</title><defs><clipPath id="upm"><rect x="0" y="0" width="400" height="212"/></clipPath><linearGradient id="sunm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4C24D"/><stop offset="1" stop-color="#E98A6A"/></linearGradient></defs><g clip-path="url(#upm)"><circle cx="210" cy="212" r="120" fill="url(#sunm)" opacity=".28"/><circle cx="210" cy="212" r="80" fill="url(#sunm)" opacity=".35"/></g><g fill="none" stroke="#1F2A40" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M338 44 L278 84 L278 168 Q278 192 254 192 L214 192"/><path d="M214 192 C214 158 174 156 176 180 C178 198 204 198 202 214 C198 238 168 250 140 248"/><path d="M112 146 C114 222 30 226 24 152"/></g><path d="M10 222 Q200 206 390 222" stroke="#8FAF7A" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="68" cy="100" r="15" fill="#E9B949"/></svg></a>
+  <nav><a href="#grammar" data-sec="grammar"><span aria-hidden="true">🌿</span><span class="lbl">الأنماط اللّغويّة</span></a><a href="#spelling" data-sec="spelling"><span aria-hidden="true">✏️</span><span class="lbl">الإملاء</span></a></nav>
+  <div class="prog" title="العوالم الّتي اكتشفتَها"><span class="st">⭐</span><span id="progT">٠ / ٧</span><div class="pbar"><i id="progB"></i></div></div>
+</header>
+
+<!-- الواجهة -->
+<section class="hero" id="home">
+  <div class="sun"></div>
+  <span class="orb" style="width:26px;height:26px;top:22%;right:18%"></span>
+  <span class="orb" style="width:16px;height:16px;top:34%;left:30%;animation-delay:-2s"></span>
+  <span class="orb" style="width:40px;height:40px;top:12%;right:40%;animation-delay:-4s;background:#C9DCEF"></span>
+  <div class="layer l-clouds" data-speed=".15"><svg viewBox="0 0 1600 300" preserveAspectRatio="none"><g fill="#fff" opacity=".9">
+    <path d="M60 180 q40-70 120-40 q30-60 110-30 q70-10 80 60 q50 10 40 40 H60z"/><path d="M1100 120 q50-60 120-30 q40-50 110-10 q60 0 60 50 q40 10 30 30 H1100z"/><path d="M640 230 q30-40 80-20 q30-40 90-10 q40 0 40 40 H640z" opacity=".7"/></g></svg></div>
+  <div class="layer l-far" data-speed=".25"><svg viewBox="0 0 1600 300" preserveAspectRatio="none">
+    <path d="M0 300 L0 170 L140 90 L260 150 L420 40 L560 140 L700 70 L860 150 L1000 60 L1160 150 L1300 80 L1460 160 L1600 110 L1600 300z" fill="#BCD2E8"/>
+    <path d="M420 40 L470 80 L440 78 L420 95 L398 75 Z M1000 60 L1045 95 L1015 92 L1000 105 L980 92 Z" fill="#fff" opacity=".8"/></svg></div>
+  <div class="layer l-mid" data-speed=".4"><svg viewBox="0 0 1600 300" preserveAspectRatio="none">
+    <path d="M0 300 L0 150 Q200 60 420 140 T860 120 T1300 130 T1600 100 L1600 300z" fill="#8FAF7A"/>
+    <g fill="#E1C08E" stroke="#B89464" stroke-width="3"><rect x="1180" y="92" width="120" height="60"/><rect x="1166" y="70" width="34" height="82" rx="6"/><rect x="1282" y="70" width="34" height="82" rx="6"/></g></svg></div>
+  <div class="layer l-near" data-speed=".6"><svg viewBox="0 0 1600 260" preserveAspectRatio="none">
+    <path d="M0 260 L0 120 Q260 40 560 110 T1100 90 T1600 120 L1600 260z" fill="#4A6B52"/>
+    <g fill="#35503C"><path d="M200 120 q-6-60 8-100 l6 0 q-4 50 0 100z"/><path d="M211 25 q-40-20-70 6 q40-8 70 0 M211 25 q40-24 74 2 q-40-6-74 0 M211 25 q-10-30 10-40 q-4 24-10 40"/>
+    <path d="M1400 110 q-6-60 8-100 l6 0 q-4 50 0 100z"/><path d="M1411 15 q-40-20-70 6 q40-8 70 0 M1411 15 q40-24 74 2 q-40-6-74 0"/></g></svg></div>
+
+  <div class="brand">
+    <div class="panel">
+    <div class="logo"><h1 class="vh">كون</h1><svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="كون"><title>كون</title><defs><clipPath id="uph"><rect x="0" y="0" width="400" height="212"/></clipPath><linearGradient id="sunh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4C24D"/><stop offset="1" stop-color="#E98A6A"/></linearGradient></defs><g clip-path="url(#uph)"><circle cx="210" cy="212" r="120" fill="url(#sunh)" opacity=".28"/><circle cx="210" cy="212" r="80" fill="url(#sunh)" opacity=".35"/></g><g stroke="#E98A6A" stroke-width="5" stroke-linecap="round" opacity=".7"><path d="M210 70 v-26 M130 104 l-18 -18 M290 104 l18 -18"/></g><g fill="none" stroke="#1F2A40" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M338 44 L278 84 L278 168 Q278 192 254 192 L214 192"/><path d="M214 192 C214 158 174 156 176 180 C178 198 204 198 202 214 C198 238 168 250 140 248"/><path d="M112 146 C114 222 30 226 24 152"/></g><path d="M10 222 Q200 206 390 222" stroke="#8FAF7A" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="68" cy="100" r="15" fill="#E9B949"/></svg></div>
+    <p class="tag">حيثُ كلُّ درسٍ.. عالَمٌ جديد</p>
+    <p class="sub">قصصٌ مشوّقةٌ ومغامراتٌ تفاعليّةٌ تأخذُك إلى أعماقِ اللّغة.</p>
+    <div class="cta"><a class="g" href="#grammar">الأنماطُ اللّغويّة</a><a class="s" href="#spelling">الإملاء</a></div>
+    </div>
+  </div>
+  <a class="scroll" href="#how"><span></span>اكتشفِ العوالم</a>
+</section>
+
+<!-- كيف -->
+<section class="how" id="how">
+  <div><b>١</b><section><h3>اختَرْ مجرّة</h3><p>الأنماطُ اللّغويّة للنّحو، والإملاءُ للكتابةِ الصّحيحة.</p></section></div>
+  <div><b>٢</b><section><h3>ادخُلْ عالمًا</h3><p>لكلِّ درسٍ عالمٌ وشخصيّةٌ وقصّةٌ تحملُ منطقَ القاعدة.</p></section></div>
+  <div><b>٣</b><section><h3>اعرِضْه على السّبورة</h3><p>عرضٌ تفاعليٌّ بعشرِ شرائح، فيه ألعابٌ وأصواتٌ وملاحظاتٌ للمعلّم.</p></section></div>
+</section>
+
+<!-- مجرة الأنماط -->
+<section class="galaxy g" id="grammar">
+  <div class="ghead"><div><span class="k">المجرّةُ الأولى</span><h2>مجرّةُ الأنماطِ اللّغويّة</h2><p>عوالمُ تشرحُ تراكيبَ الجملةِ العربيّة بقصصٍ من البيئةِ العُمانيّة.</p></div><span class="hint">٤ عوالم</span></div>
+  <div class="rail" id="railG"></div>
+</section>
+
+<!-- مجرة الإملاء -->
+<section class="galaxy s" id="spelling">
+  <div class="ghead"><div><span class="k">المجرّةُ الثّانية</span><h2>مجرّةُ الإملاء</h2><p>عوالمُ تجعلُ قواعدَ الكتابةِ ألعابًا يكتشفُها الطّالبُ بنفسِه.</p></div><span class="hint">٣ عوالم</span></div>
+  <div class="rail" id="railS"></div>
+</section>
+
+<section class="msgs" id="messages">
+  <div>
+    <h2>رسائلُكم</h2>
+    <p class="intro">شاركونا رأيَكم في عوالمِ «كون». تظهرُ الرّسائلُ المختارةُ هنا بعدَ مراجعتِها.</p>
+    <form class="form" id="msgForm" novalidate>
+      <label>الاسم <span class="small">(اختياريّ)</span><input id="fName" maxlength="40" autocomplete="off" placeholder="مثال: أم سالم"></label>
+      <div><div style="font-weight:800;font-size:16px;margin-bottom:6px">الصّفة</div>
+        <div class="roles" id="fRole"><button type="button" data-r="معلم">معلّم/ة</button><button type="button" data-r="طالب">طالب/ة</button><button type="button" data-r="ولي أمر">وليّ أمر</button></div></div>
+      <label>رسالتُك<textarea id="fMsg" maxlength="600" placeholder="اكتبْ رسالتَك أو ملاحظتَك هنا…"></textarea></label>
+      <input class="hp" id="fHp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="send" id="fSend" type="submit">أرسِلْ رسالتي</button>
+      <div class="fnote" id="fNote"></div>
+      <div class="small">لا تُنشَرُ أيُّ رسالةٍ قبلَ مراجعتِها.</div>
+    </form>
+  </div>
+  <div><div class="wall" id="wall"></div></div>
+</section>
+
+<footer>
+  <div class="f-logo"><svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="كون"><title>كون</title><defs><clipPath id="upf"><rect x="0" y="0" width="400" height="212"/></clipPath><linearGradient id="sunf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4C24D"/><stop offset="1" stop-color="#E98A6A"/></linearGradient></defs><g clip-path="url(#upf)"><circle cx="210" cy="212" r="120" fill="url(#sunf)" opacity=".28"/><circle cx="210" cy="212" r="80" fill="url(#sunf)" opacity=".35"/></g><g stroke="#E98A6A" stroke-width="5" stroke-linecap="round" opacity=".7"><path d="M210 70 v-26 M130 104 l-18 -18 M290 104 l18 -18"/></g><g fill="none" stroke="#F3EEE4" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M338 44 L278 84 L278 168 Q278 192 254 192 L214 192"/><path d="M214 192 C214 158 174 156 176 180 C178 198 204 198 202 214 C198 238 168 250 140 248"/><path d="M112 146 C114 222 30 226 24 152"/></g><path d="M10 222 Q200 206 390 222" stroke="#8FAF7A" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="68" cy="100" r="15" fill="#E9B949"/></svg></div>
+  <div class="slog"><span>حيثُ كلُّ درسٍ.. عالَمٌ جديد</span><span>حينَ تصيرُ القاعدةُ حكاية</span><span>نتعلّمُ اللّغةَ كما نعيشُها</span></div>
+  <small>إعداد: أ. عائشة بنت عبدالله البروانية، مدرسة الصّلاح للتّعليم الأساسيّ، سلطنة عُمان</small>
+</footer>
+
+<div id="zoom"></div>
+<div class="buddy" id="buddy">
+  <button id="buddyBtn" aria-label="نُجَيْمة المرشدة"><svg viewBox="0 0 120 120"><path d="M60 8 L74 42 L110 44 L82 67 L92 103 L60 83 L28 103 L38 67 L10 44 L46 42 Z" fill="#E9B949" stroke="#E9B949" stroke-width="14" stroke-linejoin="round"/>
+    <path d="M60 8 L74 42 L110 44 L82 67 L92 103 L60 83 L28 103 L38 67 L10 44 L46 42 Z" fill="#F4CD66" stroke="#D39E2A" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="49" cy="58" r="7" fill="#26324A"/><circle cx="71" cy="58" r="7" fill="#26324A"/><circle cx="51" cy="56" r="2.4" fill="#fff"/><circle cx="73" cy="56" r="2.4" fill="#fff"/>
+    <circle cx="40" cy="70" r="5" fill="#F7A1B5" opacity=".8"/><circle cx="80" cy="70" r="5" fill="#F7A1B5" opacity=".8"/>
+    <path d="M52 72 q8 8 16 0" stroke="#26324A" stroke-width="4" fill="none" stroke-linecap="round"/></svg></button>
+  <div class="say" id="say">مرحبًا! أنا نُجَيْمة، نجمةُ «كون». سأرافقُك في رحلتِك بينَ العوالم ✨</div>
+</div>
+
+<script>
+const W=[
+ {g:'g',sym:'s-zajil',vb:'250 230',world:'عالَمُ زاجل',title:'الجملةُ الاسميّة',desc:'حمامةُ البريدِ مزّقَتِ العاصفةُ رسائلَها نصفين… يعيدُ الطّلابُ المبتدأَ إلى خبرِه ويكتشفونَ سرَّ الضّمّة.',sky:['#CFE6F7','#F2F8FC'],hill:'#8FAF7A',url:'lessons/zajil-aljumla-alismiyya.html'},
+ {g:'g',sym:'s-turtle',vb:'300 180',world:'عالَمُ رَيّا',title:'ضمائرُ الرّفعِ المتّصلة',desc:'سلحفاةُ رأسِ الجنز وأصدافُها الثّلاث: تاءُ الفاعل، ونا الفاعلين، ونونُ النّسوة… ولماذا يسكنُ آخرُ الفعل.',sky:['#FFE3C2','#FFF4E4'],hill:'#1FA3B8',url:'lessons/rayya-damair-alraf.html'},
+ {g:'g',sym:'s-falcon',vb:'240 220',world:'عالَمُ شاهين',title:'أسماءُ الإشارة',desc:'صقرُ جبلِ شمسَ يرى القريبَ والبعيد: هذا وذلك، هذانِ وهاتانِ، هؤلاءِ وأولئك.',sky:['#D5E7F4','#FBF1DE'],hill:'#C99263',url:'lessons/shaheen-asmaa-alishara.html'},
+ {g:'g',sym:'s-needle',vb:'120 240',world:'عالَمُ نَقّوشة',title:'أدواتُ الرّبط',desc:'إبرةُ الكُمّةِ تخيطُ الكلمات: الواوُ عُقدةٌ تجمع، والفاءُ غرزةٌ قصيرة، وثُمَّ غرزةٌ طويلة.',sky:['#EDE3F7','#FBF6FF'],hill:'#8FAF7A',url:'lessons/naqqusha-adawat-alrabt.html'},
+ {g:'s',sym:'s-det',vb:'220 250',world:'ملفُّ القضيّة: لغزُ قبّعاتِ الألف',title:'همزةُ الوصلِ والقطعِ والمدّ',desc:'ملفُّ قضيّةٍ سرّيّ وكاشفُ الواو: متى تلبسُ الألفُ قبّعتَها؟ ومَن هم عصابةُ الأسماءِ السّبعة؟',sky:['#D9DEE8','#F4EFE4'],hill:'#B88A55',url:'lessons/lughz-qubbaat-alalif.html'},
+ {g:'s',sym:'s-hz',vb:'20 -330 300 420',world:'عالَمُ همّوزة',title:'الهمزةُ المتوسّطة',desc:'نزالُ الأذرع وشدُّ الحبلِ والكراسي الموسيقيّة: الحركةُ الأقوى تختارُ كرسيَّ الهمزة.',sky:['#FFE1E8','#FFF6EC'],hill:'#F2D08A',url:'lessons/hammooza-alhamza-almutawassita.html'},
+ {g:'s',sym:'s-bus',vb:'320 190',world:'عالَمُ سعيدة',title:'علاماتُ التّرقيم',desc:'حافلةُ المدرسةِ في مدينةِ الكلام: سبعُ إشاراتٍ تنظّمُ القراءةَ وتغيّرُ المعنى والنّبرة.',sky:['#CDE9FA','#EEF8FF'],hill:'#2F343D',url:'lessons/saeeda-alamat-altarqeem.html'}
+];
+function card(w,i){
+  const a=document.createElement('a');a.className='world';a.href=w.url;a.style.transitionDelay=(i%4*.08)+'s';
+  const vb=w.vb.split(' ').length===2?`0 0 ${w.vb}`:w.vb;
+  a.innerHTML=`<div class="pic"><div class="skyb" style="background:linear-gradient(${w.sky[0]},${w.sky[1]})"></div>
+    <span class="cl" style="width:26%;height:14%;top:14%;right:8%"></span><span class="cl" style="width:18%;height:10%;top:26%;left:10%;opacity:.7"></span>
+    <svg class="hills" viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M0 120 L0 60 Q100 10 200 50 T400 40 L400 120z" fill="${w.hill}" opacity=".55"/><path d="M0 120 L0 85 Q120 50 240 80 T400 70 L400 120z" fill="${w.hill}"/></svg>
+    <svg class="ch"><use href="#${w.sym}" width="100%" height="100%"/></svg>
+    <span class="badge">${w.g==='g'?'الأنماطُ اللّغويّة':'الإملاء'}</span><span class="visited">✔ زُرْتَه</span></div>
+    <div class="info"><span class="wn">${w.world}</span><h3>${w.title}</h3><p>${w.desc}</p>
+    <div class="meta"><span>١٠ شرائح تفاعليّة</span><span>الصّفّ الرّابع</span></div>
+    <span class="go">ادخُلِ العالَمَ ←</span></div>`;
+  a.dataset.id=i;a.addEventListener('click',e=>{e.preventDefault();markSeen(i);zoomTo(a,w)});
+  return a}
+const railG=document.getElementById('railG'),railS=document.getElementById('railS');
+W.forEach((w,i)=>(w.g==='g'?railG:railS).appendChild(card(w,i)));
+
+/* تقدّم الطالب */
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+let seen=[];try{seen=JSON.parse(localStorage.getItem('kawn-seen')||'[]')}catch(_){seen=[]}
+function paintSeen(){document.querySelectorAll('.world').forEach(el=>el.classList.toggle('seen',seen.includes(+el.dataset.id)));
+  document.getElementById('progT').textContent=AR(seen.length)+' / '+AR(W.length);document.getElementById('progB').style.width=(seen.length/W.length*100)+'%'}
+function markSeen(i){if(!seen.includes(i)){seen.push(i);try{localStorage.setItem('kawn-seen',JSON.stringify(seen))}catch(_){}
+  paintSeen();say(seen.length===W.length?'مذهل! اكتشفْتَ كلَّ عوالمِ «كون» 🏆':`رائع! اكتشفْتَ ${AR(seen.length)} من ${AR(W.length)} عوالم ⭐`)}}
+paintSeen();
+/* نُجَيْمة */
+const buddy=document.getElementById('buddy'),sayEl=document.getElementById('say');
+let bT=null;function say(t){sayEl.textContent=t;buddy.classList.remove('hide');clearTimeout(bT);bT=setTimeout(()=>buddy.classList.add('hide'),innerWidth<760?4000:7000)}
+document.getElementById('buddyBtn').onclick=()=>buddy.classList.toggle('hide');
+const MSG={home:'مرحبًا! أنا نُجَيْمة، نجمةُ «كون». اختَرْ مجرّةً لنبدأَ الرّحلة ✨',how:'في «كون» كلُّ درسٍ عالمٌ له قصّةٌ وشخصيّة 🌍',grammar:'هنا مجرّةُ الأنماطِ اللّغويّة 🌿 عوالمُ الجملةِ والضّمائرِ والإشارةِ والرّبط.',spelling:'وصلْنا إلى مجرّةِ الإملاء ✏️ هنا نكتبُ الهمزاتِ والعلاماتِ بلا خطأ!'};
+const secIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&MSG[e.target.id]){say(MSG[e.target.id]);document.querySelectorAll('.top nav a').forEach(a=>a.classList.toggle('on',a.dataset.sec===e.target.id))}}),{threshold:.4});
+['home','how','grammar','spelling'].forEach(id=>secIO.observe(document.getElementById(id)));
+/* الرسائل */
+(function(){const K=window.KAWN||{ok:false};const wall=document.getElementById('wall'),form=document.getElementById('msgForm'),note=document.getElementById('fNote'),send=document.getElementById('fSend');let role='';
+  document.querySelectorAll('#fRole button').forEach(b=>b.onclick=()=>{role=b.dataset.r;document.querySelectorAll('#fRole button').forEach(x=>x.classList.toggle('on',x===b))});
+  function empty(t){wall.innerHTML='';const d=document.createElement('div');d.className='empty';d.textContent=t;wall.appendChild(d)}
+  function render(list){if(!list.length){empty('لا توجدُ رسائلُ منشورةٌ بعد… كنْ أوّلَ مَن يكتب! ✨');return}wall.innerHTML='';
+    list.forEach(c=>{const d=document.createElement('div');d.className='cm';const p=document.createElement('p');p.textContent=c.message;const w=document.createElement('div');w.className='who';w.textContent=c.name||'زائر';
+      if(c.role){const s=document.createElement('span');s.textContent=' · '+c.role;w.appendChild(s)}d.append(p,w);wall.appendChild(d)})}
+  if(!K.ok){empty('ستظهرُ هنا رسائلُ الزّوّارِ بعدَ نشرِ الموقعِ وربطِه بجدولِ البيانات.')}
+  else fetch(K.api+'?action=comments').then(r=>r.json()).then(j=>render(j.comments||[])).catch(()=>empty('تعذّرَ تحميلُ الرّسائلِ الآن.'));
+  form.addEventListener('submit',e=>{e.preventDefault();const msg=document.getElementById('fMsg').value.trim();
+    if(msg.length<3){note.style.color='#C8664A';note.textContent='اكتبْ رسالتَك أوّلًا.';return}
+    if(!role){note.style.color='#C8664A';note.textContent='اخترِ الصّفةَ من فضلك.';return}
+    if(!K.ok){note.style.color='#C8664A';note.textContent='خانةُ الرّسائلِ تعملُ بعدَ نشرِ الموقع.';return}
+    send.disabled=true;note.style.color='';note.textContent='جارٍ الإرسال…';
+    fetch(K.api,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'message',name:document.getElementById('fName').value.trim(),role,message:msg,hp:document.getElementById('fHp').value})})
+      .then(()=>{note.style.color='#4A6B52';note.textContent='وصلَتْ رسالتُك، شكرًا لك! ستظهرُ بعدَ مراجعتِها ✨';form.reset();role='';document.querySelectorAll('#fRole button').forEach(x=>x.classList.remove('on'))})
+      .catch(()=>{note.style.color='#C8664A';note.textContent='تعذّرَ الإرسال، حاولْ مرّةً أخرى.'}).finally(()=>send.disabled=false)});})();
+/* ظهور البطاقات */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.world').forEach(el=>io.observe(el));
+
+/* انتقال التكبير ثم فتح العالم */
+const zoom=document.getElementById('zoom');
+function zoomTo(a,w){const r=a.getBoundingClientRect();
+  zoom.style.transition='none';zoom.style.background=`linear-gradient(${w.sky[0]},${w.sky[1]})`;
+  Object.assign(zoom.style,{top:r.top+'px',left:r.left+'px',width:r.width+'px',height:r.height+'px',opacity:'1',borderRadius:'28px'});
+  void zoom.offsetWidth;zoom.style.transition='';
+  Object.assign(zoom.style,{top:'0px',left:'0px',width:innerWidth+'px',height:innerHeight+'px',borderRadius:'0px'});
+  setTimeout(()=>{location.href=w.url;setTimeout(()=>zoom.style.opacity='0',400)},650)}
+
+/* الحركة المتدرجة للطبقات والشريط العلوي */
+const layers=[...document.querySelectorAll('.layer')],topBar=document.getElementById('top');let tick=false;
+addEventListener('scroll',()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{const y=scrollY;
+  layers.forEach(l=>l.style.transform=`translateY(${y*parseFloat(l.dataset.speed)}px)`);
+  topBar.classList.toggle('solid',y>innerHeight*.6);tick=false})},{passive:true});
+</script>
+</body>
+</html>

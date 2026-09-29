@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="../assets/kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>زاجل وحقيبة الرسائل الممزقة: الجملة الاسمية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --sky1:#7CCBFA; --sky2:#DDF3FF; --paper:#FFFBEF; --ink:#1F2D4D; --ink2:#51607E;
+  --blue:#2F6FE0; --blue2:#1E4FA8; --orange:#F2991E; --orange2:#B96A06;
+  --red:#E5484D; --green:#2EAD65; --gold:#FFC83D; --grey:#A9B0D6;
+  --ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;
+  --word:"Noto Naskh Arabic","Traditional Arabic","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --sky1:#4E9FD8; --sky2:#A9D9F5; } }
+:root[data-theme="dark"]{ --sky1:#4E9FD8; --sky2:#A9D9F5; }
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--sky1);font-family:var(--ui);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--orange);outline-offset:3px}
+
+/* ===== المسرح ===== */
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;
+  background:linear-gradient(var(--sky1),var(--sky2) 85%)}
+.cloud{position:absolute;width:260px;height:80px;border-radius:40px;background:#fff;opacity:.85;animation:drift 60s linear infinite}
+.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud::before{width:110px;height:110px;top:-55px;right:40px}
+.cloud::after{width:80px;height:80px;top:-36px;right:130px}
+@keyframes drift{from{transform:translateX(-300px)}to{transform:translateX(2000px)}}
+.slide{position:absolute;inset:0;display:none}
+.slide.active{display:block;animation:slideIn .45s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* بطاقة البريد الجوي */
+.card{position:absolute;inset:60px 30px 84px;border:16px solid transparent;border-radius:26px;
+  background:linear-gradient(var(--paper),var(--paper)) padding-box,
+    repeating-linear-gradient(-45deg,var(--blue) 0 22px,#fff 22px 32px,var(--orange) 32px 54px,#fff 54px 64px) border-box;
+  box-shadow:0 22px 50px rgba(31,45,77,.28)}
+.stamp{position:absolute;top:-44px;right:40px;padding:7px;background:#fff;border-radius:6px;transform:rotate(4deg);box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.stamp div{width:104px;height:80px;background:var(--gold);border:3px dashed #fff;outline:2px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
+.stamp b{font-size:40px;font-weight:800}
+.stamp small{font-size:17px;font-weight:700}
+.head{position:absolute;top:10px;right:190px;left:30px;display:flex;align-items:baseline;gap:20px}
+.head h2{margin:0;font-size:54px;font-weight:800;line-height:1.35}
+.head p{margin:0;font-size:28px;font-weight:700;color:var(--ink2)}
+.content{position:absolute;top:100px;right:28px;left:28px;height:480px}
+.band{position:absolute;bottom:10px;right:20px;left:20px;height:130px;display:flex;align-items:flex-end;gap:20px}
+.guide{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;order:2}
+.guide svg{width:130px;height:120px;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:26px;padding:12px 22px;font-size:26px;line-height:1.5;font-weight:700;max-width:780px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:20px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.task{order:1;flex:0 0 590px;background:#fff;border:3px dashed var(--orange);border-radius:18px;padding:10px 20px;font-size:25px;font-weight:700;line-height:1.5;position:relative}
+.task b{color:var(--orange2);margin-left:6px}
+
+/* أنصاف الرسائل */
+.w{font-family:var(--word);font-weight:700}
+.half{display:inline-flex;align-items:center;justify-content:center;font-family:var(--word);font-weight:700;font-size:54px;line-height:1;padding:24px 34px 30px;color:#fff;min-width:170px;height:100px}
+.half.b{background:var(--blue);clip-path:polygon(0 0,100% 0,100% 100%,0 100%,12px 88%,0 75%,12px 62%,0 50%,12px 38%,0 25%,12px 12%);padding-left:44px;border-radius:0}
+.half.o{background:var(--orange);clip-path:polygon(0 0,100% 0,calc(100% - 12px) 12%,100% 25%,calc(100% - 12px) 38%,100% 50%,calc(100% - 12px) 62%,100% 75%,calc(100% - 12px) 88%,100% 100%,0 100%);padding-right:44px}
+.dm{color:inherit}
+
+.btn{border:0;border-radius:22px;padding:10px 28px;font-size:28px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.3)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.bl{background:var(--blue)}.btn.or{background:var(--orange)}.btn.lt{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(31,45,77,.2)}
+.good{background:var(--green)!important;color:#fff!important}
+.bad{background:var(--red)!important;color:#fff!important}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+
+/* تنقل */
+#nav{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 20px;border-radius:27px;background:rgba(255,255,255,.75);color:var(--ink);font-size:24px;font-weight:800}
+#nav button:disabled{opacity:.35;cursor:not-allowed}
+#nav .main{background:var(--orange);color:#fff}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(242,153,30,.7)}50%{box-shadow:0 0 0 14px rgba(242,153,30,0)}}
+#counter{font-size:26px;font-weight:800;min-width:90px;text-align:center;color:var(--ink)}
+#tools{position:absolute;top:10px;left:16px;display:flex;gap:10px;z-index:50}
+#tools button{border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.75);color:var(--ink);font-size:20px;font-weight:700}
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:#fff;z-index:60;box-shadow:12px 0 40px rgba(0,0,0,.3);transform:translateX(-105%);transition:transform .35s;padding:30px;font-size:23px;line-height:1.7;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-size:34px;margin:0 0 8px;color:var(--blue)}
+#notes dt{font-weight:800;color:var(--orange2);margin-top:8px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px;font-size:20px}
+
+/* ===== ١. الغلاف ===== */
+.s1 .title{position:absolute;top:70px;right:0;left:0;text-align:center}
+.s1 h1{margin:0;font-size:92px;font-weight:800;color:#fff;line-height:1.2;text-shadow:0 5px 0 var(--blue2),0 12px 24px rgba(0,0,0,.2)}
+.s1 .title p{margin:6px 0 0;font-size:34px;font-weight:800;color:var(--ink)}
+.flyer{position:absolute;top:300px;left:560px;width:480px;height:440px;animation:hover 3s ease-in-out infinite}
+@keyframes hover{50%{transform:translateY(-16px)}}
+.flyer svg{width:100%;height:100%}
+.bagBtn{position:absolute;top:752px;left:50%;transform:translateX(-50%);z-index:5}
+.bagBtn.hide{display:none}
+.mission{position:absolute;top:250px;right:220px;left:220px;height:470px;background:var(--paper);border-radius:26px;padding:30px 50px;border:16px solid transparent;
+  background:linear-gradient(var(--paper),var(--paper)) padding-box,repeating-linear-gradient(-45deg,var(--blue) 0 22px,#fff 22px 32px,var(--orange) 32px 54px,#fff 54px 64px) border-box;
+  box-shadow:0 22px 50px rgba(31,45,77,.3);opacity:0;transform:scale(.6);pointer-events:none;transition:.6s cubic-bezier(.3,1.5,.5,1)}
+.s1.open .mission{opacity:1;transform:none}
+.s1.open .flyer{opacity:0;transition:opacity .4s}
+.mission h3{margin:0;font-size:46px;color:var(--blue)}
+.mission p{margin:0 0 4px;font-size:28px;font-weight:700}
+.mission ol{margin:0;padding-right:46px;font-size:30px;line-height:1.75;font-weight:700;list-style:arabic-indic}
+.env{position:absolute;width:90px;height:62px;pointer-events:none;opacity:0}
+.env svg{width:100%;height:100%}
+.s1.burst .env{animation:burst 1.4s ease-out forwards}
+@keyframes burst{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r))}}
+
+/* ===== ٢. الجوال ===== */
+.phone{position:absolute;top:-6px;right:130px;width:420px;height:560px;background:#1F2D4D;border-radius:48px;padding:16px;box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.screen{width:100%;height:100%;border-radius:34px;background:#ECE5DA;overflow:hidden;display:flex;flex-direction:column}
+.chatbar{background:#1B8C74;color:#fff;padding:16px 20px;font-size:26px;font-weight:800;display:flex;align-items:center;gap:10px}
+.chatbar i{width:40px;height:40px;border-radius:50%;background:#fff;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-size:24px}
+.msgs{flex:1;padding:16px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.m{max-width:85%;background:#fff;border-radius:18px;padding:8px 16px 10px;font-size:22px;box-shadow:0 2px 3px rgba(0,0,0,.1)}
+.m small{display:block;font-size:17px;font-weight:800;color:#1B8C74}
+.m .w{font-size:36px}
+.m.mom small{color:#C2417C}
+.sys{align-self:center;background:#FFE7A8;border-radius:12px;padding:4px 14px;font-size:19px;font-weight:700}
+.typing{align-self:flex-start;display:none;background:#fff;border-radius:18px;padding:12px 18px}
+.typing.on{display:flex;gap:6px}
+.typing span{width:10px;height:10px;border-radius:50%;background:#999;animation:dot 1s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes dot{50%{transform:translateY(-6px)}}
+.m.new{animation:popIn .4s}
+.guess{position:absolute;top:30px;left:40px;width:780px;display:flex;flex-direction:column;gap:22px;align-items:center}
+.guess .q{font-size:40px;font-weight:800;text-align:center;line-height:1.4}
+.chips{display:flex;gap:18px;opacity:0;transform:translateY(20px);transition:.4s;pointer-events:none}
+.chips.on{opacity:1;transform:none;pointer-events:auto}
+.chips button{border:0;background:#fff;border-radius:30px;padding:10px 30px;font-family:var(--word);font-size:44px;font-weight:700;box-shadow:0 5px 0 rgba(31,45,77,.2)}
+.lesson2{font-size:32px;font-weight:800;background:#fff;border-radius:22px;padding:16px 30px;border:3px solid var(--blue);opacity:0;transition:.5s;text-align:center;line-height:1.5}
+.lesson2.on{opacity:1}
+
+/* ===== ٣. العاصفة ===== */
+.storm{pointer-events:none;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:26px;padding-top:20px}
+.msg{display:flex;gap:0;transition:.2s}
+.msg .half{transition:transform .8s cubic-bezier(.3,1.4,.5,1),background .6s,color .6s}
+.s3:not(.torn) .msg .half{background:#fff;color:var(--ink);clip-path:none;box-shadow:0 6px 14px rgba(31,45,77,.15)}
+.s3.torn .msg .half.b{transform:translateX(70px) rotate(4deg)}
+.s3.torn .msg .half.o{transform:translateX(-70px) rotate(-5deg)}
+.s3.windy .msg{animation:gust .25s 5}
+@keyframes gust{50%{transform:translateX(-10px) rotate(-2deg)}}
+.legend{display:flex;gap:30px;opacity:0;transition:.5s .6s}
+.s3.torn .legend{opacity:1}
+.legend span{font-size:28px;font-weight:800;padding:6px 24px;border-radius:16px;color:#fff}
+.windBtn{position:absolute;top:10px;left:40px;z-index:3}
+.zaj3{position:absolute;top:120px;left:30px;width:230px;height:210px;transition:transform 1.4s}
+.s3.windy .zaj3{transform:translate(-40px,-30px) rotate(-14deg)}
+
+/* ===== ٤. بوابة المبتدأ ===== */
+.gateWrap{position:absolute;inset:0;display:flex;align-items:center;gap:40px}
+.gateInfo{width:520px;background:#fff;border-radius:26px;padding:24px 30px;border:4px solid var(--blue);font-size:29px;font-weight:700;line-height:1.6}
+.gateInfo h3{margin:0 0 6px;font-size:40px;color:var(--blue)}
+.gateInfo .ex{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+.gateInfo .ex span{background:var(--blue);color:#fff;border-radius:12px;padding:0 14px;font-family:var(--word);font-size:30px}
+.gate{flex:1;height:440px;position:relative}
+.arch{position:absolute;left:50%;top:10px;transform:translateX(-50%);width:300px;height:250px;border:22px solid var(--blue);border-bottom:0;border-radius:150px 150px 0 0;display:flex;align-items:center;justify-content:center}
+.arch b{position:absolute;top:-58px;background:var(--blue);color:#fff;padding:2px 22px;border-radius:14px;font-size:26px;white-space:nowrap}
+.arch .slot{font-family:var(--word);font-size:56px;font-weight:700;color:var(--ink2);min-width:10px;transition:.3s}
+.arch.ok{border-color:var(--green)}.arch.no{border-color:var(--red);animation:shake .5s}
+.verdict4{position:absolute;top:268px;left:0;right:0;text-align:center;font-size:30px;font-weight:800;min-height:46px}
+.pile{position:absolute;bottom:0;left:0;right:0;display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.pile button{border:0;background:#fff;border-radius:16px;font-family:var(--word);font-size:40px;font-weight:700;padding:4px 26px;box-shadow:0 5px 0 rgba(31,45,77,.18)}
+.pile button.used{opacity:.35}
+
+/* ===== ٥. آلة السؤال ===== */
+.qm{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:6px}
+.qm .sent{display:flex;align-items:center;min-height:110px}
+.qm .ghost{display:inline-flex;align-items:center;justify-content:center;min-width:250px;height:100px;border:4px dashed var(--orange);color:var(--orange2);font-size:36px;font-weight:800;border-radius:6px;padding:0 24px}
+.ask{font-size:42px;font-weight:800;background:#fff;border-radius:40px;padding:6px 40px;border:4px solid var(--orange);position:relative}
+.opts5{display:flex;gap:18px}
+.opts5 button{border:0;background:var(--orange);color:#fff;border-radius:18px;font-family:var(--word);font-size:44px;font-weight:700;padding:6px 30px;box-shadow:0 5px 0 var(--orange2)}
+.switch5{display:flex;gap:14px;margin-top:4px}
+.fullmean{font-size:30px;font-weight:800;color:var(--green);min-height:44px}
+
+/* ===== ٦. الفرز ===== */
+.sortWrap{position:absolute;inset:0;display:flex;gap:40px}
+.pairs{width:880px;display:flex;flex-direction:column;gap:12px}
+.pair{display:flex;align-items:center;height:84px}
+.pair .half{height:84px;font-size:46px;padding:16px 30px 22px;min-width:220px}
+.drop{width:260px;height:84px;border:4px dashed var(--orange);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--orange2);font-size:22px;font-weight:700}
+.drop.hot{background:rgba(242,153,30,.2)}
+.drop .half{min-width:0;width:100%}
+.pair .check{font-size:40px;margin-right:12px;width:50px}
+.tray{flex:1;display:flex;flex-direction:column;gap:14px;align-items:center;justify-content:center;background:rgba(242,153,30,.1);border-radius:24px;padding:14px;position:relative}
+.tray .t{font-size:26px;font-weight:800;color:var(--orange2)}
+.tray .half{touch-action:none;cursor:grab;height:80px;font-size:44px;padding:14px 30px 20px}
+.dragging{position:relative;z-index:40;cursor:grabbing;filter:drop-shadow(0 12px 16px rgba(0,0,0,.3))}
+.score6{position:absolute;top:-6px;left:10px;background:var(--ink);color:var(--gold);border-radius:14px;padding:0 18px;font-size:28px;font-weight:800}
+
+/* ===== ٧. سر القبعة ===== */
+.hatWrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:18px}
+.bigSent{display:flex;align-items:center}
+.bigSent .half{font-size:78px;height:130px;padding:22px 44px 34px}
+.s7 .dm{transition:.4s}
+.s7.rev .dm{color:#FFE066;text-shadow:0 0 16px rgba(255,224,102,.8)}
+@keyframes bounceHat{50%{transform:translateY(-12px)}}
+.rules{display:flex;gap:26px;opacity:0;transition:.5s}
+.s7.rev .rules{opacity:1}
+.rules div{background:#fff;border-radius:18px;padding:8px 22px;font-size:27px;font-weight:800;border-bottom:6px solid}
+.rules div:first-child{border-color:var(--blue)}.rules div:last-child{border-color:var(--orange)}
+.tn{font-size:24px;font-weight:700;color:var(--ink2);opacity:0;transition:.5s .3s}
+.s7.rev .tn{opacity:1}
+.dress{display:flex;gap:30px;margin-top:4px}
+.dq{background:#fff;border-radius:20px;padding:10px 20px;display:flex;flex-direction:column;align-items:center;gap:8px;border:3px solid #E3E7F2}
+.dq .s{font-family:var(--word);font-size:40px;font-weight:700}
+.dq .s .gap{color:var(--red);border-bottom:4px dotted var(--red);padding:0 10px}
+.dq .o{display:flex;gap:10px}
+.dq .o button{border:0;background:#EEF3FF;border-radius:14px;font-family:var(--word);font-size:34px;font-weight:700;padding:2px 18px}
+
+/* ===== ٨. رسالتي ===== */
+.mine{position:absolute;inset:0;display:flex;gap:30px}
+.picker{width:620px;display:flex;flex-direction:column;gap:14px}
+.picker h4{margin:0;font-size:28px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row button{border:0;border-radius:14px;font-family:var(--word);font-size:36px;font-weight:700;padding:4px 22px;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.row.bs button{background:var(--blue)}
+.row.os button{background:var(--orange)}
+.row button.sel{outline:5px solid var(--gold);outline-offset:2px}
+.row input{font-family:var(--word);font-size:32px;font-weight:700;border:3px dashed var(--orange);border-radius:14px;padding:4px 14px;width:230px;background:#fff;color:var(--ink);user-select:text}
+.letter{flex:1;position:relative;background:#fff;border-radius:18px;box-shadow:0 14px 30px rgba(31,45,77,.2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  border:14px solid transparent;background:linear-gradient(#fff,#fff) padding-box,repeating-linear-gradient(-45deg,var(--blue) 0 18px,#fff 18px 26px,var(--orange) 26px 44px,#fff 44px 52px) border-box;transition:transform 1s,opacity 1s}
+.letter .to{position:absolute;top:14px;right:24px;font-size:24px;font-weight:700;color:var(--ink2)}
+.letter .sent{display:flex}
+.letter .sent .half{font-size:50px}
+.letter .ph{font-size:30px;font-weight:700;color:var(--ink2)}
+.letter.fly{transform:translate(-600px,-500px) rotate(-30deg) scale(.3);opacity:0}
+
+/* ===== ٩. التحدي ===== */
+.chal{position:absolute;inset:0;display:flex;gap:30px}
+.pan{flex:1;background:#fff;border-radius:26px;border:5px solid #E3E7F2;padding:20px 26px;display:flex;flex-direction:column;align-items:center;gap:18px;position:relative;overflow:hidden}
+.pan h4{margin:0;font-size:32px;color:var(--blue)}
+.pan .q{font-size:28px;font-weight:800;text-align:center}
+.env2{border:0;width:100%;background:#FFF6DF;border-radius:16px;padding:16px;font-family:var(--word);font-size:48px;font-weight:700;box-shadow:0 5px 0 rgba(31,45,77,.15);position:relative}
+.env2::before{content:"";position:absolute;inset:8px;border:2px dashed rgba(31,45,77,.25);border-radius:10px;pointer-events:none}
+.tapS{display:flex;gap:18px;font-family:var(--word);font-size:70px;font-weight:700;margin-top:10px}
+.tapS button{border:0;background:#EEF3FF;border-radius:18px;font:inherit;padding:10px 30px 16px;transition:.3s}
+.tapS button.isB{background:var(--blue);color:#fff}
+.tapS button.isO{background:var(--orange);color:#fff}
+.step9{font-size:28px;font-weight:800;color:var(--ink2);min-height:44px;text-align:center}
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;font-style:normal;font-size:42px;color:var(--gold);animation:fall 1.4s ease-in forwards}
+@keyframes fall{from{transform:translateY(-40px) rotate(0);opacity:1}to{transform:translateY(420px) rotate(260deg);opacity:0}}
+
+/* ===== ١٠. الختام ===== */
+.s10 .deliver{position:absolute;top:40px;right:60px;width:760px;display:flex;flex-direction:column;gap:18px}
+.s10 h3{margin:0;font-size:64px;font-weight:800;color:var(--green);transform:scale(0);transition:.6s cubic-bezier(.3,1.6,.5,1)}
+.s10.go h3{transform:none}
+.formula{display:flex;align-items:center;gap:10px;font-size:34px;font-weight:800}
+.formula .half{height:84px;font-size:36px;font-family:var(--ui);padding:14px 30px 20px;min-width:0}
+.recap p{margin:4px 0;font-size:28px;font-weight:700;line-height:1.5}
+.badge{position:absolute;top:10px;left:40px;width:560px;height:460px;border-radius:30px;background:linear-gradient(160deg,#FFF3C4,#FFD66B);border:8px solid #E0A400;text-align:center;padding:14px 26px;box-shadow:0 16px 30px rgba(0,0,0,.2)}
+.badge svg{width:210px;height:170px}
+.badge h4{margin:0;font-size:44px;color:#8A5A00}
+.badge input{width:100%;font-family:var(--word);font-size:42px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed #8A5A00;background:transparent;color:var(--ink);padding:4px;user-select:text}
+.badge input:focus{outline:none;background:rgba(255,255,255,.5)}
+.badge p{margin:10px 0 0;font-size:24px;font-weight:700;color:#8A5A00}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+@keyframes popIn{0%{transform:scale(.6)}70%{transform:scale(1.08)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+#credit{position:absolute;right:12px;bottom:5px;z-index:55;pointer-events:none;font-family:"Noto Naskh Arabic","Tahoma",sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.22);padding:1px 9px 2px;border-radius:9px;opacity:.7;letter-spacing:0}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="zajil" viewBox="0 0 250 230">
+  <ellipse cx="128" cy="214" rx="70" ry="9" fill="#000" opacity=".12"/>
+  <path d="M112 186 v18 M140 186 v18" stroke="#F2991E" stroke-width="7" stroke-linecap="round"/>
+  <path d="M104 206 h18 M132 206 h18" stroke="#F2991E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M180 128 L236 104 L232 146 Z" fill="#7E86B3"/>
+  <ellipse cx="130" cy="136" rx="72" ry="56" fill="#A9B0D6"/>
+  <ellipse cx="112" cy="150" rx="46" ry="36" fill="#EEF0FA"/>
+  <g class="wing" style="transform-origin:150px 118px"><ellipse cx="160" cy="124" rx="46" ry="28" fill="#7E86B3" transform="rotate(-18 160 124)"/>
+  <path d="M130 118 q20 18 58 10" stroke="#6A7299" stroke-width="4" fill="none"/></g>
+  <path d="M68 96 Q120 150 150 196" stroke="#8A5A2B" stroke-width="7" fill="none"/>
+  <rect x="120" y="160" width="64" height="46" rx="9" fill="#C9853F"/>
+  <rect x="130" y="150" width="40" height="22" rx="2" fill="#fff" transform="rotate(-8 150 160)"/>
+  <path d="M120 170 Q152 190 184 170 L184 164 Q152 180 120 164 Z" fill="#A86A2C"/>
+  <circle cx="152" cy="182" r="5" fill="#FFC83D"/>
+  <ellipse cx="86" cy="106" rx="34" ry="14" fill="#6FC7B5" opacity=".85"/>
+  <circle cx="78" cy="72" r="46" fill="#B9C0E6"/>
+  <circle cx="60" cy="68" r="15" fill="#fff"/><circle cx="96" cy="68" r="15" fill="#fff"/>
+  <circle cx="58" cy="70" r="8.5" fill="#1F2D4D"/><circle cx="94" cy="70" r="8.5" fill="#1F2D4D"/>
+  <circle cx="61" cy="66" r="3" fill="#fff"/><circle cx="97" cy="66" r="3" fill="#fff"/>
+  <path d="M70 84 Q78 102 86 84 Z" fill="#F2991E"/>
+  <circle cx="44" cy="90" r="8" fill="#F7A1B5" opacity=".7"/><circle cx="112" cy="90" r="8" fill="#F7A1B5" opacity=".7"/>
+  <path d="M38 44 Q78 0 118 44 Z" fill="#2F6FE0"/>
+  <path d="M30 44 Q78 34 126 44 L126 52 Q78 42 30 52 Z" fill="#1E4FA8"/>
+  <rect x="66" y="20" width="24" height="16" rx="2" fill="#FFC83D"/><path d="M66 20 L78 30 L90 20" stroke="#B98A00" stroke-width="2" fill="none"/>
+</symbol>
+<symbol id="envS" viewBox="0 0 90 62">
+  <rect x="2" y="2" width="86" height="58" rx="6" fill="#fff" stroke="#1F2D4D" stroke-width="3"/>
+  <path d="M4 6 L45 36 L86 6" stroke="#1F2D4D" stroke-width="3" fill="none"/>
+  <rect x="64" y="10" width="16" height="14" fill="#F2991E"/>
+</symbol>
+<symbol id="medal" viewBox="0 0 240 200">
+  <g transform="translate(120 100)">
+    <circle r="78" fill="#FFC83D" stroke="#E0A400" stroke-width="8"/>
+    <circle r="60" fill="#FFF3C4"/>
+  </g>
+  <use href="#envS" x="75" y="68" width="90" height="62"/>
+  <path d="M38 160 L20 196 L50 186 L64 200 L70 168 Z M202 160 L220 196 L190 186 L176 200 L170 168 Z" fill="#2F6FE0"/>
+</symbol>
+</svg>
+
+<div id="stage">
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+
+<div class="cloud" style="top:40px;animation-delay:-10s"></div>
+<div class="cloud" style="top:160px;animation-delay:-35s;transform:scale(.7)"></div>
+<div class="cloud" style="top:720px;animation-delay:-50s"></div>
+
+<div id="tools"><a href="../index.html" style="border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a>
+  <button id="bSound">🔊 الصوت</button>
+  <button id="bFull">⛶ ملء الشاشة</button>
+  <button id="bNotes">📋 ملاحظات المعلمة</button>
+</div>
+
+<!-- ١. الغلاف -->
+<section class="slide s1 active" data-n="1">
+  <div class="title"><h1>زاجِلُ وحقيبةُ الرَّسائِلِ المُمَزَّقَةِ</h1><p>مغامرةٌ في درس: الجملةِ الاسميّةِ</p></div>
+  <div class="flyer"><svg><use href="#zajil"/></svg></div>
+  <button class="btn or bagBtn" id="bagBtn">📮 افتحْ حقيبةَ زاجل</button>
+  <div class="envs"></div>
+  <div class="mission">
+    <h3>خُطَّةُ المَهَمَّةِ</h3>
+    <p>بعدَ أن نُساعدَ زاجلَ سأستطيعُ أنْ:</p>
+    <ol>
+      <li>أعرفَ الجملةَ الاسميّةَ: جملةٌ تبدأُ باسمٍ.</li>
+      <li>أحدِّدَ المبتدأَ والخبرَ فيها.</li>
+      <li>أعرفَ أنَّهما مرفوعانِ، وعلامةُ رفعِهما الضَّمّةُ.</li>
+      <li>أُكمِلَ جملةً اسميّةً، وأكتبَ جملًا عن عالَمي.</li>
+    </ol>
+  </div>
+  <template class="notes"><h3>١. الغلاف</h3><dl>
+    <dt>الهدف</dt><dd>إثارة الدافعية وعرض أهداف الدرس.</dd>
+    <dt>قولي</dt><dd>«زاجلُ حمامةٌ ساعيةُ بريد، تحمل رسائل الناس في عُمان… وقد وقعت في مشكلة كبيرة، فهل تساعدونها؟»</dd>
+    <dt>التنفيذ</dt><dd>يضغط طالب زر الحقيبة، ثم تُقرأ خطة المهمة معًا.</dd>
+    <dt>الزمن</dt><dd>دقيقتان</dd></dl></template>
+</section>
+
+<!-- ٢. رسالة أمي -->
+<section class="slide s2" data-n="2">
+  <div class="card"><div class="stamp"><div><b>٢</b><small>من ١٠</small></div></div>
+    <div class="head"><h2>رسالةٌ لم تكتمِلْ!</h2><p>ماذا أرادتْ أمّي أنْ تقول؟</p></div>
+    <div class="content">
+      <div class="phone"><div class="screen">
+        <div class="chatbar"><i>🏠</i>عائلتي</div>
+        <div class="msgs" id="msgs">
+          <div class="m"><small>أبي</small>وصلْتُ إلى البيت 👋</div>
+          <div class="m mom"><small>أمّي</small><span class="w">الغداءُ…</span></div>
+          <div class="sys">⚠ انقطعَ الاتّصالُ</div>
+          <div class="typing" id="typing"><span></span><span></span><span></span></div>
+        </div>
+      </div></div>
+      <div class="guess">
+        <div class="q">هل فهمْتُم رسالةَ أمّي؟<br>ماذا ينقصُها؟</div>
+        <button class="btn bl" id="showGuess">لنقترحْ تكملةً!</button>
+        <div class="chips" id="chips"><button>جاهِزٌ</button><button>لَذِيذٌ</button><button>ساخِنٌ</button></div>
+        <div class="lesson2" id="lesson2">كلمةٌ واحدةٌ ناقصةٌ جعلَتِ الرِّسالةَ غيرَ مفهومةٍ،<br>وحين أضفْناها اكتملَ المعنى!</div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>اقترِحْ كلمةً تُكمِلُ رسالةَ أمّي حتّى يتّضحَ معناها.</div>
+      <div class="guide"><svg><use href="#zajil"/></svg><div class="bubble">وصلَتْ رسالةُ أمّي ناقصةً… هل فهمتُم ما تريدُ أن تقول؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. رسالة لم تكتمل</h3><dl>
+    <dt>الهدف</dt><dd>ربط فكرة «الجملة الناقصة» بتجربة يعيشها الطالب.</dd>
+    <dt>التنفيذ</dt><dd>اقرئي الرسالة واسألي: هل فهمتم؟ استمعي لاقتراحات الطلاب، ثم اضغطي «لنقترح تكملة» واختاري أحد الاقتراحات لتكتمل الرسالة.</dd>
+    <dt>سؤال مهم</dt><dd>«لماذا لم نفهم الرسالة الأولى؟» ليصل الطلاب إلى أن الجملة تحتاج جزأين.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ٣. العاصفة -->
+<section class="slide s3" data-n="3">
+  <div class="card"><div class="stamp"><div><b>٣</b><small>من ١٠</small></div></div>
+    <div class="head"><h2>العاصفةُ!</h2><p>تمزّقَتِ الرّسائلُ نصفينِ</p></div>
+    <div class="content">
+      <svg class="zaj3"><use href="#zajil"/></svg>
+      <button class="btn bl windBtn" id="windBtn">🌬 أطلِقِ العاصفةَ</button>
+      <div class="storm">
+        <div class="msg"><span class="half b">الشَّمْسُ</span><span class="half o">مُشْرِقَةٌ</span></div>
+        <div class="msg"><span class="half b">العَلَمُ</span><span class="half o">مُرْتَفِعٌ</span></div>
+        <div class="msg"><span class="half b">البَحْرُ</span><span class="half o">واسِعٌ</span></div>
+        <div class="legend"><span style="background:var(--blue)">النّصفُ الأزرقُ: البداية</span><span style="background:var(--orange)">النّصفُ البرتقاليُّ: التّكملة</span></div>
+      </div>
+    </div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>اقرأِ النّصفَ الأزرقَ وحدَه، ثمّ البرتقاليَّ وحدَه. متى اتّضحَ المعنى؟</div>
+      <div class="guide"><svg><use href="#zajil"/></svg><div class="bubble" id="b3">كنتُ أطيرُ بالرّسائلِ فوقَ البحرِ… وفجأةً هبَّتْ عاصفةٌ قويّة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٣. العاصفة</h3><dl>
+    <dt>الهدف</dt><dd>إدراك أن الجملة الاسمية جزءان لا يتم المعنى إلا بهما.</dd>
+    <dt>التنفيذ</dt><dd>اقرئي الرسائل كاملة أولًا، ثم اضغطي «أطلق العاصفة». اقرئي نصفًا أزرق وحده واسألي: هل فهمنا شيئًا كاملًا؟</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ٤. المبتدأ -->
+<section class="slide s4" data-n="4">
+  <div class="card"><div class="stamp"><div><b>٤</b><small>من ١٠</small></div></div>
+    <div class="head"><h2>النِّصفُ الأزرقُ: المُبْتَدَأُ</h2><p>اسمٌ نبدأُ به ونتحدّثُ عنه</p></div>
+    <div class="content"><div class="gateWrap">
+      <div class="gateInfo">
+        <h3>المُبْتَدَأُ</h3>
+        اسمٌ تبدأُ به الجملةُ الاسميّةُ، وهو الّذي نتحدّثُ عنه: إنسانٌ أو حيوانٌ أو نباتٌ أو شيءٌ.
+        <div class="ex"><span>المُعَلِّمَةُ</span><span>القِطُّ</span><span>النَّخْلَةُ</span><span>القَلَمُ</span></div>
+      </div>
+      <div class="gate">
+        <div class="arch" id="arch"><b>بوّابةُ البداية</b><span class="slot" id="slot4">؟</span></div>
+        <div class="verdict4" id="v4"></div>
+        <div class="pile" id="pile4">
+          <button data-ok="1">الشَّمْسُ</button><button data-ok="0">ذَهَبَ</button><button data-ok="1">القِطُّ</button>
+          <button data-ok="0">فِي</button><button data-ok="1">النَّخْلَةُ</button><button data-ok="0">يَلْعَبُ</button>
+        </div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>اضغَطْ بطاقةً: هل تمرُّ من بوّابةِ البداية؟ ولماذا؟</div>
+      <div class="guide"><svg><use href="#zajil"/></svg><div class="bubble">الجملةُ الاسميّةُ تبدأُ دائمًا باسم. أيُّ البطاقاتِ تصلحُ نصفًا أزرق؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٤. المبتدأ</h3><dl>
+    <dt>الهدف</dt><dd>تعريف المبتدأ: اسم تبدأ به الجملة ونتحدث عنه.</dd>
+    <dt>التنفيذ</dt><dd>يختار الطالب بطاقة ويتوقع قبل الضغط. الأفعال (ذهب، يلعب) والحرف (في) لا تمر، لأنها ليست أسماء.</dd>
+    <dt>تلميح</dt><dd>اسألي: هل هو اسم إنسان أو حيوان أو نبات أو شيء؟</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٥. الخبر -->
+<section class="slide s5" data-n="5">
+  <div class="card"><div class="stamp"><div><b>٥</b><small>من ١٠</small></div></div>
+    <div class="head"><h2>النِّصفُ البرتقاليُّ: الخَبَرُ</h2><p>يُخبِرُنا عن المبتدأ ويُتِمُّ المعنى</p></div>
+    <div class="content"><div class="qm">
+      <div class="switch5" id="sw5"><button class="btn lt" data-i="0">القِطُّ</button><button class="btn lt" data-i="1">المَدْرَسَةُ</button><button class="btn lt" data-i="2">الجَمَلُ</button></div>
+      <div class="sent" id="sent5"><span class="half b" id="b5">القِطُّ</span><span class="ghost" id="g5">؟</span></div>
+      <div class="ask" id="ask5">ماذا عنِ القِطِّ؟</div>
+      <div class="opts5" id="opts5"></div>
+      <div class="fullmean" id="fm5"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>السّؤالُ السِّحريُّ:</b>«ماذا عنه؟» … وجوابُه هو الخبر!</div>
+      <div class="guide"><svg><use href="#zajil"/></svg><div class="bubble">الخبرُ يُخبرُنا بشيءٍ عن المبتدأ، فيكتملُ المعنى. اختاروا خبرًا!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٥. الخبر</h3><dl>
+    <dt>الهدف</dt><dd>تعريف الخبر: ما يخبرنا عن المبتدأ ويتمّ المعنى.</dd>
+    <dt>التنفيذ</dt><dd>يسأل الصف معًا «ماذا عن القطّ؟»، ثم يختار طالب خبرًا ويقرأ الجملة كاملة. غيّري المبتدأ من الأزرار العلوية.</dd>
+    <dt>لاحظي</dt><dd>مع «المدرسة» جاءت الأخبار مؤنثة (جميلةٌ)، وهي فرصة للإشارة السريعة إلى تطابق الخبر مع المبتدأ دون توسع.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٦. الفرز -->
+<section class="slide s6" data-n="6">
+  <div class="card"><div class="stamp"><div><b>٦</b><small>من ١٠</small></div></div>
+    <div class="head"><h2>مَكْتَبُ فَرْزِ الرَّسائِلِ</h2><p>أعِدْ كلَّ نصفٍ إلى نصفِه</p></div>
+    <div class="content"><div class="sortWrap">
+      <div class="pairs" id="pairs"></div>
+      <div class="tray" id="tray6"><div class="t">الأنصافُ البرتقاليّة</div><div class="score6" id="score6">٠ / ٥</div></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>اسحَبِ النّصفَ البرتقاليَّ إلى النّصفِ الأزرق المناسب، واحكُمْ: هل المعنى صحيح؟</div>
+      <div class="guide"><svg><use href="#zajil"/></svg><div class="bubble" id="b6">الرّسائلُ مختلطة! ساعدوني في فرزها.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٦. مكتب الفرز</h3><dl>
+    <dt>الهدف</dt><dd>تكوين جمل اسمية مفيدة والحكم على صحة المعنى.</dd>
+    <dt>التنفيذ</dt><dd>يخرج الطلاب بالتناوب. التركيب المضحك (مثل: الشمسُ لذيذةٌ) يُعرض ثم يعود؛ اسألي: لماذا لا يصح؟ فالخبر يجب أن يناسب المبتدأ في المعنى.</dd>
+    <dt>الزمن</dt><dd>٦ دقائق</dd></dl></template>
+</section>
+
+<!-- ٧. سر القبعة -->
+<section class="slide s7" data-n="7">
+  <div class="card"><div class="stamp"><div><b>٧</b><small>من ١٠</small></div></div>
+    <div class="head"><h2>سِرُّ القُبَّعةِ المُشترَكةِ</h2><p>المبتدأُ والخبرُ مرفوعانِ</p></div>
+    <div class="content"><div class="hatWrap">
+      <div class="bigSent"><span class="half b">الشَّمْسُ</span><span class="half o">ساطِعَةٌ</span></div>
+      <button class="btn bl" id="rev7">🔍 اكشفِ السِّرَّ</button>
+      <div class="rules"><div>المبتدأُ مرفوعٌ، وعلامةُ رفعِه الضّمّةُ</div><div>الخبرُ مرفوعٌ، وعلامةُ رفعِه الضّمّةُ</div></div>
+      <div class="tn">تذكّرْ: الضّمّتانِ ( ـٌ ) ضمّةٌ ومعها تنوين.</div>
+      <div class="dress">
+        <div class="dq"><div class="s">القَمَرُ <span class="gap">؟</span></div><div class="o"><button data-ok="1">مُنِيرٌ</button><button data-ok="0">مُنِيرًا</button><button data-ok="0">مُنِيرٍ</button></div></div>
+        <div class="dq"><div class="s"><span class="gap">؟</span> جَمِيلَةٌ</div><div class="o"><button data-ok="0">الوَرْدَةَ</button><button data-ok="1">الوَرْدَةُ</button><button data-ok="0">الوَرْدَةِ</button></div></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>ألبِسِ الكلمةَ قبّعتَها الصّحيحةَ: الضّمّة.</div>
+      <div class="guide"><svg><use href="#zajil"/></svg><div class="bubble" id="b7">انظروا إلى آخرِ الكلمتين… هل تلاحظون قبّعةً متشابهة؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٧. سر القبعة: الرفع</h3><dl>
+    <dt>الهدف</dt><dd>معرفة أن المبتدأ والخبر مرفوعان وعلامة رفعهما الضمة.</dd>
+    <dt>التنفيذ</dt><dd>اطلبي من الطلاب ملاحظة آخر الكلمتين قبل الكشف. بعد الكشف يرددون القاعدة، ثم يحلّون تحدي القبعة.</dd>
+    <dt>تنبيه</dt><dd>وضّحي أن تنوين الضم (ـٌ) ضمة معها تنوين، حتى لا يظن الطلاب أنها علامة مختلفة.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٨. رسالتي -->
+<section class="slide s8" data-n="8">
+  <div class="card"><div class="stamp"><div><b>٨</b><small>من ١٠</small></div></div>
+    <div class="head"><h2>رِسالَتي أنا</h2><p>اكتُبْ رسالةً عن عالمِك</p></div>
+    <div class="content"><div class="mine">
+      <div class="picker">
+        <h4>١. اختَرْ بدايةً زرقاء:</h4>
+        <div class="row bs" id="bs8"></div>
+        <h4>٢. اختَرْ تكملةً برتقاليّة، أو اكتُبْ من عندك:</h4>
+        <div class="row os" id="os8"></div>
+        <div class="row"><input id="own8" placeholder="خبرٌ من عندي" aria-label="اكتب خبرا من عندك"><button class="btn or" id="useOwn" style="font-family:var(--ui);font-size:26px">أضِفْ</button></div>
+        <button class="btn bl" id="send8" style="align-self:flex-start">✉ أرسِلْ مع زاجل</button>
+      </div>
+      <div class="letter" id="letter8"><div class="to">إلى: كلِّ مَن يقرأ</div><div class="sent" id="ls8"><span class="ph">اختَرْ نصفَي رسالتِك…</span></div></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>اقرأْ رسالتَك بصوتٍ عالٍ، وانتبِهْ للضّمّةِ في آخرِ الكلمتين.</div>
+      <div class="guide"><svg><use href="#zajil"/></svg><div class="bubble" id="b8">اكتبوا رسائلَ عن عُمانَ ومدرستِكم، وسأوصلُها بنفسي!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٨. رسالتي أنا</h3><dl>
+    <dt>الهدف</dt><dd>إنتاج جمل اسمية مرتبطة بحياة الطالب.</dd>
+    <dt>التنفيذ</dt><dd>يختار الطالب مبتدأ ثم خبرًا ويقرأ الجملة. يمكن كتابة خبر من اقتراح الطالب في المربع. شجعيه على نطق الضمة.</dd>
+    <dt>امتداد</dt><dd>يكتب كل طالب في دفتره رسالتين عن بيته أو حيّه.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٩. التحدي -->
+<section class="slide s9" data-n="9">
+  <div class="card"><div class="stamp"><div><b>٩</b><small>من ١٠</small></div></div>
+    <div class="head"><h2>التّحدّي الأخيرُ</h2><p>هل أنتَ ساعي بريدٍ ماهرٌ؟</p></div>
+    <div class="content"><div class="chal">
+      <div class="pan" id="p1">
+        <h4>١. أيُّ الرّسالتينِ جملةٌ اسميّةٌ؟</h4>
+        <button class="env2" data-ok="0">ذَهَبَ الوَلَدُ</button>
+        <button class="env2" data-ok="1">الوَلَدُ نَشِيطٌ</button>
+        <div class="step9" id="r1">اختَرْ رسالةً</div>
+        <div class="stars"></div>
+      </div>
+      <div class="pan" id="p2">
+        <h4>٢. لوِّنِ الرّسالةَ!</h4>
+        <div class="q" id="q2">اضغَطِ المبتدأَ أوّلًا…</div>
+        <div class="tapS"><button data-r="o">صَبُورٌ</button><button data-r="b">الجَمَلُ</button></div>
+        <div class="step9" id="r2"></div>
+        <div class="stars"></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>قبلَ الضّغط:</b>فكِّرْ وأجِبْ في سرِّك، ثمّ يضغطُ زميلٌ واحد.</div>
+      <div class="guide"><svg><use href="#zajil"/></svg><div class="bubble">آخرُ رسالتين في الحقيبة… وبعدَها ننتهي!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. التحدي الأخير</h3><dl>
+    <dt>الهدف</dt><dd>تقويم تكويني: تمييز الجملة الاسمية، وتحديد المبتدأ والخبر.</dd>
+    <dt>الإجابات</dt><dd>(١) الولدُ نشيطٌ، لأنها تبدأ باسم. (٢) الجملُ: مبتدأ، صبورٌ: خبر.</dd>
+    <dt>التنفيذ</dt><dd>يجيب الصف بالإشارة قبل الضغط، لتلاحظي من يحتاج دعمًا.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ١٠. الختام -->
+<section class="slide s10" data-n="10">
+  <div class="card"><div class="stamp"><div><b>١٠</b><small>من ١٠</small></div></div>
+    <div class="content" style="top:30px;height:560px">
+      <div class="deliver">
+        <h3>وصلَتِ الرّسائلُ كاملةً!</h3>
+        <div class="formula"><span class="half b">مُبْتَدَأٌ</span>+<span class="half o">خَبَرٌ</span>= جملةٌ اسميّةٌ</div>
+        <div class="recap">
+          <p>الجملةُ الاسميّةُ تبدأُ باسم.</p>
+          <p>المبتدأُ: مَن أو ما نتحدّثُ عنه.</p>
+          <p>الخبرُ: ما يُخبرُنا عن المبتدأ ويُتمُّ المعنى.</p>
+          <p>كلاهما مرفوعٌ، وعلامةُ رفعِهما الضّمّةُ.</p>
+        </div>
+      </div>
+      <div class="badge">
+        <svg><use href="#medal"/></svg>
+        <h4>شارةُ ساعي البريدِ الماهرِ</h4>
+        <input id="starName" placeholder="اكتبْ اسمَ البطل" aria-label="اسم البطل">
+        <p>أوصلَ رسائلَ زاجلَ كاملةً بلا نقص</p>
+      </div>
+    </div>
+    <div class="band">
+      <div class="task"><b>في دفترك:</b>اكتبْ ثلاثَ جملٍ اسميّةٍ عن بيتِك، ولوِّنِ المبتدأَ بالأزرق والخبرَ بالبرتقاليّ.</div>
+      <div class="guide"><svg><use href="#zajil"/></svg><div class="bubble">شكرًا يا أصدقائي! لولاكم لبقيَتِ الرّسائلُ ممزّقة.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١٠. توصيل البريد</h3><dl>
+    <dt>الهدف</dt><dd>تلخيص الدرس وتعزيز المتميز.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب الملخص معًا، ثم اكتبي اسم البطل في الشارة وصوّري الشاشة.</dd>
+    <dt>الواجب</dt><dd>ثلاث جمل اسمية عن البيت مع التلوين.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+<aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+<nav id="nav">
+  <button id="prev">▶ السّابق</button>
+  <span id="counter">١ / ١٠</span>
+  <button id="next" class="main">التّالي ◀</button>
+</nav>
+</div>
+
+<script>
+/* ===== الأصوات ===== */
+const SFX=(()=>{let ctx=null,on=true;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ return{toggle(){on=!on;return on},
+  coo(){tone(420,.22,{v:.15,to:360});tone(440,.3,{v:.15,at:.25,to:340})},
+  flap(){for(let i=0;i<6;i++)noise(.07,{v:.25,type:'bandpass',f:900,q:.8,at:i*.09})},
+  ding(){tone(1320,.25,{v:.12});tone(1760,.35,{v:.1,at:.12})},
+  wind(){noise(2.2,{v:.35,type:'bandpass',f:300,to:1400,q:.7});noise(2.2,{v:.2,type:'bandpass',f:900,to:250,q:.7,at:.4})},
+  tear(){for(let i=0;i<14;i++)noise(.03,{v:.3,type:'highpass',f:2200,at:i*.025})},
+  pop(){tone(600,.08,{v:.15,to:1200})},
+  yes(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,{type:'triangle',v:.16,at:i*.08}))},
+  no(){tone(220,.25,{type:'square',v:.08,to:150})},
+  giggle(){[900,760,900,700,860].forEach((f,i)=>tone(f,.09,{type:'triangle',v:.1,at:i*.1}))},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  whoosh(){noise(.6,{v:.35,type:'bandpass',f:400,to:3500,q:1})},
+  cheer(){this.yes();for(let i=0;i<22;i++)noise(.05,{v:.12,type:'bandpass',f:1500+Math.random()*2000,at:.35+Math.random()*1.1})}
+ }})();
+
+/* ===== المسرح والتنقل ===== */
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`;window.__s=s}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+let cur=0,unlocked=false;
+const nextB=document.getElementById('next'),prevB=document.getElementById('prev'),counter=document.getElementById('counter');
+function go(i){if(i<0||i>=slides.length)return;if(i>0&&!unlocked)return;
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=cur===slides.length-1||!unlocked;nextB.classList.toggle('pulse',cur===0&&unlocked);
+  const t=slides[cur].querySelector('template.notes');document.getElementById('notesBody').innerHTML=t?t.innerHTML:'';
+  if(slides[cur].dataset.n==='10')closing();
+}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+document.getElementById('bSound').onclick=e=>{e.currentTarget.textContent=SFX.toggle()?'🔊 الصوت':'🔇 صامت'};
+document.getElementById('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+document.getElementById('bNotes').onclick=()=>document.getElementById('notes').classList.toggle('open');
+document.getElementById('closeNotes').onclick=()=>document.getElementById('notes').classList.remove('open');
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function stars(box){for(let i=0;i<14;i++){const s=document.createElement('i');s.textContent='★';s.style.left=Math.random()*95+'%';s.style.top=Math.random()*20+'%';s.style.animationDelay=Math.random()*.4+'s';box.appendChild(s);setTimeout(()=>s.remove(),2000)}}
+function draggable(el,targets,onDrop){
+  el.addEventListener('pointerdown',e=>{if(el.dataset.placed)return;e.preventDefault();
+    const sx=e.clientX,sy=e.clientY;el.setPointerCapture(e.pointerId);el.classList.add('dragging');SFX.pop();
+    const hitT=ev=>targets().find(t=>{const r=t.getBoundingClientRect();return ev.clientX>r.left&&ev.clientX<r.right&&ev.clientY>r.top&&ev.clientY<r.bottom});
+    const move=ev=>{const s=window.__s||1;el.style.transform=`translate(${(ev.clientX-sx)/s}px,${(ev.clientY-sy)/s}px) scale(1.05)`;const h=hitT(ev);targets().forEach(t=>t.classList.toggle('hot',t===h))};
+    const up=ev=>{el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);el.classList.remove('dragging');
+      const h=hitT(ev);targets().forEach(t=>t.classList.remove('hot'));
+      if(!onDrop(el,h)){el.style.transition='transform .35s';el.style.transform='';setTimeout(()=>el.style.transition='',360)}};
+    el.addEventListener('pointermove',move);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);});
+}
+
+/* ١. الحقيبة */
+(()=>{const s1=document.querySelector('.s1'),box=s1.querySelector('.envs');
+  for(let i=0;i<12;i++){const e=document.createElement('div');e.className='env';e.innerHTML='<svg><use href="#envS"/></svg>';
+    e.style.left='760px';e.style.top='560px';e.style.setProperty('--dx',(Math.random()*1300-650)+'px');e.style.setProperty('--dy',(-200-Math.random()*400)+'px');e.style.setProperty('--r',(Math.random()*720-360)+'deg');e.style.animationDelay=(Math.random()*.3)+'s';box.appendChild(e)}
+  document.getElementById('bagBtn').onclick=e=>{if(unlocked)return;SFX.coo();SFX.flap();s1.classList.add('burst');e.currentTarget.classList.add('hide');
+    setTimeout(()=>{s1.classList.add('open');SFX.magic();unlocked=true;go(0)},900)};
+})();
+
+/* ٢. رسالة أمي */
+(()=>{const chips=document.getElementById('chips'),msgs=document.getElementById('msgs'),typing=document.getElementById('typing');let done=false;
+  document.getElementById('showGuess').onclick=()=>{chips.classList.add('on');SFX.pop()};
+  chips.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+    typing.classList.add('on');SFX.pop();
+    setTimeout(()=>{typing.classList.remove('on');const m=document.createElement('div');m.className='m mom new';
+      m.innerHTML=`<small>أمّي</small><span class="w">الغداءُ ${b.textContent}</span> ✔✔`;msgs.insertBefore(m,typing);
+      while(msgs.children.length>6)msgs.removeChild(msgs.children[0]);SFX.ding();
+      if(!done){done=true;setTimeout(()=>document.getElementById('lesson2').classList.add('on'),600)}},900)});
+})();
+
+/* ٣. العاصفة */
+document.getElementById('windBtn').onclick=()=>{const s=document.querySelector('.s3');if(s.classList.contains('torn'))return;
+  s.classList.add('windy');SFX.wind();SFX.flap();
+  setTimeout(()=>{s.classList.add('torn');SFX.tear();document.getElementById('b3').textContent='يا إلهي! تمزّقَتْ كلُّ رسالةٍ نصفين… هل نفهمُ نصفًا وحدَه؟'},1300)};
+
+/* ٤. بوابة المبتدأ */
+(()=>{const arch=document.getElementById('arch'),slot=document.getElementById('slot4'),v=document.getElementById('v4');
+  document.querySelectorAll('#pile4 button').forEach(b=>b.onclick=()=>{
+    arch.classList.remove('ok','no');void arch.offsetWidth;slot.textContent=b.textContent;
+    if(b.dataset.ok==='1'){arch.classList.add('ok');SFX.yes();v.style.color='var(--green)';v.textContent=`«${b.textContent}» اسمٌ ✔ يصلحُ مبتدأً`;b.classList.add('used')}
+    else{arch.classList.add('no');SFX.no();v.style.color='var(--red)';v.textContent=`«${b.textContent}» ليس اسمًا ✘ لا تبدأُ به الجملةُ الاسميّة`}});
+})();
+
+/* ٥. الخبر */
+(()=>{const D=[['القِطُّ','ماذا عنِ القِطِّ؟',['صَغِيرٌ','جائِعٌ','نائِمٌ']],['المَدْرَسَةُ','ماذا عنِ المَدْرَسَةِ؟',['جَمِيلَةٌ','نَظِيفَةٌ','كَبِيرَةٌ']],['الجَمَلُ','ماذا عنِ الجَمَلِ؟',['صَبُورٌ','قَوِيٌّ','سَرِيعٌ']]];
+  const b5=document.getElementById('b5'),g5=document.getElementById('g5'),ask=document.getElementById('ask5'),opts=document.getElementById('opts5'),fm=document.getElementById('fm5');
+  function set(i){const [m,q,xs]=D[i];b5.textContent=m;ask.textContent=q;fm.textContent='';g5.className='ghost';g5.textContent='؟';
+    opts.innerHTML='';xs.forEach(x=>{const b=document.createElement('button');b.textContent=x;b.onclick=()=>{g5.className='half o';g5.textContent=x;SFX.yes();fm.textContent=`اكتملَ المعنى: ${m} ${x}`};opts.appendChild(b)})}
+  document.querySelectorAll('#sw5 button').forEach(b=>b.onclick=()=>{set(+b.dataset.i);SFX.pop()});set(0);
+})();
+
+/* ٦. الفرز */
+(()=>{const P=[['الشَّمْسُ','ساطِعَةٌ'],['البَحْرُ','واسِعٌ'],['الحَلْوَى','لَذِيذَةٌ'],['الجَمَلُ','صَبُورٌ'],['العَلَمُ','مُرْتَفِعٌ']];
+  const pairs=document.getElementById('pairs'),tray=document.getElementById('tray6'),sc=document.getElementById('score6'),bub=document.getElementById('b6');let got=0;
+  P.forEach(([m,k],i)=>{const r=document.createElement('div');r.className='pair';r.innerHTML=`<span class="half b">${m}</span><div class="drop" data-i="${i}">ضعِ التّكملةَ هنا</div><span class="check"></span>`;pairs.appendChild(r)});
+  [...P.keys()].sort(()=>Math.random()-.5).forEach(i=>{const h=document.createElement('span');h.className='half o';h.textContent=P[i][1];h.dataset.i=i;tray.appendChild(h);
+    draggable(h,()=>[...document.querySelectorAll('.s6 .drop')].filter(d=>!d.dataset.full),(el,hit)=>{if(!hit)return false;
+      const m=P[+hit.dataset.i][0];
+      if(hit.dataset.i===el.dataset.i){el.dataset.placed=1;el.style.transform='';hit.textContent='';hit.appendChild(el);hit.dataset.full=1;hit.style.border='0';hit.nextElementSibling.textContent='✔';
+        got++;sc.textContent=AR(got)+' / '+AR(P.length);SFX.yes();bub.textContent=`«${m} ${el.textContent}» رسالةٌ مفهومةٌ وصحيحة!`;
+        if(got===P.length){bub.textContent='رائع! فُرِزَتِ الرّسائلُ كلُّها.';SFX.cheer();stars(document.querySelector('.s6 .content'))}return true}
+      SFX.giggle();bub.textContent=`«${m} ${el.textContent}»؟! 😄 هل يصحُّ هذا المعنى؟ ناقِشوا!`;shake(hit);return false})});
+  const st=document.createElement('div');st.className='stars';document.querySelector('.s6 .content').appendChild(st);
+})();
+
+/* ٧. سر القبعة */
+(()=>{const s7=document.querySelector('.s7'),bs=s7.querySelectorAll('.bigSent .half');
+  bs.forEach(h=>{const t=h.textContent;h.innerHTML=t.slice(0,-2)+'<span class="dm">'+t.slice(-2)+'</span>'});
+  document.getElementById('rev7').onclick=()=>{s7.classList.add('rev');SFX.magic();document.getElementById('b7').textContent='المبتدأُ والخبرُ يلبسانِ القبّعةَ نفسَها: الضّمّة!'};
+  s7.querySelectorAll('.dq').forEach(q=>q.querySelectorAll('.o button').forEach(b=>b.onclick=()=>{
+    if(b.dataset.ok==='1'){b.classList.add('good');q.querySelector('.gap').outerHTML=`<span style="color:var(--green)">${b.textContent}</span>`;SFX.yes();q.querySelectorAll('.o button').forEach(x=>x.disabled=true)}
+    else{b.classList.add('bad');SFX.no();shake(b);setTimeout(()=>b.classList.remove('bad'),800)}}));
+})();
+
+/* ٨. رسالتي */
+(()=>{const D={'عُمانُ':['جَمِيلَةٌ','آمِنَةٌ','واسِعَةٌ'],'المَدْرَسَةُ':['نَظِيفَةٌ','كَبِيرَةٌ','مُمْتِعَةٌ'],'المُعَلِّمَةُ':['لَطِيفَةٌ','نَشِيطَةٌ','مُبْتَسِمَةٌ'],'الشّاطِئُ':['واسِعٌ','هادِئٌ','نَظِيفٌ']};
+  const bs=document.getElementById('bs8'),os=document.getElementById('os8'),ls=document.getElementById('ls8'),L=document.getElementById('letter8');let M=null,K=null;
+  function show(){ls.innerHTML=M?`<span class="half b">${M}</span>`+(K?`<span class="half o">${K}</span>`:'<span class="ph">&nbsp;+ تكملة…</span>'):'<span class="ph">اختَرْ نصفَي رسالتِك…</span>'}
+  function opts(){os.innerHTML='';(D[M]||[]).forEach(k=>{const b=document.createElement('button');b.textContent=k;b.onclick=()=>{K=k;os.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));SFX.pop();show()};os.appendChild(b)})}
+  Object.keys(D).forEach(m=>{const b=document.createElement('button');b.textContent=m;b.onclick=()=>{M=m;K=null;bs.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));SFX.pop();opts();show()};bs.appendChild(b)});
+  document.getElementById('useOwn').onclick=()=>{const v=document.getElementById('own8').value.trim();if(!v||!M){SFX.no();return}K=v;os.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));SFX.pop();show()};
+  document.getElementById('send8').onclick=()=>{const bub=document.getElementById('b8');if(!M||!K){SFX.no();bub.textContent='الرّسالةُ ناقصة! تحتاجُ نصفًا أزرقَ ونصفًا برتقاليًّا.';return}
+    SFX.whoosh();SFX.coo();L.classList.add('fly');bub.textContent=`أوصلْتُ رسالتَك: «${M} ${K}» ✔ مَن يكتبُ الرّسالةَ التّالية؟`;
+    setTimeout(()=>{L.style.transition='none';L.classList.remove('fly');M=K=null;bs.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));os.innerHTML='';document.getElementById('own8').value='';show();void L.offsetWidth;L.style.transition=''},1100)};
+})();
+
+/* ٩. التحدي */
+(()=>{const p1=document.getElementById('p1'),r1=document.getElementById('r1');
+  p1.querySelectorAll('.env2').forEach(b=>b.onclick=()=>{if(b.dataset.ok==='1'){b.classList.add('good');SFX.cheer();stars(p1.querySelector('.stars'));r1.textContent='صحيح! بدأَتْ باسم: الوَلَدُ.'}
+    else{b.classList.add('bad');SFX.no();shake(b);r1.textContent='هذه بدأَتْ بفعلٍ (ذَهَبَ)، جرِّبِ الأخرى.';setTimeout(()=>b.classList.remove('bad'),800)}});
+  const p2=document.getElementById('p2'),q2=document.getElementById('q2'),r2=document.getElementById('r2');let step=0;
+  p2.querySelectorAll('.tapS button').forEach(b=>b.onclick=()=>{const need=step===0?'b':'o';if(step>1)return;
+    if(b.dataset.r===need){b.classList.add(need==='b'?'isB':'isO');SFX.yes();step++;
+      if(step===1){q2.textContent='والآنَ اضغَطِ الخبر…';r2.textContent='«الجَمَلُ» هو المبتدأ: نتحدّثُ عنه.'}
+      else{q2.textContent='اكتملَتِ الرّسالة!';r2.textContent='«صَبُورٌ» هو الخبر: أخبرَنا عن الجمل.';SFX.cheer();stars(p2.querySelector('.stars'))}}
+    else{SFX.no();shake(b);r2.textContent=need==='b'?'المبتدأُ هو الّذي نتحدّثُ عنه… مَن هو؟':'الخبرُ يُخبرُنا عن المبتدأ… ماذا قالَتِ الرّسالةُ عنه؟'}});
+})();
+
+/* ١٠. الختام */
+const cv=document.getElementById('confetti'),cx=cv.getContext('2d');
+function closing(){const s=slides[cur];s.classList.remove('go');void s.offsetWidth;s.classList.add('go');setTimeout(()=>{SFX.cheer();SFX.coo();confetti()},400)}
+function confetti(){const cols=['#2F6FE0','#F2991E','#FFC83D','#2EAD65','#E5484D','#fff'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+go(0);
+</script>
+<script src="../assets/kawn-data.js" defer></script>
+</body>
+</html>
