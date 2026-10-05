@@ -1,5 +1,7 @@
-/* كون: عدّاد الزوّار والرسائل */
-const KAWN_API='https://script.google.com/macros/s/AKfycbxkf2gcp4b01nxTVqUr7PIzFV2VuSgVWBFRZ3UFUUG-EYARbaTPduzDK4waZHe6k1qbAA/exec';
+/* كون: عدّاد الزوّار والرسائل
+   ضعي بين علامتي التنصيص رابطَ تطبيق الويب من Google Apps Script
+   مثال: const KAWN_API='https://script.google.com/macros/s/XXXX/exec'; */
+const KAWN_API='';
 
 (function(){
   var ok=/^https:\/\/script\.google\.com\//.test(KAWN_API);
