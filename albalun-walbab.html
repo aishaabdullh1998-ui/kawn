@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>البالون والباب: التاء المربوطة والمفتوحة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --sky:#CFEAF7;--sky2:#FFF4DF;--ink:#2A2A44;--ink2:#5C5C78;--paper:#FFFBF2;
+  --ball:#F0657D;--ball2:#C93F5B;--door:#1F8A8A;--door2:#146A6A;--wood:#B47B45;--wood2:#8A5A2E;--gold:#F6C445;--ok:#2EAD65;--bad:#E23B3B;
+  --ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--word:"Noto Naskh Arabic","Traditional Arabic","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sky:#A9D4EA;--sky2:#F3DDB5}}
+:root[data-theme="dark"]{--sky:#A9D4EA;--sky2:#F3DDB5}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:#8FC9A4;font-family:var(--ui);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;overflow:clip;background:linear-gradient(var(--sky),var(--sky2) 72%,#9CCFA8 72%)}
+#stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:250px;background:radial-gradient(circle at 10px 10px,rgba(255,255,255,.18) 2px,transparent 3px) 0 0/28px 28px;pointer-events:none}
+.flags{position:absolute;top:0;left:0;right:0;height:46px;z-index:1;pointer-events:none}
+.slide{position:absolute;inset:0;display:none;z-index:2}
+.slide.active{display:block;animation:in .45s ease}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{position:absolute;inset:58px 30px 96px;border-radius:30px;border:14px solid transparent;
+  background:linear-gradient(var(--paper),var(--paper)) padding-box,repeating-linear-gradient(90deg,var(--ball) 0 36px,#fff 36px 52px,var(--door) 52px 88px,#fff 88px 104px) border-box;box-shadow:0 20px 44px rgba(42,42,68,.28)}
+.num{position:absolute;top:-42px;right:44px;width:84px;height:100px;background:var(--ball);border-radius:50% 50% 48% 48%/58% 58% 42% 42%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:38px;font-weight:800;box-shadow:0 6px 12px rgba(0,0,0,.2)}
+.num::after{content:"";position:absolute;bottom:-9px;left:50%;margin-left:-8px;border:8px solid transparent;border-bottom:0;border-top:11px solid var(--ball2)}
+.head{position:absolute;top:10px;right:170px;left:30px;display:flex;align-items:baseline;gap:20px}
+.head h2{margin:0;font-size:50px;font-weight:800;line-height:1.35}
+.head p{margin:0;font-size:27px;font-weight:700;color:var(--ink2)}
+.content{position:absolute;top:96px;right:28px;left:28px;height:474px}
+.band{position:absolute;bottom:8px;right:20px;left:20px;height:126px;display:flex;align-items:flex-end;gap:20px}
+.guide{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;order:2}
+.guide svg{width:150px;height:112px;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:24px;padding:10px 20px;font-size:25px;line-height:1.5;font-weight:700;max-width:780px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:18px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.task{order:1;flex:0 0 590px;background:#FFF0F3;border:3px dashed var(--ball);border-radius:18px;padding:10px 20px;font-size:24px;font-weight:700;line-height:1.5}
+.task b{color:var(--ball2);margin-left:6px}
+.w{font-family:var(--word);font-weight:700}
+.eb{color:var(--ball)}.ed{color:var(--door)}.eg{color:#D99A00}
+.btn{border:0;border-radius:22px;padding:10px 26px;font-size:27px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.3)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.bl{background:var(--ball);box-shadow:0 5px 0 var(--ball2)}.btn.dr{background:var(--door);box-shadow:0 5px 0 var(--door2)}
+.btn.lt{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(42,42,68,.2)}
+.btn.sel{outline:5px solid var(--gold);outline-offset:2px}
+.good{background:var(--ok)!important;color:#fff!important}.bad{background:var(--bad)!important;color:#fff!important}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.msg{font-size:26px;font-weight:800;min-height:42px;text-align:center;line-height:1.5}
+.rule{background:#fff;border-radius:22px;padding:14px 22px;font-size:26px;font-weight:700;line-height:1.65;border-right:12px solid}
+.rule h4{margin:0 0 4px;font-size:32px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.chips .btn{font-family:var(--word);font-size:32px;padding:6px 20px}
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;font-style:normal;font-size:42px;color:var(--gold);animation:fall 1.4s ease-in forwards}
+@keyframes fall{from{transform:translateY(-40px) rotate(0);opacity:1}to{transform:translateY(420px) rotate(260deg);opacity:0}}
+.sc{position:absolute;top:0;left:0;background:var(--ink);color:var(--gold);border-radius:14px;padding:0 18px;font-size:28px;font-weight:800;z-index:3}
+
+#nav{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 20px;border-radius:27px;background:#fff;color:var(--ink);font-size:24px;font-weight:800;box-shadow:0 4px 0 #8FB79B}
+#nav button:disabled{opacity:.4;cursor:not-allowed}
+#nav .main{background:var(--ball);color:#fff;box-shadow:0 4px 0 var(--ball2)}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(240,101,125,.8)}50%{box-shadow:0 0 0 14px rgba(240,101,125,0)}}
+#counter{font-size:26px;font-weight:800;min-width:90px;text-align:center}
+#tools{position:absolute;top:10px;left:16px;display:flex;gap:10px;z-index:50}
+#tools button{border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.88);color:var(--ink);font-size:20px;font-weight:700}
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:#fff;z-index:70;box-shadow:12px 0 40px rgba(0,0,0,.3);transform:translateX(-105%);transition:transform .35s;padding:30px;font-size:23px;line-height:1.7;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-size:34px;margin:0 0 8px;color:var(--ball2)}
+#notes dt{font-weight:800;color:var(--door2);margin-top:8px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px;font-size:20px}
+#credit{position:absolute;bottom:5px;right:16px;z-index:40;font-size:12px;font-weight:600;color:rgba(42,42,68,.65);background:rgba(255,255,255,.55);border-radius:10px;padding:1px 9px;pointer-events:none}
+
+/* ١ الغلاف */
+.s1 .title{position:absolute;top:60px;right:0;left:0;text-align:center}
+.s1 h1{margin:0;font-size:112px;font-weight:800;line-height:1.15;color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:0 8px 0 var(--ink)}
+.s1 .title p{margin:6px 0 0;font-size:38px;font-weight:800}
+.hero{position:absolute;bottom:90px;width:300px;height:420px}
+.hero svg{width:100%;height:100%}
+.hero.b{right:380px;transform-origin:50% 100%;transform:scale(.35);transition:transform 1.4s cubic-bezier(.3,1.5,.5,1)}
+.s1.in .hero.b{transform:scale(1);animation:bob 3s ease-in-out 1.4s infinite}
+.hero.d{left:380px}
+@keyframes bob{50%{transform:translateY(-14px) rotate(2deg)}}
+.s1 .go1{position:absolute;top:290px;left:50%;transform:translateX(-50%);font-size:36px;padding:14px 44px;z-index:5}
+.s1.open .go1{display:none}
+.mission{position:absolute;top:240px;right:240px;left:240px;background:var(--paper);border-radius:30px;padding:26px 46px;border:14px solid var(--wood);box-shadow:0 20px 44px rgba(0,0,0,.3);opacity:0;transform:scale(.6);pointer-events:none;transition:.6s .2s cubic-bezier(.3,1.5,.5,1);z-index:6}
+.s1.open .mission{opacity:1;transform:none}
+.mission h3{margin:0;font-size:44px;color:var(--ball2)}
+.mission p{margin:0;font-size:27px;font-weight:700}
+.mission ol{margin:0;padding-right:44px;font-size:29px;line-height:1.75;font-weight:700;list-style:arabic-indic}
+
+/* ٢ التجربة */
+.exp{position:absolute;inset:0;display:flex;gap:28px}
+.lab{position:relative;width:640px;background:linear-gradient(#EAF6FC,#FFF7E8);border-radius:24px;border:4px solid #E6DAC4;overflow:hidden}
+.kid{position:absolute;right:50px;top:60px;width:210px;height:290px}
+.stick{position:absolute;left:230px;top:30px;width:150px;height:8px;border-radius:4px;background:var(--wood2)}
+.strip{position:absolute;left:236px;top:36px;width:44px;height:190px;background:#fff;border:3px solid #D9CFC0;border-radius:4px 4px 10px 10px;transform-origin:50% 0;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+.strip::after{content:"";position:absolute;left:8px;right:8px;top:30px;bottom:30px;background:repeating-linear-gradient(#F0657D 0 6px,transparent 6px 16px);opacity:.5}
+@keyframes swayBig{0%{transform:rotate(0)}18%{transform:rotate(-62deg)}40%{transform:rotate(-30deg)}60%{transform:rotate(-52deg)}80%{transform:rotate(-14deg)}100%{transform:rotate(0)}}
+@keyframes swaySmall{0%{transform:rotate(0)}30%{transform:rotate(-9deg)}100%{transform:rotate(0)}}
+.strip.big{animation:swayBig 1.8s ease-in-out}.strip.small{animation:swaySmall .4s ease-out}
+.puff{position:absolute;right:280px;top:150px;width:30px;height:30px;border:6px solid rgba(240,101,125,.0);border-radius:50%;opacity:0}
+.puffs.big .puff{animation:puff 1s ease-out forwards}.puffs.big .puff:nth-child(2){animation-delay:.15s}.puffs.big .puff:nth-child(3){animation-delay:.3s}
+.puffs.small .puff{border-color:rgba(31,138,138,.5);animation:puff .35s ease-out forwards}
+@keyframes puff{0%{opacity:1;transform:translateX(0) scale(.5);border-color:rgba(240,101,125,.7)}100%{opacity:0;transform:translateX(-220px) scale(2)}}
+.puffs.small .puff{animation-name:puffS}
+@keyframes puffS{0%{opacity:1;transform:translateX(0) scale(.4)}100%{opacity:0;transform:translateX(-60px) scale(.9)}}
+.expR{flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.big2{display:flex;gap:16px}
+.big2 .btn{flex:1;font-size:36px;padding:16px 10px;font-family:var(--word)}
+.heard{background:#fff;border-radius:22px;border:3px solid #EFE2CB;padding:12px 20px;text-align:center;min-height:190px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.heard .hw{font-family:var(--word);font-size:76px;font-weight:700;line-height:1.3}
+.heard .hs{font-size:25px;font-weight:700;color:var(--ink2);line-height:1.5}
+.instr{background:#FFF7DD;border-radius:18px;padding:10px 18px;font-size:23px;font-weight:700;line-height:1.55;border-right:10px solid var(--gold)}
+
+/* ٣ ٤ الشرح */
+.split{position:absolute;inset:0;display:flex;gap:26px}
+.demo{width:640px;background:#fff;border-radius:24px;border:4px solid #EFE2CB;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;padding:12px 14px;position:relative}
+.demo .scene{position:relative;width:100%;height:210px;display:flex;align-items:flex-end;justify-content:center}
+.demo .dword{font-family:var(--word);font-size:68px;font-weight:700;line-height:1.2;min-height:84px}
+.demo .said{font-size:24px;font-weight:700;min-height:58px;text-align:center;line-height:1.5}
+.side{flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.balL{width:150px;height:210px;transform-origin:50% 100%;transition:transform .9s cubic-bezier(.4,1.6,.5,1)}
+.balL.gone{transform:scale(.55,.34) rotate(6deg)}
+.doorO{width:240px;height:210px}
+.doorO .leaf{transform-box:fill-box;transform-origin:100% 50%;transform:scaleX(.5)}
+.doorO.tryclose .leaf{animation:tc 1.3s ease-in-out}
+@keyframes tc{0%{transform:scaleX(.5)}35%{transform:scaleX(.9)}55%{transform:scaleX(.5)}70%{transform:scaleX(.7)}100%{transform:scaleX(.5)}}
+
+/* ٥ الاختبار */
+.quiz{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+.qword{font-family:var(--word);font-size:96px;font-weight:700;line-height:1.3;background:#fff;border-radius:26px;border:4px solid #EFE2CB;padding:0 50px;min-width:620px;text-align:center}
+.qword .gap{display:inline-block;min-width:80px;border-bottom:7px dotted var(--ink2);color:transparent}
+.qbtns{display:flex;gap:34px}
+.ans{border:0;background:#fff;border-radius:26px;width:250px;height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;box-shadow:0 7px 0 rgba(42,42,68,.18);border:5px solid}
+.ans.b{border-color:var(--ball)}.ans.d{border-color:var(--door)}
+.ans svg{width:60px;height:84px}
+.ans b{font-family:var(--word);font-size:52px;line-height:1}
+.ans.b b{color:var(--ball)}.ans.d b{color:var(--door)}
+.ans small{font-size:19px;font-weight:700;color:var(--ink2)}
+.ans.good b,.ans.good small{color:#fff}
+.pz{font-family:var(--word);font-size:40px;font-weight:700;min-height:56px}
+
+/* ٦ دفتر الأسرار */
+.nb{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sec{position:relative;border-radius:22px;border:4px solid #E6DAC4;background:#FFF7E3;cursor:pointer;padding:12px 18px;display:flex;flex-direction:column;justify-content:center;gap:4px;overflow:hidden}
+.sec .lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#E9DCC2 0 14px,#EFE4CE 14px 28px);font-size:34px;font-weight:800;gap:2px;transition:opacity .5s}
+.sec .lock span{font-size:56px}
+.sec.on .lock{opacity:0;pointer-events:none}
+.sec h4{margin:0;font-size:29px;color:var(--ball2)}
+.sec p{margin:0;font-size:23px;font-weight:700;line-height:1.5}
+.sec .exs{display:flex;gap:10px;flex-wrap:wrap}
+.sec .exs>span{font-family:var(--word);font-size:34px;font-weight:700;background:#fff;border-radius:12px;padding:0 12px;border:2px solid #EFE2CB}
+.sec.on{animation:pop .5s}
+
+/* ٧ عائلة الأبواب */
+.fam{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:1fr 1fr;gap:16px}
+.dc{position:relative;border:0;background:transparent;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.dc .dd{width:150px;height:190px;position:relative;transition:transform .4s}
+.dc svg{width:100%;height:100%}
+.dc .rv{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:#fff;border:4px solid var(--door);border-radius:20px;gap:2px}
+.dc.on .dd{display:none}.dc.on .rv{display:flex;animation:pop .45s}
+.dc .rv .w{font-size:60px;line-height:1.3}
+.dc .rv small{font-size:20px;font-weight:800;color:#D99A00}
+.dc:not(.on) .dd:hover{transform:rotate(-3deg) scale(1.05)}
+.dc .tag{font-size:20px;font-weight:700;color:var(--ink2);margin-top:2px}
+
+/* ٨ التحول */
+.morph{position:absolute;inset:0;display:flex;gap:26px}
+.mL{width:640px;background:#fff;border-radius:24px;border:4px solid #EFE2CB;display:flex;flex-direction:column;align-items:center;padding:10px;gap:6px;position:relative}
+.mst{position:relative;width:100%;height:270px}
+.mst svg{position:absolute;bottom:0;left:50%;margin-left:-100px;width:200px;height:270px;transition:transform .5s,opacity .5s}
+#mDoor{opacity:0;transform:scale(.5)}
+.mst.done #mBall{transform:scale(1.6);opacity:0}
+.mst.done #mDoor{opacity:1;transform:scale(1)}
+.mR{flex:1;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.mw{font-family:var(--word);font-size:76px;font-weight:700;line-height:1.3;min-height:98px}
+.pickRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pickRow .lbl{font-size:24px;font-weight:800;min-width:150px}
+
+/* ٩ الفرز */
+.sort{position:absolute;inset:0;display:flex;flex-direction:column;gap:12px}
+.bins{display:flex;gap:26px}
+.bin{flex:1;height:200px;border-radius:24px;border:5px dashed;display:flex;align-items:center;gap:14px;padding:10px 18px;background:rgba(255,255,255,.7)}
+.bin.b{border-color:var(--ball)}.bin.d{border-color:var(--door)}
+.bin .ic{width:90px;height:128px;flex:none}
+.bin .ic svg{width:100%;height:100%}
+.bin .in{flex:1;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;align-self:stretch}
+.bin .t{font-size:26px;font-weight:800;line-height:1.2;text-align:center;flex:none}
+.bin.hot{background:rgba(246,196,69,.35)}
+.bin .in .wc{min-width:0;height:44px;font-size:28px;padding:0 12px;border-width:2px;cursor:default;box-shadow:none}
+.tray{display:flex;flex-wrap:wrap;gap:12px 14px;justify-content:center;align-content:center;flex:1}
+.wc{min-width:150px;height:70px;border-radius:16px;background:#fff;border:3px solid var(--ink);font-family:var(--word);font-size:42px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 18px;box-shadow:0 5px 0 rgba(0,0,0,.2);cursor:grab;touch-action:none;line-height:1}
+.wc.dragging{position:relative;z-index:50;cursor:grabbing}
+
+/* ١٠ الصيد */
+.hunt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.ptext{background:#fff;border-radius:24px;border:4px solid #EFE2CB;padding:22px 40px;font-family:var(--word);font-size:46px;font-weight:700;line-height:2.05;max-width:1380px;text-align:right}
+.ptext span{cursor:pointer;border-radius:10px;padding:0 4px;transition:.3s}
+.ptext span:hover{background:#FFF3C9}
+.ptext span.fixed{background:#DFF6E7;color:var(--ok)}
+.ptext span.nope{background:#FFE3E8}
+.ptext span.okk{background:#E6F4FF}
+
+/* ١١ */
+.recap{position:absolute;top:0;right:12px;width:860px;display:flex;flex-direction:column;gap:12px}
+.recap h3{margin:0;font-size:52px;color:var(--ok);transform:scale(0);transition:.6s cubic-bezier(.3,1.6,.5,1)}
+.s11.go .recap h3{transform:none}
+.recap div{display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:6px 16px;font-size:25px;font-weight:700;line-height:1.5}
+.recap .ic{width:62px;height:62px;flex:none;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:44px;color:#fff;font-weight:700;line-height:1}
+.badge{position:absolute;top:10px;left:20px;width:480px;height:460px;border-radius:30px;background:linear-gradient(160deg,#FFF3C8,#FFD36B);border:8px solid #D99A00;text-align:center;padding:14px 26px;box-shadow:0 16px 30px rgba(0,0,0,.2)}
+.badge .pr{display:flex;justify-content:center;gap:6px;height:170px}
+.badge .pr svg{width:120px;height:170px}
+.badge h4{margin:0;font-size:40px;color:#8A5A00}
+.badge input{width:100%;font-family:var(--word);font-size:40px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed #8A5A00;background:transparent;color:var(--ink);padding:4px;user-select:text}
+.badge input:focus{outline:none;background:rgba(255,255,255,.5)}
+.badge p{margin:10px 0 0;font-size:23px;font-weight:700;color:#8A5A00}
+.up{position:absolute;bottom:-160px;width:70px;height:100px;z-index:3;pointer-events:none;animation:rise linear forwards}
+@keyframes rise{to{transform:translateY(-1100px) rotate(8deg)}}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="balloon" viewBox="0 0 100 140">
+  <path d="M50 6 C16 6 6 40 12 66 C18 92 38 104 50 108 C62 104 82 92 88 66 C94 40 84 6 50 6Z" fill="#F0657D"/>
+  <path d="M24 34 C28 20 40 13 52 12" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".55"/>
+  <path d="M43 108 L57 108 L50 120 Z" fill="#C93F5B"/><path d="M50 120 Q38 128 52 138" stroke="#6B5B73" stroke-width="2.5" fill="none"/>
+  <circle cx="37" cy="50" r="9" fill="#fff"/><circle cx="63" cy="50" r="9" fill="#fff"/>
+  <circle cx="38" cy="52" r="4.5" fill="#2A2A44"/><circle cx="64" cy="52" r="4.5" fill="#2A2A44"/>
+  <path d="M38 70 q12 12 24 0" stroke="#2A2A44" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <circle cx="26" cy="64" r="5" fill="#FFB3C0" opacity=".85"/><circle cx="74" cy="64" r="5" fill="#FFB3C0" opacity=".85"/>
+</symbol>
+<symbol id="balloonL" viewBox="0 0 100 140">
+  <path d="M50 6 C16 6 6 40 12 66 C18 92 38 104 50 108 C62 104 82 92 88 66 C94 40 84 6 50 6Z" fill="#F0657D"/>
+  <path d="M24 34 C28 20 40 13 52 12" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".55"/>
+  <path d="M43 108 L57 108 L50 120 Z" fill="#C93F5B"/><path d="M50 120 Q38 128 52 138" stroke="#6B5B73" stroke-width="2.5" fill="none"/>
+  <text x="50" y="82" text-anchor="middle" font-size="66" font-weight="700" fill="#fff" font-family="Noto Naskh Arabic, serif">ة</text>
+</symbol>
+<symbol id="door" viewBox="0 0 100 140">
+  <rect x="6" y="4" width="88" height="134" rx="7" fill="#8A5A2E"/>
+  <rect x="15" y="13" width="70" height="125" rx="3" fill="#1F8A8A"/>
+  <rect x="23" y="20" width="54" height="42" rx="5" fill="#146A6A" opacity=".5"/><rect x="23" y="72" width="54" height="56" rx="5" fill="#146A6A" opacity=".5"/>
+  <circle cx="38" cy="36" r="7.5" fill="#fff"/><circle cx="62" cy="36" r="7.5" fill="#fff"/><circle cx="39" cy="38" r="3.8" fill="#2A2A44"/><circle cx="63" cy="38" r="3.8" fill="#2A2A44"/>
+  <path d="M40 50 q10 9 20 0" stroke="#2A2A44" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="72" cy="92" r="5.5" fill="#F6C445" stroke="#C99A1C" stroke-width="1.5"/>
+</symbol>
+<symbol id="doorL" viewBox="0 0 100 140">
+  <rect x="6" y="4" width="88" height="134" rx="7" fill="#8A5A2E"/>
+  <rect x="15" y="13" width="70" height="125" rx="3" fill="#1F8A8A"/>
+  <rect x="23" y="20" width="54" height="42" rx="5" fill="#146A6A" opacity=".5"/><rect x="23" y="72" width="54" height="56" rx="5" fill="#146A6A" opacity=".5"/>
+  <text x="50" y="56" text-anchor="middle" font-size="46" font-weight="700" fill="#fff" font-family="Noto Naskh Arabic, serif">ت</text>
+  <circle cx="72" cy="98" r="5.5" fill="#F6C445" stroke="#C99A1C" stroke-width="1.5"/>
+</symbol>
+<symbol id="pair" viewBox="0 0 200 140">
+  <use href="#balloon" x="0" y="0" width="100" height="140"/><use href="#door" x="100" y="0" width="100" height="140"/>
+</symbol>
+</svg>
+
+<div id="stage">
+<svg class="flags" viewBox="0 0 1600 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6 Q800 40 1600 6" stroke="#8A5A2E" stroke-width="3" fill="none"/><g id="flagG"></g></svg>
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+<div id="tools"><a href="index.html" style="border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a><button id="bSound">🔊 الصوت</button><button id="bFull">⛶ ملء الشاشة</button><button id="bNotes">📋 ملاحظات المعلمة</button></div>
+
+<!-- ١ -->
+<section class="slide s1 active">
+  <div class="title"><h1>البالونُ والبابُ</h1><p>التّاءُ المربوطةُ والتّاءُ المفتوحة</p></div>
+  <button class="btn bl go1" id="go1">🎈 انفخِ البالون</button>
+  <div class="hero b"><svg><use href="#balloonL"/></svg></div>
+  <div class="hero d"><svg><use href="#doorL"/></svg></div>
+  <div class="mission"><h3>خطّةُ المهمّة</h3><p>بعدَ أن نلعبَ مع البالونِ والبابِ سأستطيعُ أنْ:</p>
+    <ol><li>أميّزَ التّاءَ المربوطةَ (ة) من التّاءِ المفتوحةِ (ت) باختبارِ الوقف.</li><li>أعرفَ أسرارَ التّمييزِ الأربعة.</li><li>أكتبَ الكلماتِ بالتّاءِ الصّحيحةِ في آخرِها.</li></ol></div>
+  <template class="notes"><h3>١. حفلةُ البالونات</h3><dl>
+    <dt>الهدف</dt><dd>إثارة الدافعية وعرض الأهداف.</dd>
+    <dt>قولي</dt><dd>«في حفلتنا بالون ينفلت هواؤه إذا لم نربطه، وباب مفتوح لا يُغلق أبدًا. فأيّ التاءين بالون، وأيّهما باب؟»</dd>
+    <dt>التنفيذ</dt><dd>يضغط طالب «انفخ البالون» فيكبر البالون وتظهر خطة المهمة.</dd>
+    <dt>الزمن</dt><dd>دقيقتان</dd></dl></template>
+</section>
+
+<!-- ٢ -->
+<section class="slide s2">
+  <div class="card"><div class="num">٢</div>
+    <div class="head"><h2>تجربةُ الورقةِ والنَّفَس</h2><p>اسمعْ بأذنِك… وانظرْ بعينِك</p></div>
+    <div class="content"><div class="exp">
+      <div class="lab">
+        <svg class="kid" viewBox="0 0 210 290"><circle cx="105" cy="105" r="86" fill="#F2C9A5"/><path d="M26 86 Q40 20 105 18 Q172 20 184 86 Q150 58 105 62 Q60 58 26 86Z" fill="#3A2A22"/>
+          <circle cx="76" cy="100" r="9" fill="#fff"/><circle cx="134" cy="100" r="9" fill="#fff"/><circle cx="74" cy="102" r="4.6" fill="#2A2A44"/><circle cx="132" cy="102" r="4.6" fill="#2A2A44"/>
+          <circle cx="52" cy="124" r="8" fill="#F29D9D" opacity=".6"/><circle cx="158" cy="124" r="8" fill="#F29D9D" opacity=".6"/>
+          <ellipse id="mouth" cx="105" cy="148" rx="20" ry="11" fill="#7A2A2A"/><rect x="60" y="196" width="90" height="94" rx="30" fill="#F0657D"/></svg>
+        <div class="stick"></div><div class="strip" id="strip"></div>
+        <div class="puffs" id="puffs"><span class="puff"></span><span class="puff"></span><span class="puff"></span></div>
+      </div>
+      <div class="expR">
+        <div class="instr">ضعْ شريطًا ورقيًّا أمامَ فمِك. اقرأِ الكلمةَ ثمّ <b>قِفْ</b> عندَ آخرِها، وانظرْ ماذا تفعلُ الورقة.</div>
+        <div class="big2"><button class="btn bl" id="e1">شَجَرَة</button><button class="btn dr" id="e2">بَيْت</button></div>
+        <div class="heard" id="heard"><div class="hs">اضغطْ كلمةً لتجرّبَ الوقف…</div></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>جرِّبْ بنفسِك:</b>ضعْ كفَّك أمامَ فمِك، وقلْ «شجرة» ثمّ «بيت» مع الوقفِ في آخرِ كلِّ كلمة. ماذا تحسُّ؟</div>
+      <div class="guide"><svg><use href="#pair"/></svg><div class="bubble" id="b2">آخرُ الكلمتينِ يبدوانِ متشابهين على الورق… لكنَّ الهواءَ يعرفُ الفرق!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. التجربة الأساسية</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف الفرق الصوتي بين الهاء (عند الوقف على المربوطة) والتاء.</dd>
+    <dt>التنفيذ</dt><dd>وزّعي شرائط ورقية (أو ريش) على الطلاب. يقولون «شجرة» ويقفون، ثم «بيت» ويقفون. مع الهاء يتحرك الشريط حركة واضحة ويحسّون نَفَسًا دافئًا، ومع التاء نقرة خفيفة.</dd>
+    <dt>دقة علمية</dt><dd>لا نقول إنّ التاء بلا هواء، فالفرق في كمية الهواء: الهاء نفَس طويل، والتاء نقرة سريعة.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٣ -->
+<section class="slide s3">
+  <div class="card"><div class="num">٣</div>
+    <div class="head"><h2>التّاءُ المربوطة: البالون</h2><p>إذا وقفْنا انفلتَ الهواء</p></div>
+    <div class="content"><div class="split">
+      <div class="demo">
+        <div class="scene"><svg class="balL" id="bal3"><use href="#balloonL"/></svg></div>
+        <div class="dword" id="dw3"></div>
+        <div class="said" id="sd3">اختَرْ كلمةً ثمّ اضغطْ «قِفْ!»</div>
+        <div style="display:flex;gap:12px"><button class="btn bl" id="stop3">✋ قِفْ!</button><button class="btn lt" id="inf3">🎈 انفخْ من جديد</button></div>
+      </div>
+      <div class="side">
+        <div class="chips" id="ch3"></div>
+        <div class="rule" style="border-color:var(--ball)"><h4 class="eb">التّاءُ المربوطةُ (ة)</h4>تُكتَبُ في آخرِ الاسمِ <b>المفردِ المؤنّث</b>. نقطتاها هما <b>عُقدةُ البالون</b>. وعندَ الوقفِ ننطقُها <b>هاءً</b>: مدرسةْ ← مدرسَهْ.</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تذكّرْ:</b>البالونُ المربوطُ إذا وقفْنا عندَه انفلتَ هواؤه… فنسمعُ «هـ».</div>
+      <div class="guide"><svg><use href="#pair"/></svg><div class="bubble" id="b3">أنا البالونُ! ما دامَ الاسمُ مفردًا مؤنّثًا فأنا في آخرِه.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٣. التاء المربوطة</h3><dl>
+    <dt>الهدف</dt><dd>تعريف المربوطة: آخر الاسم المفرد المؤنث، وتُنطق هاء عند الوقف.</dd>
+    <dt>التنفيذ</dt><dd>يختار الطالب كلمة، ثم «قف!» فيتفرّغ البالون وتظهر الهاء. «انفخ من جديد» لإعادة التجربة.</dd>
+    <dt>استثناءات للمتمكنين</dt><dd>أعلامٌ مذكّرة (حمزة، طلحة) وصيغ المبالغة (علّامة، داعية) تُكتب بمربوطة أيضًا. ويُذكَر هذا لمن يسأل فقط.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٤ -->
+<section class="slide s4">
+  <div class="card"><div class="num">٤</div>
+    <div class="head"><h2>التّاءُ المفتوحة: البابُ</h2><p>يبقى مفتوحًا… تُنطَقُ تاءً</p></div>
+    <div class="content"><div class="split">
+      <div class="demo">
+        <div class="scene">
+          <svg class="doorO" id="dor4" viewBox="0 0 300 262"><rect x="30" y="6" width="240" height="250" rx="10" fill="#8A5A2E"/><rect x="48" y="24" width="204" height="232" rx="4" fill="#0E3B3B"/>
+            <path d="M48 256 H252 V236 H48Z" fill="#E8D5B0"/>
+            <g class="leaf"><path d="M48 24 H252 V256 H48Z" fill="#1F8A8A"/><rect x="66" y="40" width="168" height="86" rx="8" fill="#146A6A" opacity=".5"/><rect x="66" y="142" width="168" height="100" rx="8" fill="#146A6A" opacity=".5"/><circle cx="68" cy="150" r="11" fill="#F6C445"/></g>
+            <text x="150" y="112" text-anchor="middle" font-size="86" font-weight="700" fill="#fff" font-family="Noto Naskh Arabic, serif" opacity=".0">ت</text></svg>
+        </div>
+        <div class="dword" id="dw4"></div>
+        <div class="said" id="sd4">اختَرْ كلمةً ثمّ اضغطْ «قِفْ!»</div>
+        <div style="display:flex;gap:12px"><button class="btn dr" id="stop4">✋ قِفْ!</button></div>
+      </div>
+      <div class="side">
+        <div class="chips" id="ch4"></div>
+        <div class="rule" style="border-color:var(--door)"><h4 class="ed">التّاءُ المفتوحةُ (ت)</h4>تبقى <b>تاءً</b> في الوقفِ والوصل، كبابٍ مفتوحٍ لا يُغلَق. تأتي في آخرِ <b>الأفعالِ</b>، و<b>جمعِ المؤنّثِ</b> (ـات)، وبعضِ الأسماءِ المفردة: بيت، وقت.</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>جرِّبْ:</b>قلْ «بيت» وقفْ، ثمّ «كتبَتْ» وقفْ. هل ظهرَتِ الهاءُ أم بقيَتِ التّاء؟</div>
+      <div class="guide"><svg><use href="#pair"/></svg><div class="bubble" id="b4">أنا البابُ! مهما حاولْتَ إغلاقي أبقى مفتوحًا… وأبقى تاءً.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٤. التاء المفتوحة</h3><dl>
+    <dt>الهدف</dt><dd>تعريف المفتوحة: تبقى تاء عند الوقف.</dd>
+    <dt>التنفيذ</dt><dd>عند «قف!» يحاول الباب أن يُغلق ثم يعود مفتوحًا، وتظهر الكلمة منطوقة بالتاء.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٥ -->
+<section class="slide s5">
+  <div class="card"><div class="num">٥</div>
+    <div class="head"><h2>اختبارُ الوقف</h2><p>بالونٌ أم بابٌ؟</p></div>
+    <div class="content"><div class="quiz">
+      <div class="sc" id="sc5">٠ / ٦</div>
+      <div class="qword" id="qw5"></div>
+      <div class="qbtns">
+        <button class="ans b" data-a="ة"><svg><use href="#balloon"/></svg><b>ة</b><small>بالون</small></button>
+        <button class="ans d" data-a="ت"><svg><use href="#door"/></svg><b>ت</b><small>باب</small></button>
+      </div>
+      <button class="btn lt" id="hint5">✋ قِفْ عندَ الكلمةِ واستمعْ</button>
+      <div class="pz" id="pz5"></div>
+      <div class="msg" id="m5"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>الخطوات:</b>اقرأِ الكلمةَ ← قِفْ ← هل سمعْتَ هاءً أم تاءً؟ ← اختَرْ.</div>
+      <div class="guide"><svg><use href="#pair"/></svg><div class="bubble" id="b5">اختبارُ الوقفِ هو سلاحُنا الأقوى… جرِّبوه!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٥. اختبار الوقف</h3><dl>
+    <dt>الهدف</dt><dd>تطبيق الاختبار الصوتي الأساسي.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطالب الكلمة ويقف بصوت مسموع قبل الاختيار. زر «قف عند الكلمة» يعرض الكلمة منطوقة كمساعدة.</dd>
+    <dt>الإجابات</dt><dd>مدرسة، بيت، شجرة، وقت، سيارة، صوت.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٦ -->
+<section class="slide s6">
+  <div class="card"><div class="num">٦</div>
+    <div class="head"><h2>دفترُ الأسرار</h2><p>اضغطْ كلَّ قفلٍ لتكشفَ سرًّا</p></div>
+    <div class="content"><div class="nb" id="nb"></div></div>
+    <div class="band">
+      <div class="task"><b>للحفظ:</b>الأسرارُ طُرقٌ مختصرةٌ، أمّا الحَكَمُ الأخيرُ فهو دائمًا <b>اختبارُ الوقف</b>.</div>
+      <div class="guide"><svg><use href="#pair"/></svg><div class="bubble" id="b6">أربعةُ أسرارٍ تساعدُكم على التّمييزِ بسرعة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٦. دفتر الأسرار</h3><dl>
+    <dt>الهدف</dt><dd>تقديم أربعة مفاتيح مختصرة للتمييز.</dd>
+    <dt>الأسرار</dt><dd>١) الفعل: تاؤه مفتوحة دائمًا. ٢) الجمع بـ«ـات»: مفتوحة. ٣) الاسم المفرد الذي قبل تائه حرف ساكن (بيت، وقت، صوت…): مفتوحة غالبًا. ٤) المربوطة تصير مفتوحة إذا اتصل بها ضمير أو علامة تثنية.</dd>
+    <dt>انتبهي</dt><dd>تُستثنى جموع التكسير على وزن «فَعَلة» مثل قضاة وقادة؛ تاؤها مربوطة. تُذكر عند السؤال فقط.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٧ -->
+<section class="slide s7">
+  <div class="card"><div class="num">٧</div>
+    <div class="head"><h2>عائلةُ الأبواب</h2><p>الاسمُ المفردُ الّذي يفتحُ بابَه</p></div>
+    <div class="content"><div class="fam" id="fam"></div></div>
+    <div class="band">
+      <div class="task"><b>لاحِظْ:</b>انظرْ إلى الحرفِ الذّهبيِّ قبلَ التّاء… ما حالُه؟</div>
+      <div class="guide"><svg><use href="#pair"/></svg><div class="bubble" id="b7">افتحوا الأبوابَ الثّمانيةَ واكتشفوا ما يجمعُها!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٧. عائلة الأبواب</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف السر الثالث: الحرف الساكن قبل التاء في الأسماء المفردة (ي، و، ق، ن، خ).</dd>
+    <dt>التنفيذ</dt><dd>يفتح الطلاب الأبواب واحدًا واحدًا ويلاحظون الحرف الذهبي.</dd>
+    <dt>انتبهي</dt><dd>القاعدة «غالبًا»: وجود ألف قبل التاء لا يحسم (نبات بتاء مفتوحة، وحياة بمربوطة)، فنعود إلى اختبار الوقف.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٨ -->
+<section class="slide s8">
+  <div class="card"><div class="num">٨</div>
+    <div class="head"><h2>حين يتحوّلُ البالونُ إلى باب</h2><p>السّرُّ الرّابع: الاتّصال</p></div>
+    <div class="content"><div class="morph">
+      <div class="mL">
+        <div class="mst" id="mst"><svg id="mBall"><use href="#balloonL"/></svg><svg id="mDoor"><use href="#doorL"/></svg></div>
+        <div class="mw" id="mw"></div>
+        <div class="msg" id="m8" style="font-size:23px;min-height:62px"></div>
+      </div>
+      <div class="mR">
+        <div class="pickRow"><span class="lbl">١. اختَرِ الاسم:</span><div class="chips" id="bs8" style="justify-content:flex-start"></div></div>
+        <div class="pickRow"><span class="lbl">٢. اربطْ به:</span><div class="chips" id="sf8" style="justify-content:flex-start"></div></div>
+        <div class="rule" style="border-color:var(--gold);font-size:24px">إذا اتّصلَ بالاسمِ المؤنّثِ <b>ضميرٌ</b> (ـي، ـها، ـنا) أو علامةُ <b>تثنية</b> (ـان) تحوّلَتِ <span class="eb">ة</span> إلى <span class="ed">ت</span>: مدرسة ← مدرسَتي، مدرسَتان.</div>
+        <div class="rule" style="border-color:var(--ball);font-size:24px">والتّاءُ المربوطةُ لا تكونُ إلّا في <b>آخرِ</b> الكلمة، فلا تُكتبُ في وسطِها أبدًا.</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>جرِّبْ:</b>اربطْ بالبالونِ شيئًا واحدًا، وراقبْ ماذا يحدثُ للعُقدة.</div>
+      <div class="guide"><svg><use href="#pair"/></svg><div class="bubble" id="b8">كلَّما ربطْتُم بي شيئًا، فُتحَتِ العُقدةُ وصرْتُ بابًا!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٨. التحوّل</h3><dl>
+    <dt>الهدف</dt><dd>السر الرابع: المربوطة تُكتب مفتوحة إذا اتصل بها ضمير أو علامة تثنية.</dd>
+    <dt>تنبيه علمي</dt><dd>التثنية والضمير لا يفرّقان بين النوعين؛ فبيت ← بيتان أيضًا بتاء. فهما يفسّران لماذا نرى تاءً في وسط الكلمة، أما الاختبار الفاصل فهو الوقف على الكلمة بصورتها المفردة.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٩ -->
+<section class="slide s9">
+  <div class="card"><div class="num">٩</div>
+    <div class="head"><h2>مصنعُ الكلمات</h2><p>اسحبْ كلَّ كلمةٍ إلى مكانِها</p></div>
+    <div class="content"><div class="sort">
+      <div class="sc" id="sc9">٠ / ١٢</div>
+      <div class="bins">
+        <div class="bin b" data-k="b"><div class="ic"><svg><use href="#balloonL"/></svg></div><div class="t eb">بالون<br>(ة)</div><div class="in"></div></div>
+        <div class="bin d" data-k="t"><div class="ic"><svg><use href="#doorL"/></svg></div><div class="t ed">باب<br>(ت)</div><div class="in"></div></div>
+      </div>
+      <div class="tray" id="tray9"></div>
+      <div class="msg" id="m9" style="min-height:40px;font-size:24px"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>قبلَ السّحب:</b>اقرأِ الكلمةَ وقِفْ عندَها، أو ابحثْ عن سرٍّ يساعدُك.</div>
+      <div class="guide"><svg><use href="#pair"/></svg><div class="bubble" id="b9">اثنتا عشرةَ كلمةً تنتظرُ مكانَها!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. مصنع الكلمات</h3><dl>
+    <dt>الهدف</dt><dd>تطبيق الاختبار والأسرار الأربعة.</dd>
+    <dt>التنفيذ</dt><dd>يخرج الطلاب بالتناوب ويعلّلون قبل السحب: أي سرّ استخدموا؟</dd>
+    <dt>الإجابات</dt><dd>مربوطة: شجرة، مدرسة، حديقة، سيارة، زهرة. مفتوحة: بيت، وقت، صوت، معلمات، طالبات، كتبَتْ، ذهبَتْ.</dd>
+    <dt>الزمن</dt><dd>٦ دقائق</dd></dl></template>
+</section>
+
+<!-- ١٠ -->
+<section class="slide s10">
+  <div class="card"><div class="num">١٠</div>
+    <div class="head"><h2>صيّادُ الأخطاء</h2><p>أربعُ كلماتٍ كُتبَتْ بتاءٍ خاطئة</p></div>
+    <div class="content"><div class="hunt">
+      <div class="sc" id="sc10" style="top:-4px">٠ / ٤</div>
+      <div class="ptext" id="p10"></div>
+      <div class="msg" id="m10"></div><div class="stars"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>مهمّتُك:</b>اقرأِ الفقرةَ، واضغطْ على كلِّ كلمةٍ تظنُّ أنَّ تاءَها في غيرِ مكانِها.</div>
+      <div class="guide"><svg><use href="#pair"/></svg><div class="bubble" id="b10">أخطأَ الطّابعُ في أربعِ كلماتٍ… ساعدوني في كشفِها!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١٠. صيّاد الأخطاء</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف أخطاء التاء في سياق متصل.</dd>
+    <dt>الأخطاء</dt><dd>البيه ← البيتِ، الحديقه ← الحديقةِ، المعلمه ← المعلمةُ، ونجحةْ ← ونجحَتْ.</dd>
+    <dt>التنفيذ</dt><dd>يعلّل كل طالب: ما السر أو الاختبار الذي كشف الخطأ؟</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ١١ -->
+<section class="slide s11">
+  <div class="card"><div class="num">١١</div>
+    <div class="content" style="top:26px;height:560px">
+      <div class="recap"><h3>انتهتِ الحفلة!</h3>
+        <div><span class="ic" style="background:var(--ball)">ة</span><span>بالون: آخرُ الاسمِ المفردِ المؤنّث، وتُنطَقُ هاءً عندَ الوقف.</span></div>
+        <div><span class="ic" style="background:var(--door)">ت</span><span>باب: تبقى تاءً في الوقفِ والوصل.</span></div>
+        <div><span class="ic" style="background:var(--gold);font-size:30px">١ ٢</span><span>سرُّ الأفعالِ وسرُّ الجمعِ (ـات): تاؤهما مفتوحة.</span></div>
+        <div><span class="ic" style="background:var(--gold);font-size:30px">٣ ٤</span><span>سرُّ الحرفِ السّاكنِ (بيت)، وسرُّ الاتّصال (مدرستي).</span></div>
+        <div><span class="ic" style="background:var(--ink);font-size:28px">✋</span><span>والحكمُ الأخيرُ دائمًا: اختبارُ الوقف.</span></div>
+      </div>
+      <div class="badge"><div class="pr"><svg><use href="#balloon"/></svg><svg><use href="#door"/></svg></div><h4>ساحرُ الهواءِ الذّهبيّ</h4>
+        <input id="starName" placeholder="اكتبِ اسمَ الفائز" aria-label="اسم الفائز"><p>يعرفُ متى يبقى البالونُ ومتى يبقى البابُ</p></div>
+    </div>
+    <div class="band">
+      <div class="task"><b>في دفترك:</b>اكتبْ ثلاثَ كلماتٍ بتاءٍ مربوطة، وثلاثًا بتاءٍ مفتوحة، واذكرْ سرَّ كلِّ كلمة.</div>
+      <div class="guide"><svg><use href="#pair"/></svg><div class="bubble">شكرًا يا أصدقائي! لن تُخطئوا في التّاءِ بعدَ اليوم.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١١. الختام</h3><dl>
+    <dt>الهدف</dt><dd>تلخيص الدرس وتعزيز المتميز.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب الملخص، ثم اكتبي اسم الفائز في الشارة وصوّري الشاشة.</dd>
+    <dt>الواجب</dt><dd>ست كلمات من كتاب القراءة مع ذكر السر المستخدم.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+<aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ١١</span><button id="next" class="main">التّالي ◀</button></nav>
+</div>
+
+<script>
+const SFX=(()=>{let ctx=null,on=true;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ return{toggle(){on=!on;return on},
+  blow(){noise(1,{v:.25,type:'bandpass',f:500,to:1800,q:1.2});tone(220,1,{type:'sine',v:.05,to:520})},
+  deflate(){noise(.9,{v:.3,type:'bandpass',f:2500,to:350,q:2});tone(520,.9,{type:'sawtooth',v:.05,to:150})},
+  hiss(){noise(.8,{v:.3,type:'highpass',f:2800,q:.7})},
+  tick(){noise(.04,{v:.4,type:'highpass',f:2500});tone(1800,.04,{type:'square',v:.06})},
+  creak(){tone(110,.7,{type:'sawtooth',v:.05,to:200});noise(.7,{v:.07,type:'bandpass',f:600,to:300,q:5})},
+  knock(){tone(160,.1,{v:.3,to:90});tone(160,.1,{v:.3,at:.16,to:90})},
+  pop(){tone(600,.08,{v:.15,to:1200})},
+  bang(){noise(.25,{v:.5,f:2200,to:200});tone(120,.2,{v:.3,to:50})},
+  yes(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,{type:'triangle',v:.16,at:i*.08}))},
+  no(){tone(220,.25,{type:'square',v:.08,to:150})},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  cheer(){this.yes();for(let i=0;i<22;i++)noise(.05,{v:.12,type:'bandpass',f:1500+Math.random()*2000,at:.35+Math.random()*1.1})}
+ }})();
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`;window.__s=s}
+addEventListener('resize',fit);fit();
+/* الرايات */
+(()=>{const cols=['#F0657D','#F6C445','#1F8A8A','#FFFFFF'];let h='';for(let i=0;i<24;i++){const x=40+i*66,y=6+Math.sin(i/23*Math.PI)*0+ (Math.abs(i-11.5)<11.5?(1-Math.pow((i-11.5)/11.5,2))*28:0);h+=`<path d="M${x} ${y-2} l22 0 l-11 28Z" fill="${cols[i%4]}" opacity=".9"/>`}document.getElementById('flagG').innerHTML=h})();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+let cur=0,unlocked=false;
+const nextB=document.getElementById('next'),prevB=document.getElementById('prev'),counter=document.getElementById('counter');
+function go(i){if(i<0||i>=slides.length)return;if(i>0&&!unlocked)return;stage.scrollLeft=0;
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=cur===slides.length-1||!unlocked;nextB.classList.toggle('pulse',cur===0&&unlocked);
+  const t=slides[cur].querySelector('template.notes');document.getElementById('notesBody').innerHTML=t?t.innerHTML:'';
+  if(cur===slides.length-1)closing();}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+document.getElementById('bSound').onclick=e=>{e.currentTarget.textContent=SFX.toggle()?'🔊 الصوت':'🔇 صامت'};
+document.getElementById('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+document.getElementById('bNotes').onclick=()=>document.getElementById('notes').classList.toggle('open');
+document.getElementById('closeNotes').onclick=()=>document.getElementById('notes').classList.remove('open');
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function stars(box){for(let i=0;i<14;i++){const s=document.createElement('i');s.textContent='★';s.style.left=Math.random()*95+'%';s.style.top=Math.random()*20+'%';s.style.animationDelay=Math.random()*.4+'s';box.appendChild(s);setTimeout(()=>s.remove(),2000)}}
+function draggable(el,targets,onDrop){
+  el.addEventListener('pointerdown',e=>{if(el.dataset.placed)return;e.preventDefault();
+    const sx=e.clientX,sy=e.clientY;el.setPointerCapture(e.pointerId);el.classList.add('dragging');SFX.pop();
+    const hitT=ev=>targets().find(t=>{const r=t.getBoundingClientRect();return ev.clientX>r.left&&ev.clientX<r.right&&ev.clientY>r.top&&ev.clientY<r.bottom});
+    const move=ev=>{const s=window.__s||1;el.style.transform=`translate(${(ev.clientX-sx)/s}px,${(ev.clientY-sy)/s}px) scale(1.06)`;const h=hitT(ev);targets().forEach(t=>t.classList.toggle('hot',t===h))};
+    const up=ev=>{el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);el.classList.remove('dragging');
+      const h=hitT(ev);targets().forEach(t=>t.classList.remove('hot'));
+      if(!onDrop(el,h)){el.style.transition='transform .35s';el.style.transform='';setTimeout(()=>el.style.transition='',360)}};
+    el.addEventListener('pointermove',move);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);});
+}
+const EB=t=>`<span class="eb">${t}</span>`,ED=t=>`<span class="ed">${t}</span>`,EG=t=>`<span class="eg">${t}</span>`;
+
+/* ١ */
+document.getElementById('go1').onclick=()=>{if(unlocked)return;const s=document.querySelector('.s1');SFX.blow();s.classList.add('in');setTimeout(()=>{SFX.magic();s.classList.add('open');setTimeout(()=>{unlocked=true;go(0)},900)},1500)};
+
+/* ٢ */
+(()=>{const strip=document.getElementById('strip'),puffs=document.getElementById('puffs'),heard=document.getElementById('heard'),b=document.getElementById('b2'),mouth=document.getElementById('mouth');let n=0;
+  function run(kind){strip.className='strip';puffs.className='puffs';void strip.offsetWidth;strip.classList.add(kind);puffs.classList.add(kind);
+    mouth.setAttribute('rx',kind==='big'?'24':'14');mouth.setAttribute('ry',kind==='big'?'16':'8');setTimeout(()=>{mouth.setAttribute('rx','20');mouth.setAttribute('ry','11')},900)}
+  document.getElementById('e1').onclick=()=>{run('big');SFX.hiss();heard.innerHTML=`<div class="hw">شَجَرَ${EB('هْ')}</div><div class="hs">تحرّكَتِ الورقةُ كثيرًا، وسمعْنا <b class="eb">هواءً طويلًا: هـ</b><br>إذنْ هي <b class="eb">تاءٌ مربوطةٌ (ة)</b> 🎈</div>`;b.textContent='انفلتَ الهواءُ من البالون! فنطقْنا «هـ».';n|=1;if(n===3)b.textContent='الفرقُ واضح: هاءٌ بنفَسٍ طويل، وتاءٌ بنقرةٍ قصيرة.'};
+  document.getElementById('e2').onclick=()=>{run('small');SFX.tick();heard.innerHTML=`<div class="hw">بَيْ${ED('تْ')}</div><div class="hs">تحرّكَتِ الورقةُ قليلًا، وسمعْنا <b class="ed">نقرةً خفيفة: ت</b><br>إذنْ هي <b class="ed">تاءٌ مفتوحةٌ (ت)</b> 🚪</div>`;b.textContent='الباب بقيَ مفتوحًا: لا هواءَ طويلًا… بل نقرةُ تاء.';n|=2;if(n===3)b.textContent='الفرقُ واضح: هاءٌ بنفَسٍ طويل، وتاءٌ بنقرةٍ قصيرة.'};})();
+
+/* ٣ */
+(()=>{const W=['مَدْرَسَ','شَجَرَ','حَدِيقَ','سَيَّارَ','مُعَلِّمَ','زَهْرَ'];let cur3=0,done=false;
+  const dw=document.getElementById('dw3'),sd=document.getElementById('sd3'),bal=document.getElementById('bal3'),ch=document.getElementById('ch3'),b=document.getElementById('b3');
+  function show(){bal.classList.remove('gone');done=false;dw.innerHTML=W[cur3]+EB('ة');sd.textContent='اضغطْ «قِفْ!» وراقبِ البالون'}
+  W.forEach((w,i)=>{const bt=document.createElement('button');bt.className='btn lt'+(i===0?' sel':'');bt.innerHTML=w+'ة';bt.onclick=()=>{cur3=i;ch.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===bt));show();SFX.pop()};ch.appendChild(bt)});
+  document.getElementById('stop3').onclick=()=>{if(done)return;done=true;bal.classList.add('gone');SFX.deflate();dw.innerHTML=W[cur3]+EB('هْ');
+    sd.innerHTML='انفلتَ الهواءُ… نسمعُ <b class="eb">هـ</b> في آخرِ الكلمة';b.textContent='وقفْنا فانفلتَ الهواءُ من العُقدة! هذه علامةُ التّاءِ المربوطة.'};
+  document.getElementById('inf3').onclick=()=>{show();SFX.blow()};show();})();
+
+/* ٤ */
+(()=>{const W=[['بَيْ','ت','بَيْتْ'],['وَقْ','ت','وَقْتْ'],['صَوْ','ت','صَوْتْ'],['كَتَبَ','تْ','كَتَبَتْ'],['مُعَلِّمَا','ت','مُعَلِّمَاتْ'],['سَيَّارَا','ت','سَيَّارَاتْ']];let cur4=0;
+  const dw=document.getElementById('dw4'),sd=document.getElementById('sd4'),dor=document.getElementById('dor4'),ch=document.getElementById('ch4'),b=document.getElementById('b4');
+  function show(){dor.classList.remove('tryclose');dw.innerHTML=W[cur4][0]+ED(W[cur4][1]);sd.textContent='اضغطْ «قِفْ!» وراقبِ البابَ'}
+  W.forEach((w,i)=>{const bt=document.createElement('button');bt.className='btn lt'+(i===0?' sel':'');bt.innerHTML=w[0]+w[1];bt.onclick=()=>{cur4=i;ch.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===bt));show();SFX.pop()};ch.appendChild(bt)});
+  document.getElementById('stop4').onclick=()=>{dor.classList.remove('tryclose');void dor.getBoundingClientRect();dor.classList.add('tryclose');SFX.creak();setTimeout(()=>SFX.knock(),700);
+    dw.innerHTML=W[cur4][2].slice(0,-2)+ED('تْ');sd.innerHTML='حاولَ البابُ أن يُغلَقَ… فبقيَ مفتوحًا! نسمعُ <b class="ed">ت</b>';b.textContent='لا هواءَ ينفلت: التّاءُ بقيَتْ تاءً في الوقفِ والوصل.'};
+  show();})();
+
+/* ٥ */
+(()=>{const Q=[['مَدْرَسَ','ة','مَدْرَسَهْ','اسمٌ مفردٌ مؤنّث، وعندَ الوقفِ سمعْنا هاءً.'],['بَيْ','ت','بَيْتْ','عندَ الوقفِ بقيَتِ التّاءُ تاءً، وقبلَها ياءٌ ساكنة (السّرُّ ٣).'],['شَجَرَ','ة','شَجَرَهْ','اسمٌ مفردٌ مؤنّث: مربوطة.'],['وَقْ','ت','وَقْتْ','التّاءُ بقيَتْ تاءً، وقبلَها قافٌ ساكنة (السّرُّ ٣).'],['سَيَّارَ','ة','سَيَّارَهْ','اسمٌ مفردٌ مؤنّث، ونسمعُ الهاءَ عندَ الوقف.'],['صَوْ','ت','صَوْتْ','بقيَتِ التّاءُ تاءً، وقبلَها واوٌ ساكنة (السّرُّ ٣).']];
+  let qi=0,lock=false;const qw=document.getElementById('qw5'),pz=document.getElementById('pz5'),m=document.getElementById('m5'),sc=document.getElementById('sc5'),b=document.getElementById('b5');
+  function set(){const [s]=Q[qi];qw.innerHTML=s+'<span class="gap">ة</span>';pz.textContent='';m.textContent='';lock=false}
+  document.getElementById('hint5').onclick=()=>{const q=Q[qi];if(!q)return;SFX[q[1]==='ة'?'hiss':'tick']();pz.innerHTML='تسمعُ: '+q[2].slice(0,-2)+(q[1]==='ة'?EB('هْ'):ED('تْ'))};
+  document.querySelectorAll('.ans').forEach(bt=>bt.onclick=()=>{if(lock||qi>=Q.length)return;const q=Q[qi];
+    if(bt.dataset.a===q[1]){lock=true;bt.classList.add('good');SFX.yes();qw.innerHTML=q[0]+(q[1]==='ة'?EB('ة'):ED('ت'));m.style.color='var(--ok)';m.textContent='✔ '+q[3];sc.textContent=AR(qi+1)+' / '+AR(Q.length);
+      setTimeout(()=>{bt.classList.remove('good');qi++;if(qi<Q.length)set();else{qw.textContent='أحسنْتَ يا حَكَمَ الوقف! 🏆';pz.textContent='';m.textContent='';SFX.cheer();b.textContent='لن يخدعَكم آخرُ الكلماتِ بعدَ اليوم!'}},2000)}
+    else{SFX.no();shake(bt);m.style.color='var(--bad)';m.textContent='جرِّبِ اختبارَ الوقف: اقرأ الكلمةَ وقِفْ… هل سمعْتَ هاءً؟'}});
+  set();})();
+
+/* ٦ */
+(()=>{const S=[['سرُّ الأفعال','التّاءُ في آخرِ الفعلِ <b>مفتوحةٌ دائمًا</b>.',['كَتَبَتْ','ذَهَبَتْ','كَتَبْتُ'],'ت'],
+  ['سرُّ الجمع','جمعُ المؤنّثِ بالألفِ والتّاء (<b>ـات</b>) تاؤه <b>مفتوحة</b>.',['مُعَلِّمات','طالِبات','سَيّارات'],'ت'],
+  ['سرُّ الحرفِ السّاكن','الاسمُ المفردُ الّذي قبلَ تائِه حرفٌ <b>ساكنٌ</b> (ي، و، ق، ن، خ) تاؤه <b>مفتوحةٌ غالبًا</b>.',['بَيت','وَقت','صَوت','أُخت'],'ت'],
+  ['سرُّ الاتّصال','التّاءُ <b>المربوطةُ</b> تصيرُ <b>مفتوحةً</b> إذا اتّصلَ بها ضميرٌ أو علامةُ تثنية.',['مَدْرَسَتي','مَدْرَسَتان','شَجَرَتُها'],'ت']];
+  const nb=document.getElementById('nb'),b=document.getElementById('b6');let n=0;
+  S.forEach(([t,r,ex],i)=>{const d=document.createElement('div');d.className='sec';d.innerHTML=`<div class="lock"><span>🔒</span>السّرُّ ${AR(i+1)}</div><h4>${t}</h4><p>${r}</p><div class="exs">${ex.map(x=>{const i=x.lastIndexOf('ت');return `<span>${x.slice(0,i)}${ED('ت')}${x.slice(i+1)}</span>`}).join('')}</div>`;
+    d.onclick=()=>{if(d.classList.contains('on'))return;d.classList.add('on');SFX.magic();n++;b.textContent=n===4?'فتحْتُم دفترَ الأسرارِ كلَّه! وتذكّروا: الحَكَمُ الأخيرُ هو الوقف.':`اكتشفْتُم ${AR(n)} من ٤ أسرار…`};nb.appendChild(d)});})();
+
+/* ٧ */
+(()=>{const F=[['ب','ي','ت','بَيْت'],['و','ق','ت','وَقْت'],['ص','و','ت','صَوْت'],['ز','ي','ت','زَيْت'],['ح','و','ت','حُوت'],['ب','ن','ت','بِنْت'],['أ','خ','ت','أُخْت'],['عنكب','و','ت','عَنْكَبُوت']];
+  const fam=document.getElementById('fam'),b=document.getElementById('b7');let n=0;
+  const html={'بَيْت':['بَ',  'يْ'],'وَقْت':['وَ','قْ'],'صَوْت':['صَ','وْ'],'زَيْت':['زَ','يْ'],'حُوت':['حُ','و'],'بِنْت':['بِ','نْ'],'أُخْت':['أُ','خْ'],'عَنْكَبُوت':['عَنْكَبُ','و']};
+  F.forEach(([a,pre,t,w])=>{const [h,p]=html[w];const d=document.createElement('button');d.className='dc';
+    d.innerHTML=`<div class="dd"><svg><use href="#door"/></svg></div><div class="rv"><span class="w">${h}${EG(p)}${ED('ت')}</span><small>${pre} ساكنة</small></div>`;
+    d.onclick=()=>{if(d.classList.contains('on'))return;d.classList.add('on');SFX.creak();n++;
+      if(n===8){b.textContent='في كلِّها حرفٌ ساكنٌ قبلَ التّاء: ي، و، ق، ن، خ… هذا هو السّرُّ الثّالث!';SFX.magic()}};fam.appendChild(d)});})();
+
+/* ٨ */
+(()=>{const B=[['مَدْرَسَ','مدرسة'],['شَجَرَ','شجرة'],['حَدِيقَ','حديقة'],['سَيَّارَ','سيّارة']],SF=[['ي','ـي','ِي'],['ها','ـها','ُهَا'],['نا','ـنا','ُنَا'],['ان','ـان','َانِ']];
+  let bi=0;const mw=document.getElementById('mw'),mst=document.getElementById('mst'),m=document.getElementById('m8'),bs=document.getElementById('bs8'),sf=document.getElementById('sf8'),b=document.getElementById('b8');
+  function reset(){mst.classList.remove('done');mw.innerHTML=B[bi][0]+EB('ة');m.textContent='اربطْ بالبالونِ شيئًا…'}
+  B.forEach((x,i)=>{const bt=document.createElement('button');bt.className='btn lt'+(i===0?' sel':'');bt.textContent=x[1];bt.onclick=()=>{bi=i;bs.querySelectorAll('button').forEach(y=>y.classList.toggle('sel',y===bt));reset();SFX.pop()};bs.appendChild(bt)});
+  SF.forEach(x=>{const bt=document.createElement('button');bt.className='btn dr';bt.textContent=x[1];bt.onclick=()=>{reset();void mst.offsetWidth;SFX.bang();mst.classList.add('done');setTimeout(()=>SFX.creak(),250);
+    mw.innerHTML=B[bi][0]+ED('ت')+x[2].replace(/^(.)/,'$1');m.innerHTML=`ربطْنا بالبالونِ «${x[1].replace('ـ','')}» فانفتحَتِ العُقدةُ: <b class="eb">ة</b> ← <b class="ed">ت</b>`;b.textContent='حتّى الباب أصلُه بالونٌ ربطْنا به شيئًا!'};sf.appendChild(bt)});
+  reset();})();
+
+/* ٩ */
+(()=>{const W=[['شَجَرَةٌ','b','اسمٌ مفردٌ مؤنّث، وعندَ الوقفِ نسمعُ هاءً.'],['بَيْتٌ','t','قبلَ التّاءِ ياءٌ ساكنة (السّرُّ ٣).'],['مُعَلِّمات','t','جمعٌ بالألفِ والتّاء (السّرُّ ٢).'],['كَتَبَتْ','t','فعلٌ، وتاءُ الفعلِ مفتوحةٌ دائمًا (السّرُّ ١).'],
+   ['سَيَّارَةٌ','b','اسمٌ مفردٌ مؤنّث.'],['وَقْتٌ','t','قبلَ التّاءِ قافٌ ساكنة (السّرُّ ٣).'],['طالِبات','t','جمعُ مؤنّثٍ سالم (السّرُّ ٢).'],['حَدِيقَةٌ','b','اسمٌ مفردٌ مؤنّث.'],
+   ['صَوْتٌ','t','قبلَ التّاءِ واوٌ ساكنة (السّرُّ ٣).'],['مَدْرَسَةٌ','b','اسمٌ مفردٌ مؤنّث.'],['ذَهَبَتْ','t','فعلٌ، تاؤه مفتوحة (السّرُّ ١).'],['زَهْرَةٌ','b','اسمٌ مفردٌ مؤنّث، ونقفُ عليها بالهاء.']];
+  const tray=document.getElementById('tray9'),bins=[...document.querySelectorAll('.sort .bin')],m=document.getElementById('m9'),sc=document.getElementById('sc9'),b=document.getElementById('b9');let got=0;
+  const colorEnd=(w,k)=>{const base=w.replace(/[ٌَُِْ]+$/,'');const e=k==='b'?'ة':'ت';const idx=base.lastIndexOf(e);if(idx<0)return w;return w.slice(0,idx)+(k==='b'?EB(e):ED(e))+w.slice(idx+1)};
+  [...W.keys()].sort(()=>Math.random()-.5).forEach(i=>{const [w,k,why]=W[i];const c=document.createElement('div');c.className='wc';c.dataset.k=k;c.dataset.i=i;c.textContent=w;tray.appendChild(c);
+    draggable(c,()=>bins,(el,hit)=>{if(!hit)return false;
+      if(hit.dataset.k===k){el.dataset.placed=1;el.style.transform='';el.classList.remove('dragging');el.innerHTML=colorEnd(w,k);hit.querySelector('.in').appendChild(el);SFX.yes();got++;sc.textContent=AR(got)+' / '+AR(W.length);m.style.color='var(--ok)';m.textContent='✔ '+why;
+        if(got===W.length){m.textContent='✔ أنهيْتُم المصنعَ بلا خطأ!';b.textContent='كلُّ كلمةٍ في مكانِها الصّحيح!';SFX.cheer()}return true}
+      SFX.no();shake(el);m.style.color='var(--bad)';m.textContent='جرِّبِ اختبارَ الوقفِ، أو ابحثْ عن سرٍّ يساعدُك: هل هي فعلٌ؟ جمعٌ بـ«ـات»؟';return false})});})();
+
+/* ١٠ */
+(()=>{const T=[['في'],['صباحِ'],['العيدِ'],['خَرَجَتْ'],['فاطمةُ'],['من'],['البيه','البيتِ','بَيت: قبلَ تائِه ياءٌ ساكنة، وعندَ الوقفِ نسمعُ تاءً لا هاءً.'],['إلى'],['الحديقه','الحديقةِ','اسمٌ مفردٌ مؤنّث نسمعُ فيه الهاءَ عندَ الوقف: تاءٌ مربوطة.'],['ومعها'],['أخوها'],['وصوتُ'],['ضحكاتِهما'],['يملأُ'],['الشّارعَ.'],['اشترَتِ'],['المعلمه','المعلّمةُ','اسمٌ مفردٌ مؤنّث: نقفُ عليه بالهاءِ فهو بتاءٍ مربوطة.'],['بالوناتٍ'],['ملوّنةً'],['ونجحةْ','ونجحَتْ','نجحَتْ فعلٌ، وتاءُ الفعلِ مفتوحةٌ دائمًا (السّرُّ ١).'],['فاطمةُ'],['في'],['اللّعبةِ.']];
+  const OKM={'خَرَجَتْ':'فعلٌ تاؤه مفتوحة (السّرُّ ١).','فاطمةُ':'اسمٌ مفردٌ مؤنّث: مربوطة.','وصوتُ':'قبلَ التّاءِ واوٌ ساكنة: مفتوحة.','ضحكاتِهما':'جمعٌ بالألفِ والتّاء: مفتوحة.','بالوناتٍ':'جمعٌ بـ«ـات»: مفتوحة.','ملوّنةً':'مفردٌ مؤنّث: مربوطة.','اللّعبةِ.':'مفردٌ مؤنّث: مربوطة.'};
+  const p=document.getElementById('p10'),m=document.getElementById('m10'),sc=document.getElementById('sc10'),b=document.getElementById('b10'),box=document.querySelector('.hunt');let n=0;
+  T.forEach(([w,fix,why])=>{const s=document.createElement('span');s.textContent=w;s.onclick=()=>{if(s.classList.contains('fixed'))return;
+      if(fix){s.textContent=fix;s.classList.add('fixed');n++;SFX.yes();sc.textContent=AR(n)+' / ٤';m.style.color='var(--ok)';m.textContent=`✔ ${w} ← ${fix}: ${why}`;if(n===4){b.textContent='صحّحْتُم الفقرةَ كلَّها! أحسنْتُم.';SFX.cheer();stars(box.querySelector('.stars'))}}
+      else{s.classList.add(OKM[w]?'okk':'nope');SFX.no();m.style.color=OKM[w]?'var(--door)':'var(--bad)';m.textContent=OKM[w]?`«${w.replace('.','')}» صحيحة: ${OKM[w]}`:`«${w}» مكتوبةٌ صحيحة… ابحثْ عن غيرِها.`;setTimeout(()=>s.classList.remove('nope'),900)}};p.appendChild(s);p.append(' ')});})();
+
+/* ١١ */
+const cv=document.getElementById('confetti'),cx=cv.getContext('2d');
+function closing(){const s=slides[cur];s.classList.remove('go');void s.offsetWidth;s.classList.add('go');
+  stage.querySelectorAll('.up').forEach(x=>x.remove());const cols=['#F0657D','#F6C445','#1F8A8A','#FFFFFF','#8E5BD8'];
+  for(let i=0;i<14;i++){const d=document.createElement('div');d.className='up';d.style.left=(40+Math.random()*1500)+'px';d.style.animationDuration=(5+Math.random()*4)+'s';d.style.animationDelay=(Math.random()*2)+'s';
+    d.innerHTML=`<svg viewBox="0 0 100 140" width="70" height="100"><path d="M50 6 C16 6 6 40 12 66 C18 92 38 104 50 108 C62 104 82 92 88 66 C94 40 84 6 50 6Z" fill="${cols[i%5]}"/><path d="M43 108 L57 108 L50 120 Z" fill="#00000033"/><path d="M50 120 Q38 128 52 138" stroke="#6B5B73" stroke-width="2.5" fill="none"/></svg>`;stage.appendChild(d)}
+  setTimeout(()=>{SFX.cheer();confetti()},400)}
+function confetti(){const cols=['#F0657D','#F6C445','#1F8A8A','#8E5BD8','#fff'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+go(0);
+</script>
+<script src="kawn-data.js" defer></script>
+</body>
+</html>

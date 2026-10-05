@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>قطار الجملة: الجملة الفعلية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --sky1:#BFE3F5;--sky2:#FCEBD0;--sand:#E9C98F;--rail:#5B4636;--ink:#22263A;--ink2:#5E6278;--paper:#FFFDF8;--navy:#1F3A5F;
+  --verb:#E4572E;--subj:#2F7BEA;--obj:#22A565;--noun:#8C6BD6;--khabar:#B7A6E6;--neu:#7A8194;--gold:#F6C445;--ok:#2EAD65;--bad:#E23B3B;
+  --ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--word:"Noto Naskh Arabic","Traditional Arabic","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sky1:#9FCDE6;--sky2:#F2D9B0}}
+:root[data-theme="dark"]{--sky1:#9FCDE6;--sky2:#F2D9B0}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--sand);font-family:var(--ui);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;overflow:clip;background:linear-gradient(var(--sky1),var(--sky2) 64%,var(--sand) 64%)}
+.mtn{position:absolute;left:0;right:0;top:330px;height:250px;pointer-events:none}
+.groundRail{position:absolute;left:0;right:0;bottom:60px;height:14px;background:var(--rail);box-shadow:0 10px 0 -4px rgba(91,70,54,.35)}
+.groundRail::after{content:"";position:absolute;left:0;right:0;top:12px;height:12px;background:repeating-linear-gradient(90deg,#7A5C44 0 14px,transparent 14px 46px)}
+.slide{position:absolute;inset:0;display:none;z-index:2}
+.slide.active{display:block;animation:in .45s ease}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{position:absolute;inset:58px 30px 96px;border:14px solid var(--navy);border-radius:28px;background:var(--paper);box-shadow:0 22px 46px rgba(31,58,95,.32)}
+.num{position:absolute;top:-50px;right:46px;background:var(--navy);color:#fff;font-size:24px;font-weight:800;padding:4px 20px;border-radius:12px;border:3px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.num::before,.num::after{content:"";position:absolute;top:-16px;width:4px;height:16px;background:var(--navy)}
+.num::before{right:16px}.num::after{left:16px}
+.head{position:absolute;top:10px;right:170px;left:30px;display:flex;align-items:baseline;gap:20px}
+.head h2{margin:0;font-size:50px;font-weight:800;line-height:1.35}
+.head p{margin:0;font-size:27px;font-weight:700;color:var(--ink2)}
+.content{position:absolute;top:92px;right:26px;left:26px;height:480px}
+.band{position:absolute;bottom:8px;right:20px;left:20px;height:126px;display:flex;align-items:flex-end;gap:20px}
+.guide{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;order:2}
+.guide svg{width:110px;height:100px;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:24px;padding:10px 20px;font-size:25px;line-height:1.5;font-weight:700;max-width:800px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:18px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.task{order:1;flex:0 0 590px;background:#FFF1EB;border:3px dashed var(--verb);border-radius:18px;padding:10px 20px;font-size:24px;font-weight:700;line-height:1.5}
+.task b{color:var(--verb);margin-left:6px}
+.w{font-family:var(--word);font-weight:700}
+.cv{color:var(--verb)}.cs{color:var(--subj)}.co{color:var(--obj)}.cn{color:var(--noun)}
+.btn{border:0;border-radius:22px;padding:10px 26px;font-size:26px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.3)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.lt{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(34,38,58,.2);border:2px solid #E6DCC8}
+.btn.v{background:var(--verb);box-shadow:0 5px 0 #A93E1E}.btn.nv{background:var(--navy)}
+.btn.sel{outline:5px solid var(--gold);outline-offset:2px}
+.good{background:var(--ok)!important;color:#fff!important}.bad{background:var(--bad)!important;color:#fff!important}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.msg{font-size:25px;font-weight:800;min-height:40px;text-align:center;line-height:1.5}
+.rule{background:#fff;border-radius:20px;padding:10px 20px;font-size:23px;font-weight:700;line-height:1.6;border-right:12px solid}
+.sc{position:absolute;top:0;left:0;background:var(--navy);color:var(--gold);border-radius:14px;padding:0 18px;font-size:28px;font-weight:800;z-index:6}
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;font-style:normal;font-size:42px;color:var(--gold);animation:fall 1.4s ease-in forwards}
+@keyframes fall{from{transform:translateY(-40px) rotate(0);opacity:1}to{transform:translateY(420px) rotate(260deg);opacity:0}}
+
+/* القطار */
+.trainWrap{position:relative;padding-bottom:22px}
+.trainWrap .track{position:absolute;left:0;right:0;bottom:6px;height:10px;background:var(--rail);border-radius:5px}
+.trainWrap .track::after{content:"";position:absolute;left:0;right:0;top:8px;height:8px;background:repeating-linear-gradient(90deg,#7A5C44 0 10px,transparent 10px 34px)}
+.train{position:relative;display:flex;align-items:flex-end;gap:16px;justify-content:center;z-index:2}
+.car{--c:var(--neu);position:relative;min-width:170px;height:90px;border-radius:12px 12px 8px 8px;background:var(--c);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:40px;font-weight:700;padding:0 20px;margin:34px 0 24px;box-shadow:inset 0 -10px 0 rgba(0,0,0,.18);line-height:1;transition:background .4s}
+.car::before,.car::after{content:"";position:absolute;bottom:-22px;width:34px;height:34px;border-radius:50%;background:#2E2E36;border:6px solid #9A9AA6;box-sizing:border-box}
+.car::before{right:16px}.car::after{left:16px}
+.car .cpl{position:absolute;left:-18px;top:54px;width:20px;height:8px;background:#444;border-radius:3px}
+.car.loco{border-radius:12px 46px 10px 10px;padding-right:40px}
+.car.loco .chim{position:absolute;top:-30px;right:30px;width:26px;height:32px;background:#2E2E36;border-radius:6px 6px 0 0}
+.car.loco .cab{position:absolute;top:-28px;left:0;width:64px;height:30px;background:var(--c);border-radius:10px 10px 0 0;filter:brightness(.85)}
+.car.loco .cab::after{content:"";position:absolute;top:6px;left:14px;width:34px;height:18px;border-radius:5px;background:#CFEAF7}
+.car .rl{position:absolute;top:-30px;left:50%;transform:translateX(-50%);background:#fff;color:var(--c);font-family:var(--ui);font-size:19px;font-weight:800;border-radius:9px;padding:0 9px;border:2px solid var(--c);white-space:nowrap;z-index:3}
+.car.loco .rl{left:56%}
+.car .hb{position:absolute;top:-8px;left:-8px;width:40px;height:40px;border-radius:50%;background:#fff;color:var(--c);border:3px solid var(--c);font-size:28px;display:flex;align-items:center;justify-content:center;font-family:var(--word);z-index:3;animation:pop .4s}
+.r-v{--c:var(--verb)}.r-s{--c:var(--subj)}.r-o{--c:var(--obj)}.r-n{--c:var(--noun)}.r-k{--c:var(--khabar)}.r-x{--c:var(--neu)}.r-e{--c:#E9E3D6;color:#9A927F;border:3px dashed #B9AE96}
+.car.hl{outline:5px solid var(--gold);outline-offset:3px}
+.train.go{transition:transform 1.8s cubic-bezier(.5,0,.8,.6);transform:translateX(1500px)}
+.train.toot .chim::after,.train.go .chim::after{content:"";position:absolute;top:-34px;left:-6px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.9);animation:steam 1s ease-out infinite}
+@keyframes steam{0%{transform:scale(.4);opacity:1}100%{transform:translate(-26px,-36px) scale(1.6);opacity:0}}
+
+/* ١ */
+.s1 .title{position:absolute;top:44px;right:0;left:0;text-align:center}
+.s1 h1{margin:0;font-size:108px;font-weight:800;line-height:1.15;color:#fff;-webkit-text-stroke:3px var(--navy);paint-order:stroke fill;text-shadow:0 7px 0 var(--navy)}
+.s1 .title p{margin:4px 0 0;font-size:36px;font-weight:800;color:var(--navy)}
+.s1 .tw{position:absolute;left:0;right:0;bottom:62px}
+.s1 .train{transform:translateX(-1500px);transition:transform 2.6s cubic-bezier(.2,.8,.3,1)}
+.s1.in .train{transform:none}
+.s1 .car{min-width:230px;height:110px;font-size:48px;cursor:pointer}
+.s1 .horn{position:absolute;top:300px;left:50%;transform:translateX(-50%);font-size:34px;padding:14px 40px;z-index:5}
+.s1.in .horn{display:none}
+.h1x{position:absolute;top:310px;left:0;right:0;text-align:center;font-size:30px;font-weight:800;color:var(--navy);opacity:0;transition:.4s}
+.s1.in .h1x{opacity:1}
+.s1.open .h1x{opacity:0}
+.mission{position:absolute;top:200px;right:250px;left:250px;background:var(--paper);border:14px solid var(--navy);border-radius:28px;padding:24px 46px;box-shadow:0 20px 44px rgba(0,0,0,.3);opacity:0;transform:scale(.6);pointer-events:none;transition:.6s .2s cubic-bezier(.3,1.5,.5,1);z-index:6}
+.s1.open .mission{opacity:1;transform:none}
+.mission h3{margin:0;font-size:44px;color:var(--verb)}
+.mission p{margin:0;font-size:27px;font-weight:700}
+.mission ol{margin:0;padding-right:44px;font-size:29px;line-height:1.75;font-weight:700;list-style:arabic-indic}
+
+/* ٢ المحوّلة */
+.yard{position:relative;height:390px;border-radius:22px;background:linear-gradient(#EAF5FB,#FFF6E6);border:3px solid #EADFC9;overflow:hidden}
+.yard svg.tr{position:absolute;inset:0;width:100%;height:100%}
+.yard .train{position:absolute;left:30px;top:120px;justify-content:flex-start}
+.yard .car{min-width:150px;height:76px;font-size:34px;margin:30px 0 20px}
+.stn{position:absolute;right:20px;width:270px;padding:8px 12px;border-radius:14px;color:#fff;font-size:24px;font-weight:800;text-align:center;line-height:1.3}
+.stn.f{top:26px;background:var(--verb)}.stn.i{bottom:26px;background:var(--noun)}
+.stn.flash{animation:pop .5s}
+.lever{position:absolute;left:640px;top:150px;width:110px;height:110px;border-radius:50%;border:6px solid var(--navy);background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:44px;line-height:1;transition:transform .3s;z-index:4}
+.lever small{font-size:16px;font-weight:800}
+.ctr2{display:flex;gap:14px;justify-content:center;margin-top:10px}
+
+/* عام للشرائح */
+.stack{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px}
+.opts{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.opt{border:3px solid #E6DCC8;background:#fff;border-radius:20px;padding:6px 20px;display:flex;align-items:center;gap:10px;font-family:var(--word);font-size:36px;font-weight:700;box-shadow:0 5px 0 rgba(0,0,0,.12);color:var(--ink)}
+.opt .em{font-size:44px;font-family:var(--ui)}
+.opt.none{font-family:var(--ui);font-size:24px}
+.qline{text-align:center;font-size:30px;font-weight:800;min-height:46px}
+.tray{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;min-height:76px;align-content:center}
+.wc{min-width:140px;height:62px;border-radius:16px;background:#fff;border:3px solid var(--ink);font-family:var(--word);font-size:34px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 18px;box-shadow:0 5px 0 rgba(0,0,0,.2);cursor:grab;touch-action:none;line-height:1.2}
+.wc.dragging{position:relative;z-index:60;cursor:grabbing}
+.slot{min-width:170px;height:90px;border:4px dashed #B9AE96;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#9A927F;background:rgba(255,255,255,.6)}
+.slot.hot,.car.hot{outline:6px solid var(--gold);outline-offset:2px}
+.stamps{display:flex;gap:16px;justify-content:center}
+.stamp{border:0;border-radius:14px;padding:8px 22px;font-size:26px;font-weight:800;color:#fff;cursor:grab;touch-action:none;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.stamp.v{background:var(--verb)}.stamp.s{background:var(--subj)}.stamp.o{background:var(--obj)}
+.stamp.dragging{position:relative;z-index:60}
+.stamp.used{opacity:.25;pointer-events:none}
+
+/* ٧ */
+.frontZone{min-width:170px;height:90px;border:5px dashed var(--verb);border-radius:12px 46px 10px 10px;margin:34px 0 24px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--verb);background:rgba(228,87,46,.07);text-align:center;line-height:1.3;padding:0 10px}
+.sign{display:inline-block;padding:4px 20px;border-radius:14px;color:#fff;font-size:30px;font-weight:800;transition:background .4s}
+.sign.i{background:var(--noun)}.sign.f{background:var(--verb)}
+
+/* ٩ */
+.stations{display:flex;gap:24px}
+.station{flex:1;min-height:230px;border-radius:22px;border:5px dashed;padding:8px 12px;display:flex;flex-direction:column;gap:6px;background:rgba(255,255,255,.7)}
+.station.f{border-color:var(--verb)}.station.i{border-color:var(--noun)}
+.station h4{margin:0;font-size:28px;display:flex;align-items:center;gap:10px}
+.station .in{display:flex;flex-wrap:wrap;gap:6px}
+.station .in .wc{min-width:0;height:44px;font-size:24px;padding:0 12px;border-width:2px;box-shadow:none;cursor:default}
+.station.hot{background:rgba(246,196,69,.35)}
+
+/* ١٠ */
+.broken{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;align-items:end}
+.broken .car{cursor:pointer}
+.broken .car.fixed{box-shadow:0 0 0 5px var(--ok),inset 0 -10px 0 rgba(0,0,0,.18)}
+
+/* ١١ */
+.recap{position:absolute;top:0;right:12px;width:880px;display:flex;flex-direction:column;gap:10px}
+.recap h3{margin:0;font-size:40px}
+.rrow{display:flex;align-items:center;gap:14px;background:#EFEDF5;border-radius:18px;padding:6px 16px;font-size:24px;font-weight:700;line-height:1.5;opacity:.45;transition:.5s;border-right:12px solid #B9B6CC}
+.rrow.on{opacity:1;background:#fff;box-shadow:0 6px 14px rgba(0,0,0,.1)}
+.rrow.v.on{border-color:var(--verb)}.rrow.s.on{border-color:var(--subj)}.rrow.o.on{border-color:var(--obj)}.rrow.k.on{border-color:var(--gold)}
+.badge{position:absolute;top:10px;left:20px;width:470px;height:462px;border-radius:30px;background:linear-gradient(160deg,#FFF3C8,#FFD36B);border:8px solid var(--navy);text-align:center;padding:14px 26px;box-shadow:0 16px 30px rgba(0,0,0,.2);transition:filter .5s}
+.badge.lock{filter:grayscale(1) brightness(.8)}
+.badge svg{width:200px;height:150px}
+.badge h4{margin:0;font-size:38px;color:var(--navy)}
+.badge input{width:100%;font-family:var(--word);font-size:38px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed var(--navy);background:transparent;color:var(--ink);padding:4px;user-select:text}
+.badge input:focus{outline:none;background:rgba(255,255,255,.5)}
+.badge p{margin:10px 0 0;font-size:22px;font-weight:700;color:var(--navy)}
+
+#nav{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 20px;border-radius:27px;background:#fff;color:var(--ink);font-size:24px;font-weight:800;box-shadow:0 4px 0 #B89A66}
+#nav button:disabled{opacity:.4;cursor:not-allowed}
+#nav .main{background:var(--verb);color:#fff;box-shadow:0 4px 0 #A93E1E}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(228,87,46,.8)}50%{box-shadow:0 0 0 14px rgba(228,87,46,0)}}
+#counter{font-size:26px;font-weight:800;min-width:90px;text-align:center}
+#tools{position:absolute;top:10px;left:16px;display:flex;gap:10px;z-index:50}
+#tools button{border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.9);color:var(--ink);font-size:20px;font-weight:700}
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:#fff;z-index:70;box-shadow:12px 0 40px rgba(0,0,0,.3);transform:translateX(-105%);transition:transform .35s;padding:30px;font-size:23px;line-height:1.7;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-size:34px;margin:0 0 8px;color:var(--verb)}
+#notes dt{font-weight:800;color:var(--subj);margin-top:8px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px;font-size:20px}
+#credit{position:absolute;bottom:5px;right:16px;z-index:40;font-size:12px;font-weight:600;color:rgba(34,38,58,.7);background:rgba(255,255,255,.55);border-radius:10px;padding:1px 9px;pointer-events:none}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="qtr" viewBox="0 0 120 110">
+  <rect x="10" y="30" width="100" height="62" rx="16" fill="#E4572E"/>
+  <rect x="26" y="8" width="20" height="26" rx="4" fill="#2E2E36"/>
+  <circle cx="44" cy="56" r="9" fill="#fff"/><circle cx="76" cy="56" r="9" fill="#fff"/><circle cx="45" cy="58" r="4.5" fill="#22263A"/><circle cx="77" cy="58" r="4.5" fill="#22263A"/>
+  <path d="M48 74 q12 10 24 0" stroke="#22263A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <circle cx="34" cy="70" r="5" fill="#FFB3A0"/><circle cx="86" cy="70" r="5" fill="#FFB3A0"/>
+  <rect x="4" y="88" width="112" height="10" rx="5" fill="#2E2E36"/>
+  <circle cx="30" cy="100" r="9" fill="#2E2E36" stroke="#9A9AA6" stroke-width="3"/><circle cx="90" cy="100" r="9" fill="#2E2E36" stroke="#9A9AA6" stroke-width="3"/>
+  <circle cx="60" cy="38" r="6" fill="#F6C445"/>
+</symbol>
+</svg>
+
+<div id="stage">
+<svg class="mtn" viewBox="0 0 1600 250" preserveAspectRatio="none"><path d="M0 250 L0 160 L180 60 L340 150 L520 40 L700 140 L860 70 L1040 150 L1220 50 L1400 140 L1600 90 L1600 250Z" fill="#D9A877" opacity=".7"/><path d="M0 250 L0 200 L240 130 L480 210 L760 140 L1020 210 L1300 150 L1600 200 L1600 250Z" fill="#C98F5E" opacity=".8"/></svg>
+<div class="groundRail"></div>
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+<div id="tools"><a href="index.html" style="border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a><button id="bSound">🔊 الصوت</button><button id="bFull">⛶ ملء الشاشة</button><button id="bNotes">📋 ملاحظات المعلمة</button></div>
+
+<!-- ١ -->
+<section class="slide s1 active">
+  <div class="title"><h1>قطارُ الجملة</h1><p>الجملةُ الفعليّة: الفعلُ والفاعلُ والمفعولُ به</p></div>
+  <button class="btn v horn" id="horn">🚂 اضغطْ صافرةَ القطار</button>
+  <div class="h1x" id="h1x">اضغطْ كلَّ عربةٍ لتعرفَ وظيفتَها!</div>
+  <div class="tw"><div class="trainWrap"><div class="train" id="tr1"></div><div class="track"></div></div></div>
+  <div class="mission"><h3>رحلةُ اليوم</h3><p>بعدَ أن نركبَ القطارَ سأستطيعُ أنْ:</p>
+    <ol><li>أعرفَ أنّ الجملةَ الفعليّةَ تبدأُ بفعل.</li><li>أحدّدَ الفاعلَ وأعرفَ أنّه مرفوع.</li><li>أحدّدَ المفعولَ به وأعرفَ أنّه منصوب.</li><li>أحوّلَ الجملةَ الاسميّةَ إلى جملةٍ فعليّة.</li></ol></div>
+  <template class="notes"><h3>١. وصول القطار</h3><dl>
+    <dt>الهدف</dt><dd>تقديم الفكرة: الجملة الفعلية قطار، قاطرته الفعل.</dd>
+    <dt>التنفيذ</dt><dd>يضغط طالب الصافرة فيدخل القطار. يكشف الطلاب العربات الثلاث بالضغط عليها، ثم تظهر أهداف الدرس.</dd>
+    <dt>قولي</dt><dd>«القاطرة هي التي تسحب القطار وتسبقه دائمًا… وفي الجملة الفعلية: الفعل هو القاطرة.»</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ٢ -->
+<section class="slide s2">
+  <div class="card"><div class="num">رصيف ٢</div>
+    <div class="head"><h2>محوّلةُ السّكّة</h2><p>القاطرةُ تحدّدُ المحطّة</p></div>
+    <div class="content">
+      <div class="sc" id="sc2">٠ / ٦</div>
+      <div class="yard" id="yard">
+        <svg class="tr" viewBox="0 0 1480 390" preserveAspectRatio="none"><path d="M0 255 H700" stroke="#5B4636" stroke-width="10"/>
+          <path id="pathF" d="M700 255 C820 255 860 150 1000 150 H1480" stroke="#5B4636" stroke-width="10" fill="none"/>
+          <path id="pathI" d="M700 255 C820 255 860 345 1000 345 H1480" stroke="#5B4636" stroke-width="10" fill="none" opacity=".35"/></svg>
+        <div class="stn f">🚉 محطّةُ الجملةِ الفعليّة</div><div class="stn i">🚉 محطّةُ الجملةِ الاسميّة</div>
+        <button class="lever" id="lev" aria-label="المحوّلة">⬆<small>الفعليّة</small></button>
+        <div class="train" id="tr2"></div>
+      </div>
+      <div class="ctr2"><button class="btn v" id="go2">🚂 انطلق!</button></div>
+      <div class="msg" id="m2"></div>
+    </div>
+    <div class="band">
+      <div class="task"><b>انظرْ إلى القاطرة:</b>هل أوّلُ كلمةٍ فعلٌ أم اسم؟ اضبطِ المحوّلةَ ثمّ انطلقْ.</div>
+      <div class="guide"><svg><use href="#qtr"/></svg><div class="bubble" id="b2">أنا قُطَير! أيُّ كلمةٍ تقودُ القطار؟ هي الّتي تحدّدُ طريقَه.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. محوّلة السكة</h3><dl>
+    <dt>الهدف</dt><dd>التمييز بين الجملة الفعلية والاسمية بأول كلمة.</dd>
+    <dt>التنفيذ</dt><dd>يضغط الطالب المحوّلة لتختار الطريق، ثم «انطلق!». إن أخطأ عاد القطار.</dd>
+    <dt>انتبهي</dt><dd>«الولدُ يلعبُ» جملة اسمية رغم وجود فعل فيها؛ العبرة بأول الجملة.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٣ -->
+<section class="slide s3">
+  <div class="card"><div class="num">رصيف ٣</div>
+    <div class="head"><h2>القاطرة: الفعل</h2><p>الجملةُ الفعليّةُ تبدأُ بفعل</p></div>
+    <div class="content"><div class="stack">
+      <div class="sc" id="sc3">٠ / ٥</div>
+      <div class="trainWrap" style="margin-top:20px"><div class="train" id="tr3"></div><div class="track"></div></div>
+      <div class="qline">اسحبْ كلمةً إلى القاطرة الفارغة: أيُّ الكلماتِ تصلحُ قاطرةً؟</div>
+      <div class="tray" id="tray3"></div>
+      <div class="msg" id="m3"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>القاعدة:</b>القاطرةُ في الجملةِ الفعليّةِ <b>فعلٌ</b> دائمًا، ولا يصلحُ الاسمُ أن يكونَ قاطرتَها.</div>
+      <div class="guide"><svg><use href="#qtr"/></svg><div class="bubble" id="b3">جرّبوا الكلماتِ كلَّها… مَن يستطيعُ أن يقودَني؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٣. القاطرة: الفعل</h3><dl>
+    <dt>الهدف</dt><dd>الجملة الفعلية تبدأ بفعل.</dd>
+    <dt>التنفيذ</dt><dd>يسحب الطالب الكلمات إلى القاطرة. الأفعال تنطلق مع «سالمٌ»، والأسماء تُرفض.</dd>
+    <dt>للربط</dt><dd>يمكن الاستعانة بأسرار درس «جهاز التحكم» لمعرفة الفعل.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٤ -->
+<section class="slide s4">
+  <div class="card"><div class="num">رصيف ٤</div>
+    <div class="head"><h2>العربةُ الأولى: الفاعل</h2><p>مَنِ الّذي قامَ بالفعل؟</p></div>
+    <div class="content"><div class="stack">
+      <div class="sc" id="sc4">٠ / ٥</div>
+      <div class="trainWrap" style="margin-top:14px"><div class="train" id="tr4"></div><div class="track"></div></div>
+      <div class="qline" id="q4"></div>
+      <div class="opts" id="op4"></div>
+      <div class="msg" id="m4"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>القاعدة:</b>الفاعلُ اسمٌ يأتي بعدَ الفعل، يدلُّ على مَن قامَ به، وهو <b>مرفوع</b> علامتُه الضّمّة (ـُ).</div>
+      <div class="guide"><svg><use href="#qtr"/></svg><div class="bubble" id="b4">عربةُ الرّكّابِ تنتظرُ مَن قامَ بالفعل!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٤. الفاعل</h3><dl>
+    <dt>الهدف</dt><dd>تحديد الفاعل بسؤال «مَن الذي…؟» وملاحظة الضمة.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب الفعل ثم يسألون «مَن الذي…؟» ويختارون الراكب المناسب.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٥ -->
+<section class="slide s5">
+  <div class="card"><div class="num">رصيف ٥</div>
+    <div class="head"><h2>عربةُ الشّحن: المفعولُ به</h2><p>ماذا وقعَ عليه الفعل؟</p></div>
+    <div class="content"><div class="stack">
+      <div class="sc" id="sc5">٠ / ٥</div>
+      <div class="trainWrap" style="margin-top:14px"><div class="train" id="tr5"></div><div class="track"></div></div>
+      <div class="qline" id="q5"></div>
+      <div class="opts" id="op5"></div>
+      <div class="msg" id="m5"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>القاعدة:</b>المفعولُ به اسمٌ وقعَ عليه الفعل، وهو <b>منصوب</b> علامتُه الفتحة (ـَ). وقد لا تحتاجُ الجملةُ إليه.</div>
+      <div class="guide"><svg><use href="#qtr"/></svg><div class="bubble" id="b5">بعضُ القطاراتِ تحملُ شحنةً… وبعضُها يكتفي بالرّكّاب!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٥. المفعول به</h3><dl>
+    <dt>الهدف</dt><dd>تحديد المفعول به بسؤال «ماذا…؟» وملاحظة الفتحة، وأنه قد لا يأتي.</dd>
+    <dt>التنفيذ</dt><dd>يختار الطالب الشحنة المناسبة. في «نامَ الطفلُ» الإجابة: «لا يحتاج شحنة».</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٦ -->
+<section class="slide s6">
+  <div class="card"><div class="num">رصيف ٦</div>
+    <div class="head"><h2>ورشةُ تركيبِ القطار</h2><p>ضعْ كلَّ عربةٍ في مكانِها</p></div>
+    <div class="content"><div class="stack">
+      <div class="sc" id="sc6">٠ / ٤</div>
+      <div class="trainWrap" style="margin-top:20px"><div class="train" id="tr6"></div><div class="track"></div></div>
+      <div class="tray" id="tray6"></div>
+      <div class="msg" id="m6"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>التّرتيب:</b>القاطرةُ (الفعل) ← عربةُ الرّكّاب (الفاعل) ← عربةُ الشّحن (المفعول به).</div>
+      <div class="guide"><svg><use href="#qtr"/></svg><div class="bubble" id="b6">العرباتُ مبعثرة… ركّبوني من جديد!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٦. ورشة التركيب</h3><dl>
+    <dt>الهدف</dt><dd>ترتيب أركان الجملة الفعلية.</dd>
+    <dt>التنفيذ</dt><dd>يسحب الطالب كل كلمة إلى مكانها. عند اكتمال القطار ينطلق وتُقرأ الجملة. أربع جولات.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٧ -->
+<section class="slide s7">
+  <div class="card"><div class="num">رصيف ٧</div>
+    <div class="head"><h2>تبديلُ القاطرة</h2><p>من جملةٍ اسميّةٍ إلى جملةٍ فعليّة</p></div>
+    <div class="content"><div class="stack" style="align-items:center">
+      <div class="sc" id="sc7">٠ / ٤</div>
+      <div><span class="sign i" id="sg7">قطارُ جملةٍ اسميّة</span></div>
+      <div class="trainWrap" style="width:100%"><div class="train" id="tr7"></div><div class="track"></div></div>
+      <div class="qline" id="q7">اسحبِ الفعلَ إلى مقدّمةِ القطار!</div>
+      <div class="ctr2"><button class="btn lt" id="bk7">↩ أعِدِ الاسمَ إلى المقدّمة</button><button class="btn nv" id="nx7">قطارٌ آخر ←</button></div>
+      <div class="msg" id="m7"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>لاحِظْ:</b>عندما تقدّمَ الفعلُ صارَ «المبتدأُ» فاعلًا، وتغيّرَ نوعُ الجملة.</div>
+      <div class="guide"><svg><use href="#qtr"/></svg><div class="bubble" id="b7">قطارُ زاجل اسميّ… لكن إذا تقدّمَ الفعلُ صارَ القطارُ فعليًّا!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٧. تبديل القاطرة</h3><dl>
+    <dt>الهدف</dt><dd>تحويل الجملة الاسمية (مبتدؤها اسم) إلى فعلية بتقديم الفعل.</dd>
+    <dt>التنفيذ</dt><dd>يسحب الطالب الفعل إلى المقدمة، فتتغير الألوان والأسماء: المبتدأ يصير فاعلًا. زر الإرجاع يعيد الجملة اسمية للمقارنة.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٨ -->
+<section class="slide s8">
+  <div class="card"><div class="num">رصيف ٨</div>
+    <div class="head"><h2>أختامُ المحطّة</h2><p>اختمْ كلَّ عربةٍ بوظيفتِها</p></div>
+    <div class="content"><div class="stack">
+      <div class="sc" id="sc8">٠ / ٤</div>
+      <div class="trainWrap" style="margin-top:20px"><div class="train" id="tr8"></div><div class="track"></div></div>
+      <div class="stamps" id="st8"></div>
+      <div class="msg" id="m8"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تذكّرْ:</b>بعضُ القطاراتِ بلا عربةِ شحن… فيبقى ختمُ «المفعولِ به» دونَ استعمال.</div>
+      <div class="guide"><svg><use href="#qtr"/></svg><div class="bubble" id="b8">اسحبوا الأختامَ إلى العربات!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٨. أختام المحطة</h3><dl>
+    <dt>الهدف</dt><dd>تحديد أركان الجملة الفعلية في جمل جديدة.</dd>
+    <dt>التنفيذ</dt><dd>يسحب الطالب الأختام إلى العربات. في «طارَ العصفورُ» يكتمل القطار بعد ختمين.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٩ -->
+<section class="slide s9">
+  <div class="card"><div class="num">رصيف ٩</div>
+    <div class="head"><h2>محطّةُ الفرز</h2><p>أيُّ قطارٍ إلى أيِّ محطّة؟</p></div>
+    <div class="content"><div class="stack">
+      <div class="sc" id="sc9">٠ / ١٠</div>
+      <div class="tray" id="tray9" style="min-height:150px"></div>
+      <div class="stations" id="sts9">
+        <div class="station f" data-k="f"><h4><span class="sign f" style="font-size:22px">🚉 الفعليّة</span>تبدأُ بفعل</h4><div class="in"></div></div>
+        <div class="station i" data-k="i"><h4><span class="sign i" style="font-size:22px">🚉 الاسميّة</span>تبدأُ باسم</h4><div class="in"></div></div>
+      </div>
+      <div class="msg" id="m9" style="font-size:23px"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>السّؤالُ الوحيد:</b>بماذا تبدأُ الجملة؟ بفعلٍ أم باسم؟</div>
+      <div class="guide"><svg><use href="#qtr"/></svg><div class="bubble" id="b9">عشرةُ قطاراتٍ تنتظرُ في المحطّة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. محطة الفرز</h3><dl>
+    <dt>الهدف</dt><dd>التمييز بين الجملتين في أمثلة متنوعة.</dd>
+    <dt>انتبهي</dt><dd>«الطالبُ نجحَ» اسمية، و«نجحَ الطالبُ» فعلية: الكلمات نفسها، والترتيب يحدد النوع.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ١٠ -->
+<section class="slide s10">
+  <div class="card"><div class="num">رصيف ١٠</div>
+    <div class="head"><h2>القطارُ المعطّل</h2><p>في كلِّ قطارٍ عربةٌ علامتُها خاطئة</p></div>
+    <div class="content"><div class="stack">
+      <div class="sc" id="sc10">٠ / ٤</div>
+      <div class="broken" id="bk10"></div>
+      <div class="msg" id="m10"></div><div class="stars"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تذكّرْ:</b>الفاعلُ مرفوعٌ (ـُ)، والمفعولُ به منصوبٌ (ـَ). اضغطِ العربةَ المعطّلةَ لإصلاحِها.</div>
+      <div class="guide"><svg><use href="#qtr"/></svg><div class="bubble" id="b10">أربعةُ قطاراتٍ لا تتحرّك… ساعدوا المهندس!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١٠. القطار المعطل</h3><dl>
+    <dt>الهدف</dt><dd>تثبيت رفع الفاعل ونصب المفعول به.</dd>
+    <dt>الأخطاء</dt><dd>الطفلَ ← الطفلُ، البابُ ← البابَ، اللاعبَ ← اللاعبُ، التمرُ ← التمرَ.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ١١ -->
+<section class="slide s11">
+  <div class="card"><div class="num">رصيف ١١</div>
+    <div class="content" style="top:20px;height:564px">
+      <div class="recap"><h3>اضغطْ عرباتِ القطارِ لتضيءَ الملخّص</h3>
+        <div class="trainWrap"><div class="train" id="tr11"></div><div class="track"></div></div>
+        <div class="rrow v" id="r1"><span>🚂 <b>الفعل:</b> قاطرةُ الجملةِ الفعليّة، يأتي أوّلًا.</span></div>
+        <div class="rrow s" id="r2"><span>🧑 <b>الفاعل:</b> مَن قامَ بالفعل، مرفوعٌ بالضّمّة (ـُ).</span></div>
+        <div class="rrow o" id="r3"><span>📦 <b>المفعولُ به:</b> ما وقعَ عليه الفعل، منصوبٌ بالفتحة (ـَ)، وقد لا يأتي.</span></div>
+        <div class="rrow k" id="r4"><span>🔀 إذا بدأَتِ الجملةُ باسمٍ فهي <b>اسميّة</b>، وإذا بدأَتْ بفعلٍ فهي <b>فعليّة</b>.</span></div>
+      </div>
+      <div class="badge lock" id="bd11"><svg><use href="#qtr"/></svg><h4>سائقُ القطارِ الذّهبيّ</h4>
+        <input id="starName" placeholder="اكتبِ اسمَ الفائز" aria-label="اسم الفائز"><p>يقودُ الجملةَ الفعليّةَ إلى محطّتِها الصّحيحة</p></div>
+    </div>
+    <div class="band">
+      <div class="task"><b>في دفترك:</b>اكتبْ ثلاثَ جملٍ فعليّة عن يومِك، ولوّنِ الفعلَ والفاعلَ والمفعولَ به.</div>
+      <div class="guide"><svg><use href="#qtr"/></svg><div class="bubble">وصلْنا إلى المحطّةِ الأخيرة! شكرًا يا ركّابي.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١١. المحطة الأخيرة</h3><dl>
+    <dt>الهدف</dt><dd>تلخيص الدرس وتعزيز المتميز.</dd>
+    <dt>التنفيذ</dt><dd>يضغط الطلاب العربات الثلاث فيضيء الملخص، ثم تُفتح الشارة. اكتبي اسم الفائز وصوّري الشاشة.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+<aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ١١</span><button id="next" class="main">التّالي ◀</button></nav>
+</div>
+
+<script>
+const SFX=(()=>{let ctx=null,on=true;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ return{toggle(){on=!on;return on},
+  horn(){[0,.42].forEach(a=>{tone(392,.34,{type:'sawtooth',v:.08,at:a});tone(494,.34,{type:'sawtooth',v:.07,at:a});tone(587,.34,{type:'sawtooth',v:.05,at:a})})},
+  chug(){for(let i=0;i<8;i++)noise(.08,{v:.22,type:'bandpass',f:700,q:1.5,at:i*.18})},
+  steam(){noise(.6,{v:.25,type:'highpass',f:2500})},
+  clank(){tone(240,.1,{type:'square',v:.1,to:120});noise(.08,{v:.25,type:'bandpass',f:3000,at:.02})},
+  crash(){noise(.5,{v:.4,f:600,to:120});tone(110,.4,{type:'sawtooth',v:.12,to:55})},
+  pop(){tone(600,.08,{v:.15,to:1200})},
+  yes(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,{type:'triangle',v:.16,at:i*.08}))},
+  no(){tone(220,.25,{type:'square',v:.08,to:150})},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  cheer(){this.yes();for(let i=0;i<22;i++)noise(.05,{v:.12,type:'bandpass',f:1500+Math.random()*2000,at:.35+Math.random()*1.1})}
+ }})();
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`;window.__s=s}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let cur=0,unlocked=false;
+const nextB=document.getElementById('next'),prevB=document.getElementById('prev'),counter=document.getElementById('counter');
+function go(i){if(i<0||i>=slides.length)return;if(i>0&&!unlocked)return;stage.scrollLeft=0;
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=cur===slides.length-1||!unlocked;nextB.classList.toggle('pulse',cur===0&&unlocked);
+  const t=slides[cur].querySelector('template.notes');document.getElementById('notesBody').innerHTML=t?t.innerHTML:'';}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown'].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+document.getElementById('bSound').onclick=e=>{e.currentTarget.textContent=SFX.toggle()?'🔊 الصوت':'🔇 صامت'};
+document.getElementById('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+document.getElementById('bNotes').onclick=()=>document.getElementById('notes').classList.toggle('open');
+document.getElementById('closeNotes').onclick=()=>document.getElementById('notes').classList.remove('open');
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function stars(box){for(let i=0;i<14;i++){const s=document.createElement('i');s.textContent='★';s.style.left=Math.random()*95+'%';s.style.top=Math.random()*20+'%';s.style.animationDelay=Math.random()*.4+'s';box.appendChild(s);setTimeout(()=>s.remove(),2000)}}
+function draggable(el,targets,onDrop){
+  el.addEventListener('pointerdown',e=>{if(el.dataset.placed)return;e.preventDefault();
+    const sx=e.clientX,sy=e.clientY;el.setPointerCapture(e.pointerId);el.classList.add('dragging');SFX.pop();
+    const hitT=ev=>targets().find(t=>{const r=t.getBoundingClientRect();return ev.clientX>r.left&&ev.clientX<r.right&&ev.clientY>r.top&&ev.clientY<r.bottom});
+    const move=ev=>{const s=window.__s||1;el.style.transform=`translate(${(ev.clientX-sx)/s}px,${(ev.clientY-sy)/s}px) scale(1.06)`;const h=hitT(ev);targets().forEach(t=>t.classList.toggle('hot',t===h))};
+    const up=ev=>{el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);el.classList.remove('dragging');
+      const h=hitT(ev);targets().forEach(t=>t.classList.remove('hot'));
+      if(!onDrop(el,h)){el.style.transition='transform .35s';el.style.transform='';setTimeout(()=>el.style.transition='',360)}};
+    el.addEventListener('pointermove',move);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);});
+}
+/* بناء القطار: كل عربة {w,r} r: v فعل، s فاعل، o مفعول، n مبتدأ، k خبر، x محايد، e فارغة */
+const RL={v:'فعل',s:'فاعل',o:'مفعول به',n:'مبتدأ',k:'خبر'};
+function carHTML(c,i,o={}){const loco=i===0;const lab=o.labels!==false&&RL[c.r];
+  return `<div class="car ${loco?'loco':''} r-${c.r}" data-i="${i}">${loco?'<i class="chim"></i><i class="cab"></i>':''}${i>0?'<i class="cpl"></i>':''}${lab?`<small class="rl">${RL[c.r]}</small>`:''}${o.marks&&(c.r==='s'||c.r==='o')?`<b class="hb">${c.r==='s'?'ـُ':'ـَ'}</b>`:''}<span class="lbl">${c.w}</span></div>`}
+function drawTrain(el,cars,o={}){el.classList.remove('go','toot');el.innerHTML=cars.map((c,i)=>carHTML(c,i,o)).join('')}
+async function depart(el,back=true){el.classList.add('toot');SFX.horn();SFX.chug();await sleep(500);el.classList.add('go');await sleep(1900);if(back){el.style.transition='none';el.classList.remove('go','toot');void el.offsetWidth;el.style.transition=''}}
+
+/* ١ */
+(()=>{const s1=document.querySelector('.s1'),tr=document.getElementById('tr1');const C=[{w:'يقرأُ',r:'v',t:'القاطرة = الفعل'},{w:'أحمدُ',r:'s',t:'عربة الركاب = الفاعل'},{w:'القصّةَ',r:'o',t:'عربة الشحن = المفعول به'}];const seen=new Set();
+  tr.innerHTML=C.map((c,i)=>carHTML({w:'؟',r:'x'},i,{labels:false})).join('');
+  document.getElementById('horn').onclick=()=>{if(s1.classList.contains('in'))return;SFX.horn();SFX.chug();tr.classList.add('toot');s1.classList.add('in');setTimeout(()=>tr.classList.remove('toot'),2600)};
+  tr.addEventListener('click',e=>{const car=e.target.closest('.car');if(!car||!s1.classList.contains('in'))return;const i=+car.dataset.i;if(seen.has(i))return;seen.add(i);
+    const n=document.createElement('div');n.innerHTML=carHTML(C[i],i,{marks:true});const nc=n.firstChild;nc.style.animation='pop .45s';car.replaceWith(nc);SFX.clank();
+    document.getElementById('h1x').textContent=C[i].t;
+    if(seen.size===3){setTimeout(()=>{SFX.magic();s1.classList.add('open');setTimeout(()=>{unlocked=true;go(0)},1000)},1100)}});})();
+
+/* ٢ */
+(()=>{const T=[[['يلعبُ','الولدُ','الكرةَ'],'f'],[['الولدُ','يلعبُ','الكرةَ'],'i'],[['نامَ','الطّفلُ'],'f'],[['السّماءُ','صافيةٌ'],'i'],[['كتبَ','سالمٌ','الدّرسَ'],'f'],[['الطّالبُ','نجحَ'],'i']];
+  let ti=0,dir='f',busy=false,score=0;const tr=document.getElementById('tr2'),lev=document.getElementById('lev'),m=document.getElementById('m2'),sc=document.getElementById('sc2'),b=document.getElementById('b2'),pF=document.getElementById('pathF'),pI=document.getElementById('pathI'),yard=document.getElementById('yard');
+  function load(){const [w]=T[ti];tr.getAnimations().forEach(a=>a.cancel());tr.style.transform='';drawTrain(tr,w.map(x=>({w:x,r:'x'})),{labels:false});tr.querySelector('.car').classList.add('hl');m.textContent=`القطار ${AR(ti+1)} من ٦: انظرْ إلى القاطرةِ المضيئة.`;m.style.color='var(--ink)'}
+  function setDir(d){dir=d;lev.innerHTML=d==='f'?'⬆<small>الفعليّة</small>':'⬇<small>الاسميّة</small>';lev.style.borderColor=d==='f'?'var(--verb)':'var(--noun)';pF.style.opacity=d==='f'?1:.35;pI.style.opacity=d==='i'?1:.35;pF.style.stroke=d==='f'?'#E4572E':'#5B4636';pI.style.stroke=d==='i'?'#8C6BD6':'#5B4636'}
+  lev.onclick=()=>{if(busy)return;setDir(dir==='f'?'i':'f');SFX.clank()};
+  document.getElementById('go2').onclick=async()=>{if(busy||ti>=T.length)return;busy=true;const ok=dir===T[ti][1];const dy=dir==='f'?-105:90;SFX.horn();SFX.chug();tr.classList.add('toot');
+    const a=tr.animate([{transform:'translate(0,0)'},{transform:'translate(480px,0)',offset:.45},{transform:`translate(600px,${dy}px)`}],{duration:2000,easing:'ease-in-out',fill:'forwards'});await a.finished;tr.classList.remove('toot');
+    const st=yard.querySelector(dir==='f'?'.stn.f':'.stn.i');
+    if(ok){score++;sc.textContent=AR(score)+' / ٦';SFX.yes();st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash');m.style.color='var(--ok)';
+      m.textContent=T[ti][1]==='f'?`✔ بدأَ القطارُ بفعل «${T[ti][0][0]}»: جملةٌ فعليّة.`:`✔ بدأَ القطارُ باسم «${T[ti][0][0]}»: جملةٌ اسميّة.`;await sleep(1800);ti++;
+      if(ti<T.length)load();else{m.textContent='✔ أوصلْتَ القطاراتِ السّتّةَ إلى محطّاتِها!';b.textContent='أوّلُ كلمةٍ هي الّتي تحدّدُ الطّريق!';SFX.cheer()}}
+    else{SFX.crash();shake(tr);m.style.color='var(--bad)';m.textContent=`محطّةٌ خاطئة! القاطرةُ «${T[ti][0][0]}»: هل هي فعلٌ أم اسم؟`;await sleep(1300);load()}
+    busy=false};
+  setDir('f');load();})();
+
+/* ٣ */
+(()=>{const W=[['ذهبَ',1],['البيتُ',0],['يقرأُ',1],['القلمُ',0],['كتبَ',1],['يسبحُ',1],['الشّجرةُ',0],['نامَ',1]];
+  const tr=document.getElementById('tr3'),tray=document.getElementById('tray3'),m=document.getElementById('m3'),sc=document.getElementById('sc3'),b=document.getElementById('b3');let n=0,busy=false;
+  function empty(){drawTrain(tr,[{w:'اسحبْ هنا',r:'e'},{w:'سالمٌ',r:'s'}],{marks:true});const c=tr.querySelector('.car');c.style.fontSize='22px';c.style.fontFamily='var(--ui)'}
+  empty();
+  [...W.keys()].sort(()=>Math.random()-.5).forEach(i=>{const [w,v]=W[i];const c=document.createElement('div');c.className='wc';c.textContent=w;tray.appendChild(c);
+    draggable(c,()=>busy?[]:[tr.querySelector('.car.loco')],(el,hit)=>{if(!hit)return false;
+      if(v){el.dataset.placed=1;el.style.visibility='hidden';busy=true;drawTrain(tr,[{w,r:'v'},{w:'سالمٌ',r:'s'}],{marks:true});n++;sc.textContent=AR(n)+' / ٥';m.style.color='var(--ok)';m.textContent=`✔ «${w}» فعلٌ يقودُ القطار: «${w} سالمٌ» جملةٌ فعليّة.`;
+        depart(tr).then(()=>{empty();busy=false;if(n===5){m.textContent='✔ وجدْتَ الأفعالَ الخمسةَ كلَّها! الأسماءُ لا تقودُ القطارَ الفعليّ.';b.textContent='الفعلُ وحدَه يصلحُ قاطرةً للجملةِ الفعليّة.';SFX.cheer()}});return true}
+      SFX.crash();shake(tr);m.style.color='var(--bad)';m.textContent=`«${w}» اسمٌ لا فعل… لا يقودُ القطارَ الفعليّ.`;return false})});})();
+
+/* ٤ */
+(()=>{const Q=[['طارَ',[['🐦','العصفورُ',1],['📘','الكتابُ',0],['🏠','البيتُ',0]]],['زرعَ',[['🍎','التّفّاحُ',0],['👨‍🌾','الفلّاحُ',1],['🌧️','المطرُ',0]]],['نبحَ',[['🪑','الكرسيُّ',0],['🐟','السّمكُ',0],['🐕','الكلبُ',1]]],['عالجَ',[['🧑‍⚕️','الطّبيبُ',1],['🛏️','السّريرُ',0],['📻','المذياعُ',0]]],['صادَ',[['🌊','البحرُ',0],['🎣','الصّيّادُ',1],['🚤','القاربُ',0]]]];
+  let qi=0,lock=false;const tr=document.getElementById('tr4'),q=document.getElementById('q4'),op=document.getElementById('op4'),m=document.getElementById('m4'),sc=document.getElementById('sc4'),b=document.getElementById('b4');
+  function set(){const [v,o]=Q[qi];drawTrain(tr,[{w:v,r:'v'},{w:'؟',r:'e'}]);q.innerHTML=`مَنِ الّذي <span class="cv">${v}</span>؟`;op.innerHTML='';m.textContent='';
+    o.forEach(([em,w,ok])=>{const bt=document.createElement('button');bt.className='opt';bt.innerHTML=`<span class="em">${em}</span>${w}`;bt.onclick=async()=>{if(lock)return;
+      if(ok){lock=true;bt.classList.add('good');drawTrain(tr,[{w:v,r:'v'},{w,r:'s'}],{marks:true});SFX.clank();m.style.color='var(--ok)';m.innerHTML=`✔ مَنِ الّذي ${v}؟ <span class="cs">${w}</span> ← فاعلٌ مرفوعٌ بالضّمّة.`;sc.textContent=AR(qi+1)+' / ٥';
+        await depart(tr);lock=false;qi++;if(qi<Q.length)set();else{q.textContent='✔ ركبَ الفاعلونَ كلُّهم!';op.innerHTML='';b.textContent='الفاعلُ دائمًا هو مَن قامَ بالفعل.';SFX.cheer()}}
+      else{SFX.no();shake(bt);m.style.color='var(--bad)';m.textContent=`هل «${w}» يستطيعُ أن ${v==='طارَ'?'يطير':'يقومَ بهذا الفعل'}؟ فكّرْ مرّةً أخرى.`}};op.appendChild(bt)})}
+  set();})();
+
+/* ٥ */
+(()=>{const Q=[['شربَ','الطّفلُ',[['🥛','الحليبَ',1],['🪨','الحجرَ',0],['🚪','البابَ',0]]],['فتحَ','سالمٌ',[['☁️','الغيمَ',0],['🚪','البابَ',1],['🥛','الحليبَ',0]]],['ركلَ','اللّاعبُ',[['🌙','القمرَ',0],['🍞','الخبزَ',0],['⚽','الكرةَ',1]]],['نامَ','الطّفلُ',[['📚','الكتابَ',0],['🧸','الدّبَّ',0]],1],['قطفَ','الفلّاحُ',[['🌴','التّمرَ',1],['🐟','السّمكَ',0],['🚗','السّيّارةَ',0]]]];
+  let qi=0,lock=false;const tr=document.getElementById('tr5'),q=document.getElementById('q5'),op=document.getElementById('op5'),m=document.getElementById('m5'),sc=document.getElementById('sc5'),b=document.getElementById('b5');
+  async function win(cars,txt){lock=true;drawTrain(tr,cars,{marks:true});SFX.clank();m.style.color='var(--ok)';m.innerHTML=txt;sc.textContent=AR(qi+1)+' / ٥';await depart(tr);lock=false;qi++;if(qi<Q.length)set();else{q.textContent='✔ وصلَتِ الشّحناتُ كلُّها!';op.innerHTML='';b.textContent='المفعولُ به ما وقعَ عليه الفعل… وقد لا يأتي.';SFX.cheer()}}
+  function set(){const [v,s,o,none]=Q[qi];drawTrain(tr,[{w:v,r:'v'},{w:s,r:'s'},{w:'؟',r:'e'}],{marks:true});q.innerHTML=`ماذا <span class="cv">${v}</span> <span class="cs">${s}</span>؟`;op.innerHTML='';m.textContent='';
+    o.forEach(([em,w,ok])=>{const bt=document.createElement('button');bt.className='opt';bt.innerHTML=`<span class="em">${em}</span>${w}`;bt.onclick=()=>{if(lock)return;
+      if(ok){bt.classList.add('good');win([{w:v,r:'v'},{w:s,r:'s'},{w,r:'o'}],`✔ ماذا ${v} ${s}؟ <span class="co">${w}</span> ← مفعولٌ به منصوبٌ بالفتحة.`)}
+      else{SFX.no();shake(bt);m.style.color='var(--bad)';m.textContent=none?`اقرأِ الجملة: «${v} ${s}». هل تحتاجُ شحنة؟`:`هل يقعُ الفعلُ «${v}» على «${w}»؟ فكّرْ مرّةً أخرى.`}};op.appendChild(bt)});
+    const nb=document.createElement('button');nb.className='opt none';nb.textContent='🚫 لا يحتاجُ عربةَ شحن';nb.onclick=()=>{if(lock)return;
+      if(none){nb.classList.add('good');win([{w:v,r:'v'},{w:s,r:'s'}],`✔ «${v} ${s}» اكتملَ معناها بالفعلِ والفاعل، فلا مفعولَ به.`)}
+      else{SFX.no();shake(nb);m.style.color='var(--bad)';m.textContent=`اسألْ: ماذا ${v} ${s}؟ الجملةُ تحتاجُ شحنة!`}};op.appendChild(nb)}
+  set();})();
+
+/* ٦ */
+(()=>{const R=[['يقرأُ','أحمدُ','القصّةَ'],['رسمَ','الولدُ','صورةً'],['يحملُ','الجملُ','الماءَ'],['سقى','المزارعُ','النّخلةَ']];const ROLES=['v','s','o'],NM={v:'القاطرة (الفعل)',s:'عربة الرّكّاب (الفاعل)',o:'عربة الشّحن (المفعول به)'};
+  let ri=0,got=0;const tr=document.getElementById('tr6'),tray=document.getElementById('tray6'),m=document.getElementById('m6'),sc=document.getElementById('sc6'),b=document.getElementById('b6');
+  function load(){got=0;const r=R[ri];drawTrain(tr,ROLES.map(x=>({w:NM[x].split(' (')[0],r:'e'})));tr.querySelectorAll('.car').forEach((c,i)=>{c.dataset.r=ROLES[i];c.style.fontSize='20px';c.style.fontFamily='var(--ui)'});
+    tray.innerHTML='';[0,1,2].sort(()=>Math.random()-.5).forEach(i=>{const c=document.createElement('div');c.className='wc';c.textContent=r[i];tray.appendChild(c);
+      draggable(c,()=>[...tr.querySelectorAll('.car.r-e')],(el,hit)=>{if(!hit)return false;const want=hit.dataset.r;
+        if(want===ROLES[i]){el.dataset.placed=1;el.style.visibility='hidden';const n=document.createElement('div');n.innerHTML=carHTML({w:r[i],r:want},i,{marks:true});const nc=n.firstChild;nc.style.animation='pop .4s';hit.replaceWith(nc);SFX.clank();got++;
+          m.style.color='var(--ok)';m.textContent=`✔ «${r[i]}» في ${NM[want]}.`;
+          if(got===3){sc.textContent=AR(ri+1)+' / ٤';m.textContent=`✔ ${r.join(' ')}`;depart(tr).then(()=>{ri++;if(ri<R.length)load();else{m.textContent='✔ ركّبْتَ القطاراتِ الأربعةَ كلَّها!';drawTrain(tr,[{w:R[3][0],r:'v'},{w:R[3][1],r:'s'},{w:R[3][2],r:'o'}],{marks:true});b.textContent='أنتَ مهندسُ قطاراتٍ ماهر!';SFX.cheer()}})}return true}
+        SFX.no();shake(el);m.style.color='var(--bad)';m.textContent=`ليسَ هنا! هل «${r[i]}» هو ${i===0?'الفعل':i===1?'مَن قامَ بالفعل':'ما وقعَ عليه الفعل'}؟`;return false})})}
+  load();})();
+
+/* ٧ */
+(()=>{const S=[['الولدُ','يكتبُ','الدّرسَ'],['سالمٌ','يشربُ','الحليبَ'],['الطّائرُ','يأكلُ','الحَبَّ'],['الفلّاحُ','يسقي','الزّرعَ']];
+  let si=0,done=new Set(),verbal=false;const tr=document.getElementById('tr7'),sg=document.getElementById('sg7'),q=document.getElementById('q7'),m=document.getElementById('m7'),sc=document.getElementById('sc7'),b=document.getElementById('b7');
+  function nominal(){verbal=false;const [n,v,o]=S[si];tr.innerHTML=`<div class="frontZone" id="fz7">اسحبِ الفعلَ<br>إلى هنا</div>`+[{w:n,r:'n'},{w:v,r:'k'},{w:o,r:'k'}].map((c,i)=>carHTML(c,i)).join('');
+    sg.className='sign i';sg.textContent='قطارُ جملةٍ اسميّة';q.textContent=`«${n} ${v} ${o}» تبدأُ باسم. اسحبِ الفعلَ إلى المقدّمة!`;
+    const vc=tr.querySelectorAll('.car')[1];vc.style.cursor='grab';vc.style.touchAction='none';vc.classList.add('hl');
+    draggable(vc,()=>[document.getElementById('fz7')],(el,hit)=>{if(!hit)return false;toVerbal();return true})}
+  function toVerbal(){verbal=true;const [n,v,o]=S[si];drawTrain(tr,[{w:v,r:'v'},{w:n,r:'s'},{w:o,r:'o'}],{marks:true});sg.className='sign f';sg.textContent='قطارُ جملةٍ فعليّة';SFX.clank();SFX.horn();
+    q.textContent=`«${v} ${n} ${o}» تبدأُ بفعل.`;m.style.color='var(--ok)';m.innerHTML=`✔ تقدّمَ الفعلُ فصارَ «${n}» <span class="cs">فاعلًا</span>، وصارَتِ الجملةُ فعليّة.`;
+    if(!done.has(si)){done.add(si);sc.textContent=AR(done.size)+' / ٤';if(done.size===4){b.textContent='حوّلْتُم القطاراتِ الأربعةَ كلَّها!';SFX.cheer()}}}
+  document.getElementById('bk7').onclick=()=>{nominal();m.style.color='var(--noun)';m.textContent='عادَ الاسمُ إلى المقدّمة: الجملةُ اسميّةٌ من جديد.';SFX.clank()};
+  document.getElementById('nx7').onclick=()=>{si=(si+1)%S.length;nominal();m.textContent='';SFX.pop()};
+  nominal();})();
+
+/* ٨ */
+(()=>{const R=[['قرأَ','المعلّمُ','الكتابَ'],['طارَ','العصفورُ'],['أكلَ','القطُّ','السّمكةَ'],['قطفَ','الفلّاحُ','التّمرَ']];const ROLES=['v','s','o'];
+  let ri=0,need=0,got=0;const tr=document.getElementById('tr8'),st=document.getElementById('st8'),m=document.getElementById('m8'),sc=document.getElementById('sc8'),b=document.getElementById('b8');
+  function load(){const r=R[ri];need=r.length;got=0;drawTrain(tr,r.map(w=>({w,r:'x'})),{labels:false});tr.querySelectorAll('.car').forEach((c,i)=>c.dataset.r=ROLES[i]);
+    st.innerHTML='';[['v','ختمُ الفعل'],['s','ختمُ الفاعل'],['o','ختمُ المفعولِ به']].forEach(([k,t])=>{const s=document.createElement('div');s.className='stamp '+k;s.textContent=t;st.appendChild(s);
+      draggable(s,()=>[...tr.querySelectorAll('.car.r-x')],(el,hit)=>{if(!hit)return false;
+        if(hit.dataset.r===k){const i=+hit.dataset.i;const n=document.createElement('div');n.innerHTML=carHTML({w:R[ri][i],r:k},i,{marks:true});const nc=n.firstChild;nc.style.animation='pop .4s';hit.replaceWith(nc);el.classList.add('used');el.style.transform='';SFX.clank();got++;
+          m.style.color='var(--ok)';m.textContent=`✔ «${R[ri][i]}» ${RL[k]}.`;
+          if(got===need){if(need===2){st.querySelector('.stamp.o').classList.add('used');m.textContent='✔ «طارَ العصفورُ» قطارٌ بلا شحنة: لا مفعولَ به!'}sc.textContent=AR(ri+1)+' / ٤';
+            depart(tr).then(()=>{ri++;if(ri<R.length)load();else{m.textContent='✔ ختمْتُم القطاراتِ الأربعة!';drawTrain(tr,R[3].map((w,i)=>({w,r:ROLES[i]})),{marks:true});b.textContent='أختامُكم دقيقةٌ مثلَ موظّفي المحطّة!';SFX.cheer()}})}return true}
+        SFX.no();shake(hit);m.style.color='var(--bad)';m.textContent='ليسَ هذا مكانَ الختم! اسألْ: مَن فعل؟ وماذا وقعَ عليه الفعل؟';return false})})}
+  load();})();
+
+/* ٩ */
+(()=>{const W=[['يلعبُ الولدُ.','f'],['الولدُ يلعبُ.','i'],['نامَ الطّفلُ.','f'],['القمرُ منيرٌ.','i'],['الطّالبُ نجحَ.','i'],['كتبَ سالمٌ الدّرسَ.','f'],['يسبحُ السّمكُ.','f'],['الشّجرةُ عاليةٌ.','i'],['فتحَ المعلّمُ البابَ.','f'],['سالمٌ كتبَ الدّرسَ.','i']];
+  const tray=document.getElementById('tray9'),sts=[...document.querySelectorAll('#sts9 .station')],m=document.getElementById('m9'),sc=document.getElementById('sc9'),b=document.getElementById('b9');let got=0;
+  [...W.keys()].sort(()=>Math.random()-.5).forEach(i=>{const [w,k]=W[i];const c=document.createElement('div');c.className='wc';c.textContent='🚃 '+w;tray.appendChild(c);
+    draggable(c,()=>sts,(el,hit)=>{if(!hit)return false;
+      if(hit.dataset.k===k){el.dataset.placed=1;el.style.transform='';el.classList.remove('dragging');hit.querySelector('.in').appendChild(el);got++;sc.textContent=AR(got)+' / ١٠';SFX.clank();
+        const first=w.split(' ')[0];m.style.color='var(--ok)';m.textContent=k==='f'?`✔ بدأَتْ بالفعل «${first}»: فعليّة.`:`✔ بدأَتْ بالاسم «${first}»: اسميّة.`;
+        if(got===10){m.textContent='✔ فرزْتُم القطاراتِ العشرةَ بلا خطأ!';b.textContent='الكلماتُ نفسُها… والتّرتيبُ يحدّدُ المحطّة!';SFX.cheer()}return true}
+      SFX.crash();shake(el);m.style.color='var(--bad)';m.textContent='انظرْ إلى أوّلِ كلمة: فعلٌ أم اسم؟';return false})});})();
+
+/* ١٠ */
+(()=>{const T=[[['شربَ','v'],['الطّفلَ','s','الطّفلُ'],['الماءَ','o']],[['فتحَ','v'],['سالمٌ','s'],['البابُ','o','البابَ']],[['ركلَ','v'],['اللّاعبَ','s','اللّاعبُ'],['الكرةَ','o']],[['قطفَ','v'],['الفلّاحُ','s'],['التّمرُ','o','التّمرَ']]];
+  const box=document.getElementById('bk10'),m=document.getElementById('m10'),sc=document.getElementById('sc10'),b=document.getElementById('b10'),root=document.querySelector('.s10 .stack');let n=0;
+  T.forEach(t=>{const w=document.createElement('div');w.className='trainWrap';w.innerHTML='<div class="train"></div><div class="track"></div>';const tr=w.firstChild;box.appendChild(w);
+    tr.innerHTML=t.map((c,i)=>carHTML({w:c[0],r:c[1]},i)).join('');tr.querySelectorAll('.car').forEach(x=>{x.style.height='66px';x.style.minWidth='140px';x.style.fontSize='30px';x.style.margin='30px 0 20px'});
+    tr.querySelectorAll('.car').forEach((car,i)=>car.onclick=()=>{const c=t[i];if(car.classList.contains('fixed'))return;
+      if(c[2]){car.querySelector('.lbl').textContent=c[2];car.classList.add('fixed');n++;sc.textContent=AR(n)+' / ٤';SFX.clank();SFX.yes();m.style.color='var(--ok)';m.textContent=c[1]==='s'?`✔ ${c[0]} ← ${c[2]}: الفاعلُ مرفوعٌ بالضّمّة.`:`✔ ${c[0]} ← ${c[2]}: المفعولُ به منصوبٌ بالفتحة.`;
+        depart(tr,false);if(n===4){setTimeout(()=>{b.textContent='أصلحْتُم القطاراتِ الأربعة! انطلقَتْ كلُّها.';SFX.cheer();stars(root.querySelector('.stars'))},1200)}}
+      else{SFX.no();shake(car);m.style.color='var(--bad)';m.textContent=c[1]==='v'?'القاطرةُ سليمة… ابحثْ في العربات.':`«${c[0]}» سليمة: ${c[1]==='s'?'فاعلٌ مرفوع':'مفعولٌ به منصوب'}.`}})});})();
+
+/* ١١ */
+(()=>{const tr=document.getElementById('tr11'),bd=document.getElementById('bd11');const C=[{w:'الفعل',r:'v'},{w:'الفاعل',r:'s'},{w:'المفعول به',r:'o'}];const lit=new Set();
+  drawTrain(tr,C,{labels:false});tr.querySelectorAll('.car').forEach((c,i)=>{c.style.cursor='pointer';c.style.fontSize='30px';c.onclick=()=>{if(lit.has(i))return;lit.add(i);document.getElementById('r'+(i+1)).classList.add('on');SFX.clank();
+    if(lit.size===3)setTimeout(()=>{document.getElementById('r4').classList.add('on');bd.classList.remove('lock');SFX.horn();setTimeout(()=>{SFX.cheer();confetti()},500)},700)}})})();
+const cv=document.getElementById('confetti'),cx=cv.getContext('2d');
+function confetti(){const cols=['#E4572E','#2F7BEA','#22A565','#F6C445','#8C6BD6'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+go(0);
+</script>
+<script src="kawn-data.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>روبو: الأمر والنهي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#E9EEFA;--bg2:#D9E1F5;--ink:#1F2340;--ink2:#575C7E;--paper:#FCFDFF;--metal:#4B5D7A;--metal2:#33415A;
+  --amr:#22B573;--amr2:#178A56;--nahy:#E2434B;--nahy2:#AE2A31;--robo:#3BB8C4;--neon:#6CF2E0;--gold:#F6C445;--ok:#22B573;--bad:#E2434B;--vio:#7B5CD6;
+  --ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--word:"Noto Naskh Arabic","Traditional Arabic","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#DCE3F4;--bg2:#CBD5EE}}
+:root[data-theme="dark"]{--bg:#DCE3F4;--bg2:#CBD5EE}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--bg2);font-family:var(--ui);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;overflow:clip;
+  background:linear-gradient(transparent 0 84%,#B8C3DC 84%),repeating-linear-gradient(0deg,rgba(75,93,122,.07) 0 2px,transparent 2px 60px),repeating-linear-gradient(90deg,rgba(75,93,122,.07) 0 2px,transparent 2px 60px),var(--bg)}
+.circ{position:absolute;inset:0;pointer-events:none;opacity:.35}
+.slide{position:absolute;inset:0;display:none;z-index:2}
+.slide.active{display:block;animation:in .45s ease}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{position:absolute;inset:58px 30px 96px;border:12px solid var(--metal);border-radius:30px;background:var(--paper);box-shadow:0 22px 46px rgba(31,35,64,.3),inset 0 0 0 3px #8395B3;
+  background-image:radial-gradient(circle at 16px 16px,#8395B3 5px,transparent 6px),radial-gradient(circle at calc(100% - 16px) 16px,#8395B3 5px,transparent 6px),radial-gradient(circle at 16px calc(100% - 16px),#8395B3 5px,transparent 6px),radial-gradient(circle at calc(100% - 16px) calc(100% - 16px),#8395B3 5px,transparent 6px)}
+.num{position:absolute;top:-48px;right:46px;background:#14182E;color:var(--neon);font-size:24px;font-weight:800;padding:4px 18px;border-radius:12px;border:3px solid var(--metal);letter-spacing:1px;text-shadow:0 0 8px var(--neon)}
+.head{position:absolute;top:10px;right:170px;left:30px;display:flex;align-items:baseline;gap:20px}
+.head h2{margin:0;font-size:50px;font-weight:800;line-height:1.35}
+.head p{margin:0;font-size:27px;font-weight:700;color:var(--ink2)}
+.content{position:absolute;top:92px;right:26px;left:26px;height:480px}
+.band{position:absolute;bottom:8px;right:20px;left:20px;height:126px;display:flex;align-items:flex-end;gap:20px}
+.guide{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;order:2}
+.guide .robo{width:80px;height:110px;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:24px;padding:10px 20px;font-size:25px;line-height:1.5;font-weight:700;max-width:800px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:18px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.task{order:1;flex:0 0 590px;background:#EFFAF5;border:3px dashed var(--amr);border-radius:18px;padding:10px 20px;font-size:24px;font-weight:700;line-height:1.5}
+.task b{color:var(--amr2);margin-left:6px}
+.w{font-family:var(--word);font-weight:700}
+.ca{color:var(--amr)}.cn{color:var(--nahy)}.sk{color:var(--vio)}
+.btn{border:0;border-radius:22px;padding:10px 26px;font-size:26px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.3)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.lt{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(31,35,64,.2);border:2px solid #D6DCEB}
+.btn.a{background:var(--amr);box-shadow:0 5px 0 var(--amr2)}.btn.n{background:var(--nahy);box-shadow:0 5px 0 var(--nahy2)}.btn.r{background:var(--robo);box-shadow:0 5px 0 #23838D}
+.btn.sel{outline:5px solid var(--gold);outline-offset:2px}
+.good{background:var(--ok)!important;color:#fff!important}.bad{background:var(--bad)!important;color:#fff!important}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.msg{font-size:25px;font-weight:800;min-height:40px;text-align:center;line-height:1.5}
+.rule{background:#fff;border-radius:20px;padding:10px 18px;font-size:23px;font-weight:700;line-height:1.6;border-right:12px solid}
+.rule h4{margin:0 0 2px;font-size:28px}
+.sc{position:absolute;top:0;left:0;background:#14182E;color:var(--neon);border-radius:14px;padding:0 18px;font-size:28px;font-weight:800;z-index:6}
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;font-style:normal;font-size:42px;color:var(--gold);animation:fall 1.4s ease-in forwards}
+@keyframes fall{from{transform:translateY(-40px) rotate(0);opacity:1}to{transform:translateY(420px) rotate(260deg);opacity:0}}
+
+/* روبو */
+.robo{position:relative;width:160px;height:220px}
+.robo svg{width:100%;height:100%;overflow:visible}
+.robo .eo{display:block}.robo .ec{display:none}
+.robo.sleep .eo{display:none}.robo.sleep .ec{display:block}
+.robo:not(.sleep) .bulb{fill:#FFD84D;filter:drop-shadow(0 0 6px #FFD84D)}
+.robo .armL,.robo .armR{transform-box:fill-box;transform-origin:50% 6%}
+.robo .fx{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:54px;pointer-events:none;opacity:0}
+.robo.sleep .fx{opacity:1;animation:zz 2s infinite}
+@keyframes zz{50%{transform:translate(-30%,-14px)}}
+.robo.jump svg{animation:jump .6s ease-out 2}
+@keyframes jump{50%{transform:translateY(-70px)}}
+.robo.dance svg{animation:dance .5s ease-in-out 4}
+@keyframes dance{25%{transform:rotate(-14deg) translateY(-10px)}75%{transform:rotate(14deg) translateY(-10px)}}
+.robo.sit svg{animation:sit 1.4s ease-in-out;transform-origin:50% 100%}
+@keyframes sit{30%,70%{transform:scaleY(.72)}}
+.robo.laugh svg{animation:laugh .25s 6 alternate}
+@keyframes laugh{to{transform:rotate(6deg) translateY(-6px)}}
+.robo.run svg{animation:run 1.4s ease-in-out}
+@keyframes run{25%{transform:translateX(-80px) rotate(-6deg)}75%{transform:translateX(80px) rotate(6deg)}}
+.robo.wave .armR{animation:wave .7s ease-in-out 2}
+@keyframes wave{50%{transform:rotate(-150deg)}}
+.robo.clap .armL{animation:clapL .22s 6 alternate}.robo.clap .armR{animation:clapR .22s 6 alternate}
+@keyframes clapL{to{transform:rotate(-40deg)}}@keyframes clapR{to{transform:rotate(40deg)}}
+.robo.freeze svg{animation:frz .5s;filter:saturate(.3)}
+@keyframes frz{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}}
+.robo.sorry svg{animation:sorry 1.6s ease-in-out}
+@keyframes sorry{30%,70%{transform:rotate(-12deg) translateY(6px)}}
+.robo.naughty svg{animation:naughty .4s ease-in-out infinite alternate}
+@keyframes naughty{to{transform:rotate(8deg) translateX(10px)}}
+.say{position:absolute;background:#fff;border:3px solid var(--ink);border-radius:20px;padding:6px 16px;font-size:24px;font-weight:800;line-height:1.4;max-width:420px;box-shadow:0 6px 14px rgba(0,0,0,.12);z-index:5}
+.say .w{font-size:34px}
+
+/* ١ الغلاف */
+.s1 .title{position:absolute;top:40px;right:0;left:0;text-align:center}
+.s1 h1{margin:0;font-size:104px;font-weight:800;line-height:1.15;color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:0 7px 0 var(--ink)}
+.s1 .title p{margin:4px 0 0;font-size:36px;font-weight:800;color:var(--metal2)}
+.s1 .robo{position:absolute;left:640px;top:300px;width:300px;height:412px}
+.s1 .say{left:950px;top:330px}
+.batt{position:absolute;left:300px;top:340px;width:150px;height:300px;border:10px solid var(--metal);border-radius:24px;background:#14182E;overflow:hidden}
+.batt::before{content:"";position:absolute;top:-28px;left:40px;width:50px;height:20px;background:var(--metal);border-radius:6px 6px 0 0}
+.batt i{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(var(--neon),var(--amr));transition:height .2s}
+.batt b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:34px;font-weight:800;text-shadow:0 2px 4px #000}
+.meter{position:absolute;left:300px;top:660px;width:150px;height:16px;border-radius:8px;background:#C9D2E6;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--gold)}
+.wakeBtns{position:absolute;left:1000px;top:520px;display:flex;flex-direction:column;gap:14px;width:380px}
+.wakeBtns .btn{font-size:28px;padding:14px}
+.s1.awake .wakeBtns,.s1.awake .batt,.s1.awake .meter{opacity:.25;pointer-events:none}
+.mission{position:absolute;top:220px;right:240px;left:240px;background:var(--paper);border:12px solid var(--metal);border-radius:28px;padding:24px 46px;box-shadow:0 20px 44px rgba(0,0,0,.3);opacity:0;transform:scale(.6);pointer-events:none;transition:.6s .2s cubic-bezier(.3,1.5,.5,1);z-index:8}
+.s1.open .mission{opacity:1;transform:none}
+.mission h3{margin:0;font-size:44px;color:var(--robo)}
+.mission p{margin:0;font-size:27px;font-weight:700}
+.mission ol{margin:0;padding-right:44px;font-size:29px;line-height:1.75;font-weight:700;list-style:arabic-indic}
+
+/* تخطيط ثنائي */
+.split{position:absolute;inset:0;display:flex;gap:24px}
+.lab{position:relative;width:560px;background:linear-gradient(#F3F6FD,#E3E9F7);border-radius:24px;border:4px solid #D6DCEB;overflow:hidden}
+.lab .robo{position:absolute;left:200px;bottom:40px}
+.lab .say{right:16px;top:16px;left:16px;max-width:none;text-align:center}
+.lab .floor{position:absolute;left:0;right:0;bottom:0;height:46px;background:#C9D2E6}
+.side{flex:1;display:flex;flex-direction:column;gap:12px;min-width:0}
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cmd{border:0;border-radius:18px;padding:10px;font-family:var(--word);font-size:36px;font-weight:700;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.25);line-height:1.3}
+.cmd.a{background:var(--amr)}.cmd.n{background:var(--nahy)}
+.cmd small{display:block;font-family:var(--ui);font-size:17px;opacity:.9}
+.cmd.done{outline:4px solid var(--gold);outline-offset:2px}
+#cd2{grid-template-columns:repeat(4,1fr)}#cd10{grid-template-columns:repeat(3,1fr)}
+#cd2 .cmd,#cd10 .cmd{font-size:28px;padding:6px 4px}
+.party .recap div{font-size:20px;padding:2px 12px}
+.party .badge h4{font-size:30px}.party .badge input{font-size:28px}
+
+/* ٣ المصنع */
+.fac{position:absolute;inset:0;display:flex;flex-direction:column;gap:12px}
+.hopper{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hopper .btn{font-family:var(--word);font-size:32px;padding:4px 18px}
+.machine{position:relative;display:flex;align-items:stretch;gap:20px;height:250px}
+.mbox{flex:1;background:linear-gradient(#5A6C8C,#3E4D68);border-radius:26px;border:6px solid #2E3A52;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;overflow:hidden}
+.mbox .gears{position:absolute;top:8px;left:12px;font-size:44px;display:flex;gap:4px}
+.mbox .gears span{display:inline-block}
+.mbox.run .gears span{animation:spin 1s linear infinite}.mbox.run .gears span:nth-child(2){animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mbox .scr{background:#0F1424;border-radius:16px;padding:6px 26px;min-width:520px;text-align:center;font-family:var(--word);font-size:58px;font-weight:700;color:var(--neon);line-height:1.4;min-height:96px;box-shadow:inset 0 0 0 3px #263049}
+.mbox .scr .st{text-decoration:line-through;color:#FF7A80;opacity:.7}
+.mbox .scr .nw{color:var(--gold)}
+.mbox .step{font-size:24px;font-weight:800;color:#CFE0F5;min-height:36px}
+.levers{display:flex;flex-direction:column;gap:14px;width:220px;justify-content:center}
+.lever{border:0;border-radius:20px;height:100px;font-size:30px;font-weight:800;color:#fff;box-shadow:0 7px 0 rgba(0,0,0,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2}
+.lever small{font-size:17px;opacity:.9}
+.lever.a{background:var(--amr)}.lever.n{background:var(--nahy)}
+.lever:active{transform:translateY(5px) rotate(-2deg);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.tickets{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;min-height:56px}
+.tk{font-family:var(--word);font-size:30px;font-weight:700;background:#fff;border:3px dashed;border-radius:12px;padding:0 14px;animation:pop .4s}
+.tk.a{border-color:var(--amr);color:var(--amr2)}.tk.n{border-color:var(--nahy);color:var(--nahy2)}
+
+/* ٤ المتاهة */
+.mz{position:absolute;inset:0;display:flex;gap:22px}
+.mzL{display:flex;flex-direction:column;gap:8px;align-items:center}
+.grid{position:relative;display:grid;gap:4px;background:#C9D2E6;padding:4px;border-radius:16px}
+.cell{width:88px;height:88px;border-radius:12px;background:#F4F7FD;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:40px;position:relative}
+.cell.ban{background:#FFE4E6;border:3px solid var(--nahy)}
+.cell.ban small{font-family:var(--word);font-size:15px;font-weight:700;color:var(--nahy2);line-height:1}
+.cell.star{background:#FFF6D6}
+.cell.got{background:#DFF6E7}
+.mrobo{position:absolute;width:84px;height:84px;transition:left .38s ease-in-out,top .38s ease-in-out;z-index:3;pointer-events:none}
+.mrobo .robo{width:84px;height:84px}
+.mrobo.bump{animation:shake .4s}
+.mzR{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0}
+.pal{display:flex;gap:8px;flex-wrap:wrap}
+.tile{border:0;border-radius:14px;padding:6px 12px;background:var(--amr);color:#fff;font-family:var(--word);font-size:28px;font-weight:700;box-shadow:0 4px 0 var(--amr2);line-height:1.2;display:flex;align-items:center;gap:6px}
+.tile i{font-style:normal;font-family:var(--ui);font-size:26px}
+.prog{min-height:120px;background:#14182E;border-radius:18px;padding:10px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;border:3px solid #263049}
+.prog .tile{font-size:22px;padding:4px 10px;box-shadow:none}
+.prog .tile.cur{outline:4px solid var(--gold);transform:scale(1.08)}
+.prog .ph{color:#7E88A8;font-size:20px;font-weight:700;padding:6px}
+.lvl{font-size:24px;font-weight:800}
+
+/* ٥ روبو يقول */
+.simon{position:absolute;inset:0;display:flex;gap:24px}
+.simon .lab{width:640px}
+.cd{position:absolute;top:80px;right:30px;width:110px;height:110px;border-radius:50%;background:#14182E;color:var(--neon);display:flex;align-items:center;justify-content:center;font-size:64px;font-weight:800;opacity:0;z-index:6}
+.cd.on{opacity:1;animation:pop .4s}
+.reveal{font-size:40px;font-weight:800;text-align:center;min-height:64px}
+
+/* ٦ المشاغب */
+.room{position:relative;width:640px;background:linear-gradient(#FFF6E6 0 70%,#D7B98C 70%);border-radius:24px;border:4px solid #E8D9BC;overflow:hidden}
+.room .board{position:absolute;top:20px;left:40px;right:40px;height:90px;background:#2F5D50;border:8px solid #8A5A2E;border-radius:8px}
+.room .robo{position:absolute;left:240px;bottom:30px}
+.room .item{position:absolute;left:150px;bottom:150px;font-size:70px;transition:.4s}
+.room .say{right:16px;top:130px;max-width:300px}
+.opts{display:flex;flex-direction:column;gap:12px}
+.opt{border:3px solid #D6DCEB;background:#fff;border-radius:18px;padding:10px 20px;font-family:var(--word);font-size:36px;font-weight:700;text-align:right;box-shadow:0 5px 0 rgba(0,0,0,.1);color:var(--ink)}
+.scene6{font-size:30px;font-weight:800;text-align:center;min-height:46px}
+
+/* ٧ السرّ */
+.det{position:absolute;inset:0;display:flex;gap:24px}
+.sent7{font-family:var(--word);font-size:56px;font-weight:700;text-align:center;background:#fff;border-radius:22px;border:4px solid #D6DCEB;padding:10px 20px;min-height:110px;line-height:1.5}
+.two{display:flex;gap:16px}
+.two .btn{flex:1;font-size:30px;padding:16px}
+.mk{color:var(--vio);font-size:1.1em}
+
+/* ٨ اللافتات */
+.places{display:flex;gap:10px}
+.wall{flex:1;min-height:150px;border-radius:20px;background:#fff;border:4px solid #D6DCEB;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;padding:10px;position:relative}
+.wall .hdr{width:100%;font-size:28px;font-weight:800}
+.sign{border-radius:14px;padding:6px 14px;font-family:var(--word);font-size:28px;font-weight:700;color:#fff;animation:pop .4s;display:flex;align-items:center;gap:8px}
+.sign small{font-family:var(--ui);font-size:15px;background:rgba(255,255,255,.3);border-radius:8px;padding:0 6px}
+.sign.a{background:var(--amr)}.sign.n{background:var(--nahy)}
+.pool{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pool button{border:3px solid #D6DCEB;background:#fff;border-radius:16px;font-family:var(--word);font-size:28px;font-weight:700;padding:8px;color:var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.08)}
+.pool button.used{opacity:.25;pointer-events:none}
+
+/* ٩ */
+.quiz{position:absolute;inset:0;display:flex;gap:24px}
+.qbox{flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.qq{font-size:34px;font-weight:800;text-align:center}
+.qo{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.qo button{border:3px solid #D6DCEB;background:#fff;border-radius:18px;font-family:var(--word);font-size:40px;font-weight:700;padding:8px 26px;box-shadow:0 5px 0 rgba(0,0,0,.1);color:var(--ink)}
+
+/* ١٠ */
+.party{position:absolute;inset:0;display:flex;gap:24px}
+.party .lab{width:640px;background:radial-gradient(circle at 50% 30%,#3A2E6E,#14182E)}
+.party .lab .floor{background:repeating-linear-gradient(90deg,#F6C445 0 60px,#E2434B 60px 120px,#22B573 120px 180px,#3BB8C4 180px 240px);opacity:.8}
+.disco{position:absolute;top:10px;left:50%;margin-left:-40px;width:80px;height:80px;border-radius:50%;background:conic-gradient(#fff,#9ad,#fff,#ccd,#fff);animation:spin 3s linear infinite}
+.badge{background:linear-gradient(160deg,#14182E,#2B3360);border:8px solid var(--gold);border-radius:28px;color:#fff;text-align:center;padding:12px 20px;transition:filter .5s}
+.badge.lock{filter:grayscale(1) brightness(.7)}
+.badge h4{margin:0;font-size:36px;color:var(--gold)}
+.badge input{width:100%;font-family:var(--word);font-size:34px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed var(--gold);background:transparent;color:#fff;padding:4px;user-select:text}
+.badge input:focus{outline:none;background:rgba(255,255,255,.1)}
+.badge p{margin:6px 0 0;font-size:20px;font-weight:700;color:#C9C9E8}
+.recap{display:flex;flex-direction:column;gap:8px}
+.recap div{background:#fff;border-radius:14px;padding:4px 14px;font-size:22px;font-weight:700;border-right:10px solid;line-height:1.5}
+
+#nav{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 20px;border-radius:27px;background:#fff;color:var(--ink);font-size:24px;font-weight:800;box-shadow:0 4px 0 #8395B3}
+#nav button:disabled{opacity:.4;cursor:not-allowed}
+#nav .main{background:var(--robo);color:#fff;box-shadow:0 4px 0 #23838D}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(59,184,196,.8)}50%{box-shadow:0 0 0 14px rgba(59,184,196,0)}}
+#counter{font-size:26px;font-weight:800;min-width:90px;text-align:center}
+#tools{position:absolute;top:10px;left:16px;display:flex;gap:10px;z-index:50}
+#tools button{border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.9);color:var(--ink);font-size:20px;font-weight:700}
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:#fff;z-index:70;box-shadow:12px 0 40px rgba(0,0,0,.3);transform:translateX(-105%);transition:transform .35s;padding:30px;font-size:23px;line-height:1.7;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-size:34px;margin:0 0 8px;color:var(--robo)}
+#notes dt{font-weight:800;color:var(--nahy);margin-top:8px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px;font-size:20px}
+#credit{position:absolute;bottom:5px;right:16px;z-index:40;font-size:12px;font-weight:600;color:rgba(31,35,64,.7);background:rgba(255,255,255,.55);border-radius:10px;padding:1px 9px;pointer-events:none}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div id="stage">
+<svg class="circ" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true"><g stroke="#8395B3" stroke-width="3" fill="none"><path d="M0 120 H200 V260 H420"/><path d="M1600 180 H1380 V60 H1200"/><path d="M0 640 H160 V520 H300"/><path d="M1600 600 H1450 V720 H1300"/></g><g fill="#8395B3"><circle cx="420" cy="260" r="8"/><circle cx="1200" cy="60" r="8"/><circle cx="300" cy="520" r="8"/><circle cx="1300" cy="720" r="8"/></g></svg>
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+<div id="tools"><a href="index.html" style="border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a><button id="bSound">🔊 الصوت</button><button id="bFull">⛶ ملء الشاشة</button><button id="bNotes">📋 ملاحظات المعلمة</button></div>
+
+<!-- ١ -->
+<section class="slide s1 active">
+  <div class="title"><h1>روبو</h1><p>الرّوبوتُ الّذي لا يفهمُ إلّا الأمرَ والنّهي</p></div>
+  <div class="batt"><i id="bat1"></i><b id="pct1">٠٪</b></div>
+  <div class="meter" title="شدّة الصوت"><i id="lev1"></i></div>
+  <div class="robo sleep" id="rb1"></div>
+  <div class="say" id="say1">ززز… روبو نائم. البطاريّةُ فارغة!</div>
+  <div class="wakeBtns">
+    <button class="btn r" id="mic1">🎤 صفّقوا جميعًا لإيقاظِه!</button>
+    <button class="btn lt" id="clap1">👏 زرُّ التّصفيق (بديل)</button>
+    <div class="msg" id="m1" style="font-size:20px;text-align:right"></div>
+  </div>
+  <div class="mission"><h3>مهمّةُ اليوم</h3><p>بعدَ أن نبرمجَ روبو سأستطيعُ أنْ:</p>
+    <ol><li>أميّزَ أسلوبَ الأمرِ من أسلوبِ النّهي.</li><li>أصوغَ فعلَ الأمرِ والنّهيَ من الفعلِ المضارع.</li><li>أعرفَ أنّ آخرَهما ساكن.</li><li>أفرّقَ بينَ «لا» الّتي تنهى و«لا» الّتي تنفي.</li></ol></div>
+  <template class="notes"><h3>١. إيقاظ روبو</h3><dl>
+    <dt>الهدف</dt><dd>إثارة الحماس والدخول إلى عالم الروبوت.</dd>
+    <dt>التنفيذ</dt><dd>اضغطي «صفّقوا جميعًا» واسمحي للمتصفح باستخدام الميكروفون، ثم يصفّق الصف كله فتمتلئ البطارية. إن لم يعمل الميكروفون استخدمي زر التصفيق البديل (كل ضغطة ٢٠٪).</dd>
+    <dt>قولي</dt><dd>«روبو روبوت خاص: لا يتحرك إلا إذا أعطيناه أمرًا، ولا يتوقف إلا إذا نهيناه!»</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ٢ -->
+<section class="slide s2">
+  <div class="card"><div class="num">مستوى ٢</div>
+    <div class="head"><h2>أوّلُ أوامرِ روبو</h2><p>افعلْ… أو لا تفعلْ</p></div>
+    <div class="content"><div class="split">
+      <div class="lab"><div class="floor"></div><div class="robo" id="rb2"></div><div class="say" id="say2">أعطوني أمرًا أو نهيًا!</div></div>
+      <div class="side">
+        <div class="cards2" id="cd2"></div>
+        <div class="rule" style="border-color:var(--amr)"><h4 class="ca">الأمر</h4>طلبُ <b>فعلِ</b> الشّيء: اقفزْ، اجلسْ.</div>
+        <div class="rule" style="border-color:var(--nahy)"><h4 class="cn">النّهي</h4>طلبُ <b>تركِ</b> الفعل، ويكونُ بـ«لا» قبلَ المضارع: لا تقفزْ.</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>جرِّبْ:</b>اضغطِ البطاقاتِ الخضراءَ ثمّ الحمراء. ماذا يفعلُ روبو في كلِّ مرّة؟</div>
+      <div class="guide"><div class="robo"></div><div class="bubble" id="b2">الأخضرُ يحرّكُني… والأحمرُ يوقفُني!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. أوّل الأوامر</h3><dl>
+    <dt>الهدف</dt><dd>التمييز بين الأمر (طلب فعل) والنهي (طلب ترك).</dd>
+    <dt>التنفيذ</dt><dd>يضغط الطلاب البطاقات: الأمر ينفّذه روبو بحركة، والنهي يجعله يتوقف ويكتّف ذراعيه.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٣ -->
+<section class="slide s3">
+  <div class="card"><div class="num">مستوى ٣</div>
+    <div class="head"><h2>مصنعُ الأوامرِ والنّواهي</h2><p>من المضارعِ نصنعُهما</p></div>
+    <div class="content"><div class="fac">
+      <div class="hopper" id="hp3"></div>
+      <div class="machine">
+        <div class="mbox" id="mb3"><div class="gears"><span>⚙️</span><span>⚙️</span></div><div class="scr" id="scr3">ضعْ فعلًا في المصنع</div><div class="step" id="st3"></div></div>
+        <div class="levers"><button class="lever a" id="lvA">🟢 أمر<small>اسحبِ الذّراع</small></button><button class="lever n" id="lvN">🔴 نهي<small>اسحبِ الذّراع</small></button></div>
+      </div>
+      <div class="tickets" id="tk3"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>السّرّ:</b>في الأمرِ والنّهي يكونُ آخرُ الفعلِ <b class="sk">ساكنًا</b> (ـْ): اُكتُبْ، لا تكتُبْ.</div>
+      <div class="guide"><div class="robo"></div><div class="bubble" id="b3">اختاروا فعلًا… ثمّ اسحبوا ذراعَ الأمرِ أو النّهي!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٣. المصنع</h3><dl>
+    <dt>الهدف</dt><dd>صياغة الأمر والنهي من المضارع، وملاحظة سكون الآخر.</dd>
+    <dt>خطوات الأمر</dt><dd>نحذف حرف المضارعة (ت)، ونبدأ بهمزة وصل لأن أول الباقي ساكن، ونسكّن الآخر: تكتبُ ← اُكتُبْ.</dd>
+    <dt>خطوات النهي</dt><dd>نضع «لا» قبل المضارع ونسكّن آخره: تكتبُ ← لا تكتُبْ.</dd>
+    <dt>تنبيه</dt><dd>الأفعال كلها صحيحة، تجنّبًا لأفعال تتغير صورتها مثل «امشِ».</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٤ -->
+<section class="slide s4">
+  <div class="card"><div class="num">مستوى ٤</div>
+    <div class="head"><h2>برمجةُ روبو</h2><p>أوصِلْه إلى النّجمة… واحترمِ النّواهي</p></div>
+    <div class="content"><div class="mz">
+      <div class="mzL"><div class="lvl" id="lv4"></div><div class="grid" id="gd4"></div></div>
+      <div class="mzR">
+        <div class="pal" id="pl4"></div>
+        <div class="prog" id="pg4"></div>
+        <div style="display:flex;gap:10px"><button class="btn a" id="run4">▶ شغّلِ البرنامج</button><button class="btn lt" id="del4">⌫ احذفْ آخرَ أمر</button><button class="btn lt" id="clr4">↺ امسحْ</button><button class="btn r" id="nx4" style="display:none">المستوى التّالي ←</button></div>
+        <div class="msg" id="m4" style="font-size:23px;text-align:right"></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>القواعد:</b>اضغطِ الأوامرَ لتبنيَ البرنامج، ثمّ شغّلْه. روبو يطيعُ كلَّ لافتةِ <b class="cn">«لا تدخلْ»</b>!</div>
+      <div class="guide"><div class="robo"></div><div class="bubble" id="b4">أنا جاهزٌ للبرمجة! كلُّ بطاقةٍ فعلُ أمر.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٤. برمجة روبو</h3><dl>
+    <dt>الهدف</dt><dd>توظيف أفعال الأمر في برنامج، وفهم النهي عمليًّا (لافتات «لا تدخلْ»).</dd>
+    <dt>التنفيذ</dt><dd>يضغط الطالب بطاقات الأوامر بالترتيب، ثم «شغّل». يتوقف روبو أمام أي خانة نهي. ثلاثة مستويات متدرجة.</dd>
+    <dt>الاتجاهات</dt><dd>تقدّمْ = إلى اليسار (اتجاه القراءة)، ارجعْ = إلى اليمين، اصعدْ، انزلْ، التقطْ.</dd>
+    <dt>فكرة</dt><dd>اجعلي الصف فريقين يتنافسان على أقصر برنامج.</dd>
+    <dt>الزمن</dt><dd>٨ دقائق</dd></dl></template>
+</section>
+
+<!-- ٥ -->
+<section class="slide s5">
+  <div class="card"><div class="num">مستوى ٥</div>
+    <div class="head"><h2>روبو يقول…</h2><p>لعبةٌ حركيّةٌ للصّفِّ كلِّه</p></div>
+    <div class="content"><div class="simon">
+      <div class="lab"><div class="floor"></div><div class="robo" id="rb5"></div><div class="say" id="say5">اختاروا بطلًا يقفُ أمامَ السّبّورة!</div><div class="cd" id="cd5">٣</div></div>
+      <div class="side" style="justify-content:center">
+        <div class="reveal" id="rv5"></div>
+        <button class="btn r" id="go5" style="font-size:32px;padding:16px">🎲 أمرٌ جديد</button>
+        <div class="rule" style="border-color:var(--gold)"><h4>قانونُ اللّعبة</h4>إذا أعطى روبو <b class="ca">أمرًا</b> فنفّذْه، وإذا نهاكَ (<b class="cn">لا…</b>) فاثبتْ مكانَك ولا تتحرّكْ!</div>
+        <div class="msg" id="m5" style="font-size:22px"></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>للصّفّ كلِّه:</b>بعدَ العدِّ ٣-٢-١ يكشفُ روبو: هل كانَ أمرًا أم نهيًا؟ مَن تحرّكَ في النّهي يخرجُ من اللّعبة!</div>
+      <div class="guide"><div class="robo"></div><div class="bubble" id="b5">انتبهوا لكلمة «لا»… فهي فخّي المفضّل!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٥. روبو يقول</h3><dl>
+    <dt>الهدف</dt><dd>التمييز السريع بين الأمر والنهي بالجسد.</dd>
+    <dt>التنفيذ</dt><dd>يقف طالب (أو الصف كله). يقرأ الصف الجملة، ثم يعدّ روبو ٣-٢-١، فينفّذ الطالب الأمر أو يثبت عند النهي. بعدها يكشف روبو النوع ويقلّد الحركة.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٦ -->
+<section class="slide s6">
+  <div class="card"><div class="num">مستوى ٦</div>
+    <div class="head"><h2>روبو المشاغب</h2><p>أوقِفْه بنهيٍ صحيح</p></div>
+    <div class="content"><div class="split">
+      <div class="room"><div class="board"></div><div class="item" id="it6"></div><div class="robo naughty" id="rb6"></div><div class="say" id="say6"></div></div>
+      <div class="side" style="justify-content:center">
+        <div class="sc" id="sc6" style="position:static;align-self:flex-start">٠ / ٥</div>
+        <div class="scene6" id="sn6"></div>
+        <div class="opts" id="op6"></div>
+        <div class="msg" id="m6" style="font-size:22px"></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>فكِّرْ:</b>نريدُ أن <b>يتركَ</b> روبو ما يفعل. أيُّ جملةٍ نهيٌ صحيح؟ انتبهْ لآخرِ الفعل!</div>
+      <div class="guide"><div class="robo"></div><div class="bubble" id="b6">هيهيهي… لن أتوقّفَ إلّا بنهيٍ صحيح!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٦. روبو المشاغب</h3><dl>
+    <dt>الهدف</dt><dd>صياغة النهي الصحيح وتمييزه من الأمر ومن النفي.</dd>
+    <dt>التنفيذ</dt><dd>يفعل روبو شيئًا خاطئًا، فيختار الطلاب النهي المناسب. الأمر يجعله يكمل المشاغبة، والنفي (آخره مضموم) لا يوقفه لأنه ليس طلبًا.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٧ -->
+<section class="slide s7">
+  <div class="card"><div class="num">مستوى ٧</div>
+    <div class="head"><h2>سرُّ المتميّزين: لا… ولا!</h2><p>«لا» تنهى؟ أم «لا» تنفي؟</p></div>
+    <div class="content"><div class="split">
+      <div class="lab"><div class="floor"></div><div class="robo" id="rb7"></div><div class="say" id="say7">ضعوا جملةً في جهازِ الكشف!</div></div>
+      <div class="side" style="justify-content:center">
+        <div class="sc" id="sc7" style="position:static;align-self:flex-start">٠ / ٦</div>
+        <div class="sent7" id="s7"></div>
+        <div class="two"><button class="btn n" id="tN">🛑 نهي (طلب)</button><button class="btn r" id="tF">ℹ️ نفي (خبر)</button></div>
+        <div class="msg" id="m7" style="font-size:22px"></div>
+        <div class="rule" style="border-color:var(--vio);font-size:21px"><b class="sk">السّرّ:</b> «لا» النّاهية تطلبُ التّرك وتُسكّنُ آخرَ الفعل (لا تلعبْ). و«لا» النّافية تخبرُ فقط، ويبقى الفعلُ مضمومًا (لا يلعبُ).</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>انظرْ إلى آخرِ الفعل:</b>سكونٌ (ـْ) ← نهي. ضمّةٌ (ـُ) ← نفي.</div>
+      <div class="guide"><div class="robo"></div><div class="bubble" id="b7">النّهيُ يوقفُني… أمّا النّفيُ فمعلومةٌ أحفظُها فقط!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٧. لا الناهية ولا النافية</h3><dl>
+    <dt>الهدف</dt><dd>للمتميزين: التفريق بين «لا» الناهية (طلب، تجزم المضارع فيسكن آخره) و«لا» النافية (خبر، لا تغيّر آخر الفعل).</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطالب الجملة وينظر إلى آخر الفعل ثم يحكم. روبو يتوقف عند النهي، ويعرض معلومة عند النفي.</dd>
+    <dt>انتبهي</dt><dd>«أنتَ لا تكذبُ» نفي رغم أن الفعل يبدأ بالتاء؛ الحكم بالمعنى وعلامة الآخر.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٨ -->
+<section class="slide s8">
+  <div class="card"><div class="num">مستوى ٨</div>
+    <div class="head"><h2>لافتاتُ المكان</h2><p>علِّقِ اللّافتاتِ المناسبة</p></div>
+    <div class="content"><div style="position:absolute;inset:0;display:flex;flex-direction:column;gap:10px">
+      <div class="places" id="pl8"></div>
+      <div class="wall" id="wl8"></div>
+      <div class="pool" id="po8"></div>
+      <div class="msg" id="m8" style="font-size:22px"></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>مهمّتُك:</b>اختَرِ اللّافتاتِ الّتي تناسبُ المكان. كلُّ لافتةٍ إمّا أمرٌ وإمّا نهي.</div>
+      <div class="guide"><div class="robo"></div><div class="bubble" id="b8">ساعدوني أعلّقُ قوانينَ كلِّ مكان!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٨. لافتات المكان</h3><dl>
+    <dt>الهدف</dt><dd>توظيف الأمر والنهي في مواقف حياتية (آداب الأماكن).</dd>
+    <dt>التنفيذ</dt><dd>يختار الطلاب المكان، ثم اللافتات المناسبة له. كل لافتة صحيحة تُعلَّق مع وسم «أمر» أو «نهي». ثلاثة أماكن.</dd>
+    <dt>امتداد</dt><dd>يصمم الطلاب لافتات لفصلهم ويعلّقونها.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٩ -->
+<section class="slide s9">
+  <div class="card"><div class="num">مستوى ٩</div>
+    <div class="head"><h2>شحنُ روبو</h2><p>كلُّ إجابةٍ صحيحةٍ تشحنُه</p></div>
+    <div class="content"><div class="quiz">
+      <div class="lab" style="width:420px"><div class="floor"></div><div class="robo" id="rb9" style="left:130px"></div><div class="say" id="say9">بطاريّتي تحتاجُ إلى ثلاثِ إجاباتٍ صحيحة!</div></div>
+      <div class="qbox"><div class="msg" id="st9" style="color:var(--ink2)"></div><div class="qq" id="qq9"></div><div class="qo" id="qo9"></div><div class="msg" id="m9"></div><div class="stars"></div></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>فكّرْ قبلَ الضّغط:</b>كلُّ خطأ يُفرغُ قليلًا من البطاريّة!</div>
+      <div class="guide"><div class="robo"></div><div class="bubble">الشّحنةُ الأخيرةُ قبلَ الحفلة!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. شحن روبو</h3><dl>
+    <dt>الهدف</dt><dd>تقويم ختامي سريع.</dd>
+    <dt>الإجابات</dt><dd>(١) لا تلعبْ. (٢) اِجلِسْ. (٣) السكون.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<!-- ١٠ -->
+<section class="slide s10">
+  <div class="card"><div class="num">مستوى ١٠</div>
+    <div class="head"><h2>حفلةُ روبو</h2><p>أعطوه ثلاثةَ أوامرَ ليرقص!</p></div>
+    <div class="content"><div class="party">
+      <div class="lab"><div class="disco"></div><div class="floor"></div><div class="robo" id="rb10"></div><div class="say" id="say10">أنا مستعدٌّ للحفلة! أعطوني أوامري.</div></div>
+      <div class="side">
+        <div class="cards2" id="cd10"></div>
+        <div class="recap"><div style="border-color:var(--amr)"><b class="ca">الأمر:</b> طلبُ فعل، آخرُه ساكن: اُكتُبْ.</div><div style="border-color:var(--nahy)"><b class="cn">النّهي:</b> «لا» + مضارع، آخرُه ساكن: لا تكتُبْ.</div><div style="border-color:var(--vio)"><b class="sk">للمتميّزين:</b> لا تلعبْ (نهي)… لا يلعبُ (نفي).</div></div>
+        <div class="badge lock" id="bd10"><h4>🏅 مبرمجُ روبو الذّهبيّ</h4><input id="starName" placeholder="اكتبِ اسمَ الفائز" aria-label="اسم الفائز"><p>يأمرُ وينهى بلغةٍ صحيحة</p></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>في دفترك:</b>اكتبْ ثلاثةَ أوامرَ وثلاثةَ نواهٍ لروبوتٍ يساعدُك في البيت.</div>
+      <div class="guide"><div class="robo"></div><div class="bubble">شكرًا لأنّكم علّمتموني لغتي!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١٠. حفلة روبو</h3><dl>
+    <dt>الهدف</dt><dd>تلخيص الدرس وتعزيز المتميز.</dd>
+    <dt>التنفيذ</dt><dd>يعطي الطلاب روبو ثلاثة أوامر فيرقص، ثم تُفتح الشارة. اكتبي اسم الفائز وصوّري الشاشة.</dd>
+    <dt>الواجب</dt><dd>ثلاثة أوامر وثلاثة نواهٍ لروبوت منزلي.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+<aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ١٠</span><button id="next" class="main">التّالي ◀</button></nav>
+</div>
+
+<script>
+const SFX=(()=>{let ctx=null,on=true;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ return{toggle(){on=!on;return on},
+  clap(){noise(.12,{v:.5,type:'bandpass',f:1600,q:.8})},
+  boot(){[262,330,392,523,659,784].forEach((f,i)=>tone(f,.14,{type:'square',v:.07,at:i*.09}));tone(1046,.5,{type:'triangle',v:.12,at:.6})},
+  beep(){tone(880,.08,{type:'square',v:.07});tone(1320,.08,{type:'square',v:.06,at:.1})},
+  step(){tone(520,.06,{type:'square',v:.06,to:620})},
+  stop(){tone(300,.15,{type:'sawtooth',v:.1});tone(200,.3,{type:'sawtooth',v:.1,at:.16})},
+  gear(){for(let i=0;i<10;i++)tone(140+Math.random()*60,.05,{type:'square',v:.05,at:i*.09});noise(.9,{v:.08,type:'bandpass',f:500,q:2})},
+  ding(){tone(1568,.3,{type:'triangle',v:.14});tone(2093,.4,{type:'triangle',v:.1,at:.12})},
+  tick(){tone(1200,.05,{type:'square',v:.06})},
+  giggle(){[700,900,650,880,600].forEach((f,i)=>tone(f,.08,{type:'square',v:.06,at:i*.09}))},
+  pop(){tone(600,.08,{v:.15,to:1200})},
+  yes(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,{type:'triangle',v:.16,at:i*.08}))},
+  no(){tone(220,.25,{type:'square',v:.08,to:150})},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  music(){const N=[523,659,784,659,880,784,659,523,587,698,880,698,784,659,523,784];N.forEach((f,i)=>{tone(f,.16,{type:'square',v:.06,at:i*.17});if(i%2===0)tone(f/2,.16,{type:'triangle',v:.06,at:i*.17})})},
+  cheer(){this.yes();for(let i=0;i<22;i++)noise(.05,{v:.12,type:'bandpass',f:1500+Math.random()*2000,at:.35+Math.random()*1.1})}
+ }})();
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`;window.__s=s}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let cur=0,unlocked=false;
+const nextB=document.getElementById('next'),prevB=document.getElementById('prev'),counter=document.getElementById('counter');
+function go(i){if(i<0||i>=slides.length)return;if(i>0&&!unlocked)return;stage.scrollLeft=0;
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=cur===slides.length-1||!unlocked;nextB.classList.toggle('pulse',cur===0&&unlocked);
+  const t=slides[cur].querySelector('template.notes');document.getElementById('notesBody').innerHTML=t?t.innerHTML:'';}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown'].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+document.getElementById('bSound').onclick=e=>{e.currentTarget.textContent=SFX.toggle()?'🔊 الصوت':'🔇 صامت'};
+document.getElementById('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+document.getElementById('bNotes').onclick=()=>document.getElementById('notes').classList.toggle('open');
+document.getElementById('closeNotes').onclick=()=>document.getElementById('notes').classList.remove('open');
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function stars(box){for(let i=0;i<14;i++){const s=document.createElement('i');s.textContent='★';s.style.left=Math.random()*95+'%';s.style.top=Math.random()*20+'%';s.style.animationDelay=Math.random()*.4+'s';box.appendChild(s);setTimeout(()=>s.remove(),2000)}}
+
+/* روبو */
+const ROBO=`<svg viewBox="0 0 160 220" aria-hidden="true">
+ <line x1="80" y1="14" x2="80" y2="36" stroke="#7FA3B3" stroke-width="5"/><circle class="bulb" cx="80" cy="12" r="9" fill="#9AA6B2"/>
+ <rect x="22" y="56" width="12" height="28" rx="5" fill="#7FA3B3"/><rect x="126" y="56" width="12" height="28" rx="5" fill="#7FA3B3"/>
+ <rect x="30" y="34" width="100" height="76" rx="24" fill="#D7E8EF" stroke="#7FA3B3" stroke-width="4"/>
+ <rect x="42" y="46" width="76" height="52" rx="14" fill="#1D2B3A"/>
+ <g class="eo"><circle cx="62" cy="68" r="9" fill="#6CF2E0"/><circle cx="98" cy="68" r="9" fill="#6CF2E0"/><path d="M66 84 q14 9 28 0" stroke="#6CF2E0" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+ <g class="ec"><path d="M53 70 h18 M89 70 h18" stroke="#6CF2E0" stroke-width="4" stroke-linecap="round"/><path d="M72 86 h16" stroke="#6CF2E0" stroke-width="3" stroke-linecap="round"/></g>
+ <g class="armL"><rect x="14" y="118" width="18" height="50" rx="9" fill="#D7E8EF" stroke="#7FA3B3" stroke-width="3"/><circle cx="23" cy="172" r="9" fill="#7FA3B3"/></g>
+ <g class="armR"><rect x="128" y="118" width="18" height="50" rx="9" fill="#D7E8EF" stroke="#7FA3B3" stroke-width="3"/><circle cx="137" cy="172" r="9" fill="#7FA3B3"/></g>
+ <rect x="38" y="112" width="84" height="68" rx="16" fill="#A9CFDB" stroke="#7FA3B3" stroke-width="4"/>
+ <rect x="54" y="124" width="52" height="26" rx="6" fill="#1D2B3A"/><rect class="bat" x="58" y="128" width="44" height="18" rx="3" fill="#6CF2E0"/>
+ <circle cx="62" cy="164" r="5" fill="#F2B233"/><circle cx="80" cy="164" r="5" fill="#E2434B"/><circle cx="98" cy="164" r="5" fill="#22B573"/>
+ <rect x="54" y="180" width="16" height="22" rx="5" fill="#7FA3B3"/><rect x="90" y="180" width="16" height="22" rx="5" fill="#7FA3B3"/>
+ <ellipse cx="62" cy="206" rx="16" ry="7" fill="#4B5D7A"/><ellipse cx="98" cy="206" rx="16" ry="7" fill="#4B5D7A"/></svg><div class="fx">💤</div>`;
+document.querySelectorAll('.robo').forEach(r=>r.innerHTML=ROBO);
+function act(el,a,ms=1400){const all=['jump','dance','sit','laugh','run','wave','clap','freeze','sorry'];el.classList.remove(...all);void el.offsetWidth;el.classList.add(a);clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove(a),ms)}
+function setBat(el,p){el.querySelector('.bat').setAttribute('width',Math.max(0,Math.min(44,44*p/100)))}
+
+/* ١ الإيقاظ */
+(()=>{const s1=document.querySelector('.s1'),rb=document.getElementById('rb1'),bat=document.getElementById('bat1'),pct=document.getElementById('pct1'),lev=document.getElementById('lev1'),say=document.getElementById('say1'),m=document.getElementById('m1');let p=0,awake=false,stream=null,ac=null;
+  setBat(rb,0);
+  function charge(d){if(awake)return;p=Math.min(100,p+d);bat.style.height=p+'%';pct.textContent=AR(Math.round(p))+'٪';setBat(rb,p);
+    if(p>=40&&p<100)say.textContent='أوه… أشعرُ بطاقة! صفّقوا أكثر!';if(p>=100)wake()}
+  function wake(){awake=true;rb.classList.remove('sleep');s1.classList.add('awake');SFX.boot();act(rb,'jump',1300);say.innerHTML='أنا <b>روبو</b>! لا أفهمُ إلّا <b class="ca">الأمرَ</b> و<b class="cn">النّهي</b>!';
+    if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}if(ac){try{ac.close()}catch(_){}}
+    setTimeout(()=>{SFX.magic();s1.classList.add('open');setTimeout(()=>{unlocked=true;go(0)},1100)},2200)}
+  document.getElementById('clap1').onclick=()=>{SFX.clap();charge(20)};
+  document.getElementById('mic1').onclick=async()=>{if(awake||stream)return;
+    try{stream=await navigator.mediaDevices.getUserMedia({audio:true});ac=new (window.AudioContext||window.webkitAudioContext)();const src=ac.createMediaStreamSource(stream);const an=ac.createAnalyser();an.fftSize=1024;src.connect(an);const buf=new Uint8Array(an.fftSize);
+      m.textContent='🎤 الميكروفونُ يعمل… صفّقوا بقوّة!';m.style.color='var(--amr2)';
+      (function loop(){if(awake)return;an.getByteTimeDomainData(buf);let s=0;for(let i=0;i<buf.length;i++){const x=(buf[i]-128)/128;s+=x*x}const rms=Math.sqrt(s/buf.length);lev.style.width=Math.min(100,rms*400)+'%';if(rms>.06)charge(Math.min(5,rms*30));requestAnimationFrame(loop)})()}
+    catch(e){m.style.color='var(--nahy2)';m.textContent='تعذّرَ تشغيلُ الميكروفون هنا. استخدموا زرَّ التّصفيقِ البديل 👏'}};})();
+
+/* ٢ */
+(()=>{const C=[['اقفزْ','a','jump','🦘 هوب!'],['لا تقفزْ','n'],['اجلسْ','a','sit','🪑 جلستُ.'],['لا تجلسْ','n'],['ارقصْ','a','dance','💃 أرقص!'],['لا ترقصْ','n'],['اضحكْ','a','laugh','😂 هاهاها!'],['لا تضحكْ','n']];
+  const rb=document.getElementById('rb2'),say=document.getElementById('say2'),box=document.getElementById('cd2'),b=document.getElementById('b2');const done=new Set();
+  C.forEach(([w,k,a,t],i)=>{const bt=document.createElement('button');bt.className='cmd '+k;bt.innerHTML=`${w}<small>${k==='a'?'أمر':'نهي'}</small>`;
+    bt.onclick=()=>{done.add(i);bt.classList.add('done');
+      if(k==='a'){act(rb,a);SFX.beep();say.innerHTML=`أمرٌ! <span class="w ca">${w}</span> ← ${t}`}else{act(rb,'freeze',900);SFX.stop();say.innerHTML=`نهيٌ! <span class="w cn">${w}</span> ← ⛔ لن أفعلْ.`}
+      if(done.size===8)b.textContent='الأمرُ يطلبُ أن أفعل… والنّهيُ يطلبُ أن أتركَ الفعل!'};box.appendChild(bt)});})();
+
+/* ٣ المصنع */
+(()=>{const V=[['تَكْتُبُ','اُ','كْتُبْ','لا تَكْتُبْ'],['تَجْلِسُ','اِ','جْلِسْ','لا تَجْلِسْ'],['تَفْتَحُ','اِ','فْتَحْ','لا تَفْتَحْ'],['تَلْعَبُ','اِ','لْعَبْ','لا تَلْعَبْ'],['تَرْسُمُ','اُ','رْسُمْ','لا تَرْسُمْ'],['تَشْرَبُ','اِ','شْرَبْ','لا تَشْرَبْ']];
+  let vi=null,busy=false;const hp=document.getElementById('hp3'),scr=document.getElementById('scr3'),st=document.getElementById('st3'),mb=document.getElementById('mb3'),tk=document.getElementById('tk3'),b=document.getElementById('b3');const made=new Set();
+  V.forEach((v,i)=>{const bt=document.createElement('button');bt.className='btn lt';bt.textContent=v[0];bt.onclick=()=>{if(busy)return;vi=i;hp.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===bt));scr.textContent=v[0];st.textContent='الآن اسحبْ ذراعَ الأمرِ أو النّهي';SFX.pop()};hp.appendChild(bt)});
+  async function make(k){if(busy)return;if(vi===null){SFX.no();shake(mb);st.textContent='ضعْ فعلًا مضارعًا في المصنعِ أوّلًا!';return}busy=true;const [m,h,rest,nh]=V[vi];const stem=m.slice(0,-1);mb.classList.add('run');SFX.gear();
+    if(k==='a'){st.textContent='① نحذفُ حرفَ المضارعة (ت)';scr.innerHTML=`<span class="st">${m.slice(0,2)}</span>${m.slice(2)}`;await sleep(1100);
+      st.textContent='② أوّلُه ساكن… نبدأُ بهمزةِ وصل';scr.innerHTML=`<span class="nw">${h}</span>${m.slice(2)}`;await sleep(1100);
+      st.textContent='③ نسكّنُ آخرَه (ـْ)';scr.innerHTML=`${h}${rest.slice(0,-1)}<span class="nw">${rest.slice(-1)}</span>`;await sleep(900);
+      const out=h+rest;scr.innerHTML=out;st.innerHTML='✔ خرجَ فعلُ <b class="ca">أمر</b>!';addTk(out,'a');act(document.querySelector('.s3 .guide .robo'),'jump')}
+    else{st.textContent='① نضعُ «لا» قبلَ المضارع';scr.innerHTML=`<span class="nw">لا</span> ${m}`;await sleep(1100);
+      st.textContent='② نسكّنُ آخرَه (ـْ)';scr.innerHTML=`لا ${nh.slice(3,-1)}<span class="nw">${nh.slice(-1)}</span>`;await sleep(900);
+      scr.innerHTML=nh;st.innerHTML='✔ خرجَ <b class="cn">نهي</b>!';addTk(nh,'n');act(document.querySelector('.s3 .guide .robo'),'freeze',900)}
+    mb.classList.remove('run');SFX.ding();busy=false}
+  function addTk(t,k){if(made.has(t))return;made.add(t);const s=document.createElement('span');s.className='tk '+k;s.textContent=t;tk.appendChild(s);if(made.size===4)b.textContent='لاحظوا: في كلِّ منتجٍ آخرُ الفعلِ ساكن!';if(made.size===12){b.textContent='صنعْتُم كلَّ الأوامرِ والنّواهي! مصنعٌ مثاليّ.';SFX.cheer()}}
+  document.getElementById('lvA').onclick=()=>make('a');document.getElementById('lvN').onclick=()=>make('n');})();
+
+/* ٤ المتاهة */
+(()=>{const COLS=7,ROWS=4,CELL=88,GAP=4;
+  const L=[{s:[1,0],star:[1,4],ban:[]},{s:[0,0],star:[2,4],ban:[[0,2],[1,2]]},{s:[3,0],star:[0,4],ban:[[3,2],[2,2],[0,2],[0,3]]}];
+  const T={f:['تقدّمْ','⬅',[0,1]],b:['ارجعْ','➡',[0,-1]],u:['اصعدْ','⬆',[-1,0]],d:['انزلْ','⬇',[1,0]],p:['التقطْ','✋',null]};
+  let li=0,prog=[],pos,got=false,running=false;const gd=document.getElementById('gd4'),pl=document.getElementById('pl4'),pg=document.getElementById('pg4'),m=document.getElementById('m4'),lv=document.getElementById('lv4'),b=document.getElementById('b4'),nx=document.getElementById('nx4');
+  gd.style.gridTemplateColumns=`repeat(${COLS},${CELL}px)`;
+  let mr;
+  function isBan(r,c){return L[li].ban.some(x=>x[0]===r&&x[1]===c)}
+  function place(){mr.style.left=(4+(COLS-1-pos[1])*(CELL+GAP)+2)+'px';mr.style.top=(4+pos[0]*(CELL+GAP)+2)+'px'}
+  function build(){const l=L[li];gd.innerHTML='';for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){const d=document.createElement('div');d.className='cell';d.dataset.r=r;d.dataset.c=c;
+      if(isBan(r,c)){d.classList.add('ban');d.innerHTML='🚫<small>لا تدخلْ</small>'}else if(r===l.star[0]&&c===l.star[1]){d.classList.add('star');d.textContent='⭐'}gd.appendChild(d)}
+    mr=document.createElement('div');mr.className='mrobo';mr.innerHTML='<div class="robo">'+ROBO+'</div>';gd.appendChild(mr);pos=[...l.s];got=false;place();prog=[];draw();lv.textContent=`المستوى ${AR(li+1)} من ٣`;nx.style.display='none';m.textContent=''}
+  function draw(){pg.innerHTML=prog.length?'':'<span class="ph">برنامجُك فارغ… اضغطِ الأوامرَ من الأعلى</span>';prog.forEach((k,i)=>{const t=document.createElement('span');t.className='tile';t.innerHTML=`<i>${T[k][1]}</i>${T[k][0]}`;pg.appendChild(t)})}
+  Object.entries(T).forEach(([k,[w,ic]])=>{const bt=document.createElement('button');bt.className='tile';bt.innerHTML=`<i>${ic}</i>${w}`;bt.onclick=()=>{if(running)return;if(prog.length>=14){SFX.no();return}prog.push(k);draw();SFX.tick()};pl.appendChild(bt)});
+  document.getElementById('del4').onclick=()=>{if(running)return;prog.pop();draw();SFX.tick()};
+  document.getElementById('clr4').onclick=()=>{if(running)return;pos=[...L[li].s];got=false;place();build();SFX.pop()};
+  nx.onclick=()=>{li=(li+1)%L.length;build();SFX.pop()};
+  document.getElementById('run4').onclick=async()=>{if(running)return;if(!prog.length){SFX.no();m.style.color='var(--nahy2)';m.textContent='اكتبْ برنامجًا أوّلًا!';return}running=true;pos=[...L[li].s];got=false;place();gd.querySelectorAll('.cell.got').forEach(c=>{c.classList.remove('got');c.classList.add('star');c.textContent='⭐'});await sleep(300);
+    const tiles=[...pg.querySelectorAll('.tile')];let fail='';
+    for(let i=0;i<prog.length;i++){tiles.forEach(t=>t.classList.remove('cur'));tiles[i].classList.add('cur');const k=prog[i];
+      if(k==='p'){const l=L[li];if(pos[0]===l.star[0]&&pos[1]===l.star[1]){got=true;const cell=gd.querySelector(`.cell[data-r="${pos[0]}"][data-c="${pos[1]}"]`);cell.classList.remove('star');cell.classList.add('got');cell.textContent='✅';SFX.ding()}else{SFX.no();fail='التقطْ؟ لا توجدُ نجمةٌ هنا!';break}}
+      else{const [dr,dc]=T[k][2];const n=[pos[0]+dr,pos[1]+dc];
+        if(n[0]<0||n[0]>=ROWS||n[1]<0||n[1]>=COLS){mr.classList.remove('bump');void mr.offsetWidth;mr.classList.add('bump');SFX.stop();fail='اصطدمْتُ بالجدار! لا أستطيعُ الخروجَ من المتاهة.';break}
+        if(isBan(n[0],n[1])){mr.classList.remove('bump');void mr.offsetWidth;mr.classList.add('bump');SFX.stop();fail='⛔ قرأتُ اللّافتة: «لا تدخلْ»… النّهيُ يمنعُني، لن أدخل!';break}
+        pos=n;place();SFX.step()}
+      await sleep(480)}
+    tiles.forEach(t=>t.classList.remove('cur'));
+    if(!fail&&got){m.style.color='var(--amr2)';m.textContent=`✔ وصلْتُ وأخذْتُ النّجمة! استخدمْتَ ${AR(prog.length)} أوامر.`;SFX.cheer();b.textContent=li<2?'برنامجٌ رائع! جرّبوا المستوى التّالي.':'أنهيْتُم المستوياتِ الثّلاث! أنتم مبرمجون حقيقيّون.';nx.style.display=li<2?'':'none'}
+    else{m.style.color='var(--nahy2)';m.textContent=fail||'لم أصلْ إلى النّجمةِ بعد… أكملوا البرنامج.';if(!fail)SFX.no()}
+    running=false};
+  build();})();
+
+/* ٥ روبو يقول */
+(()=>{const C=[['اقفزْ','a','jump'],['لا تقفزْ','n'],['اجلسْ','a','sit'],['لا تجلسْ','n'],['صفّقْ','a','clap'],['لا تصفّقْ','n'],['ارفعْ يدَك','a','wave'],['لا ترفعْ يدَك','n'],['اضحكْ','a','laugh'],['لا تضحكْ','n']];
+  const rb=document.getElementById('rb5'),say=document.getElementById('say5'),cd=document.getElementById('cd5'),rv=document.getElementById('rv5'),m=document.getElementById('m5');let busy=false,last=-1,n=0;
+  document.getElementById('go5').onclick=async()=>{if(busy)return;busy=true;let i;do{i=Math.floor(Math.random()*C.length)}while(i===last);last=i;const [w,k,a]=C[i];n++;
+    rv.textContent='';say.innerHTML=`روبو يقول: <span class="w">${w}</span>!`;SFX.beep();
+    for(const t of ['٣','٢','١']){cd.textContent=t;cd.classList.remove('on');void cd.offsetWidth;cd.classList.add('on');SFX.tick();await sleep(900)}cd.classList.remove('on');
+    if(k==='a'){act(rb,a,1600);SFX.yes();rv.innerHTML=`<span class="ca">✅ أمر! كانَ عليكَ أن تفعل.</span>`}else{act(rb,'freeze',1200);SFX.stop();rv.innerHTML=`<span class="cn">⛔ نهي! كانَ عليكَ أن تثبت.</span>`}
+    m.textContent=`الجولة ${AR(n)}`;busy=false};})();
+
+/* ٦ المشاغب */
+(()=>{const S=[['✏️','💥','روبو يكسرُ القلم!',[['لا تكسرْ القلمَ.','ok'],['لا تكسرُ القلمَ.','nf'],['اكسرْ القلمَ.','am']],'🖊️'],
+   ['📢','🔊','روبو يصرخُ في الفصل!',[['اصرخْ.','am'],['لا تصرخْ.','ok'],['لا تصرخُ.','nf']],'🤫'],
+   ['⚽','💨','روبو يلعبُ بالكرةِ داخلَ الفصل!',[['لا تلعبُ بالكرةِ هنا.','nf'],['العبْ بالكرةِ هنا.','am'],['لا تلعبْ بالكرةِ هنا.','ok']],'🧺'],
+   ['🖍️','🧱','روبو يكتبُ على الجدار!',[['لا تكتبْ على الجدارِ.','ok'],['اكتبْ على الجدارِ.','am'],['لا تكتبُ على الجدارِ.','nf']],'🧽'],
+   ['🍪','😋','روبو يأكلُ أثناءَ الدّرس!',[['لا تأكلُ في الدّرسِ.','nf'],['لا تأكلْ في الدّرسِ.','ok'],['تأكلُ في الدّرسِ.','am']],'🎒']];
+  let si=0,lock=false;const rb=document.getElementById('rb6'),it=document.getElementById('it6'),say=document.getElementById('say6'),sn=document.getElementById('sn6'),op=document.getElementById('op6'),m=document.getElementById('m6'),sc=document.getElementById('sc6'),b=document.getElementById('b6');
+  function set(){const [e,fx,txt,o]=S[si];rb.classList.add('naughty');it.textContent=e+fx;say.textContent='هيهيهي! 😜';sn.textContent=txt;op.innerHTML='';m.textContent='';SFX.giggle();
+    o.forEach(([t,k])=>{const bt=document.createElement('button');bt.className='opt';bt.textContent=t;bt.onclick=async()=>{if(lock)return;
+      if(k==='ok'){lock=true;bt.classList.add('good');rb.classList.remove('naughty');act(rb,'sorry',1600);SFX.stop();say.innerHTML='آسف! 😔 لن أفعلَ ذلكَ مرّةً أخرى.';it.textContent=S[si][4];m.style.color='var(--amr2)';m.textContent='✔ نهيٌ صحيح: «لا» ثمّ مضارعٌ آخرُه ساكن.';sc.textContent=AR(si+1)+' / ٥';
+        await sleep(2200);lock=false;si++;if(si<S.length)set();else{sn.textContent='✔ صارَ روبو مهذّبًا!';op.innerHTML='';say.textContent='شكرًا لأنّكم علّمتموني الأدب 🤖';b.textContent='النّهيُ الصّحيحُ أوقفَ كلَّ المشاغبات!';SFX.cheer()}}
+      else if(k==='am'){bt.classList.add('bad');SFX.giggle();act(rb,'dance',1400);say.textContent='شكرًا على الأمر! سأفعلُ أكثر 😈';m.style.color='var(--nahy2)';m.textContent='هذا أمرٌ يطلبُ منه أن يفعل! نريدُ أن يتركَ الفعل.';setTimeout(()=>bt.classList.remove('bad'),900)}
+      else{bt.classList.add('bad');SFX.no();say.textContent='معلومةٌ جميلة… لكنّها ليستْ طلبًا 😜';m.style.color='var(--nahy2)';m.textContent='آخرُ الفعلِ مضموم: هذه «لا» تنفي ولا تطلب!';setTimeout(()=>bt.classList.remove('bad'),900)}};op.appendChild(bt)})}
+  set();})();
+
+/* ٧ */
+(()=>{const S=[['لا تلعبْ في الشّارعِ.','n','تلعبْ'],['الطّفلُ لا يلعبُ في الشّارعِ.','f','يلعبُ'],['لا تكذبْ أبدًا.','n','تكذبْ'],['أنتَ لا تكذبُ أبدًا.','f','تكذبُ'],['لا تتأخّرْ عن المدرسةِ.','n','تتأخّرْ'],['سالمٌ لا يتأخّرُ عن المدرسةِ.','f','يتأخّرُ']];
+  let si=0,lock=false;const s7=document.getElementById('s7'),m=document.getElementById('m7'),sc=document.getElementById('sc7'),rb=document.getElementById('rb7'),say=document.getElementById('say7'),b=document.getElementById('b7');
+  function hl(s,v){const i=s.indexOf(v);return s.slice(0,i)+v.slice(0,-1)+`<span class="mk">${v.slice(-1)}</span>`+s.slice(i+v.length)}
+  function set(){s7.innerHTML=S[si][0];m.textContent='';say.textContent='ضعوا الجملةَ في جهازِ الكشف!'}
+  function ans(k){if(lock||si>=S.length)return;const [s,t,v]=S[si];
+    if(k===t){lock=true;SFX.yes();s7.innerHTML=hl(s,v);sc.textContent=AR(si+1)+' / ٦';
+      if(t==='n'){act(rb,'freeze',1000);say.innerHTML='🛑 نهي! سأتوقّفُ فورًا.';m.style.color='var(--nahy2)';m.textContent='✔ «لا» النّاهية: طلبٌ، وآخرُ الفعلِ ساكن.'}
+      else{act(rb,'wave',1400);say.innerHTML='ℹ️ نفي: معلومةٌ أحفظُها فقط 📋';m.style.color='var(--robo)';m.textContent='✔ «لا» النّافية: خبرٌ، وآخرُ الفعلِ مضموم.'}
+      setTimeout(()=>{lock=false;si++;if(si<S.length)set();else{s7.textContent='🏅 أنتَ من المتميّزين!';b.textContent='سكونٌ للنّهي، وضمّةٌ للنّفي… سرٌّ لا ينساه المتميّزون!';SFX.cheer()}},2000)}
+    else{SFX.no();shake(s7);m.style.color='var(--nahy2)';m.textContent='انظرْ إلى آخرِ الفعلِ بعدَ «لا»: سكونٌ أم ضمّة؟ وهل الجملةُ تطلبُ أم تخبر؟'}}
+  document.getElementById('tN').onclick=()=>ans('n');document.getElementById('tF').onclick=()=>ans('f');set();})();
+
+/* ٨ اللافتات */
+(()=>{const P=[['📚 المكتبة',[['اقرأْ بهدوء','a',1],['لا تصرخْ','n',1],['اركضْ بينَ الرّفوف','a',0],['حافظْ على الكتب','a',1],['اصرخْ عاليًا','a',0],['لا تأكلْ هنا','n',1]]],
+   ['🏖️ الشّاطئ',[['اجلسْ في الظّلّ','a',1],['اتركِ النّفاياتِ على الرّمل','a',0],['لا تسبحْ وحدَك','n',1],['احملْ نفاياتِك معك','a',1],['اسبحْ بعيدًا وحدَك','a',0],['لا تلعبْ قربَ الصّخور','n',1]]],
+   ['🏫 الفصل',[['ارفعْ يدَك للإجابة','a',1],['اكتبْ على الطّاولة','a',0],['لا تقاطعْ زميلَك','n',1],['رتّبْ حقيبتَك','a',1],['اصرخْ في الفصل','a',0],['لا تكتبْ على الطّاولة','n',1]]]];
+  let pi=0;const pl=document.getElementById('pl8'),wl=document.getElementById('wl8'),po=document.getElementById('po8'),m=document.getElementById('m8'),b=document.getElementById('b8');const doneP=new Set();
+  P.forEach((p,i)=>{const bt=document.createElement('button');bt.className='btn lt'+(i===0?' sel':'');bt.textContent=p[0];bt.onclick=()=>{pi=i;pl.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===bt));load();SFX.pop()};pl.appendChild(bt)});
+  function load(){const [name,S]=P[pi];wl.innerHTML=`<div class="hdr">${name}: لوحةُ القوانين</div>`;po.innerHTML='';m.textContent='';let need=S.filter(x=>x[2]).length,got=0;
+    S.forEach(([t,k,ok])=>{const bt=document.createElement('button');bt.textContent=t;bt.onclick=()=>{if(ok){bt.classList.add('used');const s=document.createElement('div');s.className='sign '+k;s.innerHTML=`${t}<small>${k==='a'?'أمر':'نهي'}</small>`;wl.appendChild(s);SFX.ding();got++;m.style.color='var(--amr2)';m.textContent=`✔ لافتةٌ مناسبة (${k==='a'?'أمر':'نهي'}).`;
+        if(got===need){doneP.add(pi);m.textContent=`✔ اكتملَتْ قوانينُ ${name.split(' ')[1]}!`;SFX.yes();if(doneP.size===3){b.textContent='علّقْتُم قوانينَ الأماكنِ الثّلاثة! ';SFX.cheer()}}}
+      else{SFX.no();shake(bt);m.style.color='var(--nahy2)';m.textContent='هذه اللّافتةُ تأمرُ بسلوكٍ خاطئ! لا تناسبُ المكان.'}};po.appendChild(bt)})}
+  load();})();
+
+/* ٩ شحن */
+(()=>{const Q=[['أيُّ الجملِ <b class="cn">نهي</b>؟',['العبْ في الحديقة.','لا تلعبْ في الشّارع.','لا يلعبُ الطّفلُ في الشّارع.'],1],['حوّلْ «تَجْلِسُ» إلى <b class="ca">أمر</b>:',['تَجْلِسْ','اِجْلِسُ','اِجْلِسْ'],2],['ما علامةُ آخرِ فعلِ الأمرِ والفعلِ بعدَ «لا» النّاهية؟',['السّكون','الضّمّة','الفتحة'],0]];
+  let qi=0,p=0,lock=false;const qq=document.getElementById('qq9'),qo=document.getElementById('qo9'),m=document.getElementById('m9'),st=document.getElementById('st9'),rb=document.getElementById('rb9'),say=document.getElementById('say9');setBat(rb,0);
+  function set(){const [q,o,ok]=Q[qi];st.textContent=`الشّحنة ${AR(qi+1)} من ٣`;qq.innerHTML=q;qo.innerHTML='';m.textContent='';
+    o.forEach((t,i)=>{const bt=document.createElement('button');bt.textContent=t;bt.onclick=async()=>{if(lock)return;
+      if(i===ok){lock=true;bt.classList.add('good');p+=34;setBat(rb,p);SFX.ding();act(rb,'jump');say.textContent=`بطاريّتي ${AR(Math.min(100,p))}٪ ⚡`;m.style.color='var(--amr2)';m.textContent='✔ إجابةٌ صحيحة!';
+        await sleep(1500);lock=false;qi++;if(qi<Q.length)set();else{st.textContent='';qq.innerHTML='⚡ اكتملَ الشّحن! روبو جاهزٌ للحفلة';qo.innerHTML='';m.textContent='';SFX.cheer();stars(document.querySelector('.s9 .stars'))}}
+      else{bt.classList.add('bad');SFX.no();p=Math.max(0,p-10);setBat(rb,p);act(rb,'freeze',800);say.textContent='أوه! فرغَتْ بطاريّتي قليلًا 🪫';setTimeout(()=>bt.classList.remove('bad'),800)}};qo.appendChild(bt)})}
+  set();})();
+
+/* ١٠ الحفلة */
+(()=>{const C=[['اقفزْ','jump'],['ارقصْ','dance'],['صفّقْ','clap'],['اضحكْ','laugh'],['ارفعْ يدَك','wave'],['اركضْ','run']];const rb=document.getElementById('rb10'),say=document.getElementById('say10'),box=document.getElementById('cd10'),bd=document.getElementById('bd10');const done=new Set();
+  C.forEach(([w,a],i)=>{const bt=document.createElement('button');bt.className='cmd a';bt.innerHTML=`${w}<small>أمر</small>`;bt.onclick=()=>{act(rb,a,1600);SFX.beep();say.innerHTML=`<span class="w ca">${w}</span> ← تمَّ! 🎵`;done.add(i);bt.classList.add('done');
+    if(done.size===3&&bd.classList.contains('lock')){bd.classList.remove('lock');SFX.music();act(rb,'dance',3000);say.textContent='🎉 حفلةُ روبو! شكرًا يا مبرمجيّ الصّغار!';setTimeout(confetti,400)}};box.appendChild(bt)});})();
+const cv=document.getElementById('confetti'),cx=cv.getContext('2d');
+function confetti(){const cols=['#22B573','#E2434B','#3BB8C4','#F6C445','#7B5CD6'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+go(0);
+</script>
+<script src="kawn-data.js" defer></script>
+</body>
+</html>
