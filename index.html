@@ -495,6 +495,7 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
   <div class="f-logo"><svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="كون"><title>كون</title><defs><clipPath id="upf"><rect x="0" y="0" width="400" height="212"/></clipPath><linearGradient id="sunf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4C24D"/><stop offset="1" stop-color="#E98A6A"/></linearGradient></defs><g clip-path="url(#upf)"><circle cx="210" cy="212" r="120" fill="url(#sunf)" opacity=".28"/><circle cx="210" cy="212" r="80" fill="url(#sunf)" opacity=".35"/></g><g stroke="#E98A6A" stroke-width="5" stroke-linecap="round" opacity=".7"><path d="M210 70 v-26 M130 104 l-18 -18 M290 104 l18 -18"/></g><g fill="none" stroke="#F3EEE4" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M338 44 L278 84 L278 168 Q278 192 254 192 L214 192"/><path d="M214 192 C214 158 174 156 176 180 C178 198 204 198 202 214 C198 238 168 250 140 248"/><path d="M112 146 C114 222 30 226 24 152"/></g><path d="M10 222 Q200 206 390 222" stroke="#8FAF7A" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="68" cy="100" r="15" fill="#E9B949"/></svg></div>
   <div class="slog"><span>حيثُ كلُّ درسٍ.. عالَمٌ جديد</span><span>حينَ تصيرُ القاعدةُ حكاية</span><span>نتعلّمُ اللّغةَ كما نعيشُها</span></div>
   <small>إعداد: أ. عائشة بنت عبدالله البروانية، مدرسة الصلاح للصفوف (١-٤)، سلطنة عُمان</small>
+  <small id="visits" style="display:none;margin-top:6px;font-size:13px;opacity:.65"></small>
 </footer>
 
 <div id="zoom"></div>
@@ -578,6 +579,10 @@ const secIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&MSG
     fetch(K.api,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'message',name:document.getElementById('fName').value.trim(),role,message:msg,hp:document.getElementById('fHp').value})})
       .then(()=>{note.style.color='#4A6B52';note.textContent='وصلَتْ رسالتُك، شكرًا لك! ستظهرُ بعدَ مراجعتِها ✨';form.reset();role='';document.querySelectorAll('#fRole button').forEach(x=>x.classList.remove('on'))})
       .catch(()=>{note.style.color='#C8664A';note.textContent='تعذّرَ الإرسال، حاولْ مرّةً أخرى.'}).finally(()=>send.disabled=false)});})();
+/* عدد الزوّار */
+(function(){const K=window.KAWN||{ok:false};if(!K.ok)return;
+  fetch(K.api+'?action=stats').then(r=>r.json()).then(j=>{const n=+j.visits;if(!(n>0))return;const el=document.getElementById('visits');
+    el.textContent='👣 عددُ زياراتِ «كون»: '+AR(n);el.style.display='block'}).catch(()=>{});})();
 /* ظهور البطاقات */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.world').forEach(el=>io.observe(el));
