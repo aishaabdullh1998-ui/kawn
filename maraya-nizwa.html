@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مرايا قلعة نزوى: المفرد والمثنى والجمع</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#F7E6C4;--sky2:#FFF7E8;--ink:#2B2A3A;--ink2:#5E5A70;--paper:#FFFBF3;
+  --stone:#D9B37E;--stone2:#A97C47;--gold:#E9B949;--gold2:#B8862A;
+  --one:#2EAD65;--one2:#1E7F48;--two:#2F7BE0;--two2:#1F5BAE;--many:#8E5BD8;--many2:#6A3FB0;
+  --wun:#E0A21B;--aat:#E4579A;--kas:#E2752F;--ok:#2EAD65;--bad:#E23B3B;
+  --ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--word:"Noto Naskh Arabic","Traditional Arabic","Tahoma",serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:#C9A06B;font-family:var(--ui);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;background:linear-gradient(var(--sky),var(--sky2) 70%,#E2C28F 70%)}
+#stage::before{content:"";position:absolute;left:0;right:0;bottom:0;height:270px;background:repeating-linear-gradient(90deg,rgba(169,124,71,.13) 0 90px,transparent 90px 96px),repeating-linear-gradient(0deg,rgba(169,124,71,.13) 0 44px,transparent 44px 48px);pointer-events:none}
+.slide{position:absolute;inset:0;display:none;z-index:2}
+.slide.active{display:block;animation:in .45s ease}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{position:absolute;inset:58px 30px 96px;border-radius:30px;background:var(--paper);border:14px solid var(--stone);box-shadow:0 20px 44px rgba(80,50,20,.3),inset 0 0 0 4px #F3DDB5}
+.card::before{content:"";position:absolute;top:-30px;left:40px;right:40px;height:24px;background:repeating-linear-gradient(90deg,var(--stone) 0 34px,transparent 34px 56px)}
+.num{position:absolute;top:-50px;right:44px;width:92px;height:104px;border-radius:46px 46px 10px 10px;background:radial-gradient(circle at 50% 38%,#FFFFFF 0 22px,#DDEBF5 23px 32px,var(--gold) 33px);border:5px solid var(--gold2);display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;box-shadow:0 6px 12px rgba(0,0,0,.2)}
+.num b{font-size:30px;font-weight:800;color:#fff;text-shadow:0 2px 0 var(--gold2)}
+.head{position:absolute;top:10px;right:170px;left:30px;display:flex;align-items:baseline;gap:20px}
+.head h2{margin:0;font-size:50px;font-weight:800;line-height:1.35}
+.head p{margin:0;font-size:27px;font-weight:700;color:var(--ink2)}
+.content{position:absolute;top:96px;right:28px;left:28px;height:474px}
+.band{position:absolute;bottom:8px;right:20px;left:20px;height:126px;display:flex;align-items:flex-end;gap:20px}
+.guide{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;order:2}
+.guide svg{width:110px;height:120px;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:24px;padding:10px 20px;font-size:25px;line-height:1.5;font-weight:700;max-width:780px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:18px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.task{order:1;flex:0 0 590px;background:#FFF6E0;border:3px dashed var(--gold2);border-radius:18px;padding:10px 20px;font-size:24px;font-weight:700;line-height:1.5}
+.task b{color:var(--gold2);margin-left:6px}
+.w{font-family:var(--word);font-weight:700}
+.btn{border:0;border-radius:22px;padding:10px 26px;font-size:27px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.3)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.gd{background:var(--gold);color:var(--ink);box-shadow:0 5px 0 var(--gold2)}
+.btn.lt{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(43,42,58,.2)}
+.btn.sel{outline:5px solid var(--gold);outline-offset:2px}
+.btn:disabled{opacity:.45}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+@keyframes pop{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.12);opacity:1}100%{transform:scale(1)}}
+.c1{color:var(--one)}.c2{color:var(--two)}.c3{color:var(--many)}
+.b1{background:var(--one)}.b2{background:var(--two)}.b3{background:var(--many)}
+.suf{color:var(--two)}.sw{color:var(--wun)}.sa{color:var(--aat)}.sk{color:var(--kas)}
+.tag{display:inline-block;color:#fff;border-radius:14px;padding:2px 14px;font-size:22px;font-weight:800}
+.hintb{position:absolute;z-index:6;background:#FFF3C9;border:3px solid var(--gold);color:var(--ink);border-radius:20px;padding:6px 18px;font-size:22px;font-weight:800;box-shadow:0 4px 0 var(--gold2)}
+.hintx{position:absolute;z-index:7;background:#fff;border:3px solid var(--gold);border-radius:18px;padding:8px 18px;font-size:23px;font-weight:700;line-height:1.5;max-width:520px;display:none;box-shadow:0 10px 24px rgba(0,0,0,.15)}
+.hintx.on{display:block;animation:pop .4s}
+.lvls{display:flex;gap:8px}
+.lvls button{border:3px solid #E8D6B4;background:#fff;border-radius:16px;padding:4px 14px;font-size:22px;font-weight:800;color:var(--ink)}
+.lvls button.on{background:var(--gold);border-color:var(--gold2)}
+.ico{display:inline-flex;gap:4px;align-items:flex-end;justify-content:center;flex-wrap:wrap}
+.ico svg{width:46px;height:46px}
+
+#nav{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 20px;border-radius:27px;background:#fff;color:var(--ink);font-size:24px;font-weight:800;box-shadow:0 4px 0 #B88E58}
+#nav button:disabled{opacity:.4;cursor:not-allowed}
+#nav .main{background:var(--two);color:#fff;box-shadow:0 4px 0 var(--two2)}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(47,123,224,.8)}50%{box-shadow:0 0 0 14px rgba(47,123,224,0)}}
+#counter{font-size:26px;font-weight:800;min-width:90px;text-align:center}
+#tools{position:absolute;top:10px;left:16px;display:flex;gap:10px;z-index:50}
+#tools button,#tools a{border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.88);color:var(--ink);font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit}
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:#fff;z-index:70;box-shadow:12px 0 40px rgba(0,0,0,.3);transform:translateX(-105%);transition:transform .35s;padding:30px;font-size:23px;line-height:1.7;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-size:34px;margin:0 0 8px;color:var(--two2)}
+#notes dt{font-weight:800;color:var(--gold2);margin-top:8px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px;font-size:20px}
+#credit{position:absolute;bottom:5px;right:16px;z-index:40;font-size:12px;font-weight:600;color:rgba(43,42,58,.65);background:rgba(255,255,255,.55);border-radius:10px;padding:1px 9px;pointer-events:none}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+
+/* ١ الغلاف */
+.s1 .title{position:absolute;top:44px;right:0;left:0;text-align:center;z-index:3}
+.s1 h1{margin:0;font-size:100px;font-weight:800;color:#fff;line-height:1.2;-webkit-text-stroke:3px var(--stone2);paint-order:stroke fill;text-shadow:0 7px 0 var(--stone2)}
+.s1 .title p{margin:4px 0 0;font-size:36px;font-weight:800;color:var(--ink)}
+.tower{position:absolute;bottom:0;left:120px;width:430px;height:560px}
+.cov-mir{position:absolute;bottom:150px;right:300px;width:300px;height:330px;transition:transform .8s cubic-bezier(.3,1.5,.5,1)}
+.cov-mir svg{width:100%;height:100%}
+.s1 .shine{position:absolute;bottom:200px;right:330px;width:240px;height:240px;border-radius:50%;background:radial-gradient(rgba(255,255,255,.95),rgba(255,255,255,0) 70%);opacity:0;transform:scale(.4);transition:.6s}
+.s1.lit .shine{opacity:1;transform:scale(2.4)}
+.s1 .touch{position:absolute;bottom:100px;right:320px;font-size:34px;padding:14px 40px;z-index:4}
+.s1.open .touch{display:none}
+.mission{position:absolute;top:220px;right:250px;left:250px;background:var(--paper);border-radius:30px;padding:24px 46px;border:14px solid var(--stone);box-shadow:0 20px 44px rgba(0,0,0,.3);opacity:0;transform:scale(.6);pointer-events:none;transition:.6s .3s cubic-bezier(.3,1.5,.5,1);z-index:6}
+.s1.open .mission{opacity:1;transform:none}
+.mission h3{margin:0;font-size:44px;color:var(--two2)}
+.mission p{margin:0;font-size:27px;font-weight:700}
+.mission ol{margin:0;padding-right:44px;font-size:29px;line-height:1.75;font-weight:700;list-style:arabic-indic}
+.trio{display:flex;gap:16px;justify-content:center;margin-top:10px}
+.trio span{color:#fff;border-radius:16px;padding:4px 20px;font-size:28px;font-weight:800}
+
+/* ٢ صندوق الكنز */
+.chestwrap{position:absolute;top:0;right:30px;width:560px;height:474px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.chest{width:300px;height:220px;position:relative}
+.chest svg{width:100%;height:100%}
+.chest .lid{transform-origin:50% 100%;transition:transform .5s}
+.chest.open .lid{transform:translateY(-30px) rotate(-14deg)}
+.show2{position:absolute;top:0;left:20px;width:900px;height:474px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.items{min-height:200px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:flex-end;max-width:880px}
+.items svg{width:130px;height:130px;animation:pop .45s backwards}
+.fing{font-size:30px;font-weight:800;color:var(--ink2);min-height:46px}
+.reveal{display:flex;align-items:center;gap:20px;min-height:110px}
+.reveal .w{font-size:84px}
+.reveal .tag{font-size:30px;padding:4px 22px;animation:pop .45s}
+
+/* ٣ عدّاد السوق */
+.mkt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.picks{display:flex;gap:10px}
+.picks button{width:90px;height:90px;border-radius:20px;border:4px solid #EAD8B5;background:#fff;padding:6px}
+.picks button svg{width:100%;height:100%}
+.picks button.on{border-color:var(--gold);box-shadow:0 0 0 5px rgba(233,185,73,.35)}
+.stall{width:1100px;height:190px;background:linear-gradient(#FFF,#FBF1DE);border:5px solid var(--stone);border-radius:24px;display:flex;align-items:flex-end;justify-content:center;gap:8px;padding:10px;flex-wrap:wrap;overflow:hidden}
+.stall svg{width:110px;height:110px;animation:pop .35s}
+.ctl{display:flex;align-items:center;gap:26px}
+.ctl .pm{width:76px;height:76px;border-radius:50%;font-size:46px;font-weight:800;border:0;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.25)}
+.ctl .cnt{font-size:60px;font-weight:800;min-width:90px;text-align:center}
+.sent3{font-family:var(--word);font-size:58px;font-weight:700;display:flex;align-items:center;gap:20px}
+.sent3 .tag{font-family:var(--ui);font-size:28px}
+
+/* ٤ مرآة الاثنين */
+.mir4{position:absolute;inset:0;display:flex;gap:26px;align-items:stretch}
+.tray{flex:0 0 330px;background:#FBF1DE;border:4px dashed var(--stone);border-radius:24px;display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px;align-content:center}
+.tray .it{background:#fff;border:3px solid #EAD8B5;border-radius:18px;height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;cursor:grab}
+.tray .it svg{width:80px;height:80px;pointer-events:none}
+.tray .it span{font-family:var(--word);font-size:26px;font-weight:700;pointer-events:none}
+.tray .it.dragging{z-index:20;position:relative;box-shadow:0 14px 28px rgba(0,0,0,.25)}
+.tray .it.used{opacity:.3}
+.frame{flex:1;position:relative;border-radius:200px 200px 30px 30px;border:18px solid var(--gold);background:linear-gradient(135deg,#EAF4FB,#CFE3F2 45%,#F4FAFE 55%,#D6E8F5);box-shadow:inset 0 0 0 6px #fff,0 10px 0 var(--gold2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.frame.hot{box-shadow:inset 0 0 0 6px #fff,0 0 0 10px rgba(47,123,224,.4),0 10px 0 var(--gold2)}
+.frame .pair{display:flex;gap:30px;min-height:170px;align-items:flex-end}
+.frame .pair svg{width:150px;height:150px}
+.frame .pair .ref{transform:scaleX(-1);opacity:0;animation:refl .7s .25s forwards}
+@keyframes refl{from{opacity:0;transform:scaleX(-1) translateX(60px)}to{opacity:1;transform:scaleX(-1)}}
+.frame .wd{font-family:var(--word);font-size:76px;font-weight:700;min-height:110px}
+.frame .msg{font-size:26px;font-weight:800;color:var(--ink2);min-height:40px;text-align:center}
+.secret{flex:0 0 360px;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.secret .sc{background:#fff;border-radius:22px;padding:14px 20px;border-right:12px solid var(--two);font-size:25px;font-weight:700;line-height:1.6;opacity:.25;transition:.5s}
+.secret .sc.on{opacity:1}
+.secret .sc h4{margin:0;font-size:30px;color:var(--two2)}
+
+/* ٥ الأبواب */
+.doors{position:absolute;inset:0;display:flex;gap:28px;justify-content:center}
+.dr{flex:1;max-width:440px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.dbox{position:relative;width:100%;height:340px;border-radius:200px 200px 16px 16px;background:#FFF;border:8px solid var(--stone2);overflow:hidden;perspective:900px}
+.dbox .inside{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px}
+.dbox .inside .ico svg{width:58px;height:58px}
+.dbox .inside .w{font-size:54px}
+.dbox .inside .from{font-family:var(--word);font-size:32px;color:var(--ink2)}
+.dbox .leaf{position:absolute;inset:0;transform-origin:right center;transition:transform 1s cubic-bezier(.5,0,.3,1);cursor:pointer;z-index:2}
+.dbox .leaf svg{width:100%;height:100%}
+.dr.open .leaf{transform:rotateY(-105deg)}
+.dr .lbl{font-size:27px;font-weight:800;text-align:center;line-height:1.35}
+.dr .lbl small{display:block;font-size:20px;color:var(--ink2)}
+.crack{position:relative;display:inline-block}
+.crack::after{content:"";position:absolute;inset:-6px;background:linear-gradient(115deg,transparent 46%,var(--kas) 47%,var(--kas) 50%,transparent 51%),linear-gradient(70deg,transparent 56%,var(--kas) 57%,var(--kas) 59%,transparent 60%);opacity:0}
+.crack.go::after{animation:crk .7s forwards}
+@keyframes crk{0%{opacity:0}30%{opacity:1}100%{opacity:1}}
+
+/* ٦ الفرز */
+.sort{position:absolute;inset:0;display:flex;flex-direction:column;gap:12px}
+.sort .top6{display:flex;align-items:center;justify-content:space-between}
+.sc6{font-size:28px;font-weight:800;background:var(--two2);color:#fff;border-radius:16px;padding:2px 18px}
+.cards6{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;min-height:150px}
+.c6{background:#fff;border:4px solid #EAD8B5;border-radius:20px;padding:8px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;touch-action:none;cursor:grab;min-width:170px;min-height:130px}
+.c6 .w{font-size:40px;pointer-events:none}
+.c6 .sentx{font-family:var(--word);font-size:30px;font-weight:700;pointer-events:none}
+.c6 .sentx u{text-decoration-color:var(--gold);text-decoration-thickness:4px}
+.c6 .ico{pointer-events:none}.c6 .ico svg{width:40px;height:40px}
+.c6.dragging{z-index:20;position:relative;box-shadow:0 14px 28px rgba(0,0,0,.25)}
+.c6.done{visibility:hidden}
+.bins{display:flex;gap:22px;justify-content:center}
+.bin{flex:0 0 340px;height:150px;border-radius:24px 24px 60px 60px;border:6px solid rgba(0,0,0,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.25) 0 10px,transparent 10px 20px);transition:transform .2s;box-shadow:0 8px 0 rgba(0,0,0,.15)}
+.bin.hot{transform:scale(1.06)}
+.bin b{font-size:36px;color:#fff}
+.bin small{font-size:20px;color:#fff;font-weight:700}
+.bin .n{font-size:22px;color:#fff;font-weight:800}
+
+/* ٧ صانع */
+.maker{position:absolute;inset:0;display:flex;gap:26px}
+.mk-l{flex:0 0 420px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#FBF1DE;border-radius:26px;border:4px solid var(--stone)}
+.mk-l svg{width:150px;height:150px}
+.mk-l .w{font-size:66px}
+.mk-r{flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.row7{background:#fff;border-radius:22px;padding:12px 20px;display:flex;align-items:center;gap:18px;border:4px solid #EEE2CB}
+.row7 .h{font-size:28px;font-weight:800;flex:0 0 110px}
+.slot{min-width:300px;height:96px;border:4px dashed var(--two);border-radius:20px;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:54px;font-weight:700}
+.slot.hot{background:#E9F2FD}
+.tiles{display:flex;gap:10px}
+.tile{font-family:var(--word);font-size:40px;font-weight:700;background:var(--two);color:#fff;border-radius:16px;padding:0 18px;height:70px;display:flex;align-items:center;touch-action:none;cursor:grab;box-shadow:0 5px 0 var(--two2)}
+.tile.dragging{z-index:20;position:relative}
+.opts7{display:flex;gap:12px;flex-wrap:wrap}
+.opts7 button{font-family:var(--word);font-size:40px;font-weight:700;background:#fff;border:4px solid #E3D3B3;border-radius:18px;padding:2px 20px;color:var(--ink)}
+.opts7 button.good{background:var(--ok);color:#fff;border-color:var(--ok)}
+.res7{font-size:27px;font-weight:800;min-height:40px}
+
+/* ٨ قف واجلس */
+.stand{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.rules8{display:flex;gap:16px}
+.rules8 div{border-radius:20px;padding:8px 20px;color:#fff;font-size:26px;font-weight:800;text-align:center;line-height:1.4}
+.rules8 div span{font-size:40px;display:block}
+.bigw{font-family:var(--word);font-size:120px;font-weight:700;min-height:180px;display:flex;align-items:center;justify-content:center;gap:24px}
+.cd{font-size:90px;font-weight:800;color:var(--gold2);min-width:100px;text-align:center}
+.ans8{min-height:56px}
+.ans8 .tag{font-size:34px;padding:4px 26px;animation:pop .4s}
+
+/* ٩ المرآة المشروخة */
+.broke{position:absolute;inset:0;display:flex;flex-direction:column;gap:12px}
+.grid9{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1}
+.t9{position:relative;background:linear-gradient(135deg,#F2F8FC,#DCEBF6);border:6px solid var(--gold);border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;overflow:hidden}
+.t9 .ico svg{width:56px;height:56px}
+.t9 .w{font-size:46px}
+.t9.bad::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(226,59,59,.9) 31%,rgba(226,59,59,.9) 32.5%,transparent 33.5%),linear-gradient(60deg,transparent 55%,rgba(226,59,59,.9) 56%,rgba(226,59,59,.9) 57.5%,transparent 58.5%);pointer-events:none}
+.t9.fixed{border-color:var(--ok)}
+.t9.okt{border-color:var(--ok);opacity:.75}
+.t9 .fx{display:flex;gap:8px;margin-top:4px}
+.t9 .fx button{font-family:var(--word);font-size:30px;font-weight:700;border:3px solid #E3D3B3;background:#fff;border-radius:14px;padding:0 14px}
+.st9{font-size:27px;font-weight:800;text-align:center}
+
+/* ١٠ الختام */
+.recap{position:absolute;top:0;right:20px;width:820px;display:flex;flex-direction:column;gap:12px}
+.recap h3{margin:0;font-size:50px;color:var(--ok);transform:scale(0);transition:.6s cubic-bezier(.3,1.6,.5,1)}
+.s10.go .recap h3{transform:none}
+.recap div{display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:8px 16px;font-size:26px;font-weight:700;line-height:1.45}
+.recap .tag{flex:0 0 120px;text-align:center;font-size:24px}
+.badge{position:absolute;top:10px;left:30px;width:500px;height:460px;border-radius:30px;background:linear-gradient(160deg,#FFF6E0,#F3D9A6);border:8px solid var(--gold);text-align:center;padding:14px 26px;box-shadow:0 16px 30px rgba(0,0,0,.2)}
+.badge svg{width:170px;height:180px}
+.badge h4{margin:0;font-size:40px;color:var(--gold2)}
+.badge input{width:100%;font-family:var(--word);font-size:40px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed var(--gold2);background:transparent;color:var(--ink);padding:4px;user-select:text}
+.badge input:focus{outline:none;background:rgba(255,255,255,.5)}
+.badge p{margin:8px 0 0;font-size:23px;font-weight:700;color:var(--gold2)}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<!-- لمعة: المرآة المرشدة -->
+<symbol id="lamaa" viewBox="0 0 110 120">
+  <ellipse cx="55" cy="114" rx="34" ry="5" fill="#000" opacity=".15"/>
+  <path d="M40 100 L34 114 M70 100 L76 114" stroke="#B8862A" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="55" cy="56" rx="44" ry="50" fill="#E9B949" stroke="#B8862A" stroke-width="4"/>
+  <g fill="#FFE7A0"><circle cx="55" cy="8" r="5"/><circle cx="14" cy="40" r="4"/><circle cx="96" cy="40" r="4"/><circle cx="20" cy="82" r="4"/><circle cx="90" cy="82" r="4"/></g>
+  <ellipse cx="55" cy="56" rx="34" ry="40" fill="#DCEBF6"/>
+  <path d="M30 40 Q38 26 52 22" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" opacity=".9"/>
+  <circle cx="43" cy="56" r="7" fill="#2B2A3A"/><circle cx="67" cy="56" r="7" fill="#2B2A3A"/>
+  <circle cx="45" cy="54" r="2.4" fill="#fff"/><circle cx="69" cy="54" r="2.4" fill="#fff"/>
+  <circle cx="34" cy="68" r="5" fill="#F7A1B5" opacity=".8"/><circle cx="76" cy="68" r="5" fill="#F7A1B5" opacity=".8"/>
+  <path d="M45 72 q10 9 20 0" stroke="#2B2A3A" stroke-width="4" fill="none" stroke-linecap="round"/>
+</symbol>
+<!-- الأشياء -->
+<symbol id="i-khanjar" viewBox="0 0 100 100">
+  <rect x="38" y="8" width="16" height="30" rx="6" fill="#7A4F2A"/><rect x="34" y="6" width="24" height="9" rx="4" fill="#E9B949"/>
+  <rect x="32" y="36" width="28" height="9" rx="4" fill="#E9B949"/>
+  <path d="M36 45 h20 v20 q0 22 26 26 q-30 8 -44 -18 q-4 -10 -2 -28z" fill="#D7DDE6" stroke="#8A93A6" stroke-width="3"/>
+  <g fill="#E9B949"><circle cx="46" cy="54" r="3"/><circle cx="46" cy="66" r="3"/><circle cx="56" cy="80" r="3"/></g>
+</symbol>
+<symbol id="i-cup" viewBox="0 0 100 100">
+  <ellipse cx="50" cy="86" rx="30" ry="6" fill="#000" opacity=".12"/>
+  <path d="M22 40 h56 q-2 34 -28 42 q-26 -8 -28 -42z" fill="#FFFFFF" stroke="#2F7BE0" stroke-width="4"/>
+  <ellipse cx="50" cy="40" rx="28" ry="7" fill="#8A5A2E"/>
+  <path d="M30 56 q20 8 40 0" stroke="#2F7BE0" stroke-width="3" fill="none"/>
+  <path d="M42 28 q-6 -8 0 -16 M56 28 q-6 -8 0 -16" stroke="#C9B8A6" stroke-width="3" fill="none" stroke-linecap="round"/>
+</symbol>
+<symbol id="i-palm" viewBox="0 0 100 100">
+  <path d="M48 96 Q44 60 52 36 L58 36 Q52 62 56 96z" fill="#9C6B3E"/>
+  <g fill="#3E9A52"><path d="M54 36 Q30 16 8 32 Q32 26 54 40z"/><path d="M54 36 Q78 14 96 30 Q74 26 54 40z"/><path d="M54 36 Q46 8 58 0 Q56 20 56 38z"/><path d="M54 36 Q24 36 16 56 Q34 42 54 40z"/><path d="M54 36 Q84 36 90 56 Q72 42 54 40z"/></g>
+  <g fill="#E2752F"><circle cx="48" cy="44" r="4"/><circle cx="56" cy="46" r="4"/><circle cx="52" cy="50" r="4"/></g>
+</symbol>
+<symbol id="i-pen" viewBox="0 0 100 100">
+  <g transform="rotate(-35 50 50)"><rect x="40" y="10" width="20" height="64" rx="3" fill="#F6C445" stroke="#B8862A" stroke-width="3"/><rect x="40" y="10" width="20" height="10" rx="3" fill="#F0657D"/><path d="M40 74 h20 l-10 18z" fill="#F3DDB5" stroke="#B8862A" stroke-width="3"/><path d="M47 86 h6 l-3 6z" fill="#2B2A3A"/></g>
+</symbol>
+<symbol id="i-book" viewBox="0 0 100 100">
+  <rect x="18" y="16" width="64" height="72" rx="6" fill="#2EAD65" stroke="#1E7F48" stroke-width="4"/>
+  <rect x="24" y="16" width="6" height="72" fill="#1E7F48"/>
+  <rect x="38" y="32" width="34" height="16" rx="4" fill="#fff"/>
+</symbol>
+<symbol id="i-door" viewBox="0 0 100 100">
+  <path d="M24 92 V40 a26 26 0 0 1 52 0 V92z" fill="#9C6B3E" stroke="#6B4322" stroke-width="4"/>
+  <path d="M50 18 V92" stroke="#6B4322" stroke-width="3"/>
+  <g fill="#E9B949"><circle cx="36" cy="50" r="3"/><circle cx="36" cy="66" r="3"/><circle cx="36" cy="82" r="3"/><circle cx="64" cy="50" r="3"/><circle cx="64" cy="66" r="3"/><circle cx="64" cy="82" r="3"/></g>
+</symbol>
+<symbol id="i-farmer" viewBox="0 0 100 100">
+  <path d="M28 96 Q28 60 50 58 Q72 60 72 96z" fill="#FFFFFF" stroke="#C9C2B4" stroke-width="3"/>
+  <circle cx="50" cy="40" r="17" fill="#C98F5E"/>
+  <path d="M33 34 Q34 18 50 17 Q66 18 67 34z" fill="#FFFFFF" stroke="#2F7BE0" stroke-width="3"/>
+  <path d="M36 28 h28" stroke="#2F7BE0" stroke-width="2" stroke-dasharray="3 3"/>
+  <circle cx="44" cy="42" r="2.5" fill="#2B2A3A"/><circle cx="56" cy="42" r="2.5" fill="#2B2A3A"/>
+  <path d="M44 50 q6 4 12 0" stroke="#2B2A3A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M78 96 V40" stroke="#8A5A2E" stroke-width="4"/><path d="M70 40 h16 l-3 12 h-10z" fill="#8A93A6"/>
+</symbol>
+<symbol id="i-teacher" viewBox="0 0 100 100">
+  <path d="M26 96 Q26 60 50 58 Q74 60 74 96z" fill="#8E5BD8"/>
+  <path d="M30 50 Q30 18 50 17 Q70 18 70 50 Q60 62 50 62 Q40 62 30 50z" fill="#6A3FB0"/>
+  <ellipse cx="50" cy="42" rx="14" ry="16" fill="#E0B08A"/>
+  <circle cx="45" cy="42" r="2.4" fill="#2B2A3A"/><circle cx="55" cy="42" r="2.4" fill="#2B2A3A"/>
+  <path d="M45 50 q5 4 10 0" stroke="#2B2A3A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <rect x="58" y="70" width="20" height="16" rx="2" fill="#F6C445" stroke="#B8862A" stroke-width="2"/>
+</symbol>
+<symbol id="i-car" viewBox="0 0 100 100">
+  <path d="M10 70 V56 q0 -6 6 -8 l12 -4 l10 -16 h28 l12 16 l10 4 q4 2 4 8 v14z" fill="#E23B3B" stroke="#A82222" stroke-width="3"/>
+  <path d="M40 32 h12 v14 h-20z M56 32 h10 l9 14 h-19z" fill="#CFEFFF"/>
+  <circle cx="30" cy="72" r="10" fill="#2B2A3A"/><circle cx="74" cy="72" r="10" fill="#2B2A3A"/><circle cx="30" cy="72" r="4" fill="#ccc"/><circle cx="74" cy="72" r="4" fill="#ccc"/>
+</symbol>
+<symbol id="i-player" viewBox="0 0 100 100">
+  <path d="M30 92 V62 Q30 54 50 54 Q70 54 70 62 V92z" fill="#2EAD65"/>
+  <text x="50" y="80" font-size="18" font-weight="700" text-anchor="middle" fill="#fff" font-family="Tahoma">10</text>
+  <circle cx="50" cy="36" r="16" fill="#C98F5E"/>
+  <path d="M34 32 Q36 18 50 18 Q64 18 66 32 Q58 24 50 26 Q42 24 34 32z" fill="#2B2A3A"/>
+  <circle cx="44" cy="38" r="2.4" fill="#2B2A3A"/><circle cx="56" cy="38" r="2.4" fill="#2B2A3A"/>
+  <path d="M44 45 q6 4 12 0" stroke="#2B2A3A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <circle cx="82" cy="86" r="10" fill="#fff" stroke="#2B2A3A" stroke-width="2.5"/><path d="M82 80 l5 4 -2 6 h-6 l-2 -6z" fill="#2B2A3A"/>
+</symbol>
+<!-- البرج -->
+<symbol id="tower" viewBox="0 0 430 560">
+  <path d="M40 560 L70 120 H360 L390 560z" fill="#D9B37E" stroke="#A97C47" stroke-width="6"/>
+  <path d="M60 120 h310 v-30 h-26 v-26 h-26 v26 h-26 v-26 h-26 v26 h-26 v-26 h-26 v26 h-26 v-26 h-26 v26 h-26 v-26 h-26 v26 h-26 v-26 h-24z" fill="#D9B37E" stroke="#A97C47" stroke-width="6"/>
+  <g fill="#7A4F2A"><rect x="196" y="200" width="38" height="56" rx="18"/><rect x="120" y="330" width="26" height="40" rx="12"/><rect x="284" y="330" width="26" height="40" rx="12"/></g>
+  <path d="M170 560 V470 a45 45 0 0 1 90 0 V560z" fill="#7A4F2A"/>
+  <g stroke="#A97C47" stroke-width="3" opacity=".5"><path d="M80 200 H350 M76 280 H354 M70 400 H360 M64 500 H366"/></g>
+  <rect x="211" y="20" width="6" height="70" fill="#555"/>
+  <rect x="217" y="22" width="40" height="27" fill="#fff"/><rect x="217" y="31" width="40" height="9" fill="#DB161B"/><rect x="217" y="40" width="40" height="9" fill="#008000"/><rect x="217" y="22" width="11" height="27" fill="#DB161B"/>
+</symbol>
+<symbol id="chest" viewBox="0 0 300 220">
+  <ellipse cx="150" cy="212" rx="130" ry="8" fill="#000" opacity=".15"/>
+  <rect x="30" y="100" width="240" height="105" rx="12" fill="#9C6B3E" stroke="#6B4322" stroke-width="6"/>
+  <rect x="30" y="140" width="240" height="14" fill="#E9B949"/>
+  <rect x="134" y="128" width="32" height="40" rx="6" fill="#E9B949" stroke="#B8862A" stroke-width="4"/>
+  <g class="lid"><path d="M30 104 V76 Q150 6 270 76 V104z" fill="#B47B45" stroke="#6B4322" stroke-width="6"/><path d="M30 92 Q150 24 270 92" stroke="#E9B949" stroke-width="10" fill="none"/></g>
+</symbol>
+<symbol id="leaf" viewBox="0 0 440 340" preserveAspectRatio="none">
+  <path d="M0 340 V200 A220 200 0 0 1 440 200 V340z" fill="#9C6B3E"/>
+  <path d="M220 0 V340" stroke="#6B4322" stroke-width="6"/>
+  <g fill="#E9B949"><circle cx="110" cy="150" r="9"/><circle cx="110" cy="230" r="9"/><circle cx="110" cy="300" r="9"/><circle cx="330" cy="150" r="9"/><circle cx="330" cy="230" r="9"/><circle cx="330" cy="300" r="9"/></g>
+  <circle cx="200" cy="220" r="12" fill="#E9B949" stroke="#B8862A" stroke-width="3"/>
+</symbol>
+</svg>
+
+<div id="stage">
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+<div id="tools"><a href="index.html">🌅 كون</a><button id="bSound">🔊 الصوت</button><button id="bFull">⛶ ملء الشاشة</button><button id="bNotes">📋 ملاحظات المعلمة</button></div>
+
+<!-- ١ -->
+<section class="slide s1 active">
+  <div class="title"><h1>مرايا قلعةِ نزوى</h1><p>المفردُ والمثنّى والجمع</p></div>
+  <svg class="tower"><use href="#tower"/></svg>
+  <div class="shine"></div>
+  <div class="cov-mir" id="cmir"><svg><use href="#lamaa"/></svg></div>
+  <button class="btn gd touch" id="go1">🪞 المسِ المرآة</button>
+  <div class="mission"><h3>خريطةُ القلعة</h3><p>بعدَ جولتِنا في القلعةِ سأستطيعُ أنْ:</p>
+    <ol><li>أعرفَ المفردَ والمثنّى والجمع.</li><li>أكوّنَ المثنّى بإضافةِ <span class="c2">انِ</span> أو <span class="c2">ينِ</span>.</li><li>أميّزَ أنواعَ الجمعِ الثّلاثة.</li><li>أستعملَها في جملٍ صحيحة.</li></ol>
+    <div class="trio"><span class="b1">واحد</span><span class="b2">اثنان</span><span class="b3">ثلاثةٌ فأكثر</span></div></div>
+  <template class="notes"><h3>١. بوّابة القلعة</h3><dl>
+    <dt>الهدف</dt><dd>إثارة الدافعية وعرض الأهداف.</dd>
+    <dt>قولي</dt><dd>«في قلعة نزوى مرآة سحرية اسمها لمعة، كلّما نظر فيها شيء تضاعف! هيا نكتشف سرّها».</dd>
+    <dt>التنفيذ</dt><dd>يلمس طالب المرآة فتلمع وتظهر الخريطة. اقرئي الأهداف وأشيري إلى ألوان الشرائح الثلاثة: الأخضر للمفرد، والأزرق للمثنى، والبنفسجي للجمع، وستبقى هذه الألوان ثابتة في العرض كله.</dd>
+    <dt>الزمن</dt><dd>دقيقتان</dd></dl></template>
+</section>
+
+<!-- ٢ -->
+<section class="slide s2">
+  <div class="card"><div class="num"><b>٢</b></div>
+    <div class="head"><h2>صندوقُ الكنز</h2><p>عُدّوا بأصابعِكم!</p></div>
+    <div class="content">
+      <div class="chestwrap"><div class="chest" id="chest"><svg><use href="#chest"/></svg></div>
+        <button class="btn gd" id="open2">🗝️ افتحِ الصّندوق</button><div class="fing" id="step2">١ / ٦</div></div>
+      <div class="show2"><div class="items" id="items2"></div><div class="fing" id="ask2"></div>
+        <div class="reveal" id="rev2"></div>
+        <button class="btn lt" id="name2" style="display:none">👁️ اكشفِ الاسم</button></div>
+    </div>
+    <div class="band">
+      <div class="task"><b>حركة:</b>ارفعوا أصابعَكم بعددِ ما تَرَون، ثمّ قولوا الاسمَ معًا.</div>
+      <div class="guide"><svg><use href="#lamaa"/></svg><div class="bubble" id="b2">في صندوقِ القلعةِ كنوزٌ… كم كنزًا سيخرج؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. صندوق الكنز</h3><dl>
+    <dt>الهدف</dt><dd>ربط العدد (واحد، اثنان، ثلاثة فأكثر) بشكل الكلمة، قبل ذكر أيّ مصطلح.</dd>
+    <dt>التنفيذ</dt><dd>كل ضغطة تُخرج كنزًا. يرفع الطلاب أصابعهم بالعدد (حركي)، ثم يقولون الاسم بصوت واحد (سمعي)، ثم تكشفين الاسم واللون (بصري).</dd>
+    <dt>الفروق الفردية</dt><dd>اسألي الطالب المتعثّر عن العدد فقط، والمتمكّن عن الاسم قبل كشفه.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٣ -->
+<section class="slide s3">
+  <div class="card"><div class="num"><b>٣</b></div>
+    <div class="head"><h2>عدّادُ سوقِ نزوى</h2><p>أضِفْ وأنقِصْ… وراقِبِ الكلمة</p></div>
+    <div class="content"><div class="mkt">
+      <div class="picks" id="picks3"></div>
+      <div class="stall" id="stall3"></div>
+      <div class="ctl"><button class="pm" style="background:var(--bad)" id="minus3">−</button><span class="cnt" id="cnt3">١</span><button class="pm" style="background:var(--ok)" id="plus3">+</button>
+        <div class="sent3"><span>في سوقِ نزوى</span><span class="w" id="w3"></span><span class="tag" id="t3"></span></div></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>لاحِظْ:</b>متى تغيّرَتِ الكلمة؟ وعندَ أيِّ عددٍ توقّفَتْ عن التّغيّر؟</div>
+      <div class="guide"><svg><use href="#lamaa"/></svg><div class="bubble" id="b3">اختاروا بضاعةً، ثمّ أضيفوا واحدةً واحدة…</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٣. عدّاد السوق</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف أن الكلمة تتغيّر عند الاثنين، ثم عند الثلاثة، ثم تثبت مهما زاد العدد.</dd>
+    <dt>التنفيذ</dt><dd>يختار طالب بضاعة ويضغط «+» ببطء. قبل كل ضغطة اسألي: هل ستتغيّر الكلمة؟</dd>
+    <dt>الاستنتاج</dt><dd>واحد ← مفرد، اثنان ← مثنى، ثلاثة فأكثر ← جمع.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٤ -->
+<section class="slide s4">
+  <div class="card"><div class="num"><b>٤</b></div>
+    <div class="head"><h2>مرآةُ الاثنين</h2><p>المثنّى: كيفَ يُصنَع؟</p></div>
+    <div class="content"><div class="mir4">
+      <div class="tray" id="tray4"></div>
+      <div class="frame" id="frame4"><div class="pair" id="pair4"></div><div class="wd w" id="wd4"></div><div class="msg" id="msg4">اسحبْ شيئًا إلى المرآة</div></div>
+      <div class="secret">
+        <div class="sc" id="sc4a"><h4>السّرُّ الأوّل</h4>المثنّى = المفرد + <span class="c2">انِ</span></div>
+        <div class="sc" id="sc4b"><h4>السّرُّ الثّاني</h4>التّاءُ المربوطةُ تنفتح: <span class="w">نخلة ← نخلت<span class="c2">انِ</span></span></div>
+        <div class="sc" id="sc4c"><h4>السّرُّ الثّالث</h4>وقد يلبسُ المثنّى <span class="c2">ينِ</span>: <span class="w">رأيتُ قلم<span class="c2">ينِ</span></span></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>حركة:</b>كلّما سمعتُم كلمةَ مثنّى ارفعوا إصبعَين ✌️</div>
+      <div class="guide"><svg><use href="#lamaa"/></svg><div class="bubble" id="b4">أنا مرآةُ الاثنين: كلُّ شيءٍ ينظرُ فيَّ يصيرُ اثنين!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٤. مرآة الاثنين</h3><dl>
+    <dt>الهدف</dt><dd>تكوين المثنى بإضافة «انِ»، وملاحظة انفتاح التاء المربوطة، والتعرّف إلى «ينِ».</dd>
+    <dt>التنفيذ</dt><dd>يسحب الطالب الأشياء إلى المرآة واحدًا واحدًا. تظهر الأسرار تدريجيًّا: الأول مع أول شيء، والثاني مع كلمة فيها تاء مربوطة، والثالث بعد الانتهاء.</dd>
+    <dt>للصف الثالث</dt><dd>يكفي السرّ الأول والثاني. «ينِ» للتعرّف فقط.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٥ -->
+<section class="slide s5">
+  <div class="card"><div class="num"><b>٥</b></div>
+    <div class="head"><h2>أبوابُ الجماعة</h2><p>للجمعِ ثلاثةُ أبواب</p></div>
+    <div class="content"><div class="doors" id="doors5"></div></div>
+    <div class="band">
+      <div class="task"><b>اسألْ نفسَك:</b>ماذا حدثَ للمفردِ في كلِّ باب؟ زادَ في آخرِه شيء، أم تغيّرَ شكلُه؟</div>
+      <div class="guide"><svg><use href="#lamaa"/></svg><div class="bubble" id="b5">خلفَ كلِّ بابٍ طريقةٌ مختلفةٌ لصنعِ الجمع… افتحوها!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٥. أبواب الجماعة</h3><dl>
+    <dt>الهدف</dt><dd>التعرّف إلى أنواع الجمع الثلاثة بأسماء مبسّطة أولًا ثم بأسمائها النحوية.</dd>
+    <dt>التنفيذ</dt><dd>يفتح طالب كل باب. الباب الأول «ونَ»، والثاني «ات»، والثالث تتكسّر فيه الكلمة ويتغيّر شكلها.</dd>
+    <dt>للصف الثالث</dt><dd>اكتفي بالأسماء المبسّطة الكبيرة. للصف الرابع اقرئي الاسم الصغير تحتها: جمع مذكر سالم، جمع مؤنث سالم، جمع تكسير.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٦ -->
+<section class="slide s6">
+  <div class="card"><div class="num"><b>٦</b></div>
+    <div class="head"><h2>سِلالُ السّوق</h2><p>ضعْ كلَّ كلمةٍ في سلّتِها</p></div>
+    <div class="content"><div class="sort">
+      <div class="top6"><div class="lvls" id="lv6"><button data-l="1" class="on">⭐ بالصّور</button><button data-l="2">⭐⭐ بالكلمات</button><button data-l="3">⭐⭐⭐ في جمل</button></div>
+        <span class="sc6" id="sc6">٠ / ٦</span></div>
+      <div class="cards6" id="cards6"></div>
+      <div class="bins"><div class="bin b1" data-k="1"><b>مفرد</b><small>واحد</small></div><div class="bin b2" data-k="2"><b>مثنّى</b><small>اثنان</small></div><div class="bin b3" data-k="3"><b>جمع</b><small>ثلاثةٌ فأكثر</small></div></div>
+    </div>
+    <button class="hintb" id="hint6" style="top:6px;left:440px">💡 تلميح</button><div class="hintx" id="hx6" style="top:56px;left:330px"></div></div>
+    <div class="band">
+      <div class="task"><b>اختَرِ المستوى</b>المناسبَ لك، ثمّ اسحبِ الكلمات.</div>
+      <div class="guide"><svg><use href="#lamaa"/></svg><div class="bubble" id="b6">لكلِّ كلمةٍ سلّة… لا تنخدعوا!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٦. سلال السوق</h3><dl>
+    <dt>الهدف</dt><dd>التمييز بين المفرد والمثنى والجمع، وفق قدرة كل طالب.</dd>
+    <dt>المستويات</dt><dd>⭐ صورة تبيّن العدد مع الكلمة (للمتعثّر). ⭐⭐ كلمة فقط. ⭐⭐⭐ الكلمة داخل جملة (للمتمكّن).</dd>
+    <dt>التلميح</dt><dd>كل ضغطة على «تلميح» تكشف مساعدة أكبر من التي قبلها، فلا تُعطى الإجابة دفعة واحدة.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٧ -->
+<section class="slide s7">
+  <div class="card"><div class="num"><b>٧</b></div>
+    <div class="head"><h2>ورشةُ صانعِ المرايا</h2><p>اصنَعِ المثنّى والجمع</p></div>
+    <div class="content"><div class="maker">
+      <div class="mk-l"><svg id="img7"></svg><div class="w" id="s7"></div><button class="btn lt" id="nx7">🔄 كلمةٌ أخرى</button></div>
+      <div class="mk-r">
+        <div class="row7"><span class="h c2">مثنّى</span><div class="slot" id="slot7"></div><div class="tiles" id="tiles7"></div></div>
+        <div class="row7"><span class="h c3">جمع</span><div class="opts7" id="opts7"></div></div>
+        <div class="res7" id="res7"></div>
+      </div>
+    </div>
+    <button class="hintb" id="hint7" style="top:6px;left:470px">💡 تلميح</button><div class="hintx" id="hx7" style="top:56px;left:360px"></div></div>
+    <div class="band">
+      <div class="task"><b>خطوتان:</b>اسحبِ النّهايةَ المناسبةَ للمثنّى، ثمّ اخترِ الجمعَ الصّحيح.</div>
+      <div class="guide"><svg><use href="#lamaa"/></svg><div class="bubble" id="b7">في ورشتي قطعٌ كثيرة… أيُّها يناسب؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٧. ورشة صانع المرايا</h3><dl>
+    <dt>الهدف</dt><dd>إنتاج المثنى والجمع من المفرد.</dd>
+    <dt>التنفيذ</dt><dd>يسحب الطالب «انِ» إلى المكان الفارغ. القطعتان الأخريان («ات»، «ونَ») للجمع، فإن اختارهما الطالب ذكّريه بأن المثنى اثنان فقط. ثم يختار الجمع الصحيح من ثلاثة؛ وأحد الخيارات دائمًا هو المثنى للتمييز بينهما.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٨ -->
+<section class="slide s8">
+  <div class="card"><div class="num"><b>٨</b></div>
+    <div class="head"><h2>قِفوا… بالعدد!</h2><p>لعبةُ الصّفِّ كلِّه</p></div>
+    <div class="content"><div class="stand">
+      <div class="rules8"><div class="b1"><span>🧍</span>مفرد: يقفُ طالبٌ واحد</div><div class="b2"><span>🧍🧍</span>مثنّى: يقفُ اثنان</div><div class="b3"><span>🧍🧍🧍</span>جمع: يقفُ الصّفُّ كلُّه</div></div>
+      <div class="bigw"><span class="cd" id="cd8"></span><span class="w" id="w8">؟</span></div>
+      <div class="ans8" id="ans8"></div>
+      <button class="btn gd" id="go8">🎲 كلمةٌ جديدة</button>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>القاعدة:</b>لا يقفُ أحدٌ قبلَ انتهاءِ العدِّ التّنازليّ!</div>
+      <div class="guide"><svg><use href="#lamaa"/></svg><div class="bubble" id="b8">استعدّوا… اقرؤوا الكلمةَ بسرعة، وقِفوا بعددِها!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٨. قفوا بالعدد</h3><dl>
+    <dt>الهدف</dt><dd>تثبيت المفهوم بالحركة الجسدية (للطالب الحركي) وبالقراءة الجهرية (للسمعي).</dd>
+    <dt>التنفيذ</dt><dd>تظهر كلمة مع عدّ تنازلي ٣-٢-١. يقرؤها الطلاب جهرًا، ثم يقف العدد المطلوب: طالب واحد يختاره الصف، أو طالبان، أو الصف كله. ثم تظهر الإجابة.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٩ -->
+<section class="slide s9">
+  <div class="card"><div class="num"><b>٩</b></div>
+    <div class="head"><h2>المرآةُ المشروخة</h2><p>ابحثْ عن الأخطاءِ الثّلاثة</p></div>
+    <div class="content"><div class="broke">
+      <div class="grid9" id="grid9"></div>
+      <div class="st9" id="st9">انظرْ إلى عددِ الصّور، ثمّ اقرأِ الكلمة: هل تناسبُها؟</div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>المكتشفةُ:</b><span id="f9">٠ / ٣</span> — اضغطِ الخطأَ ثمّ اخترِ التّصحيح.</div>
+      <div class="guide"><svg><use href="#lamaa"/></svg><div class="bubble" id="b9">آه! سقطَ حجرٌ على مرآتي فاختلطَتِ الكلمات… ساعدوني!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. المرآة المشروخة</h3><dl>
+    <dt>الهدف</dt><dd>تقويم: مطابقة الكلمة لعدد ما تدلّ عليه، وتصحيح الخطأ.</dd>
+    <dt>التنفيذ</dt><dd>في ستّ مرايا ثلاثةُ أخطاء. يضغط الطالب المرآة: إن كانت خاطئة انشرخت وظهر خياران للتصحيح، وإن كانت صحيحة أضاءت بالأخضر.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ١٠ -->
+<section class="slide s10">
+  <div class="card"><div class="num"><b>١٠</b></div>
+    <div class="content" style="top:26px;height:560px">
+      <div class="recap">
+        <h3>أصلحْتُم مرايا القلعة! ✨</h3>
+        <div><span class="tag b1">مفرد</span>يدلُّ على واحد: <span class="w">خنجرٌ، نخلةٌ</span></div>
+        <div><span class="tag b2">مثنّى</span>يدلُّ على اثنين، ونزيدُ <span class="c2">انِ</span> أو <span class="c2">ينِ</span>: <span class="w">خنجرانِ، نخلتانِ</span></div>
+        <div><span class="tag b3">جمع</span>يدلُّ على ثلاثةٍ فأكثر، وله ثلاثةُ أبواب:</div>
+        <div style="padding-right:150px"><span class="sw">ونَ</span>&nbsp;<span class="w">مزارعون</span>&nbsp;·&nbsp;<span class="sa">ات</span>&nbsp;<span class="w">معلّمات</span>&nbsp;·&nbsp;<span class="sk">يتكسّر</span>&nbsp;<span class="w">أقلام</span></div>
+      </div>
+      <div class="badge"><svg><use href="#lamaa"/></svg><h4>وسامُ حارسِ المرايا</h4>
+        <input id="starName" placeholder="اكتبِ اسمَ الحارسِ النّجم" aria-label="اسم الحارس النجم">
+        <p>يعرفُ الواحدَ والاثنينِ والجماعة</p></div>
+    </div>
+    <div class="band">
+      <div class="task"><b>في دفترِك:</b>اكتبْ ثلاثةَ أشياءَ في بيتِك: مفردَها ومثنّاها وجمعَها.</div>
+      <div class="guide"><svg><use href="#lamaa"/></svg><div class="bubble">شكرًا يا حُرّاسَ القلعة! ستبقى مراياكم لامعة.</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١٠. الختام</h3><dl>
+    <dt>الهدف</dt><dd>تلخيص الدرس وتعزيز المتميّز.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب الملخص بصوت واحد، ثم اكتبي اسم الحارس النجم وصوّري الشاشة.</dd>
+    <dt>الواجب</dt><dd>ثلاثة أشياء من البيت بمفردها ومثناها وجمعها.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+<aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ١٠</span><button id="next" class="main">التّالي ◀</button></nav>
+</div>
+
+<script>
+const SFX=(()=>{let ctx=null,on=true;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ return{toggle(){on=!on;return on},
+  pop(){tone(600,.08,{v:.15,to:1200})},
+  tick(){noise(.04,{v:.35,type:'highpass',f:2500});tone(1800,.04,{type:'square',v:.05})},
+  shimmer(){[1568,1976,2349,2637,3136].forEach((f,i)=>tone(f,.4,{type:'sine',v:.07,at:i*.05}))},
+  creak(){tone(110,.8,{type:'sawtooth',v:.05,to:190});noise(.8,{v:.07,type:'bandpass',f:600,to:300,q:5})},
+  crack(){noise(.18,{v:.5,type:'highpass',f:3000});tone(900,.12,{type:'square',v:.05,to:200});noise(.35,{v:.2,type:'bandpass',f:5000,at:.08,q:3})},
+  chest(){tone(140,.25,{type:'triangle',v:.2,to:90});noise(.3,{v:.15,f:900})},
+  coin(){tone(988,.08,{type:'square',v:.07});tone(1319,.25,{type:'square',v:.07,at:.08})},
+  beat(n){tone(n?880:440,.15,{type:'triangle',v:.18})},
+  yes(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,{type:'triangle',v:.16,at:i*.08}))},
+  no(){tone(220,.25,{type:'square',v:.08,to:150})},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  cheer(){this.yes();for(let i=0;i<22;i++)noise(.05,{v:.12,type:'bandpass',f:1500+Math.random()*2000,at:.35+Math.random()*1.1})}
+ }})();
+const $=id=>document.getElementById(id);
+const stage=$('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`;window.__s=s}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let cur=0,unlocked=false;
+const nextB=$('next'),prevB=$('prev'),counter=$('counter');
+function go(i){if(i<0||i>=slides.length)return;if(i>0&&!unlocked)return;
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=cur===slides.length-1||!unlocked;nextB.classList.toggle('pulse',cur===0&&unlocked);
+  const t=slides[cur].querySelector('template.notes');$('notesBody').innerHTML=t?t.innerHTML:'';
+  if(cur===slides.length-1)closing();}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown'].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+$('bSound').onclick=e=>{e.currentTarget.textContent=SFX.toggle()?'🔊 الصوت':'🔇 صامت'};
+$('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+$('bNotes').onclick=()=>$('notes').classList.toggle('open');
+$('closeNotes').onclick=()=>$('notes').classList.remove('open');
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function draggable(el,targets,onDrop){
+  el.addEventListener('pointerdown',e=>{if(el.dataset.placed)return;e.preventDefault();
+    const sx=e.clientX,sy=e.clientY;el.setPointerCapture(e.pointerId);el.classList.add('dragging');SFX.pop();
+    const hitT=ev=>targets().find(t=>{const r=t.getBoundingClientRect();return ev.clientX>r.left&&ev.clientX<r.right&&ev.clientY>r.top&&ev.clientY<r.bottom});
+    const move=ev=>{const s=window.__s||1;el.style.transform=`translate(${(ev.clientX-sx)/s}px,${(ev.clientY-sy)/s}px) scale(1.06)`;const h=hitT(ev);targets().forEach(t=>t.classList.toggle('hot',t===h))};
+    const up=ev=>{el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);el.classList.remove('dragging');
+      const h=hitT(ev);targets().forEach(t=>t.classList.remove('hot'));
+      if(!onDrop(el,h)){el.style.transition='transform .35s';el.style.transform='';setTimeout(()=>el.style.transition='',360)}};
+    el.addEventListener('pointermove',move);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);});
+}
+function hinter(btn,box,steps){let k=0;btn.onclick=()=>{box.innerHTML=steps.slice(0,k+1).map((s,i)=>`${AR(i+1)}. ${s}`).join('<br>');box.classList.add('on');SFX.pop();k=Math.min(k+1,steps.length-1)};box.onclick=()=>box.classList.remove('on')}
+
+/* البيانات: t = نوع الجمع (w: ونَ، a: ات، k: تكسير) */
+const N=[
+ {s:'خنجرٌ',b:'خنجر',d:'خنجرانِ',p:'خناجرُ',t:'k',i:'i-khanjar'},
+ {s:'فنجانٌ',b:'فنجان',d:'فنجانانِ',p:'فناجينُ',t:'k',i:'i-cup'},
+ {s:'نخلةٌ',b:'نخلت',d:'نخلتانِ',p:'نخلاتٌ',t:'a',i:'i-palm'},
+ {s:'قلمٌ',b:'قلم',d:'قلمانِ',p:'أقلامٌ',t:'k',i:'i-pen'},
+ {s:'كتابٌ',b:'كتاب',d:'كتابانِ',p:'كتبٌ',t:'k',i:'i-book'},
+ {s:'بابٌ',b:'باب',d:'بابانِ',p:'أبوابٌ',t:'k',i:'i-door'},
+ {s:'مزارعٌ',b:'مزارع',d:'مزارعانِ',p:'مزارعونَ',t:'w',i:'i-farmer'},
+ {s:'معلّمةٌ',b:'معلّمت',d:'معلّمتانِ',p:'معلّماتٌ',t:'a',i:'i-teacher'},
+ {s:'سيّارةٌ',b:'سيّارت',d:'سيّارتانِ',p:'سيّاراتٌ',t:'a',i:'i-car'},
+ {s:'لاعبٌ',b:'لاعب',d:'لاعبانِ',p:'لاعبونَ',t:'w',i:'i-player'}];
+const ICO=(i,n)=>`<span class="ico">${Array.from({length:n},()=>`<svg><use href="#${i}"/></svg>`).join('')}</span>`;
+const KN={1:['مفرد','b1'],2:['مثنّى','b2'],3:['جمع','b3']};
+const TAG=k=>`<span class="tag ${KN[k][1]}">${KN[k][0]}</span>`;
+const form=(n,k)=>k===1?n.s:k===2?n.d:n.p;
+/* المثنّى ملوّن: الجذر + انِ */
+const dualHTML=n=>`${n.b}<span class="c2">انِ</span>`;
+
+/* ١ */
+$('go1').onclick=()=>{if(unlocked)return;const s=document.querySelector('.s1');SFX.shimmer();s.classList.add('lit');$('cmir').style.transform='scale(1.15) rotate(-4deg)';
+  setTimeout(()=>{SFX.magic();s.classList.add('open');setTimeout(()=>{unlocked=true;go(0)},700)},900)};
+
+/* ٢ صندوق الكنز */
+(()=>{const ST=[[0,1],[0,2],[0,4],[1,1],[1,2],[1,5]];let k=-1;const items=$('items2'),rev=$('rev2'),ask=$('ask2'),nm=$('name2'),b=$('b2');
+  $('open2').onclick=()=>{k=(k+1)%ST.length;const [ni,c]=ST[k];const n=N[ni];$('chest').classList.add('open');SFX.chest();
+    items.innerHTML='';rev.innerHTML='';nm.style.display='none';ask.textContent='';
+    for(let i=0;i<c;i++)setTimeout(()=>{items.insertAdjacentHTML('beforeend',`<svg><use href="#${n.i}"/></svg>`);SFX.coin()},300+i*260);
+    setTimeout(()=>{ask.textContent='✋ كم كنزًا؟ ارفعوا أصابعَكم!';nm.style.display='';$('chest').classList.remove('open')},400+c*260);
+    $('step2').textContent=AR(k+1)+' / '+AR(ST.length);
+    nm.onclick=()=>{const kk=c===1?1:c===2?2:3;rev.innerHTML=`<span class="w ${'c'+kk}">${kk===2?dualHTML(n):form(n,kk)}</span>${TAG(kk)}`;nm.style.display='none';SFX.yes();
+      b.textContent=kk===1?'واحدٌ فقط… هذا مفرد.':kk===2?'اثنان… لاحظوا النّهايةَ الزّرقاء!':'ثلاثةٌ فأكثر… تغيّرَتِ الكلمةُ كلُّها!'}};})();
+
+/* ٣ عدّاد السوق */
+(()=>{let ni=0,c=1;const picks=$('picks3'),stall=$('stall3'),w=$('w3'),t=$('t3'),b=$('b3');let last=1;
+  [0,2,6,3].forEach((idx,j)=>{const bt=document.createElement('button');bt.innerHTML=`<svg><use href="#${N[idx].i}"/></svg>`;if(!j)bt.classList.add('on');
+    bt.onclick=()=>{ni=idx;[...picks.children].forEach(x=>x.classList.toggle('on',x===bt));c=1;draw(true)};picks.appendChild(bt)});
+  function draw(reset){const n=N[ni];const k=c===1?1:c===2?2:3;
+    if(reset){stall.innerHTML=''}
+    while(stall.children.length<c)stall.insertAdjacentHTML('beforeend',`<svg><use href="#${n.i}"/></svg>`);
+    while(stall.children.length>c)stall.lastElementChild.remove();
+    $('cnt3').textContent=AR(c);w.className='w c'+k;w.innerHTML=k===2?dualHTML(n):form(n,k);t.className='tag '+KN[k][1];t.textContent=KN[k][0];
+    if(k!==last&&!reset){SFX.magic();b.textContent=k===2?'تغيّرَتِ الكلمةُ عندَ الاثنين!':k===3?'وتغيّرَتْ مرّةً أخرى عندَ الثّلاثة!':'عُدْنا إلى الواحد.'}
+    else if(!reset&&k===3&&c>3){b.textContent='لاحظوا: بعدَ الثّلاثةِ لم تعُدِ الكلمةُ تتغيّر!'}
+    last=k}
+  $('plus3').onclick=()=>{if(c<9){c++;SFX.coin();draw()}};$('minus3').onclick=()=>{if(c>1){c--;SFX.pop();draw()}};draw(true);})();
+
+/* ٤ مرآة الاثنين */
+(()=>{const tray=$('tray4'),frame=$('frame4'),pair=$('pair4'),wd=$('wd4'),msg=$('msg4'),b=$('b4');const L=[3,1,2,7];let done=0;
+  L.forEach(idx=>{const n=N[idx];const it=document.createElement('div');it.className='it';it.innerHTML=`<svg><use href="#${n.i}"/></svg><span>${n.s}</span>`;tray.appendChild(it);
+    draggable(it,()=>[frame],(el,hit)=>{if(!hit)return false;el.dataset.placed=1;el.classList.add('used');el.style.transform='';done++;show(n);return true})});
+  function show(n){SFX.shimmer();pair.innerHTML=`<svg><use href="#${n.i}"/></svg><svg class="ref"><use href="#${n.i}"/></svg>`;
+    const isT=n.s.includes('ة');wd.innerHTML=n.s;msg.textContent='';$('sc4a').classList.add('on');
+    setTimeout(()=>{if(isT){wd.innerHTML=n.s.replace('ةٌ','<span class="c2">ة</span>');msg.textContent='انتبهوا للتّاءِ المربوطة…';
+        setTimeout(()=>{wd.innerHTML=n.b.slice(0,-1)+'<span class="c2">ت</span>';SFX.tick();msg.textContent='انفتحَتِ التّاء: ة ← ت';
+          setTimeout(()=>{wd.innerHTML=dualHTML(n);SFX.yes();$('sc4b').classList.add('on');fin()},900)},900)}
+      else{wd.innerHTML=dualHTML(n);SFX.yes();msg.textContent=n.s+' + انِ';fin()}},800);
+    b.textContent=`${n.s}… في المرآةِ صارَ اثنين: ${n.d}`}
+  function fin(){if(done===L.length){$('sc4c').classList.add('on');b.textContent='أحسنتُم! وقد يلبسُ المثنّى «ينِ» في بعضِ الجمل: رأيتُ قلمَينِ.'}}})();
+
+/* ٥ أبواب الجماعة */
+(()=>{const D=[[6,'sw','ونَ','جمعٌ يزيدُ «ونَ»','جمعُ المذكّرِ السّالم'],[7,'sa','ات','جمعٌ يزيدُ «ات»','جمعُ المؤنّثِ السّالم'],[3,'sk','','جمعٌ يتكسّرُ فيه المفرد','جمعُ التّكسير']];const box=$('doors5'),b=$('b5');
+  D.forEach(([idx,cl,suf,big,small],j)=>{const n=N[idx];const d=document.createElement('div');d.className='dr';
+    const plural=suf?n.p.replace(suf==='ات'?'اتٌ':'ونَ',`<span class="${cl}">${suf==='ات'?'اتٌ':'ونَ'}</span>`):`<span class="${cl}">${n.p}</span>`;
+    d.innerHTML=`<div class="dbox"><div class="inside"><span class="from">${n.s}</span>${ICO(n.i,1)}<span class="arr" style="font-size:30px">⬇</span>${ICO(n.i,3)}<span class="w pw">${suf?plural:`<span class="crack">${n.s}</span>`}</span></div><div class="leaf"><svg viewBox="0 0 440 340" preserveAspectRatio="none"><use href="#leaf"/></svg></div></div><div class="lbl ${cl}">${big}<small>${small}</small></div>`;
+    d.querySelector('.leaf').onclick=()=>{if(d.classList.contains('open'))return;d.classList.add('open');SFX.creak();
+      if(!suf){const pw=d.querySelector('.pw');setTimeout(()=>{const c=pw.querySelector('.crack');c.classList.add('go');SFX.crack();setTimeout(()=>{pw.innerHTML=plural;pw.style.animation='pop .5s';SFX.magic()},900)},900)}
+      b.textContent=suf?`${n.s} ← ${n.p}: بقيَتِ الكلمةُ كما هي، وزدْنا «${suf}» في آخرِها.`:`${n.s} ← ${n.p}: تكسّرَ شكلُ المفردِ وتغيّر!`};
+    box.appendChild(d)});})();
+
+/* ٦ سلال السوق */
+(()=>{const box=$('cards6'),sc=$('sc6'),b=$('b6');let lvl=1,ok=0,tot=6;
+  function deal(){box.innerHTML='';ok=0;sc.textContent='٠ / ٦';const picks=shuffle(N).slice(0,6);const ks=shuffle([1,1,2,2,3,3]);
+    picks.forEach((n,j)=>{const k=ks[j];const f=form(n,k);const c=document.createElement('div');c.className='c6';c.dataset.k=k;
+      c.innerHTML=lvl===1?`${ICO(n.i,k===3?3:k)}<span class="w">${f}</span>`:lvl===2?`<span class="w">${f}</span>`:`<span class="sentx">في القلعةِ <u>${f}</u></span>`;
+      box.appendChild(c);
+      draggable(c,()=>[...document.querySelectorAll('.s6 .bin')],(el,hit)=>{if(!hit)return false;
+        if(hit.dataset.k===el.dataset.k){el.dataset.placed=1;el.classList.add('done');ok++;sc.textContent=AR(ok)+' / ٦';SFX.yes();
+          b.textContent=['','مفرد: واحدٌ فقط ✔','مثنّى: اثنان، وفي آخرِه انِ ✔','جمع: ثلاثةٌ فأكثر ✔'][+el.dataset.k];
+          if(ok===tot){SFX.cheer();b.textContent=lvl<3?'رائع! جرّبِ المستوى الأعلى ⭐':'أنتَ بطلُ السّلال! 🏆'}return true}
+        SFX.no();shake(hit);b.textContent='ليسَتْ هذه سلّتَها… عُدَّ مرّةً أخرى.';return false})})}
+  document.querySelectorAll('#lv6 button').forEach(bt=>bt.onclick=()=>{lvl=+bt.dataset.l;document.querySelectorAll('#lv6 button').forEach(x=>x.classList.toggle('on',x===bt));deal()});
+  hinter($('hint6'),$('hx6'),['كم شيئًا تدلُّ عليه الكلمة؟','ابحثْ في آخرِها: هل فيها «انِ» أو «ينِ»؟ ← مثنّى','«ونَ» أو «ات» أو تغيّرَ شكلُها ← جمع']);
+  deal();})();
+
+/* ٧ ورشة صانع المرايا */
+(()=>{let q=-1;const order=shuffle([0,2,6,3,7,4,8,9,1,5]);const slot=$('slot7'),tiles=$('tiles7'),opts=$('opts7'),res=$('res7'),b=$('b7');let dualDone=false;
+  function next(){q=(q+1)%order.length;const n=N[order[q]];dualDone=false;$('img7').innerHTML=`<use href="#${n.i}"/>`;$('img7').setAttribute('viewBox','0 0 100 100');$('s7').textContent=n.s;
+    slot.innerHTML=`<span style="opacity:.55">${n.b}</span><span style="color:#B9C6DA">…</span>`;res.textContent='';tiles.innerHTML='';opts.innerHTML='';
+    ['انِ','اتٌ','ونَ'].forEach(s=>{const t=document.createElement('div');t.className='tile';t.textContent=s;tiles.appendChild(t);
+      draggable(t,()=>[slot],(el,hit)=>{if(!hit)return false;
+        if(s==='انِ'){el.dataset.placed=1;el.style.visibility='hidden';slot.innerHTML=dualHTML(n);SFX.yes();dualDone=true;res.style.color='var(--ok)';
+          res.textContent=n.s.includes('ة')?'✔ مثنّى، وانفتحَتِ التّاءُ المربوطة!':'✔ مثنّى: '+n.d;showPlural(n);return true}
+        SFX.no();shake(slot);res.style.color='var(--bad)';res.textContent='هذه النّهايةُ للجمع… المثنّى اثنانِ فقط!';return false})});}
+  function showPlural(n){const st=n.b;const cands=[n.p];
+    if(n.t==='k'){cands.push(st+'ونَ',n.d)}else if(n.t==='a'){cands.push(st+'ونَ',n.d)}else{cands.push(st+'اتٌ',n.d)}
+    shuffle(cands).forEach(c=>{const bt=document.createElement('button');bt.textContent=c;bt.onclick=()=>{if(c===n.p){bt.classList.add('good');SFX.cheer();res.style.color='var(--ok)';
+        res.textContent=n.t==='k'?'✔ جمعٌ تكسّرَ فيه المفرد!':n.t==='a'?'✔ جمعٌ زادَ «ات»':'✔ جمعٌ زادَ «ونَ»';b.textContent='أتقنْتَ الصّنعة! اضغطْ «كلمةٌ أخرى»';}
+      else{SFX.no();shake(bt);res.style.color='var(--bad)';res.textContent=c===n.d?'هذا مثنّى (اثنان)… نريدُ ثلاثةً فأكثر!':'ليسَ هذا جمعَها… جرّبْ غيرَه.'}};opts.appendChild(bt)})}
+  $('nx7').onclick=()=>{SFX.pop();next()};
+  hinter($('hint7'),$('hx7'),['المثنّى = المفرد + انِ','إذا كانَ في آخرِ المفردِ «ة» صارَتْ «ت» قبلَ «انِ»','للجمع: هل يزيدُ «ونَ» أو «ات»؟ أم يتغيّرُ شكلُه؟ اقرأِ الخياراتِ بصوتٍ عالٍ']);
+  next();})();
+
+/* ٨ قفوا بالعدد */
+(()=>{let busy=false;const w=$('w8'),cd=$('cd8'),ans=$('ans8'),b=$('b8');let prev=-1;
+  $('go8').onclick=()=>{if(busy)return;busy=true;ans.innerHTML='';let n,k;do{n=N[Math.random()*N.length|0];k=1+(Math.random()*3|0)}while(n.s+k===prev);prev=n.s+k;
+    w.className='w c'+k;w.innerHTML=k===2?dualHTML(n):form(n,k);w.style.animation='none';void w.offsetWidth;w.style.animation='pop .4s';
+    let c=3;cd.textContent=AR(c);SFX.beat(0);b.textContent='اقرؤوا الكلمةَ معًا… ولا تقفوا بعد!';
+    const iv=setInterval(()=>{c--;if(c>0){cd.textContent=AR(c);SFX.beat(0)}else{clearInterval(iv);cd.textContent='🧍';SFX.beat(1);ans.innerHTML=TAG(k);
+      b.textContent=k===1?'مفرد: يقفُ طالبٌ واحد!':k===2?'مثنّى: يقفُ اثنان!':'جمع: قِفوا جميعًا! 🎉';if(k===3)SFX.cheer();busy=false}},900)};})();
+
+/* ٩ المرآة المشروخة */
+(()=>{const g=$('grid9'),b=$('b9');let found=0;
+  function deal(){g.innerHTML='';found=0;$('f9').textContent='٠ / ٣';const picks=shuffle(N).slice(0,6);const bad=shuffle([0,1,2,3,4,5]).slice(0,3);
+    picks.forEach((n,j)=>{const k=1+(j%3);const wrong=bad.includes(j);let shown=k;if(wrong)shown=[1,2,3].filter(x=>x!==k)[Math.random()*2|0];
+      const t=document.createElement('div');t.className='t9';t.innerHTML=`${ICO(n.i,k===3?3:k)}<span class="w">${form(n,shown)}</span>`;g.appendChild(t);
+      t.onclick=()=>{if(t.dataset.done)return;
+        if(!wrong){t.dataset.done=1;t.classList.add('okt');SFX.pop();b.textContent='هذه سليمة ✔ الكلمةُ تناسبُ العدد.';return}
+        t.dataset.done=1;t.classList.add('bad');SFX.crack();b.textContent='وجدْتَ شرخًا! اخترِ الكلمةَ الّتي تناسبُ عددَ الصّور.';
+        const fx=document.createElement('div');fx.className='fx';shuffle([k,shown]).forEach(o=>{const bt=document.createElement('button');bt.textContent=form(n,o);
+          bt.onclick=e=>{e.stopPropagation();if(o===k){t.classList.remove('bad');t.classList.add('fixed');t.querySelector('.w').textContent=form(n,k);fx.remove();SFX.yes();found++;$('f9').textContent=AR(found)+' / ٣';
+              if(found===3){SFX.cheer();b.textContent='أصلحْتُمُ المرآةَ كلَّها! ✨';$('st9').innerHTML='<button class="btn gd" id="re9">🔄 مرآةٌ جديدة</button>';$('re9').onclick=deal}}
+            else{SFX.no();shake(bt)}};fx.appendChild(bt)});t.appendChild(fx)}});
+    $('st9').textContent='انظرْ إلى عددِ الصّور، ثمّ اقرأِ الكلمة: هل تناسبُها؟'}
+  deal();})();
+
+/* ١٠ */
+const cv=$('confetti'),cx=cv.getContext('2d');
+function closing(){const s=slides[cur];s.classList.remove('go');void s.offsetWidth;s.classList.add('go');setTimeout(()=>{SFX.cheer();confetti()},400)}
+function confetti(){const cols=['#2EAD65','#2F7BE0','#8E5BD8','#E9B949','#fff'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+go(0);
+</script>
+<script src="kawn-data.js" defer></script>
+</body>
+</html>
