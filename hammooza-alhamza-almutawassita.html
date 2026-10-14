@@ -99,7 +99,8 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 /* مخلوقات الحركات */
 .vc{display:flex;flex-direction:column;align-items:center;gap:0;border:0;background:transparent;padding:0;position:relative}
 .vc svg{width:110px;height:110px}
-.vc .hk{font-family:var(--word);font-size:64px;font-weight:700;line-height:.9;height:56px;color:inherit}
+.vc .hk{font-family:var(--word);font-size:64px;font-weight:700;line-height:.9;height:56px;color:inherit;display:flex;align-items:flex-end;justify-content:center}
+.mks,.vc .hk svg.mks,.fighter .vc .hk svg.mks,.team .vc .hk svg.mks,.bench .vc .hk svg.mks,.sc4 .vc .hk svg.mks,.team .vc .hk .mks{height:.62em;width:.6em;display:block}
 .vc b{font-size:24px;font-weight:800;color:inherit}
 
 #nav{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
@@ -185,9 +186,9 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 .rp{position:absolute;top:160px;right:180px;left:180px;height:14px;border-radius:7px;background:repeating-linear-gradient(60deg,var(--rope) 0 10px,var(--rope2) 10px 14px)}
 .flag{position:absolute;top:130px;left:50%;margin-left:-4px;width:8px;height:60px;background:var(--ink)}
 .flag::after{content:"";position:absolute;left:8px;top:2px;border-left:36px solid var(--ham);border-top:14px solid transparent;border-bottom:14px solid transparent}
-.team{position:absolute;top:60px;width:190px;display:flex;flex-direction:column;align-items:center;transition:transform .6s}
+.team{position:absolute;top:56px;width:190px;display:flex;flex-direction:column;align-items:center;transition:transform .6s}
 .team.R{right:20px;transform:rotate(-8deg)}.team.L{left:20px;transform:rotate(8deg)}
-.team .vc svg{width:130px;height:130px}.team .vc .hk{font-size:72px;height:60px}
+.team .vc svg{width:130px;height:130px}.team .vc .hk{font-size:66px;height:54px;margin-bottom:-30px;position:relative;z-index:1}
 .team.win{animation:hop .5s 2}
 .team.lose{transform:translateY(80px) rotate(70deg)!important;opacity:.5}
 .team.L.lose{transform:translateY(80px) rotate(-70deg)!important}
@@ -572,10 +573,14 @@ function stars(box){for(let i=0;i<14;i++){const s=document.createElement('i');s.
 /* ===== بيانات ===== */
 const V={k:['ِ','الكسرة','var(--kas)',3,'ئ','الياء','النّبرة'],d:['ُ','الضّمّة','var(--dam)',2,'ؤ','الواو','الواو'],f:['َ','الفتحة','var(--fat)',1,'أ','الألف','الألف'],s:['ْ','السّكون','var(--suk)',0,'','','']};
 const mk=k=>'ـ'+V[k][0];
+/* علامة الحركة مرسومة (بدل الكشيدة الّتي تظهر مستطيلًا) */
+const BL=y=>`<path d="M2 ${y} H42" stroke-width="4" opacity=".35"/>`;
+const MKP={f:'<path d="M11 22 L33 10"/>'+BL(34),k:BL(10)+'<path d="M11 36 L33 24"/>',d:'<circle cx="24" cy="12" r="6"/><path d="M30 12 Q31 27 14 31"/>'+BL(42),s:'<circle cx="22" cy="18" r="9"/>'+BL(40)};
+const mkS=k=>`<svg class="mks" viewBox="0 0 44 48" aria-label="${V[k][1]}"><g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">${MKP[k]}</g></svg>`;
 const CH={'ئ':['ٮ','var(--kas)','النّبرة'],'ؤ':['و','var(--dam)','الواو'],'أ':['ا','var(--fat)','الألف'],'ء':['','var(--line)','السّطر']};
 function chairHTML(c){const [b,col,lab]=CH[c];return `<div class="chair${c==='ء'?' mat':''}" data-c="${c}" style="--c:${col}"><div class="back">${b}</div><div class="seat"></div><div class="legs"></div><small>على ${lab}</small></div>`}
 document.querySelectorAll('[data-chairs]').forEach(el=>{const t=el.dataset.chairs;const L=t==='3'?['ئ','ؤ','أ']:t==='alifmat'?['أ','ء']:['ئ','ؤ','أ','ء'];el.innerHTML=L.map(chairHTML).join('')});
-function vcHTML(k){return `<div class="vc" style="color:${V[k][2]}"><span class="hk">${mk(k)}</span><svg><use href="#vcs"/></svg><b>${V[k][1]}</b></div>`}
+function vcHTML(k){return `<div class="vc" style="color:${V[k][2]}"><span class="hk">${mkS(k)}</span><svg><use href="#vcs"/></svg><b>${V[k][1]}</b></div>`}
 function tiles(el,T,labels=true){el.innerHTML=T.map(([t,r,v])=>`<div><div class="tile ${r==='b'?'bf':r==='h'?'hz0':''}">${t}</div>${labels&&v?`<span class="vw" style="color:${V[v][2]}">${V[v][1]}</span>`:''}</div>`).join('')}
 function clearSit(box){box.querySelectorAll('.sitter').forEach(s=>s.remove())}
 function sitOn(chair){clearSit(chair.parentElement);const s=document.createElement('div');s.className='sitter';s.innerHTML='<svg><use href="#hzs"/></svg>';chair.appendChild(s);SFX.sit()}
@@ -617,8 +622,8 @@ document.getElementById('go1').onclick=()=>{if(unlocked)return;SFX.magic();docum
 /* ٣ النزال */
 (()=>{const bench=document.getElementById('bench3'),fR=document.getElementById('fR'),fL=document.getElementById('fL'),arms=document.getElementById('arms3'),dl=document.getElementById('dl3'),pw=document.getElementById('pw3'),b=document.getElementById('b3');
   let pick=[];const seen=new Set();
-  ['k','d','f','s'].forEach(k=>{pw.insertAdjacentHTML('beforeend',`<div class="prow" data-k="${k}"><span class="mk" style="color:${V[k][2]}">${mk(k)}</span><div class="pb"><i style="background:${V[k][2]}"></i></div><span class="lv">؟</span></div>`);
-    const bt=document.createElement('button');bt.className='vc';bt.style.color=V[k][2];bt.innerHTML=`<span class="hk">${mk(k)}</span><svg><use href="#vcs"/></svg><b>${V[k][1]}</b>`;
+  ['k','d','f','s'].forEach(k=>{pw.insertAdjacentHTML('beforeend',`<div class="prow" data-k="${k}"><span class="mk" style="color:${V[k][2]}">${mkS(k)}</span><div class="pb"><i style="background:${V[k][2]}"></i></div><span class="lv">؟</span></div>`);
+    const bt=document.createElement('button');bt.className='vc';bt.style.color=V[k][2];bt.innerHTML=`<span class="hk">${mkS(k)}</span><svg><use href="#vcs"/></svg><b>${V[k][1]}</b>`;
     bt.onclick=()=>{if(pick.includes(k))return;if(pick.length===2){pick=[];bench.querySelectorAll('.vc').forEach(x=>x.classList.remove('used'))}pick.push(k);bt.classList.add('used');SFX.pop();
       const f=pick.length===1?fR:fL;f.className='fighter '+(pick.length===1?'R':'L');f.innerHTML=vcHTML(k);arms.style.transform='';dl.textContent=pick.length===2?`${V[pick[0]][1]} ضدّ ${V[pick[1]][1]}`:'اختاروا بطلًا ثانيًا'};bench.appendChild(bt)});
   document.getElementById('dgo').onclick=()=>{if(pick.length<2){SFX.no();dl.textContent='اختاروا بطلين أوّلًا!';return}
@@ -641,7 +646,7 @@ document.getElementById('go1').onclick=()=>{if(unlocked)return;SFX.magic();docum
 (()=>{const EX={'f,f':'سَأَلَ','f,s':'رَأْس','f,d':'رَؤُوف','f,k':'سَئِمَ','d,f':'سُؤَال','d,s':'مُؤْمِن','d,d':'شُؤُون','d,k':'سُئِلَ','k,f':'فِئَة','k,s':'بِئْر','k,d':'مُنْشِئُون','k,k':'قارِئِين','s,f':'يَسْأَلُ','s,d':'مَسْؤُول','s,k':'أَسْئِلَة'};
   let r='k',l='s';const pR=document.getElementById('pR'),pL=document.getElementById('pL'),tR=document.getElementById('tR'),tL=document.getElementById('tL'),pg=document.getElementById('pg5'),res=document.getElementById('res5'),b=document.getElementById('b5');
   function show(){tR.className='team R';tL.className='team L';tR.innerHTML=vcHTML(r);tL.innerHTML=vcHTML(l);pg.style.transform='';res.classList.remove('on')}
-  function mkPick(box,side){['k','d','f','s'].forEach(k=>{const bt=document.createElement('button');bt.textContent=mk(k);bt.style.color=V[k][2];bt.title=V[k][1];if((side==='r'?r:l)===k)bt.classList.add('sel');
+  function mkPick(box,side){['k','d','f','s'].forEach(k=>{const bt=document.createElement('button');bt.innerHTML=mkS(k);bt.style.color=V[k][2];bt.title=V[k][1];if((side==='r'?r:l)===k)bt.classList.add('sel');
     bt.onclick=()=>{[...box.children].forEach(x=>x.classList.toggle('sel',x===bt));if(side==='r')r=k;else l=k;show();SFX.pop()};box.appendChild(bt)})}
   mkPick(pR,'r');mkPick(pL,'l');show();
   document.getElementById('pull').onclick=()=>{if(r==='s'&&l==='s'){SFX.no();b.textContent='😴😴 ساكنانِ متتاليانِ لا يلتقيانِ هنا!';return}
