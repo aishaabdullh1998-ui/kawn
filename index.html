@@ -442,6 +442,16 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
   <path d="M66 104 q8 -5 16 0 t16 0" stroke="#fff" stroke-width="3" fill="none" opacity=".8"/>
   <text x="85" y="72" text-anchor="middle" font-size="46" font-weight="800" fill="#E2434B" font-family="serif">ن</text>
 </symbol>
+<symbol id="s-tbox" viewBox="0 0 170 130">
+  <ellipse cx="85" cy="124" rx="64" ry="6" fill="#000" opacity=".15"/>
+  <path d="M60 40 V26 a8 8 0 0 1 8-8 h34 a8 8 0 0 1 8 8 V40" fill="none" stroke="#4B6584" stroke-width="8"/>
+  <rect x="18" y="38" width="134" height="80" rx="16" fill="#2F7BE0" stroke="#1F5BAE" stroke-width="4"/>
+  <rect x="18" y="62" width="134" height="12" fill="#1F5BAE"/>
+  <rect x="74" y="56" width="22" height="24" rx="5" fill="#E9B949"/>
+  <circle cx="62" cy="96" r="6" fill="#2B2A3A"/><circle cx="108" cy="96" r="6" fill="#2B2A3A"/><circle cx="64" cy="94" r="2" fill="#fff"/><circle cx="110" cy="94" r="2" fill="#fff"/>
+  <path d="M76 104 q9 8 18 0" stroke="#2B2A3A" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <text x="138" y="30" font-size="28">📖</text>
+</symbol>
 <symbol id="s-hatch" viewBox="0 0 100 80">
   <ellipse cx="54" cy="74" rx="34" ry="5" fill="#000" opacity=".18"/>
   <path d="M30 60 l-12 10 M78 60 l12 10 M34 40 l-16 -8 M76 40 l14 -10" stroke="#5E8F6B" stroke-width="9" stroke-linecap="round"/>
@@ -456,7 +466,7 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
 <header class="top" id="top">
   <a class="mini" href="#home" aria-label="الرئيسية: كون"><svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="كون"><title>كون</title><defs><clipPath id="upm"><rect x="0" y="0" width="400" height="212"/></clipPath><linearGradient id="sunm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4C24D"/><stop offset="1" stop-color="#E98A6A"/></linearGradient></defs><g clip-path="url(#upm)"><circle cx="210" cy="212" r="120" fill="url(#sunm)" opacity=".28"/><circle cx="210" cy="212" r="80" fill="url(#sunm)" opacity=".35"/></g><g fill="none" stroke="#1F2A40" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M338 44 L278 84 L278 168 Q278 192 254 192 L214 192"/><path d="M214 192 C214 158 174 156 176 180 C178 198 204 198 202 214 C198 238 168 250 140 248"/><path d="M112 146 C114 222 30 226 24 152"/></g><path d="M10 222 Q200 206 390 222" stroke="#8FAF7A" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="68" cy="100" r="15" fill="#E9B949"/></svg></a>
   <nav><a href="#grammar" data-sec="grammar"><span aria-hidden="true">🌿</span><span class="lbl">الأنماط اللّغويّة</span></a><a href="#spelling" data-sec="spelling"><span aria-hidden="true">✏️</span><span class="lbl">الإملاء</span></a><a href="#reading" data-sec="reading"><span aria-hidden="true">📖</span><span class="lbl">القراءة</span></a></nav>
-  <div class="prog" title="العوالم الّتي اكتشفتَها"><span class="st">⭐</span><span id="progT">٠ / ١٨</span><div class="pbar"><i id="progB"></i></div></div>
+  <div class="prog" title="العوالم الّتي اكتشفتَها"><span class="st">⭐</span><span id="progT">٠ / ١٩</span><div class="pbar"><i id="progB"></i></div></div>
 </header>
 
 <!-- الواجهة -->
@@ -509,7 +519,7 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
 
 <!-- مجرة القراءة -->
 <section class="galaxy r" id="reading">
-  <div class="ghead"><div><span class="k">المجرّةُ الثّالثة</span><h2>مجرّةُ القراءة</h2><p>نماذجُ من حصصِ القراءةِ والفهم: عوالمُ يعيشُ فيها الطّالبُ النّصَّ ويفكّرُ فيه.</p></div><span class="hint">عالَمٌ واحد</span></div>
+  <div class="ghead"><div><span class="k">المجرّةُ الثّالثة</span><h2>مجرّةُ القراءة</h2><p>نماذجُ من حصصِ القراءةِ والفهم: عوالمُ يعيشُ فيها الطّالبُ النّصَّ ويفكّرُ فيه.</p></div><span class="hint">عالَمان</span></div>
   <div class="rail" id="railR"></div>
 </section>
 
@@ -563,6 +573,7 @@ const W=[
  {g:'s',sym:'s-hz',vb:'20 -330 300 420',world:'عالَمُ همّوزة',title:'الهمزةُ المتوسّطة',desc:'نزالُ الأذرع وشدُّ الحبلِ والكراسي الموسيقيّة: الحركةُ الأقوى تختارُ كرسيَّ الهمزة.',sky:['#FFE1E8','#FFF6EC'],hill:'#F2D08A',url:'hammooza-alhamza-almutawassita.html'},
  {g:'s',sym:'s-bus',vb:'320 190',world:'عالَمُ سعيدة',title:'علاماتُ التّرقيم',desc:'حافلةُ المدرسةِ في مدينةِ الكلام: سبعُ إشاراتٍ تنظّمُ القراءةَ وتغيّرُ المعنى والنّبرة.',sky:['#CDE9FA','#EEF8FF'],hill:'#2F343D',url:'saeeda-alamat-altarqeem.html'},
  {g:'r',sym:'s-house',vb:'300 220',world:'درسُ «خبز ولبن»',title:'عالَمُ سالمة: الأدواتُ كاملة',desc:'أربعُ أدواتٍ في صفحةٍ واحدة: اقرأ مع سالمة بثلاثةِ مستويات، وبيتُ سالمة، وكنوزُ سالمة مع السّاعةِ الرّمليّة، ومطبخُ سالمة.',sky:['#DDF2B8','#F7F1E8'],hill:'#57B1A8',meta:['قراءة وتفكير وتجربة','الصّفّ الرّابع'],url:'aalam-salima.html'},
+ {g:'r',sym:'s-tbox',vb:'170 130',world:'صندوقُ أدواتِ القراءة',title:'ثماني أدواتٍ لأيِّ نصّ',desc:'يضعُ المعلّمُ نصَّ الدّرس مرّةً واحدة، فتعملُ به الأدوات: مرشدُ الطّلاقة، وعجلةُ الأسئلة، وخريطةُ القصّة، والظّرفُ المختوم، وغيرُها.',sky:['#DCEBFB','#F4FAFD'],hill:'#4B6584',meta:['٨ أدواتٍ تفاعليّة','الحلقةُ الأولى'],url:'adawat-alqiraa.html'},
  {g:'g',sym:'s-train',vb:'120 110',world:'عالَمُ قطارِ الجملة',title:'الجملةُ الفعليّة',desc:'القاطرةُ فعل، وعربةُ الرّكّابِ فاعلٌ مرفوع، وعربةُ الشّحنِ مفعولٌ به منصوب… ومحوّلةُ سكّةٍ تفرّقُها عن الاسميّة.',sky:['#BFE3F5','#FCEBD0'],hill:'#C98F5E',meta:['١١ شريحة تفاعليّة','الصّفّ الرّابع'],url:'qitar-aljumla.html'},
  {g:'g',sym:'s-remote',vb:'70 130',world:'عالَمُ جهازِ التّحكّم',title:'أنواعُ الأفعال',desc:'أزرارُ الرّجوعِ والتّشغيلِ ومكبّرِ الصّوت: الماضي والمضارعُ والأمر، مع أسرارِ كشفِ كلٍّ منها.',sky:['#F4E3C8','#FFF6E6'],hill:'#B98552',meta:['١١ شريحة تفاعليّة','الصّفّ الرّابع'],url:'jihaz-altahakkum.html'},
  {g:'g',sym:'s-robo',vb:'160 220',world:'عالَمُ روبو',title:'الأمرُ والنّهي',desc:'روبوتٌ يستيقظُ بتصفيقِ الصّفّ، ويُبرمَجُ بأفعالِ الأمر، ويتوقّفُ عندَ كلِّ نهي.',sky:['#E9EEFA','#F7F9FE'],hill:'#8395B3',meta:['١٠ شرائح تفاعليّة','الصّفّ الرّابع'],url:'robo-alamr-walnahy.html'},
