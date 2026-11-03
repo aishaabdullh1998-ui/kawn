@@ -818,11 +818,14 @@ const _buf={};let _src=null;
 const onSlide=sel=>slides[cur]===Q(sel);
 const audOK=k=>{if(/^w/.test(k))return true;try{return onSlide('.'+k.split('_')[0])}catch(e){return true}};
 function playAud(k){if(!AUD[k])return false;stopAud();if(!audOK(k))return true;(async()=>{try{const c=SFX.C();if(c.state==='suspended')await c.resume();let b=_buf[k];
-  if(!b){const bin=atob(AUD[k].split(',')[1]);const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);b=_buf[k]=await c.decodeAudioData(u.buffer)}
-  stopAud();if(!audOK(k))return;_src=c.createBufferSource();_src.buffer=b;_src.connect(c.destination);_src.start()}catch(e){try{_au=new Audio(AUD[k]);_au.play().catch(()=>{})}catch(_){}}})();return true}
+  if(!b){const bin=atob(AUD[k].split(',')[1]);const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);b=_buf[k]=await new Promise((res,rej)=>{const p=c.decodeAudioData(u.buffer,res,rej);if(p&&p.then)p.then(res,rej)})}
+  stopAud();if(!audOK(k))return;if(c.state!=='running')throw 0;_src=c.createBufferSource();_src.buffer=b;_src.connect(c.destination);_src.start()}catch(e){try{_au=new Audio(AUD[k]);_au.play().catch(()=>{})}catch(_){}}})();return true}
 function stopAud(){try{if(_src){_src.stop();_src=null}}catch(e){}try{if(_au){_au.pause();_au=null}}catch(e){}}
 {const _g=go;go=function(){stopAud();return _g.apply(this,arguments)}}
-document.addEventListener('pointerdown',()=>{try{const c=SFX.C();if(c.state==='suspended')c.resume()}catch(e){}},{capture:true});
+/* فتحُ الصّوت في الهاتف: يلزمُ لمسٌ كامل (رفعُ الإصبع) لتشغيل الصّوت، ونطلبُ تشغيلَه ولو كان الهاتفُ صامتًا */
+function _unlockAud(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback'}catch(e){}
+  try{const c=SFX.C();if(!c)return;if(c.state!=='running')c.resume();if(!_unlockAud.done){const b=c.createBuffer(1,1,22050),s=c.createBufferSource();s.buffer=b;s.connect(c.destination);s.start(0);_unlockAud.done=true}}catch(e){}}
+['pointerdown','pointerup','touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,_unlockAud,{capture:true,passive:true}));
 
 QA('.slide').forEach(s=>s.insertAdjacentHTML('afterbegin','<svg class="bg" viewBox="0 0 1600 900"><use href="#greenS"/></svg>'));
 SFX.shimmer=()=>{[660,880,990,1320].forEach((f,i)=>tone(f,.3,{type:'sine',v:.07,at:i*.07}))};
