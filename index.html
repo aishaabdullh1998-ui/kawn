@@ -203,6 +203,10 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
   .buddy button{width:66px;height:66px}
 }
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.world{opacity:1;transform:none}}
+
+/* ملاءمة الهاتف */
+.a-grid>*{min-width:0}.form input,.form textarea,.form button{max-width:100%;box-sizing:border-box}
+@media (max-width:760px){html,body{overflow-x:hidden}.panel{max-width:calc(100vw - 28px);box-sizing:border-box}.board .stage,.board .slide{max-width:100%}.panel h1,.panel p{overflow-wrap:anywhere}}
 </style>
 <script src="kawn-data.js"></script>
 </head>

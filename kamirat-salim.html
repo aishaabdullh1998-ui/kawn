@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" data-theme="light">
 <head>
+<script>/*kawn-rot*/(function(){
+/* عرضٌ أفقيٌّ في الهاتف: إذا كان الهاتف عموديًّا ندير الصّفحة ٩٠° لتملأ الشّاشة، وإذا قُلب أفقيًّا تعود طبيعيّة */
+var D=document.documentElement,W=window;
+var dW=Object.getOwnPropertyDescriptor(W,'innerWidth')||Object.getOwnPropertyDescriptor(Window.prototype,'innerWidth');
+var dH=Object.getOwnPropertyDescriptor(W,'innerHeight')||Object.getOwnPropertyDescriptor(Window.prototype,'innerHeight');
+if(!dW||!dH||!dW.get)return;
+var rw=function(){return dW.get.call(W)},rh=function(){return dH.get.call(W)};
+var phone=false;try{phone=matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<600}catch(e){}
+if(!phone)return;
+var on=false;
+function apply(){var w=rw(),h=rh();on=h>w*1.05;D.classList.toggle('vrot',on);
+  D.style.setProperty('--kvw',h+'px');D.style.setProperty('--kvh',w+'px');D.style.setProperty('--krw',w+'px')}
+var st=document.createElement('style');
+st.textContent='html.vrot,html.vrot body{overflow:hidden}html.vrot body{position:fixed;left:0;top:0;margin:0;width:var(--kvw);height:var(--kvh);transform-origin:0 0;transform:translateX(var(--krw)) rotate(90deg)}';
+(document.head||D).appendChild(st);
+try{Object.defineProperty(W,'innerWidth',{configurable:true,get:function(){return on?rh():rw()}});
+  Object.defineProperty(W,'innerHeight',{configurable:true,get:function(){return on?rw():rh()}})}catch(e){}
+function patch(proto){if(!proto)return;var dx=Object.getOwnPropertyDescriptor(proto,'clientX'),dy=Object.getOwnPropertyDescriptor(proto,'clientY');if(!dx||!dy||!dx.get)return;
+  Object.defineProperty(proto,'clientX',{configurable:true,get:function(){return on?dy.get.call(this):dx.get.call(this)}});
+  Object.defineProperty(proto,'clientY',{configurable:true,get:function(){return on?rw()-dx.get.call(this):dy.get.call(this)}})}
+patch(W.MouseEvent&&MouseEvent.prototype);patch(W.Touch&&Touch.prototype);
+var gb=Element.prototype.getBoundingClientRect;
+Element.prototype.getBoundingClientRect=function(){var r=gb.call(this);if(!on)return r;var w=rw();
+  var x=r.top,y=w-r.right,ww=r.height,hh=r.width;
+  return {x:x,y:y,left:x,top:y,width:ww,height:hh,right:x+ww,bottom:y+hh,toJSON:function(){return this}}};
+apply();
+var t=null;function re(){apply();clearTimeout(t);t=setTimeout(function(){apply();try{W.dispatchEvent(new Event('resize'))}catch(e){}},350)}
+W.addEventListener('orientationchange',re);
+var lw=rw(),lh=rh();W.addEventListener('resize',function(){var w=rw(),h=rh();if((w>h)!==(lw>lh)){lw=w;lh=h;re()}else{lw=w;lh=h;apply()}},true);
+})();</script>
 <meta charset="utf-8">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="kawn-icon.svg" type="image/svg+xml">
