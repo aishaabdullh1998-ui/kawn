@@ -381,6 +381,9 @@ html,body{touch-action:none;overscroll-behavior:none}
 .hearb{position:absolute;z-index:22;border:0;border-radius:999px;background:#E9B949;color:#2B2A3A;font-size:30px;font-weight:800;padding:10px 30px;box-shadow:0 6px 0 #B8862C;cursor:pointer}
 .bub2{position:absolute;background:#fff;border-radius:28px;padding:10px 28px;font-size:32px;font-weight:800;line-height:1.55;color:#2B2A3A;box-shadow:0 6px 18px rgba(0,0,0,.3);z-index:15;max-width:520px}
 .bub2.pop{animation:pop .45s cubic-bezier(.3,1.5,.5,1)}
+.s2 .bub2{max-width:380px;font-size:30px}
+.nar2{position:absolute;left:260px;right:260px;top:140px;background:rgba(255,253,246,.96);color:#2B2A3A;border-radius:26px;padding:10px 32px;font-size:30px;font-weight:800;line-height:1.6;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.25);z-index:15;opacity:0;transition:opacity .4s}
+.nar2.on{opacity:1}
 .bub2::after{content:"";position:absolute;bottom:-24px;border:14px solid transparent;border-top:20px solid #fff}
 .bub2.l::after{left:60px}.bub2.r::after{right:60px}
 .ch{position:absolute;line-height:0;z-index:4}.ch svg{width:100%;height:100%}
@@ -466,7 +469,7 @@ html,body{touch-action:none;overscroll-behavior:none}
   <div class="lab2" id="lb2"></div>
   <div class="ch" style="left:60px;top:470px;width:180px;height:270px"><svg viewBox="0 0 200 300"><use href="#hamdan"/></svg></div>
   <div class="ch" style="left:1360px;top:470px;width:180px;height:270px"><svg viewBox="0 0 200 300"><use href="#maryam"/></svg></div>
-  <div class="bub2 l" id="bb2" style="left:40px;top:200px;display:none"></div>
+  <div class="bub2 l" id="bb2" style="left:30px;top:300px;display:none"></div><div class="nar2" id="nr2"></div>
   <button class="btn lt" id="rp2" style="position:absolute;bottom:30px;left:400px;z-index:22;font-size:24px;padding:8px 20px">↺ من البداية</button>
   <div class="pill">👆 المسوا الشّاشةَ… لتكملَ الحكاية</div>
   <template class="notes"><h3>ضوء القمر… وحرارة الشمس</h3><dl><dt>الهدف</dt><dd>اكتشاف الفرق: في ضوء القمر نسمع اللام (سكون)، وتحت حرارة الشمس تذوب اللام في الحرف الذي بعدها فلا نسمعها ويتضاعف الحرف (شدّة).</dd><dt>التنفيذ</dt><dd>كل لمسة تكمل الحكاية بالصوت. قبل كل خطوة اسألي: «ماذا سيحدث للّام؟». اسألي: «أين ذهبت اللام؟» ذابت في الحرف بعدها فصار حرفين، لذلك نضع الشدّة.</dd></dl></template>
@@ -863,22 +866,26 @@ const wrongMark=o=>{if(o.t==='s'){return `ا<span class="lmA">لْ</span>${stemO
 const noLam=o=>o.t==='s'?'ا'+firstL(o.w)+o.w.slice(2+firstL(o.w).length):'ا'+stemOf(o);
 
 /* ٢ الحكاية */
-(()=>{const s=Q('.s2');let k=-1;
-  const bub=(side,h)=>{const b=$('bb2');b.style.display='';b.className='bub2 pop '+side;b.style.left=side==='l'?'40px':'';b.style.right=side==='r'?'40px':'';b.innerHTML=h;void b.offsetWidth};
+(()=>{const s=Q('.s2');let k=-1,tm=[];
+  const later=(f,ms)=>tm.push(setTimeout(()=>{if(onSlide('.s2'))f()},ms));
+  const nar=h=>{$('bb2').style.display='none';const n=$('nr2');n.innerHTML=h;n.classList.remove('on');void n.offsetWidth;n.classList.add('on')};
+  const bub=(side,h)=>{$('nr2').classList.remove('on');const b=$('bb2');b.style.display='';b.className='bub2 pop '+side;
+    if(side==='l'){b.style.left='30px';b.style.right='auto'}else{b.style.right='30px';b.style.left='auto'}b.style.top='300px';b.innerHTML=h;void b.offsetWidth};
   const day=on=>{s.classList.toggle('day',on);$('sk2').textContent=on?'☀️':'🌙'};
+  const W=$('wd2');const word=h=>{W.style.display='';$('pr2').style.display='none';W.innerHTML=h};
   const STEPS=[
-   ()=>{day(false);$('pr2').style.display='none';$('lb2').innerHTML='';$('wd2').innerHTML='القَمَر';bub('l','في مرصدِ جبلِ شمس نراقبُ السّماءَ ليلًا ونهارًا… انظروا: القمر! 🌙')},
-   ()=>{$('wd2').innerHTML='ا<span class="lmA glow">لْ</span>قَمَر';SFX.ding();$('lb2').innerHTML='<span>🗣️ نسمعُ اللّام: اَلْ — قَمَر</span>';bub('l','اسمعوا: اَلْقَمَر… نسمعُ اللّامَ واضحةً في ضوءِ القمر!')},
-   ()=>{day(true);$('lb2').innerHTML='';$('wd2').innerHTML='الشَّمْس';SFX.magic();bub('r','وفي الصّباح… أشرقتِ الشّمس ☀️')},
-   ()=>{$('wd2').innerHTML='<span class="wrap2">ا<span class="melt" id="ml2">ل</span>شَمْس</span>';bub('r','اسمعوا: اَشَّمْس… أينَ اللّام؟ لا نسمعُها! 🤔');
-     setTimeout(()=>{if(!onSlide('.s2'))return;const m=$('ml2');if(m){m.classList.add('go');SFX.whoosh()}},1600);
-     setTimeout(()=>{if(!onSlide('.s2'))return;$('wd2').innerHTML=hl({w:'الشَّمْس',t:'s'});popin($('wd2'))},3200)},
-   ()=>{$('lb2').innerHTML='<span>☀️ ذابتِ اللّامُ في الشّين 🔥</span><span style="color:#E07A10">شْ + شَ = شَّ</span>';bub('r','تحتَ حرارةِ الشّمسِ ذابتِ اللّامُ في الحرفِ بعدَها… فصارَ الحرفُ حرفين، ووضعنا الشّدّة!')},
-   ()=>{day(false);$('wd2').innerHTML='';$('lb2').innerHTML='';$('pr2').style.display='flex';
-     $('pr2').innerHTML=`<div>ا<span class="lmA">لْ</span>جَبَل<small style="color:#9CC4FF">🌙 «ج» حرفٌ قمريّ</small></div><div>${hl({w:'النّور',t:'s'})}<small style="color:#FFB25E">☀️ «ن» حرفٌ شمسيّ</small></div>`;bub('l','الحرفُ بعدَ «ال» هو الّذي يقرّر: قمريٌّ فنسمعُ اللّام… شمسيٌّ فتذوبُ اللّام')}];
-  const next=()=>{if(k<STEPS.length-1){k++;STEPS[k]();if(onSlide('.s2'))playAud('s2_'+k);return true}return false};
+   ()=>{day(false);$('lb2').innerHTML='';word('القَمَر');nar('في مرصدِ جبلِ شمس نراقبُ السّماءَ ليلًا ونهارًا… انظروا: القمر! 🌙')},
+   ()=>{day(false);word('ا<span class="lmA glow">لْ</span>قَمَر');SFX.ding();$('lb2').innerHTML='<span>🗣️ نسمعُ اللّام: اَلْ — قَمَر</span>';bub('l','اسمعوا: اَلْقَمَر… نسمعُ اللّامَ واضحةً في ضوءِ القمر!')},
+   ()=>{day(true);$('lb2').innerHTML='';word('الشَّمْس');SFX.magic();nar('وفي الصّباح… أشرقتِ الشّمس ☀️')},
+   ()=>{day(true);$('lb2').innerHTML='';word('<span class="wrap2">ا<span class="melt" id="ml2">ل</span>شَمْس</span>');bub('r','اسمعوا: اَشَّمْس… أينَ اللّام؟ لا نسمعُها! 🤔');
+     later(()=>{const m=$('ml2');if(m){m.classList.add('go');SFX.whoosh()}},1600);
+     later(()=>{word(hl({w:'الشَّمْس',t:'s'}));popin(W)},3200)},
+   ()=>{day(true);word(hl({w:'الشَّمْس',t:'s'}));$('lb2').innerHTML='<span>☀️ ذابتِ اللّامُ في الشّين 🔥</span><span style="color:#E07A10">شْ + شَ = شَّ</span>';nar('تحتَ حرارةِ الشّمسِ ذابتِ اللّامُ في الحرفِ بعدَها… فصارَ الحرفُ حرفين، ووضعنا الشّدّة!')},
+   ()=>{day(false);W.innerHTML='';W.style.display='none';$('lb2').innerHTML='';$('pr2').style.display='flex';
+     $('pr2').innerHTML=`<div>ا<span class="lmA">لْ</span>جَبَل<small style="color:#9CC4FF">🌙 «ج» حرفٌ قمريّ</small></div><div>${hl({w:'النّور',t:'s'})}<small style="color:#FFB25E">☀️ «ن» حرفٌ شمسيّ</small></div>`;nar('الحرفُ بعدَ «ال» هو الّذي يقرّر: قمريٌّ فنسمعُ اللّام… شمسيٌّ فتذوبُ اللّام')}];
+  const next=()=>{if(k<STEPS.length-1){k++;tm.forEach(clearTimeout);tm=[];STEPS[k]();if(onSlide('.s2'))playAud('s2_'+k);return true}return false};
   s.addEventListener('click',e=>{if(e.target.closest('button,a'))return;next()});s._next=next;
-  $('rp2').onclick=()=>{k=-1;next()};onEnterC['s2']=()=>{k=-1;setTimeout(next,50)};
+  $('rp2').onclick=()=>{k=-1;next()};onEnterC['s2']=()=>{k=-1;tm.forEach(clearTimeout);tm=[];setTimeout(next,50)};
 })();
 
 /* التّلسكوب السّمعيّ */
