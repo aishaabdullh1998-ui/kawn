@@ -33,7 +33,7 @@ var css=document.createElement('style');css.textContent=
 '#ksv .o{display:flex;align-items:center;gap:10px;text-align:right;border:2.5px solid #EADBC0;background:#fff;border-radius:18px;padding:10px 14px;font-size:18px;font-weight:700;color:#26324A;transition:.15s}'+
 '#ksv .o:hover{border-color:#9DBBF0}#ksv .o.on{border-color:#2F6FE0;background:#EAF1FD;color:#1E4FA8}'+
 '#ksv .o .e{font-size:24px}#ksv .o .ck{margin-right:auto;width:22px;height:22px;border-radius:7px;border:2.5px solid #C9D3E6;flex:none}#ksv .o.on .ck{background:#2F6FE0;border-color:#2F6FE0;box-shadow:inset 0 0 0 3px #fff}'+
-'#ksv .faces{display:flex;gap:8px;justify-content:center}#ksv .faces .o{flex-direction:column;justify-content:center;flex:1;padding:8px 4px;font-size:14px;gap:2px}#ksv .faces .o .e{font-size:34px}'+
+'#ksv .faces{display:flex;gap:8px;justify-content:center}#ksv .faces{align-items:stretch}#ksv .faces .o{flex-direction:column;justify-content:flex-start;align-items:center;flex:1;min-width:0;padding:10px 3px 8px;font-size:14px;gap:4px;text-align:center}#ksv .faces .o .e{font-size:32px;line-height:1;height:36px;display:flex;align-items:center}#ksv .faces .o .l{display:flex;align-items:center;justify-content:center;min-height:2.7em;line-height:1.3;font-size:14px}'+
 '#ksv .nx{display:flex;gap:10px;margin-top:14px;align-items:center}'+
 '#ksv .go{flex:1;border:0;border-radius:18px;padding:11px;font-size:20px;font-weight:800;color:#fff;background:#2F6FE0;box-shadow:0 4px 0 #1E4FA8}#ksv .go:disabled{opacity:.4;cursor:default}'+
 '#ksv .bk{border:0;background:none;color:#7A849C;font-size:17px;font-weight:700}'+
@@ -54,11 +54,11 @@ var STEPS=[
  function(){return '<h2>هل كانَ استخدامُه سهلًا؟</h2><div class="op">'+['سهلٌ جدًّا','سهل','احتجتُ مساعدة','صعب'].map(function(x){return '<button class="o'+(A.ease===x?' on':'')+'" data-ease="'+x+'">'+x+'</button>'}).join('')+'</div>'},
  function(){return '<h2>ما الّذي جعلَ التّعلّمَ ممتعًا؟</h2><p>يمكنُك اختيارُ أكثرَ من إجابة.</p><div class="op">'+FUN.map(function(u){return '<button class="o'+(A.fun.indexOf(u)>-1?' on':'')+'" data-fun="'+u+'">'+u+'<span class="ck"></span></button>'}).join('')+'</div>'+nav(A.fun.length)},
  function(){var o=isSt()?[['نعم','👍'],['ربّما','🤔']]:[['نعم بالتّأكيد','👍'],['ربّما','🤔'],['لا','👎']];
-  return '<h2>'+(isSt()?'هل تريدُ درسًا آخرَ من «كون»؟':'هل تنصحُ غيرَك بـ«كون»؟')+'</h2><div class="faces">'+o.map(function(x){return '<button class="o'+(A.rec===x[0]?' on':'')+'" data-rec="'+x[0]+'"><span class="e">'+x[1]+'</span>'+x[0]+'</button>'}).join('')+'</div>'},
+  return '<h2>'+(isSt()?'هل تريدُ درسًا آخرَ من «كون»؟':'هل تنصحُ غيرَك بـ«كون»؟')+'</h2><div class="faces">'+o.map(function(x){return '<button class="o'+(A.rec===x[0]?' on':'')+'" data-rec="'+x[0]+'"><span class="e">'+x[1]+'</span><span class="l">'+x[0]+'</span></button>'}).join('')+'</div>'},
  function(){return '<h2>ما الّذي تتمنّى أن نضيفَه؟</h2><p>اختياريّ: درسٌ لصفٍّ آخر، أو مادّةٌ أخرى، أو فكرةُ نشاط…</p><textarea id="ksvW" maxlength="500" placeholder="اكتبْ هنا… أو اضغطْ «أرسل» مباشرةً">'+esc(A.wish)+'</textarea><div class="nx"><button class="bk" data-back="1">رجوع</button><button class="go" data-send="1">أرسل رأيي</button></div>'},
  function(){return '<h2 style="text-align:center">شكرًا لمشاركتك</h2><p style="text-align:center">وصلَتْ إجابتُك، وستُسهمُ في تطويرِ "كون". نتمنّى لك تعلّمًا ممتعًا.</p><div class="nx"><button class="go" data-close="1">العودة إلى "كون"</button></div>'}
 ];
-function f(x){return '<button class="o'+(A.learn===x[0]?' on':'')+'" data-learn="'+x[0]+'"><span class="e">'+x[1]+'</span>'+x[2]+'</button>'}
+function f(x){return '<button class="o'+(A.learn===x[0]?' on':'')+'" data-learn="'+x[0]+'"><span class="e">'+x[1]+'</span><span class="l">'+x[2]+'</span></button>'}
 function nav(ok){return '<div class="nx"><button class="bk" data-back="1">رجوع</button><button class="go" data-go="1"'+(ok?'':' disabled')+'>التالي</button></div>'}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function draw(){var b=document.getElementById('ksvB'),dots='';if(step>0&&step<8){for(var i=1;i<=7;i++)dots+='<i class="'+(i===step?'on':'')+'"></i>'}
