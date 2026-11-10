@@ -6,6 +6,8 @@ var ls;try{ls=window.localStorage;ls.setItem('kawn-t','1');ls.removeItem('kawn-t
 function send(d){return fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)})}
 // إرسالُ رأيٍ تأخّرَ بسببِ انقطاعِ الإنترنت
 try{var pend=ls.getItem(Q);if(pend){send(JSON.parse(pend)).then(function(){ls.removeItem(Q)}).catch(function(){})}}catch(e){}
+// رابطُ تجربةٍ للمعلّمة: أضيفي ?survey-test إلى العنوان ليظهرَ الاستطلاعُ من جديد
+if(/[?&#]survey-test/.test(location.href)){ls.removeItem(K);ls.setItem('kawn-used','test')}
 if(ls.getItem(K)==='done')return;
 var ref='';try{var r=new window.URL(document.referrer);if(r.host===location.host&&!/(\/|index\.html?)$/.test(r.pathname))ref=r.pathname}catch(e){}
 var used=ls.getItem('kawn-used');
