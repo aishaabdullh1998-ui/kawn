@@ -8,7 +8,10 @@ function send(d){return fetch(URL,{method:'POST',mode:'no-cors',headers:{'Conten
 try{var pend=ls.getItem(Q);if(pend){send(JSON.parse(pend)).then(function(){ls.removeItem(Q)}).catch(function(){})}}catch(e){}
 if(ls.getItem(K)==='done')return;
 var ref='';try{var r=new window.URL(document.referrer);if(r.host===location.host&&!/(\/|index\.html?)$/.test(r.pathname))ref=r.pathname}catch(e){}
-var used=ls.getItem('kawn-used');if(!used&&!ref)return;
+var used=ls.getItem('kawn-used');
+// عندَ فتحِ أيِّ درسٍ من الصّفحةِ الرّئيسة نسجّلُ أنّ الزّائرَ استخدمَ «كون»
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'';
+ if(/\.html?(\?|#|$)/.test(h)&&!/(^|\/)index\.html?/.test(h)){try{ls.setItem('kawn-used',h.split(/[?#]/)[0].split('/').pop())}catch(_){}}},true);
 
 var ROLES=[['st','طالبُ مدرسة','🎒'],['pa','وليُّ أمر','🏠'],['te','معلّم','🍎'],['un','طالبٌ جامعيّ','🎓'],['ot','غيرُ ذلك','✨']];
 var USE={st:['في الصّفِّ مع معلّمي','في البيتِ وحدي','في البيتِ مع أهلي'],
@@ -78,5 +81,8 @@ W.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)re
  if(d.close){W.remove();document.documentElement.style.overflow=''}});
 W.addEventListener('input',function(e){if(e.target.id==='ksvW')A.wish=e.target.value});
 function open(){if(document.getElementById('ksv'))return;document.body.appendChild(W);document.documentElement.style.overflow='hidden';draw()}
-if(document.readyState==='complete')setTimeout(open,1200);else window.addEventListener('load',function(){setTimeout(open,1200)});
+function check(){if(ls.getItem(K)==='done')return;used=ls.getItem('kawn-used');if(used||ref)setTimeout(open,1200)}
+if(document.readyState==='complete')check();else window.addEventListener('load',check);
+// العودةُ بزرِّ الرّجوع تُعيدُ الصّفحةَ من الذّاكرة دونَ تحميل، فنفحصُ من جديد
+window.addEventListener('pageshow',function(e){if(e.persisted)check()});
 })();
