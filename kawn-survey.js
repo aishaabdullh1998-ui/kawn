@@ -3,7 +3,7 @@
 var URL='https://script.google.com/macros/s/AKfycbyX2Nu7fZINPi3YrVYYgZy1h7zOOqd8holMfapeB-h9pi2ojtJNi5-Eeyp9LC0RbeHw/exec';
 var K='kawn-survey',Q='kawn-survey-q';
 var ls;try{ls=window.localStorage;ls.setItem('kawn-t','1');ls.removeItem('kawn-t')}catch(e){return}
-function send(d){var body=JSON.stringify(d);try{if(navigator.sendBeacon&&navigator.sendBeacon(URL,new Blob([body],{type:'text/plain;charset=utf-8'})))return Promise.resolve()}catch(e){}return fetch(URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:body})}
+function send(d){var body=new URLSearchParams({d:JSON.stringify(d)});try{if(navigator.sendBeacon&&navigator.sendBeacon(URL,body))return Promise.resolve()}catch(e){}return fetch(URL,{method:'POST',mode:'no-cors',keepalive:true,body:body})}
 // إرسالُ رأيٍ تأخّرَ بسببِ انقطاعِ الإنترنت
 try{var pend=ls.getItem(Q);if(pend){send(JSON.parse(pend)).then(function(){ls.removeItem(Q)}).catch(function(){})}}catch(e){}
 // رابطُ تجربةٍ للمعلّمة: أضيفي ?survey-test إلى العنوان ليظهرَ الاستطلاعُ من جديد
