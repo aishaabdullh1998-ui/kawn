@@ -46,7 +46,7 @@ var W=document.createElement('div');W.id='ksv';W.setAttribute('role','dialog');W
 
 function isSt(){return A.role==='st'}
 var STEPS=[
- function(){return '<h2 style="text-align:center">مرحبًا بأصدقاءِ "كون"!</h2><p style="text-align:center">نسعدُ بمشاركتِك في تقييمِ المنصّة، فإجاباتُك تُسهمُ في تطويرِ تجربتِك وتحسينِ المنصّةِ مستقبلًا.</p><p style="text-align:center;font-size:14px;color:#8A93A8;margin-top:-6px">ستّةُ أسئلةٍ قصيرة، دونَ ذكرِ الاسم.</p><div class="nx"><button class="go" data-go="1">ابدأِ الاستبانة</button></div>'},
+ function(){return '<h2 style="text-align:center">مرحبًا بأصدقاءِ "كون"!</h2><p style="text-align:center">نسعدُ بمشاركتِك في تقييمِ المنصّة، فإجاباتُك تُسهمُ في تطويرِ تجربتِك وتحسينِ المنصّةِ مستقبلًا.</p><div class="nx"><button class="go" data-go="1">ابدأِ الاستبانة</button></div>'},
  function(){return '<h2>مَن أنت؟</h2><div class="op">'+ROLES.map(function(r){return '<button class="o'+(A.role===r[0]?' on':'')+'" data-role="'+r[0]+'"><span class="e">'+r[2]+'</span>'+r[1]+'</button>'}).join('')+'</div>'},
  function(){return '<h2>'+(isSt()?'أين استخدمتَ «كون»؟':'كيف استخدمتَ «كون»؟')+'</h2><p>يمكنُك اختيارُ أكثرَ من إجابة.</p><div class="op">'+USE[A.role].map(function(u){return '<button class="o'+(A.use.indexOf(u)>-1?' on':'')+'" data-use="'+u+'">'+u+'<span class="ck"></span></button>'}).join('')+'</div>'+nav(A.use.length)},
  function(){if(isSt())return '<h2>هل فهمتَ الدّرسَ أكثرَ مع «كون»؟</h2><div class="faces">'+[['2','😕','قليلًا'],['4','🙂','نعم'],['5','🤩','كثيرًا']].map(f).join('')+'</div>';
