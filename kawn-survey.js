@@ -11,8 +11,11 @@ try{var pend=ls.getItem(Q);if(pend){send(JSON.parse(pend)).then(function(){ls.re
 // رابطُ تجربةٍ للمعلّمة: أضيفي ?survey-test إلى العنوان ليظهرَ الاستطلاعُ من جديد
 var LIVE=true,TEST=/[?&#]survey-test/.test(location.href);
 if(!LIVE&&!TEST&&!ls.getItem('kawn-survey-tester'))return;
-if(TEST){ls.setItem('kawn-survey-tester','1');ls.removeItem(K);ls.setItem('kawn-used','test');try{history.replaceState(null,'',location.pathname)}catch(e){}}
-if(ls.getItem(K)==='done')return;
+function ck(){return /(?:^|; )kawn_survey=done/.test(document.cookie)}
+function mark(){try{ls.setItem(K,'done')}catch(e){}try{document.cookie='kawn_survey=done; max-age=315360000; path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'')}catch(e){}}
+function isDone(){if(ck()){try{ls.setItem(K,'done')}catch(e){}return true}if(ls.getItem(K)==='done'){mark();return true}return false}
+if(TEST){ls.setItem('kawn-survey-tester','1');ls.removeItem(K);document.cookie='kawn_survey=; max-age=0; path=/';ls.setItem('kawn-used','test');try{history.replaceState(null,'',location.pathname)}catch(e){}}
+if(isDone())return;
 var ref='';try{var r=new window.URL(document.referrer);if(r.host===location.host&&!/(\/|index\.html?)$/.test(r.pathname))ref=r.pathname}catch(e){}
 var used=ls.getItem('kawn-used');
 // عندَ فتحِ أيِّ درسٍ من الصّفحةِ الرّئيسة نسجّلُ أنّ الزّائرَ استخدمَ «كون»
@@ -81,13 +84,13 @@ W.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)re
  if(d.send){var w=document.getElementById('ksvW');A.wish=w?w.value.trim():'';
   var role=ROLES.filter(function(r){return r[0]===A.role})[0];
   var data={role:role?role[1]:A.role,use:A.use,learn:A.learn,ease:A.ease,fun:A.fun,rec:A.rec,wish:A.wish,page:(ref||used||'').split('/').pop()};
-  ls.setItem(K,'done');ls.setItem(Q,JSON.stringify(data));
+  mark();ls.setItem(Q,JSON.stringify(data));
   send(data).then(function(){ls.removeItem(Q)}).catch(function(){});
   next();return}
  if(d.close){W.remove();document.documentElement.style.overflow=''}});
 W.addEventListener('input',function(e){if(e.target.id==='ksvW')A.wish=e.target.value});
 function open(){if(document.getElementById('ksv'))return;document.body.appendChild(W);document.documentElement.style.overflow='hidden';draw()}
-function check(){if(ls.getItem(K)==='done')return;used=ls.getItem('kawn-used');if(used||ref)setTimeout(open,1200)}
+function check(){if(isDone())return;used=ls.getItem('kawn-used');if(used||ref)setTimeout(open,1200)}
 if(document.readyState==='complete')check();else window.addEventListener('load',check);
 // العودةُ بزرِّ الرّجوع تُعيدُ الصّفحةَ من الذّاكرة دونَ تحميل، فنفحصُ من جديد
 window.addEventListener('pageshow',function(e){if(e.persisted)check()});
