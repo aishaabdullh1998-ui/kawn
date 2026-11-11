@@ -9,7 +9,7 @@ function send(d){var q=new URLSearchParams(),strip=function(x){return String(x||
 // إرسالُ رأيٍ تأخّرَ بسببِ انقطاعِ الإنترنت
 try{var pend=ls.getItem(Q);if(pend){send(JSON.parse(pend)).then(function(){ls.removeItem(Q)}).catch(function(){})}}catch(e){}
 // رابطُ تجربةٍ للمعلّمة: أضيفي ?survey-test إلى العنوان ليظهرَ الاستطلاعُ من جديد
-var LIVE=false,TEST=/[?&#]survey-test/.test(location.href);
+var LIVE=true,TEST=/[?&#]survey-test/.test(location.href);
 if(!LIVE&&!TEST&&!ls.getItem('kawn-survey-tester'))return;
 if(TEST){ls.setItem('kawn-survey-tester','1');ls.removeItem(K);ls.setItem('kawn-used','test');try{history.replaceState(null,'',location.pathname)}catch(e){}}
 if(ls.getItem(K)==='done')return;
