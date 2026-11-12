@@ -90,7 +90,8 @@ W.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)re
  if(d.close){W.remove();document.documentElement.style.overflow=''}});
 W.addEventListener('input',function(e){if(e.target.id==='ksvW')A.wish=e.target.value});
 function open(){if(document.getElementById('ksv'))return;document.body.appendChild(W);document.documentElement.style.overflow='hidden';draw()}
-function check(){if(isDone())return;used=ls.getItem('kawn-used');if(used||ref)setTimeout(open,1200)}
+var SURVEY_ON=false; /* الاستطلاع مُخفًى مؤقّتًا — اجعليها true لإعادته */
+function check(){if(!SURVEY_ON||isDone())return;used=ls.getItem('kawn-used');if(used||ref)setTimeout(open,1200)}
 if(document.readyState==='complete')check();else window.addEventListener('load',check);
 // العودةُ بزرِّ الرّجوع تُعيدُ الصّفحةَ من الذّاكرة دونَ تحميل، فنفحصُ من جديد
 window.addEventListener('pageshow',function(e){if(e.persisted)check()});
