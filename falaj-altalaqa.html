@@ -95,9 +95,9 @@ button{font-family:inherit;cursor:pointer}
 #mWho .pal{width:48px;height:56px}
 #mTitle{font-size:22px;font-weight:800;color:var(--ink2)}
 #mHead .sp{flex:1}
-#canal{position:absolute;top:166px;right:24px;width:1150px;height:600px;padding:20px 30px;overflow:auto;z-index:5;
+#canal{position:absolute;top:166px;right:24px;width:1150px;height:600px;padding:14px;overflow:hidden;z-index:5;box-sizing:border-box;
  background:linear-gradient(#FFF9EC,#F7EAD0);border:none;border-radius:26px;box-shadow:inset 0 0 0 10px #B58A5E,inset 0 0 0 14px #8A6440,0 10px 24px rgba(74,46,28,.25)}
-#txt{font-family:var(--word);font-size:36px;line-height:2.15;text-align:justify;font-weight:600;padding:6px 8px}
+#txt{font-family:var(--word);font-size:36px;line-height:2.15;text-align:justify;font-weight:600;padding:10px 22px;height:100%;overflow:auto;box-sizing:border-box;border-radius:14px;scrollbar-width:thin;scrollbar-color:#C9A57C transparent}
 #txt p{margin:0 0 6px}
 .w{border-radius:12px;padding:0 4px;transition:background .25s,color .25s;cursor:pointer;position:relative}
 .w.read{background:linear-gradient(transparent 55%,rgba(63,169,214,.38) 55%)}
@@ -516,7 +516,7 @@ $('gGo').onclick=go2;$('gName').onkeydown=e=>{if(e.key==='Enter')go2()};$('gCanc
 let M={on:false,t0:0,iv:null,errs:new Set(),last:-1,el:0,phase:'idle',pros:0};
 function startRead(){show('meas');const t=tById(curT),r=D.readers.find(x=>x.id===curR);$('whoN').textContent=r.name;
  $('mTitle').textContent='«'+t.title+'» · '+AR(nWords(t))+' كلمة';let i=0;
- $('txt').innerHTML=t.body.split(/\n/).map(p=>p.trim()?'<p>'+p.split(/\s+/).filter(Boolean).map(w=>`<span class="w" data-i="${i++}">${esc(w)}</span>`).join(' ')+'</p>':'<p style="height:14px"></p>').join('');$('canal').scrollTop=0;resetM()}
+ $('txt').innerHTML=t.body.split(/\n/).map(p=>p.trim()?'<p>'+p.split(/\s+/).filter(Boolean).map(w=>`<span class="w" data-i="${i++}">${esc(w)}</span>`).join(' ')+'</p>':'<p style="height:14px"></p>').join('');$('txt').scrollTop=0;resetM()}
 function setBucket(f){const y=250-f*185;$('wl').setAttribute('y',y);$('wv').setAttribute('d',`M30 ${y} q22 -8 45 0 t45 0 t45 0 t45 0 V${y+10} H30Z`)}
 function resetM(){clearInterval(M.iv);M.on=false;M.errs=new Set();M.last=-1;M.phase='idle';M.pros=0;setBucket(0);$('clk').textContent='٠:٠٠';$('eN').textContent='٠';
  $('mStart').textContent='ابدؤوا الدّقيقة';$('mStart').disabled=false;$('mDone').disabled=true;$('hint').textContent='اضغطوا «ابدؤوا» حينَ تبدأُ القراءة';$('canal').classList.remove('pick');$('res').classList.remove('on');
