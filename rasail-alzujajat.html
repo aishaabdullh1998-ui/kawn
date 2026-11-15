@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<script>/*kawn-rot*/(function(){
+/* عرضٌ أفقيٌّ في الهاتف: إذا كان الهاتف عموديًّا ندير الصّفحة ٩٠° لتملأ الشّاشة، وإذا قُلب أفقيًّا تعود طبيعيّة */
+var D=document.documentElement,W=window;
+var dW=Object.getOwnPropertyDescriptor(W,'innerWidth')||Object.getOwnPropertyDescriptor(Window.prototype,'innerWidth');
+var dH=Object.getOwnPropertyDescriptor(W,'innerHeight')||Object.getOwnPropertyDescriptor(Window.prototype,'innerHeight');
+if(!dW||!dH||!dW.get)return;
+var rw=function(){return dW.get.call(W)},rh=function(){return dH.get.call(W)};
+var phone=false;try{phone=matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<600}catch(e){}
+if(!phone)return;
+var on=false;
+function apply(){var w=rw(),h=rh();on=h>w*1.05;D.classList.toggle('vrot',on);
+  D.style.setProperty('--kvw',h+'px');D.style.setProperty('--kvh',w+'px');D.style.setProperty('--krw',w+'px')}
+var st=document.createElement('style');
+st.textContent='html.vrot,html.vrot body{overflow:hidden}html.vrot body{position:fixed;left:0;top:0;margin:0;width:var(--kvw);height:var(--kvh);transform-origin:0 0;transform:translateX(var(--krw)) rotate(90deg)}';
+(document.head||D).appendChild(st);
+try{Object.defineProperty(W,'innerWidth',{configurable:true,get:function(){return on?rh():rw()}});
+  Object.defineProperty(W,'innerHeight',{configurable:true,get:function(){return on?rw():rh()}})}catch(e){}
+function patch(proto){if(!proto)return;var dx=Object.getOwnPropertyDescriptor(proto,'clientX'),dy=Object.getOwnPropertyDescriptor(proto,'clientY');if(!dx||!dy||!dx.get)return;
+  Object.defineProperty(proto,'clientX',{configurable:true,get:function(){return on?dy.get.call(this):dx.get.call(this)}});
+  Object.defineProperty(proto,'clientY',{configurable:true,get:function(){return on?rw()-dx.get.call(this):dy.get.call(this)}})}
+patch(W.MouseEvent&&MouseEvent.prototype);patch(W.Touch&&Touch.prototype);
+var gb=Element.prototype.getBoundingClientRect;
+Element.prototype.getBoundingClientRect=function(){var r=gb.call(this);if(!on)return r;var w=rw();
+  var x=r.top,y=w-r.right,ww=r.height,hh=r.width;
+  return {x:x,y:y,left:x,top:y,width:ww,height:hh,right:x+ww,bottom:y+hh,toJSON:function(){return this}}};
+apply();
+var t=null;function re(){apply();clearTimeout(t);t=setTimeout(function(){apply();try{W.dispatchEvent(new Event('resize'))}catch(e){}},350)}
+W.addEventListener('orientationchange',re);
+var lw=rw(),lh=rh();W.addEventListener('resize',function(){var w=rw(),h=rh();if((w>h)!==(lw>lh)){lw=w;lh=h;re()}else{lw=w;lh=h;apply()}},true);
+})();</script>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="kawn-icon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ريّا ورسائل الزجاجات: ضمائر الرفع المتصلة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --sky1:#86CDF2;--sky2:#FFE0AE;--sea:#1FA3B8;--sea2:#0E6E85;--sand:#F4D9A2;--sand2:#E2BD76;--paper:#FFFAF0;--ink:#1F3440;--ink2:#56707C;
+  --ta:#F26B5B;--ta2:#C4473A;--na:#2FB67C;--na2:#1E8757;--nun:#9B6BE3;--nun2:#6C45B5;--fem:#E4579A;--ok:#2EAD65;--bad:#E23B3B;--gold:#FFC83D;
+  --ui:"Baloo Bhaijaan 2","Noto Naskh Arabic","Tahoma",sans-serif;--word:"Noto Naskh Arabic","Traditional Arabic","Tahoma",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sky1:#5DA9D6;--sky2:#F2C98F}}
+:root[data-theme="dark"]{--sky1:#5DA9D6;--sky2:#F2C98F}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--sand);font-family:var(--ui);color:var(--ink);-webkit-tap-highlight-color:transparent;user-select:none}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+#stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;background:linear-gradient(var(--sky1),var(--sky2) 55%)}
+.sun{position:absolute;top:120px;left:180px;width:170px;height:170px;border-radius:50%;background:radial-gradient(#FFF3C2,#FFC857);box-shadow:0 0 80px #FFD27A}
+.sea{position:absolute;left:0;right:0;bottom:84px;height:300px;background:linear-gradient(var(--sea),var(--sea2))}
+.sea::before{content:"";position:absolute;top:-18px;left:0;right:0;height:36px;background:radial-gradient(circle at 30px 36px,var(--sea) 30px,transparent 31px) 0 0/60px 36px repeat-x}
+.beach{position:absolute;left:0;right:0;bottom:0;height:100px;background:var(--sand)}
+.beach::before{content:"";position:absolute;top:-16px;left:0;right:0;height:22px;background:radial-gradient(circle at 40px 0,rgba(255,255,255,.8) 18px,transparent 19px) 0 0/80px 22px repeat-x}
+.slide{position:absolute;inset:0;display:none}
+.slide.active{display:block;animation:slideIn .45s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{position:absolute;inset:58px 30px 96px;background:var(--paper);border-radius:34px;border:14px solid var(--sea);box-shadow:0 20px 44px rgba(14,110,133,.35)}
+.card::before{content:"";position:absolute;inset:-9px;border:3px dashed rgba(255,255,255,.85);border-radius:28px;pointer-events:none}
+.num{position:absolute;top:-48px;right:44px;width:100px;height:100px;border-radius:50% 50% 46% 46%;background:repeating-conic-gradient(from -90deg at 50% 100%,#F7A07A 0 9deg,#F26B5B 9deg 18deg);border:5px solid var(--ta2);display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;box-shadow:0 6px 12px rgba(0,0,0,.2)}
+.num b{font-size:36px;font-weight:800;color:#fff;text-shadow:0 2px 0 var(--ta2)}
+.head{position:absolute;top:10px;right:170px;left:30px;display:flex;align-items:baseline;gap:20px}
+.head h2{margin:0;font-size:50px;font-weight:800;line-height:1.35}
+.head p{margin:0;font-size:27px;font-weight:700;color:var(--ink2)}
+.content{position:absolute;top:96px;right:28px;left:28px;height:474px}
+.band{position:absolute;bottom:8px;right:20px;left:20px;height:126px;display:flex;align-items:flex-end;gap:20px}
+.guide{display:flex;align-items:flex-end;gap:8px;flex:1 1 auto;min-width:0;order:2}
+.guide svg{width:150px;height:90px;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:24px;padding:10px 20px;font-size:25px;line-height:1.5;font-weight:700;max-width:780px}
+.bubble::after{content:"";position:absolute;left:-16px;bottom:18px;border:10px solid transparent;border-right:16px solid var(--ink);border-left:0}
+.task{order:1;flex:0 0 590px;background:#E6F7FA;border:3px solid var(--sea);border-radius:18px;padding:10px 20px;font-size:24px;font-weight:700;line-height:1.5}
+.task b{color:var(--sea2);margin-left:6px}
+.w{font-family:var(--word);font-weight:700}
+.pT{color:var(--ta)}.pN{color:var(--na)}.pU{color:var(--nun)}.pF{color:var(--fem)}
+.sk{color:#E0A400}
+.btn{border:0;border-radius:22px;padding:10px 26px;font-size:27px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.3)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.tq{background:var(--sea);box-shadow:0 5px 0 var(--sea2)}.btn.lt{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(31,52,64,.2)}
+.btn.sel{outline:5px solid var(--gold);outline-offset:2px}
+.good{background:var(--ok)!important;color:#fff!important}.bad{background:var(--bad)!important;color:#fff!important}
+.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+@keyframes popIn{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.rule{background:#fff;border-radius:22px;padding:14px 24px;font-size:27px;font-weight:700;line-height:1.6;border-right:12px solid}
+.rule h4{margin:0 0 4px;font-size:32px}
+.ex{font-family:var(--word);font-size:32px;background:#F2F7F9;border-radius:12px;padding:0 14px;display:inline-block;margin:4px 0 0 6px}
+
+/* المشهد: السلحفاة والصدفة */
+.tt{position:relative;width:460px;height:280px;flex:none}
+.tt svg{position:absolute;inset:0;width:100%;height:100%}
+.shell{position:absolute;left:123px;top:40px;width:273px;height:140px;border-radius:140px 140px 22px 22px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--word);font-size:78px;font-weight:700;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.25);border:7px solid;opacity:0;transform:translateY(-260px) rotate(-8deg);transition:transform .7s cubic-bezier(.3,1.5,.5,1),opacity .3s;padding-top:18px;
+  background-image:repeating-linear-gradient(60deg,rgba(255,255,255,.14) 0 3px,transparent 3px 34px),repeating-linear-gradient(-60deg,rgba(255,255,255,.14) 0 3px,transparent 3px 34px)}
+.shell.on{opacity:1;transform:none}
+.shell.T{background-color:var(--ta);border-color:var(--ta2)}.shell.N{background-color:var(--na);border-color:var(--na2)}.shell.U{background-color:var(--nun);border-color:var(--nun2)}
+.verb{font-family:var(--word);font-size:92px;font-weight:700;line-height:1.3;min-height:120px;text-align:center}
+.verb{white-space:nowrap}.verb .pr,.verb .sk{display:inline}
+.note{font-size:30px;font-weight:800;min-height:46px;text-align:center}
+.split{position:absolute;inset:0;display:flex;gap:34px;align-items:stretch}
+.stageL{flex:0 0 700px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.stageR{flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.chips{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.chips .btn{font-size:28px}
+
+#nav{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:50}
+#nav button{border:0;height:54px;min-width:54px;padding:0 20px;border-radius:27px;background:#fff;color:var(--ink);font-size:24px;font-weight:800;box-shadow:0 4px 0 var(--sand2)}
+#nav button:disabled{opacity:.4;cursor:not-allowed}
+#nav .main{background:var(--sea);color:#fff;box-shadow:0 4px 0 var(--sea2)}
+#nav .main.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(31,163,184,.8)}50%{box-shadow:0 0 0 14px rgba(31,163,184,0)}}
+#counter{font-size:26px;font-weight:800;min-width:90px;text-align:center}
+#tools{position:absolute;top:10px;left:16px;display:flex;gap:10px;z-index:50}
+#tools button{border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:var(--ink);font-size:20px;font-weight:700}
+#notes{position:absolute;top:0;bottom:0;left:0;width:520px;background:#fff;z-index:60;box-shadow:12px 0 40px rgba(0,0,0,.3);transform:translateX(-105%);transition:transform .35s;padding:30px;font-size:23px;line-height:1.7;overflow:auto}
+#notes.open{transform:none}
+#notes h3{font-size:34px;margin:0 0 8px;color:var(--sea2)}
+#notes dt{font-weight:800;color:var(--ta2);margin-top:8px}
+#notes dd{margin:0}
+#notes .x{position:absolute;top:14px;left:14px;font-size:20px}
+.baby{position:absolute;bottom:18px;width:70px;height:44px;animation:toSea 6s linear infinite}
+.baby svg{width:100%;height:100%}
+@keyframes toSea{from{transform:translateX(0)}to{transform:translateX(-1700px)}}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+#credit{position:absolute;right:12px;bottom:5px;z-index:55;pointer-events:none;font-family:"Noto Naskh Arabic","Tahoma",sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.22);padding:1px 9px 2px;border-radius:9px;opacity:.7;letter-spacing:0}
+
+/* ===== الحلقة ١: رسائل في زجاجات ===== */
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.hide{display:none!important}
+.kid{width:64px;height:96px;flex:none}
+.pr{display:inline}
+/* ١ الافتتاح */
+.s1 .title{position:absolute;top:44px;right:0;left:0;text-align:center}
+.s1 h1{margin:0;font-size:96px;font-weight:800;color:#fff;line-height:1.2;-webkit-text-stroke:3px var(--sea2);paint-order:stroke fill;text-shadow:0 7px 0 var(--sea2)}
+.s1 .title p{margin:8px 0 0;font-size:32px;font-weight:800;color:var(--ink)}
+.s1 .go1{position:absolute;top:300px;left:50%;transform:translateX(-50%);font-size:34px;padding:14px 40px;z-index:4}
+.s1.open .go1{display:none}
+.fb{position:absolute;width:70px;height:140px;transition:transform 2.2s cubic-bezier(.3,.9,.3,1.05)}
+.fb svg{width:100%;height:100%}
+.fb>div{width:100%;height:100%;animation:bob 2.4s ease-in-out infinite}
+.fb:nth-child(2)>div{animation-delay:-.8s}.fb:nth-child(3)>div{animation-delay:-1.6s}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-14deg)}50%{transform:translateY(-14px) rotate(10deg)}}
+.s1.open .fb>div{animation:none;transform:rotate(78deg)}
+.s1 .rayya{position:absolute;bottom:26px;left:-560px;width:420px;height:252px;transition:left 2.6s cubic-bezier(.25,.8,.3,1) .9s}
+.s1.open .rayya{left:120px}
+.s1 .rayya svg{width:100%;height:100%}
+.s1 .say1{position:absolute;bottom:250px;left:470px;max-width:640px;opacity:0;transform:scale(.6);transition:.5s 3.1s cubic-bezier(.3,1.5,.5,1)}
+.s1.open .say1{opacity:1;transform:none}
+/* ٢ المحقّقون */
+.det{position:absolute;inset:0;display:flex;flex-direction:column;gap:18px}
+.det .top{display:flex;gap:22px;height:220px}
+.bots{display:flex;gap:16px;align-items:flex-end;padding:0 4px}
+.bots button{position:relative;width:96px;height:200px;border:0;background:none;padding:0;transition:transform .25s}
+.bots button:hover{transform:translateY(-6px) rotate(-4deg)}
+.bots button svg{width:100%;height:100%}
+.bots button.cur{transform:translateY(-10px) scale(1.06)}
+.bots button.cur::after{content:"";position:absolute;bottom:-12px;left:20%;right:20%;height:6px;border-radius:3px;background:var(--gold)}
+.bots button.ok::before{content:"✔";position:absolute;top:-6px;right:-4px;width:40px;height:40px;border-radius:50%;background:var(--ok);color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;z-index:2}
+.bots button.ok{opacity:.55}
+.scroll{flex:1;position:relative;background:#FFF6DF;border-radius:20px;border:4px solid #E8CF95;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 30px;box-shadow:inset 0 0 0 6px #FFFBEF}
+.scroll::before,.scroll::after{content:"";position:absolute;top:-10px;bottom:-10px;width:22px;border-radius:11px;background:linear-gradient(90deg,#D7B26A,#F3DCA4,#D7B26A)}
+.scroll::before{right:-14px}.scroll::after{left:-14px}
+.msg{font-family:var(--word);font-size:50px;font-weight:700;line-height:1.7;text-align:center}
+.msg .v{border-bottom:4px dashed #C9A35A}
+.ph2{font-size:30px;font-weight:800;color:var(--ink2)}
+.sus{display:flex;gap:20px;flex:1}
+.sus button{flex:1;position:relative;border:4px solid #D9EEF3;border-radius:24px;background:#fff;display:flex;align-items:center;gap:14px;padding:10px 18px;text-align:right;transition:transform .2s,border-color .2s}
+.sus button:hover:not(:disabled){transform:translateY(-4px);border-color:var(--sea)}
+.sus .figs{display:flex;align-items:flex-end;flex:none}
+.sus .figs .kid{width:58px;height:88px;margin-left:-14px}
+.sus .figs .kid:first-child{margin-left:0}
+.sus b{display:block;font-size:40px;line-height:1.2;color:var(--ink)}
+.sus small{display:block;font-size:22px;font-weight:700;color:var(--ink2);line-height:1.35}
+.stamp{position:absolute;top:-16px;left:-10px;font-family:var(--word);font-size:30px;font-weight:700;color:#fff;border-radius:16px;padding:0 14px;transform:rotate(-8deg) scale(0);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.sus button.done .stamp{transform:rotate(-8deg) scale(1)}
+.clue{display:flex;gap:40px;align-items:center;justify-content:center;font-family:var(--word);font-size:62px;font-weight:700;line-height:1.5}
+.clue span.c{animation:glow 1.4s ease-in-out infinite;border-radius:10px}
+@keyframes glow{50%{text-shadow:0 0 18px currentColor}}
+.clue em{font-style:normal;font-family:var(--ui);font-size:26px;color:var(--ink2);display:block;text-align:center;line-height:1}
+/* ٣ الحرف النعسان */
+.s3 .stageL{gap:0}
+.vbox{position:relative;font-family:var(--word);font-size:110px;font-weight:700;line-height:1.35;min-height:150px;text-align:center;white-space:nowrap}
+.vbox .lt{transition:color .4s}
+.vbox .lt.zz{color:#E0A400}
+.zzz{position:absolute;font-family:var(--ui);font-size:34px;font-weight:800;color:#5B6CC4;pointer-events:none;opacity:0;transition:opacity .3s}
+.zzz.on{opacity:1;animation:zz 1.8s ease-in-out infinite}
+@keyframes zz{0%{transform:translate(0,0) rotate(-6deg)}50%{transform:translate(-10px,-14px) rotate(6deg)}100%{transform:translate(0,0) rotate(-6deg)}}
+.hit{position:absolute;cursor:pointer;border-radius:16px}
+.ctl{display:flex;flex-direction:column;gap:12px}
+.ctl .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ctl .lab{font-size:24px;font-weight:800;color:var(--ink2);min-width:96px}
+.ctl .shb{width:104px;height:64px;border:5px solid;border-radius:64px 64px 12px 12px;font-family:var(--word);font-size:38px;font-weight:700;color:#fff;padding-top:8px;line-height:1}
+.ctl .shb.T{background:var(--ta);border-color:var(--ta2)}.ctl .shb.N{background:var(--na);border-color:var(--na2)}.ctl .shb.U{background:var(--nun);border-color:var(--nun2)}
+.ctl .vb{font-family:var(--word);font-size:30px}
+.discover{background:#fff;border-radius:22px;padding:12px 22px;font-size:27px;font-weight:700;line-height:1.55;border-right:12px solid #E0A400;min-height:110px}
+.discover .q{color:var(--sea2)}
+.discover .a{display:none;animation:popIn .5s}
+.discover.open .a{display:block}.discover.open .q{display:none}
+.dots{display:flex;gap:8px}.dots i{width:18px;height:18px;border-radius:50%;background:#D9EEF3}.dots i.on{background:#E0A400}
+/* ٤ دوران الزجاجة */
+.arena{position:relative;width:500px;height:474px;flex:none}
+.arena .ring{position:absolute;left:50%;top:52%;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;background:radial-gradient(#F8E6BC,#EBCB88);border:6px dashed #fff;box-shadow:0 10px 20px rgba(0,0,0,.12)}
+.arena .spin{position:absolute;left:50%;top:52%;width:70px;height:170px;margin:-85px 0 0 -35px;transition:transform 2.6s cubic-bezier(.15,.85,.25,1)}
+.arena .spin svg{width:100%;height:100%}
+.tg{position:absolute;width:150px;display:flex;flex-direction:column;align-items:center;gap:0;transform:translate(-50%,-50%);transition:transform .3s}
+.tg .kid{width:70px;height:104px}
+.tg .mir{width:92px;height:104px}
+.tg b{background:#fff;border-radius:16px;padding:0 16px;font-size:30px;line-height:1.5;box-shadow:0 3px 0 rgba(0,0,0,.12)}
+.tg.hl{transform:translate(-50%,-50%) scale(1.15)}
+.tg.hl b{background:var(--gold)}
+.spinR{flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.big3{font-family:var(--word);font-size:96px;font-weight:700;text-align:center;line-height:1.35;background:#fff;border-radius:24px;min-height:150px;display:flex;align-items:center;justify-content:center;gap:24px}
+.big3 small{font-family:var(--ui);font-size:28px;color:var(--ink2)}
+.tri{display:flex;gap:14px}
+.tri>div{flex:1;background:#F2F7F9;border-radius:18px;border:3px dashed #BFD9E0;text-align:center;padding:6px;min-height:118px}
+.tri>div b{display:block;font-size:24px;color:var(--ink2)}
+.tri>div .w{font-size:46px;opacity:0}
+.tri>div.on{background:#FFF1EF;border:3px solid var(--ta)}
+.tri>div.on .w{opacity:1;animation:popIn .5s}
+/* ٥ الدّلوان */
+.pail{position:absolute;inset:0}
+.pcard{position:absolute;top:10px;left:50%;width:600px;margin-left:-300px;min-height:96px;background:#fff;border:4px solid #D9EEF3;border-radius:22px;font-family:var(--word);font-size:48px;font-weight:700;text-align:center;padding:4px 20px;box-shadow:0 10px 20px rgba(0,0,0,.12);cursor:grab;touch-action:none;z-index:5;line-height:1.6}
+.pcard.drag{cursor:grabbing;box-shadow:0 18px 30px rgba(0,0,0,.25)}
+.pcard.back{transition:transform .35s}
+.buck{position:absolute;bottom:0;width:470px;height:330px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.buck.n{right:60px}.buck.u{left:60px}
+.buck .bk{position:relative;width:330px;height:220px;border-radius:12px 12px 70px 70px;display:flex;align-items:center;justify-content:center;gap:4px;transition:transform .2s}
+.buck.n .bk{background:linear-gradient(#5FD39E,#2FB67C);border:6px solid var(--na2)}
+.buck.u .bk{background:linear-gradient(#B897F0,#9B6BE3);border:6px solid var(--nun2)}
+.buck .bk::before{content:"";position:absolute;top:-56px;left:30px;right:30px;height:80px;border:6px solid #8A6A3C;border-bottom:0;border-radius:80px 80px 0 0}
+.buck.over .bk{transform:scale(1.07)}
+.buck .bk .kid{width:56px;height:84px}
+.buck h4{margin:0 0 6px;font-size:34px;color:#fff;background:var(--ink);border-radius:16px;padding:0 18px;line-height:1.5}
+.buck .cnt{position:absolute;bottom:14px;font-size:24px;font-weight:800;color:#fff}
+.pc{position:absolute;top:0;right:10px;background:var(--sea2);color:var(--gold);border-radius:14px;padding:0 18px;font-size:28px;font-weight:800}
+.hint5{position:absolute;top:150px;left:50%;transform:translateX(-50%);font-size:28px;font-weight:800;min-height:44px;text-align:center;white-space:nowrap}
+/* ٦ التّوأمتان والعدسة */
+.tw{position:absolute;inset:0;display:flex;gap:24px}
+.twL{flex:0 0 520px;display:flex;flex-direction:column;gap:12px}
+.twin{background:#fff;border-radius:22px;padding:8px 18px;border-right:12px solid;display:flex;align-items:center;gap:14px}
+.twin .big{font-family:var(--word);font-size:68px;font-weight:700;line-height:1.35;flex:none;min-width:200px;text-align:center}
+.twin p{margin:0;font-size:23px;font-weight:700;line-height:1.45;opacity:0;transition:opacity .5s}
+.tw.rev .twin p{opacity:1}
+.twin .ic{width:70px;height:70px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff}
+.twR{flex:1;position:relative;background:#FFF3F8;border-radius:24px;border:3px dashed var(--fem);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.qline{font-family:var(--word);font-size:56px;font-weight:700;line-height:1.5}
+.lensW{display:flex;align-items:center;gap:24px;min-height:170px}
+.lens{width:170px;height:170px;border-radius:50%;border:12px solid #6A4B2E;background:radial-gradient(#fff,#EAF6FB);display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:74px;font-weight:700;position:relative;transform:scale(0);transition:transform .45s cubic-bezier(.3,1.6,.5,1);line-height:1}
+.lens::after{content:"";position:absolute;bottom:-62px;left:-36px;width:26px;height:80px;background:#6A4B2E;border-radius:13px;transform:rotate(40deg)}
+.lens.on{transform:scale(1)}
+.lensT{font-size:27px;font-weight:800;color:var(--ink);max-width:330px;line-height:1.45}
+/* ٧ البطاقة الدّوّارة */
+.flipW{position:absolute;inset:0;display:flex;gap:30px;align-items:center;justify-content:center}
+.fcard{width:820px;height:440px;perspective:1600px;flex:none}
+.fin{position:relative;width:100%;height:100%;transition:transform .8s cubic-bezier(.4,1.4,.5,1);transform-style:preserve-3d}
+.fcard.on .fin{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:30px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 14px 28px rgba(0,0,0,.18)}
+.face.f{background:repeating-linear-gradient(45deg,#1FA3B8 0 26px,#2BB3C7 26px 52px);border:10px solid #fff}
+.face.f b{font-size:150px;color:#fff;line-height:1;text-shadow:0 6px 0 var(--sea2)}
+.face.f span{font-size:34px;font-weight:800;color:#fff}
+.face.k{background:#fff;border:10px solid var(--sea);transform:rotateY(180deg);padding:14px 30px}
+.face.k .figs{display:flex;align-items:flex-end;gap:2px;height:150px}
+.face.k .figs .kid{width:86px;height:130px}
+.face.k h3{margin:0;font-size:46px;line-height:1.3;text-align:center}
+.face.k p{margin:0;font-size:28px;font-weight:700;color:var(--ink2);text-align:center}
+.face.k .mdl{font-family:var(--word);font-size:50px;font-weight:700;min-height:76px;background:#F2F7F9;border-radius:16px;padding:0 24px;opacity:0;transition:opacity .4s}
+.face.k .mdl.on{opacity:1}
+.side7{display:flex;flex-direction:column;gap:16px;align-items:center;width:300px}
+.timer{position:relative;width:170px;height:170px}
+.timer svg{width:100%;height:100%;transform:rotate(-90deg)}
+.timer b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:64px;color:var(--sea2)}
+.deck{font-size:26px;font-weight:800;color:var(--ink2)}
+/* ٨ رسالة حمدان */
+.letter{position:absolute;top:0;right:40px;left:40px;bottom:0;background:#FFF9EA;border-radius:16px;box-shadow:0 10px 24px rgba(0,0,0,.12);padding:20px 50px;font-family:var(--word);font-size:42px;font-weight:700;line-height:2.05;
+  background-image:radial-gradient(circle at 85% 20%,rgba(120,170,200,.18) 0 60px,transparent 61px),radial-gradient(circle at 20% 75%,rgba(120,170,200,.15) 0 80px,transparent 81px)}
+.letter .vv{cursor:pointer;border-radius:10px;padding:0 4px;transition:background .2s}
+.letter .vv:hover{background:#FFF0B8}
+.letter .vv.fixed{color:var(--ok);background:#E6F8EE}
+.letter .vv.okk{background:#E6F8EE}
+.pop{position:absolute;z-index:8;background:#fff;border:4px solid var(--ink);border-radius:20px;padding:10px;display:flex;gap:8px;box-shadow:0 12px 24px rgba(0,0,0,.25)}
+.pop .shb{width:88px;height:56px;border:4px solid;border-radius:56px 56px 10px 10px;font-family:var(--word);font-size:32px;font-weight:700;color:#fff;padding-top:6px;line-height:1}
+.pop .shb.T{background:var(--ta);border-color:var(--ta2)}.pop .shb.N{background:var(--na);border-color:var(--na2)}.pop .shb.U{background:var(--nun);border-color:var(--nun2)}
+.lc{position:absolute;top:-4px;left:50px;background:var(--sea2);color:var(--gold);border-radius:14px;padding:0 18px;font-family:var(--ui);font-size:28px;font-weight:800;z-index:3}
+/* ٩ رسالتي في زجاجة */
+.mk{position:absolute;inset:0;display:flex;gap:26px}
+.mkR{flex:1;display:flex;flex-direction:column;gap:10px}
+.mkR h4{margin:0;font-size:25px;color:var(--ink2)}
+.mkR .row{display:flex;gap:10px;flex-wrap:wrap}
+.mkR .btn{font-size:25px;padding:6px 18px}
+.mypage{background:#FFF6DF;border:4px solid #E8CF95;border-radius:20px;min-height:110px;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:48px;font-weight:700;padding:4px 20px;text-align:center;line-height:1.5;transition:transform .7s,opacity .7s}
+.mypage .ph{font-family:var(--ui);font-size:28px;color:var(--ink2)}
+.mypage.gone{transform:scale(.1) translate(1200px,600px);opacity:0}
+.mkL{flex:0 0 480px;position:relative;border-radius:26px;overflow:hidden;background:linear-gradient(#BDE8F6 0,#BDE8F6 38%,#1FA3B8 38%,#0E6E85)}
+.mkL::before{content:"";position:absolute;top:calc(38% - 14px);left:0;right:0;height:28px;background:radial-gradient(circle at 24px 28px,#1FA3B8 22px,transparent 23px) 0 0/48px 28px repeat-x}
+.mkL .sent{position:absolute;bottom:26px;right:10px;font-size:26px;font-weight:800;color:#fff;background:rgba(0,0,0,.2);border-radius:14px;padding:0 14px}
+.flyB{position:absolute;width:48px;height:96px;z-index:3}
+.flyB svg{width:100%;height:100%}
+.flyB.go{animation:fly 1.5s cubic-bezier(.3,.1,.6,1) forwards}
+@keyframes fly{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(-160px,-210px) rotate(-200deg)}100%{transform:translate(-300px,-40px) rotate(-430deg)}}
+.flyB.float{animation:drift 9s linear forwards}
+@keyframes drift{0%{transform:translate(-300px,-40px) rotate(-70deg)}25%{transform:translate(-330px,-55px) rotate(-60deg)}50%{transform:translate(-360px,-40px) rotate(-75deg)}100%{transform:translate(-560px,-60px) rotate(-65deg);opacity:.0}}
+/* ١٠ صندوق ريّا */
+.end{position:absolute;inset:0;display:flex;gap:26px}
+.recap2{flex:1;display:flex;flex-direction:column;gap:10px}
+.recap2 h3{margin:0;font-size:44px;color:var(--ok);transform:scale(0);transition:.6s cubic-bezier(.3,1.6,.5,1)}
+.s10.go .recap2 h3{transform:none}
+.recap2>div{display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:6px 16px;font-size:26px;font-weight:700;line-height:1.4}
+.recap2 .ic{width:110px;height:56px;flex:none;border-radius:56px 56px 10px 10px;display:flex;align-items:center;justify-content:center;font-family:var(--word);font-size:30px;color:#fff;font-weight:700;padding-top:8px}
+.badge2{flex:0 0 470px;border-radius:30px;background:linear-gradient(160deg,#E4FAFF,#9EE3EE);border:8px solid var(--sea);text-align:center;padding:12px 24px;box-shadow:0 16px 30px rgba(0,0,0,.2);display:flex;flex-direction:column;align-items:center;gap:4px}
+.badge2 svg{width:230px;height:138px}
+.badge2 h4{margin:0;font-size:38px;color:var(--sea2)}
+.badge2 input{width:100%;font-family:var(--word);font-size:38px;font-weight:700;text-align:center;border:0;border-bottom:4px dashed var(--sea2);background:transparent;color:var(--ink);padding:4px;user-select:text}
+.badge2 input:focus{outline:none;background:rgba(255,255,255,.5)}
+.badge2 p{margin:4px 0 0;font-size:22px;font-weight:700;color:var(--sea2)}
+.teaser{display:flex;align-items:center;gap:14px;background:#26324A!important;color:#FFE7A3;border-radius:18px}
+.teaser .eggs{display:flex;gap:6px;flex:none}
+.teaser .eggs i{width:34px;height:42px;border-radius:50% 50% 46% 46%/60% 60% 40% 40%;background:#FBF4E6;animation:wob 1.6s ease-in-out infinite}
+.teaser .eggs i:nth-child(2){animation-delay:-.5s}.teaser .eggs i:nth-child(3){animation-delay:-1s}
+@keyframes wob{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+.sus .figs .kid{width:84px;height:126px;margin-left:-22px}
+.tg .kid{width:92px;height:138px}
+.buck .bk .kid{width:78px;height:117px;margin-top:20px}
+.qsc{position:absolute;top:8px;left:14px;background:var(--fem);color:#fff;border-radius:12px;padding:0 14px;font-size:24px;font-weight:800}
+.letter .vv{padding:0}
+.recap2 .w{font-size:36px}
+.recap2 h3{margin-right:120px}
+.badge2{align-self:flex-start;justify-content:center}
+#stage{overflow:clip}
+.twin{flex-wrap:wrap;row-gap:0}
+.twin .big{min-width:0;font-size:64px}
+.twin p{flex-basis:100%;font-size:22px;max-height:0;transition:opacity .5s,max-height .5s}
+.tw.rev .twin p{max-height:80px}
+.lens::after{bottom:-30px;left:-50px;width:22px;height:60px;transform:rotate(55deg)}
+.lensW{margin-bottom:10px}
+.recap2{justify-content:center}
+.mkL .swim{position:absolute;bottom:60px;left:40px;width:200px;height:120px;animation:swim 6s ease-in-out infinite}
+@keyframes swim{50%{transform:translate(40px,-10px) rotate(-4deg)}}
+.s1 .title{top:170px}
+.s1 .go1{top:400px}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="tbody" viewBox="0 0 300 180">
+  <ellipse cx="160" cy="170" rx="120" ry="8" fill="#000" opacity=".14"/>
+  <ellipse cx="240" cy="142" rx="34" ry="14" fill="#6DBB68" transform="rotate(25 240 142)"/>
+  <ellipse cx="96" cy="146" rx="46" ry="15" fill="#6DBB68" transform="rotate(-24 96 146)"/>
+  <path d="M262 118 L284 124 L262 130 Z" fill="#6DBB68"/>
+  <path d="M72 112 Q160 158 262 112 L262 104 L72 104 Z" fill="#CDEBA7"/>
+  <path d="M60 96 Q70 118 96 116" stroke="#8FD18A" stroke-width="18" fill="none" stroke-linecap="round"/>
+  <circle cx="50" cy="88" r="38" fill="#8FD18A"/>
+  <circle cx="36" cy="80" r="11" fill="#fff"/><circle cx="62" cy="80" r="11" fill="#fff"/>
+  <circle cx="34" cy="82" r="6.5" fill="#1F3440"/><circle cx="60" cy="82" r="6.5" fill="#1F3440"/>
+  <circle cx="36" cy="79" r="2.3" fill="#fff"/><circle cx="62" cy="79" r="2.3" fill="#fff"/>
+  <circle cx="26" cy="98" r="6" fill="#F7A1B5" opacity=".7"/><circle cx="72" cy="98" r="6" fill="#F7A1B5" opacity=".7"/>
+  <path d="M34 102 q14 12 28 0" stroke="#1F3440" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+</symbol>
+<symbol id="turtle" viewBox="0 0 300 180">
+  <use href="#tbody"/>
+  <path d="M80 116 Q88 30 170 30 Q252 30 260 116 Z" fill="#2FB67C" stroke="#1E8757" stroke-width="6"/>
+  <path d="M130 116 L140 70 L200 70 L210 116 M140 70 L170 40 L200 70 M100 90 L140 70 M240 90 L200 70" stroke="#1E8757" stroke-width="4" fill="none" opacity=".7"/>
+</symbol>
+<symbol id="boy" viewBox="0 0 100 150">
+  <ellipse cx="50" cy="146" rx="30" ry="4" fill="#000" opacity=".12"/>
+  <path d="M27 76 Q50 64 73 76 L80 144 L20 144Z" fill="#FBFBF6"/>
+  <path d="M27 76 Q50 64 73 76 L74 84 Q50 74 26 84Z" fill="#ECE9DE"/>
+  <path d="M50 76 v24" stroke="#C9A35A" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="103" r="4.5" fill="#C9A35A"/>
+  <circle cx="21" cy="112" r="7" fill="#C68B59"/><circle cx="79" cy="112" r="7" fill="#C68B59"/>
+  <circle cx="50" cy="46" r="25" fill="#C68B59"/>
+  <path d="M25 41 Q25 15 50 15 Q75 15 75 41 Z" fill="#fff"/>
+  <path d="M27 35 H73" stroke="#2FB67C" stroke-width="3.5" stroke-dasharray="3 3"/><path d="M31 27 H69" stroke="#F26B5B" stroke-width="3.5" stroke-dasharray="2 4"/>
+  <circle cx="41" cy="50" r="3.8" fill="#1F3440"/><circle cx="59" cy="50" r="3.8" fill="#1F3440"/>
+  <circle cx="42.2" cy="48.6" r="1.3" fill="#fff"/><circle cx="60.2" cy="48.6" r="1.3" fill="#fff"/>
+  <circle cx="34" cy="58" r="4" fill="#F28B7A" opacity=".5"/><circle cx="66" cy="58" r="4" fill="#F28B7A" opacity=".5"/>
+  <path d="M43 60 q7 6 14 0" stroke="#1F3440" stroke-width="3" fill="none" stroke-linecap="round"/>
+</symbol>
+<symbol id="girl" viewBox="0 0 100 150">
+  <ellipse cx="50" cy="146" rx="30" ry="4" fill="#000" opacity=".12"/>
+  <path d="M25 84 Q50 74 75 84 L81 144 L19 144Z" fill="#F4F1EA"/>
+  <path d="M28 120 H72" stroke="currentColor" stroke-width="5" opacity=".55"/>
+  <circle cx="20" cy="114" r="7" fill="#D69A6A"/><circle cx="80" cy="114" r="7" fill="#D69A6A"/>
+  <path d="M50 12 C78 12 84 36 82 58 Q86 84 68 94 L32 94 Q14 84 18 58 C16 36 22 12 50 12Z" fill="currentColor"/>
+  <path d="M50 18 C72 18 76 38 75 56 Q74 72 62 80 L38 80 Q26 72 25 56 C24 38 28 18 50 18Z" fill="#000" opacity=".08"/>
+  <ellipse cx="50" cy="52" rx="19" ry="21" fill="#D69A6A"/>
+  <path d="M30 44 Q50 22 70 44 Q60 32 50 32 Q40 32 30 44Z" fill="currentColor"/>
+  <circle cx="42" cy="53" r="3.6" fill="#1F3440"/><circle cx="58" cy="53" r="3.6" fill="#1F3440"/>
+  <circle cx="43.2" cy="51.7" r="1.3" fill="#fff"/><circle cx="59.2" cy="51.7" r="1.3" fill="#fff"/>
+  <circle cx="36" cy="61" r="3.6" fill="#F28B7A" opacity=".5"/><circle cx="64" cy="61" r="3.6" fill="#F28B7A" opacity=".5"/>
+  <path d="M44 63 q6 5 12 0" stroke="#1F3440" stroke-width="3" fill="none" stroke-linecap="round"/>
+</symbol>
+<symbol id="bottle" viewBox="0 0 60 130">
+  <rect x="21" y="4" width="18" height="16" rx="4" fill="#B07A45"/>
+  <path d="M23 20 h14 v18 q0 6 8 12 q9 7 9 18 v50 q0 8 -8 8 h-32 q-8 0 -8 -8 v-50 q0 -11 9 -18 q8 -6 8 -12z" fill="#BFEAF5" opacity=".75" stroke="#7FC6DA" stroke-width="3"/>
+  <rect x="17" y="58" width="26" height="54" rx="6" fill="#FFF1C9" stroke="#E2C27C" stroke-width="2"/>
+  <path d="M22 70 h16 M22 80 h12 M22 90 h16 M22 100 h10" stroke="#C9A35A" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M14 66 q0 -8 6 -12" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+</symbol>
+<symbol id="mirror" viewBox="0 0 92 104">
+  <rect x="40" y="70" width="12" height="30" rx="5" fill="#B07A45"/>
+  <ellipse cx="46" cy="42" rx="36" ry="40" fill="#F2C14E"/>
+  <ellipse cx="46" cy="42" rx="28" ry="32" fill="#DDF3FB"/>
+  <path d="M30 30 q6 -12 18 -14" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/>
+</symbol>
+</svg>
+
+<div id="stage">
+<div id="credit">إعداد: أ. عائشة بنت عبدالله البروانية</div>
+<div class="sun"></div><div class="sea"></div><div class="beach"></div>
+<div id="tools"><a href="index.html" style="border:0;height:42px;padding:0 16px;border-radius:21px;background:rgba(255,255,255,.85);color:#222;font-size:20px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:inherit">🌅 كون</a><button id="bSound">🔊 الصوت</button><button id="bFull">⛶ ملء الشاشة</button><button id="bNotes">📋 ملاحظات المعلمة</button></div>
+
+<!-- ١ -->
+<section class="slide s1 active">
+  <div class="title"><h1>رَيّا ورسائلُ الزّجاجات</h1><p>ضمائرُ الرّفعِ المتّصلةُ بالفعلِ الماضي</p></div>
+  <button class="btn tq go1" id="go1">🌊 ماذا رمى البحرُ؟</button>
+  <div id="fbs"><div class="fb" style="left:1100px;top:600px"><div><svg><use href="#bottle"/></svg></div></div><div class="fb" style="left:1260px;top:640px"><div><svg><use href="#bottle"/></svg></div></div><div class="fb" style="left:1420px;top:610px"><div><svg><use href="#bottle"/></svg></div></div></div>
+  <div class="rayya"><svg viewBox="0 0 300 180"><use href="#turtle"/></svg></div>
+  <div class="bubble say1">رمى البحرُ ثلاثَ رسائلَ… بلا أسماء! هيّا يا محقّقونَ: مَن صاحبُ كلِّ رسالة؟</div>
+  <template class="notes"><h3>١. على شاطئ رأس الجنز</h3><dl>
+    <dt>قولي</dt><dd>«هبّت عاصفة في الليل على شاطئ رأس الجنز، وفي الصباح وجدت ريّا شيئًا يطفو على الماء…»</dd>
+    <dt>التنفيذ</dt><dd>يضغط طالب «ماذا رمى البحر؟» فتصل الزجاجات إلى الرمل وتظهر ريّا. لا تذكري اسم الدرس بعد؛ الطلاب سيكتشفون الضمائر بأنفسهم.</dd>
+    <dt>الزمن</dt><dd>دقيقتان</dd></dl></template>
+</section>
+
+<!-- ٢ -->
+<section class="slide s2">
+  <div class="card"><div class="num"><b>٢</b></div>
+    <div class="head"><h2>مَن قامَ بالأفعال؟</h2><p>افتحوا الزّجاجة، واقرؤوا، ثمّ اختاروا</p></div>
+    <div class="content"><div class="det">
+      <div class="top">
+        <div class="bots" id="bots2"><button data-i="0" aria-label="الزجاجة ١"><svg><use href="#bottle"/></svg></button><button data-i="1" aria-label="الزجاجة ٢"><svg><use href="#bottle"/></svg></button><button data-i="2" aria-label="الزجاجة ٣"><svg><use href="#bottle"/></svg></button></div>
+        <div class="scroll" id="scr2"><div class="ph2">اضغطوا زجاجةً لتُفتَحَ رسالتُها…</div></div>
+      </div>
+      <div class="sus" id="sus2">
+        <button data-k="0" disabled><span class="figs"><svg class="kid"><use href="#boy"/></svg></span><span><b>أنا</b><small>شخصٌ واحدٌ يتحدّثُ عن نفسِه</small></span><span class="stamp" style="background:var(--ta)">تُ</span></button>
+        <button data-k="1" disabled><span class="figs"><svg class="kid" style="color:#E4579A"><use href="#girl"/></svg><svg class="kid"><use href="#boy"/></svg><svg class="kid" style="color:#1FA3B8"><use href="#girl"/></svg></span><span><b>نحنُ</b><small>أنا ومَن معي</small></span><span class="stamp" style="background:var(--na)">نا</span></button>
+        <button data-k="2" disabled><span class="figs"><svg class="kid" style="color:#9B6BE3"><use href="#girl"/></svg><svg class="kid" style="color:#F2994A"><use href="#girl"/></svg><svg class="kid" style="color:#2FB67C"><use href="#girl"/></svg></span><span><b>هُنَّ</b><small>جماعةٌ من البنات</small></span><span class="stamp" style="background:var(--nun)">نَ</span></button>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task" id="t2"><b>فكِّرْ:</b>الرّسالةُ بلا اسم… فما الّذي يدلُّنا على مَن قامَ بالأفعال؟</div>
+      <div class="guide"><svg><use href="#turtle"/></svg><div class="bubble" id="b2">ثلاثُ زجاجات… وثلاثةُ ألغاز!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. مَن قام بالأفعال؟</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف ضمائر الرفع المتصلة (تُ، نا، نَ) من دلالتها قبل تسميتها.</dd>
+    <dt>التنفيذ</dt><dd>يفتح طالب زجاجة، ويقرأ الرسالة بصوت عالٍ، ثم يختار مَن قام بالأفعال. اطلبي منه أن يبرّر: «كيف عرفت؟»</dd>
+    <dt>السؤال المحوري</dt><dd>بعد الرسائل الثلاث: «الرسائل بلا أسماء… فما الدليل؟» (آخر الفعل: تُ، نا، نَ). هنا تسمّينها: ضمائر متصلة.</dd>
+    <dt>الإجابات</dt><dd>لَعِبْتُ/رَسَمْتُ: أنا. سَبَحْنا/جَمَعْنا: نحن. نَظَّفْنَ/حَمَلْنَ: هنّ.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٣ -->
+<section class="slide s3">
+  <div class="card"><div class="num"><b>٣</b></div>
+    <div class="head"><h2>الحرفُ النّعسان</h2><p>ألصقوا صدفةً بالفعل… وراقبوا آخرَه</p></div>
+    <div class="content"><div class="split">
+      <div class="stageL">
+        <div class="vbox" id="vb3"></div>
+        <div class="tt"><svg><use href="#tbody"/></svg><div class="shell" id="sh3"></div></div>
+      </div>
+      <div class="stageR ctl">
+        <div class="row"><span class="lab">الفعل:</span><span id="vs3"></span></div>
+        <div class="row"><span class="lab">الصّدفة:</span><button class="shb T" data-p="تُ">تُ</button><button class="shb N" data-p="نا">نا</button><button class="shb U" data-p="نَ">نَ</button><button class="btn lt" id="off3" style="font-size:24px">✋ انزعوا الصّدفة</button></div>
+        <div class="row"><span class="lab">التّجارب:</span><div class="dots" id="dots3"><i></i><i></i><i></i></div></div>
+        <div class="discover" id="dc3"><div class="q">جرّبوا ثلاثَ مرّات، ثمّ أجيبوا: ماذا يحدثُ لآخرِ الفعلِ كلّما التصقَتْ به صدفة؟</div>
+          <div class="a">كلّما التصقَ بالفعلِ الماضي ضميرٌ من هذه الضّمائرِ (<span class="pT">تُ</span>، <span class="pN">نا</span>، <span class="pU">نَ</span>)… نامَ آخرُه، أي <span class="sk">سَكَن</span>: لَعِبَ ← لَعِبْ<span class="pT">تُ</span></div></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task" id="t3"><b>جرِّبْ:</b>المسِ الحرفَ النّائمَ لتوقظَه… هل يستيقظ؟</div>
+      <div class="guide"><svg><use href="#turtle"/></svg><div class="bubble" id="b3">هذه صدفاتي الثّلاث. حين تلتصقُ بالفعل، يحدثُ شيءٌ عجيب!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٣. الحرف النعسان</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف أن آخر الماضي يسكن عند اتصاله بتاء الفاعل ونا الفاعلين ونون النسوة.</dd>
+    <dt>التنفيذ</dt><dd>يختار طالب فعلًا وصدفة. يتثاءب آخر الفعل وينام (تظهر السكون). يلمس طالب آخر الحرف النائم ليحاول إيقاظه فلا يستيقظ. ثم «انزعوا الصدفة» فيستيقظ مفتوحًا. بعد ثلاث تجارب يظهر الاستنتاج؛ اطلبي من الطلاب قوله قبل ظهوره.</dd>
+    <dt>عبارة تُحفظ</dt><dd>«الصّدفةُ على ظهرِه… فهو نائم!»</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٤ -->
+<section class="slide s4">
+  <div class="card"><div class="num"><b>٤</b></div>
+    <div class="head"><h2>دوّارةُ الزّجاجة</h2><p>إلى مَن تشيرُ الزّجاجة؟ قولوا الفعلَ له</p></div>
+    <div class="content"><div class="split">
+      <div class="arena" id="ar4">
+        <div class="ring"></div>
+        <div class="tg" data-k="0" style="left:250px;top:58px"><svg class="mir"><use href="#mirror"/></svg><b>أنا</b></div>
+        <div class="tg" data-k="1" style="left:420px;top:390px"><svg class="kid"><use href="#boy"/></svg><b>أنتَ</b></div>
+        <div class="tg" data-k="2" style="left:80px;top:390px"><svg class="kid" style="color:#E4579A"><use href="#girl"/></svg><b>أنتِ</b></div>
+        <div class="spin" id="sp4"><svg><use href="#bottle"/></svg></div>
+      </div>
+      <div class="spinR">
+        <div class="big3" id="bg4"><span class="w" id="vv4">ذَهَبَ</span><small id="sm4">أديروا الزّجاجة</small></div>
+        <div class="row" style="display:flex;gap:12px;justify-content:center"><button class="btn tq" id="spin4">🍾 أديروا الزّجاجة</button><button class="btn lt" id="rev4" disabled>👀 اكشفوا</button></div>
+        <div class="tri" id="tri4"><div><b>أنا</b><span class="w">ذَهَبْ<span class="pT">تُ</span></span></div><div><b>أنتَ</b><span class="w">ذَهَبْ<span class="pT">تَ</span></span></div><div><b>أنتِ</b><span class="w">ذَهَبْ<span class="pT">تِ</span></span></div></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task" id="t4"><b>قبلَ الكشف:</b>قولوا الفعلَ بصوتٍ عالٍ لمن تشيرُ إليه الزّجاجة.</div>
+      <div class="guide"><svg><use href="#turtle"/></svg><div class="bubble" id="b4">صدفتي الحمراء… هل تبقى كما هي في كلِّ مرّة؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٤. دوّارة الزجاجة: تاء الفاعل</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف أن تاء الفاعل واحدة تتغير حركتها: تُ (أنا)، تَ (أنتَ)، تِ (أنتِ).</dd>
+    <dt>التنفيذ</dt><dd>يدير طالب الزجاجة. إن أشارت إلى المرآة يقول الطالب الفعل عن نفسه، وإن أشارت إلى الولد أو البنت يخاطبهما. يقول الصف الفعل قبل «اكشفوا»، ثم تمتلئ خانات الجدول. تتغير الأفعال كل ثلاث دورات.</dd>
+    <dt>السؤال المحوري</dt><dd>«ما الذي تغيّر في الصدفة؟» (حركة التاء فقط).</dd>
+    <dt>للإثراء</dt><dd>للمتمكنين: ذَهَبْتُما، ذَهَبْتُم، ذَهَبْتُنَّ (دون توسع).</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٥ -->
+<section class="slide s5">
+  <div class="card"><div class="num"><b>٥</b></div>
+    <div class="head"><h2>دلوُ نحنُ ودلوُ هُنَّ</h2><p>اسحبوا الجملةَ إلى دلوِها</p></div>
+    <div class="content"><div class="pail" id="pail5">
+      <div class="pc" id="pc5">٠ / ٨</div>
+      <div class="pcard" id="pk5"></div>
+      <div class="hint5" id="h5"></div>
+      <div class="buck n" data-a="N"><div class="bk"><svg class="kid" style="color:#E4579A"><use href="#girl"/></svg><svg class="kid"><use href="#boy"/></svg><svg class="kid" style="color:#1FA3B8"><use href="#girl"/></svg><span class="cnt" id="cn5N"></span></div><h4>نحنُ: <span class="w">ـنا</span></h4></div>
+      <div class="buck u" data-a="U"><div class="bk"><svg class="kid" style="color:#9B6BE3"><use href="#girl"/></svg><svg class="kid" style="color:#F2994A"><use href="#girl"/></svg><svg class="kid" style="color:#2FB67C"><use href="#girl"/></svg><span class="cnt" id="cn5U"></span></div><h4>هُنَّ: <span class="w">ـنَ</span></h4></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>انتبِهْ:</b>اقرأِ الجملةَ بصوتٍ عالٍ أوّلًا: هل تسمعُ الألفَ في آخرِ الفعل؟</div>
+      <div class="guide"><svg><use href="#turtle"/></svg><div class="bubble" id="b5">صدفتانِ متشابهتان… واحدةٌ بألفٍ وواحدةٌ بلا ألف!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٥. دلو نحن ودلو هنّ</h3><dl>
+    <dt>الهدف</dt><dd>التمييز بين نا الفاعلين (نحنُ) ونون النسوة (هُنَّ) نطقًا وكتابة.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطالب الجملة بصوت عالٍ، ثم يسحبها إلى الدلو، أو يلمس الدلو مباشرة. الخطأ يعيد البطاقة مع تلميح.</dd>
+    <dt>الإجابات</dt><dd>نحن: كَتَبْنا، سَبَحْنا، شَرِبْنا، جَلَسْنا. هنّ: رَسَمْنَ، طَبَخْنَ، فَهِمْنَ، لَعِبْنَ.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ٦ -->
+<section class="slide s6">
+  <div class="card"><div class="num"><b>٦</b></div>
+    <div class="head"><h2>التّوأمتانِ المتشاكستان</h2><p>تاءُ الفاعلِ أم تاءُ التّأنيث؟</p></div>
+    <div class="content"><div class="tw" id="tw6">
+      <div class="twL">
+        <div class="twin" style="border-color:var(--ta)"><span class="ic" style="background:var(--ta)">🐚</span><span class="big">كَتَبْ<span class="pT">تُ</span></span><p><span class="pT">تاءُ الفاعل</span>: متحرّكة، وقبلَها <span class="sk">ساكن</span>. (أنا، أنتَ، أنتِ)</p></div>
+        <div class="twin" style="border-color:var(--fem)"><span class="ic" style="background:var(--fem)">🌸</span><span class="big">كَتَبَ<span class="pF">تْ</span></span><p><span class="pF">تاءُ التّأنيث</span>: ساكنة، وقبلَها مفتوح. (هي)</p></div>
+        <button class="btn tq" id="rev6" style="align-self:center">🔎 ما الفرق؟ اكشفوا السّرّ</button>
+      </div>
+      <div class="twR">
+        <div class="qsc" id="qc6">٠ / ٦</div>
+        <div class="qline" id="ql6"></div>
+        <div class="lensW"><button class="btn lt" id="ln6" style="font-size:26px">🔍 العدسة</button><div class="lens" id="lz6"></div><div class="lensT" id="lt6"></div></div>
+        <div class="qb" style="display:flex;gap:18px"><button class="btn" style="background:var(--ta)" data-a="T">🐚 تاءُ الفاعل</button><button class="btn" style="background:var(--fem)" data-a="F">🌸 تاءُ التّأنيث</button></div>
+        <div class="note" id="nr6"></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>سؤالُ الكشف:</b>ضعِ العدسةَ على الحرفِ قبلَ التّاء: ساكنٌ أم مفتوح؟</div>
+      <div class="guide"><svg><use href="#turtle"/></svg><div class="bubble" id="b6">صدفتي وزهرةُ صديقتي… تتشابهانِ حتّى نخلطَ بينهما!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٦. التوأمتان: تاء الفاعل وتاء التأنيث</h3><dl>
+    <dt>الهدف</dt><dd>التمييز بين تاء الفاعل المتحركة وتاء التأنيث الساكنة.</dd>
+    <dt>التنفيذ</dt><dd>اقرئي «كَتَبْتُ» و«كَتَبَتْ» ببطء، واسألي: ما الفرق؟ ثم «اكشفوا السر». في الاختبار يضع الطالب العدسة قبل الاختيار.</dd>
+    <dt>الإجابات</dt><dd>نَجَحْتُ: فاعل. نَجَحَتْ فاطمةُ: تأنيث. سَبَحْتِ يا مريمُ: فاعل. سَبَحَتْ رَيّا: تأنيث. كَتَبْتَ يا خالدُ: فاعل. جَلَسَتْ أمّي: تأنيث.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٧ -->
+<section class="slide s7">
+  <div class="card"><div class="num"><b>٧</b></div>
+    <div class="head"><h2>بطاقةُ ريّا: أنتم الضّمائر!</h2><p>اقلبوا البطاقة… ونفّذوا</p></div>
+    <div class="content"><div class="flipW">
+      <div class="side7">
+        <div class="timer"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#fff" stroke="#D9EEF3" stroke-width="10"/><circle id="tr7" cx="50" cy="50" r="44" fill="none" stroke="var(--sea)" stroke-width="10" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="0"/></svg><b id="tn7">١٠</b></div>
+        <button class="btn tq" id="fl7">🃏 اقلبوا بطاقةً</button>
+        <button class="btn lt" id="md7" disabled>💡 المثال</button>
+        <div class="deck" id="dk7">البطاقات: ٠ / ٦</div>
+      </div>
+      <div class="fcard" id="fc7"><div class="fin">
+        <div class="face f"><b>؟</b><span>مَن سيتكلّم؟</span></div>
+        <div class="face k"><div class="figs" id="fg7"></div><h3 id="fh7"></h3><p id="fp7"></p><div class="mdl" id="fm7"></div></div>
+      </div></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>القاعدة:</b>عشرُ ثوانٍ لتقولوا الجملةَ بالصّدفةِ المناسبة.</div>
+      <div class="guide"><svg><use href="#turtle"/></svg><div class="bubble" id="b7">الآن أنتم الصّدفات! مَن سيقفُ أوّلًا؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٧. أنتم الضمائر (نشاط حركي)</h3><dl>
+    <dt>الهدف</dt><dd>توظيف الضمائر الخمسة شفويًا في مواقف حقيقية داخل الصف.</dd>
+    <dt>التنفيذ</dt><dd>اقلبي البطاقة. ينفّذ الطلاب ما فيها خلال عشر ثوانٍ: يقف من تعنيه البطاقة ويقول جملة بالفعل المناسب. اقبلي أي جملة صحيحة، ثم اعرضي «المثال».</dd>
+    <dt>البطاقات</dt><dd>أنتِ وحدكِ (تُ)، الصف كله (نا)، البنات يقفن ويتحدث عنهن الأولاد (نَ)، أشيروا إلى ولد (تَ)، أشيروا إلى بنت (تِ)، أنتَ وحدك (تُ).</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٨ -->
+<section class="slide s8">
+  <div class="card"><div class="num"><b>٨</b></div>
+    <div class="head"><h2>رسالةُ حمدانَ المبلّلة</h2><p>المسوا الفعلَ الخاطئ… وأعطوه صدفتَه الصّحيحة</p></div>
+    <div class="content">
+      <div class="lc" id="lc8">٠ / ٤</div>
+      <div class="letter" id="let8"></div>
+    </div>
+    <div class="band">
+      <div class="task"><b>قبلَ اللّمس:</b>اسألْ: مَن قامَ بالفعل؟ ثمّ انظرْ إلى صدفتِه.</div>
+      <div class="guide"><svg><use href="#turtle"/></svg><div class="bubble" id="b8">ابتلّتْ رسالةُ حمدان، فاختلطتْ صدفاتُ أفعالِه!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٨. رسالة حمدان المبللة</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف الخطأ في استعمال الضمير المتصل وتصحيحه.</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب الرسالة كاملة أولًا، ثم يلمس طالب فعلًا يظنه خاطئًا ويختار الصدفة الصحيحة. لمس فعل صحيح يُظهر أنه صحيح.</dd>
+    <dt>الإجابات</dt><dd>ذَهَبَ ← ذَهَبْتُ، جَلَسْتُ ← جَلَسْنا، جَمَعْنا ← جَمَعْنَ، رَسَمْتَ ← رَسَمْتِ. الصحيحة: شاهَدْتُ، رَجَعْنا.</dd>
+    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+</section>
+
+<!-- ٩ -->
+<section class="slide s9">
+  <div class="card"><div class="num"><b>٩</b></div>
+    <div class="head"><h2>رسالتي في زجاجة</h2><p>اكتبوا رسالتَكم… وأرسلوها إلى البحر</p></div>
+    <div class="content"><div class="mk">
+      <div class="mkR">
+        <h4>١. مَن قامَ بالفعل؟</h4><div class="row" id="who9"></div>
+        <h4>٢. ماذا فعل؟</h4><div class="row" id="what9"></div>
+        <div class="mypage" id="pg9"><span class="ph">ستظهرُ رسالتُك هنا…</span></div>
+        <button class="btn tq" id="send9" style="align-self:center" disabled>🍾 أرسلوها إلى البحر</button>
+      </div>
+      <div class="mkL" id="sea9"><svg class="swim" viewBox="0 0 300 180"><use href="#turtle"/></svg><div class="sent" id="sn9">رسائلُ في البحر: ٠</div></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>تحدٍّ:</b>غيِّرِ الفاعلَ فقط… كيفَ تتغيّرُ الصّدفة؟</div>
+      <div class="guide"><svg><use href="#turtle"/></svg><div class="bubble" id="b9">سأحملُ رسائلَكم إلى شواطئِ العالم!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. رسالتي في زجاجة</h3><dl>
+    <dt>الهدف</dt><dd>إنتاج جمل صحيحة بضمائر الرفع المتصلة.</dd>
+    <dt>التنفيذ</dt><dd>يختار الطالب الفاعل والفعل، ويقرأ رسالته، ثم يرسلها إلى البحر. شجّعي تغيير الفاعل مع الفعل نفسه لملاحظة تغيّر الصدفة.</dd>
+    <dt>امتداد</dt><dd>يكتب كل طالب في ورقة صغيرة رسالة من ثلاث جمل (تُ، نا، نَ)، وتُجمع في زجاجة حقيقية في الصف.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
+<!-- ١٠ -->
+<section class="slide s10">
+  <div class="card"><div class="num"><b>١٠</b></div>
+    <div class="content" style="top:26px;height:560px"><div class="end">
+      <div class="recap2">
+        <h3>حلَلْتُم ألغازَ الزّجاجات!</h3>
+        <div><span class="ic" style="background:var(--ta)">تُ تَ تِ</span>تاءُ الفاعل: أنا، أنتَ، أنتِ. <span class="w">لَعِبْتُ</span></div>
+        <div><span class="ic" style="background:var(--na)">نا</span>نا الفاعلين: نحنُ. <span class="w">لَعِبْنا</span></div>
+        <div><span class="ic" style="background:var(--nun)">نَ</span>نونُ النّسوة: هُنَّ. <span class="w">لَعِبْنَ</span></div>
+        <div><span class="ic" style="background:#E0A400">💤</span>آخرُ الفعلِ الماضي ينامُ (يسكنُ) قبلَها.</div>
+        <div class="teaser"><span class="eggs"><i></i><i></i><i></i></span>في اللّيلةِ القادمة… ستفقسُ بيوضُ ريّا، ويأتي ضيوفٌ جددٌ: ا، و، ي</div>
+      </div>
+      <div class="badge2"><svg viewBox="0 0 300 180"><use href="#turtle"/></svg><h4>شارةُ المحقّقِ الذّهبيّ</h4>
+        <input id="starName" placeholder="اكتبِ اسمَ المحقّقِ النّجم" aria-label="اسم المحقق النجم">
+        <p>يعرفُ صاحبَ الرّسالةِ من آخرِ الفعل</p></div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>في دفترك:</b>رسالةٌ إلى ريّا من ثلاثِ جمل: بتاءِ الفاعل، وبنا الفاعلين، وبنونِ النّسوة.</div>
+      <div class="guide"><svg><use href="#turtle"/></svg><div class="bubble">شكرًا يا محقّقي الشّاطئ… نلتقي في ليلةِ الفقس!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>١٠. صندوق ريّا</h3><dl>
+    <dt>الهدف</dt><dd>تلخيص الدرس وتعزيز المتميز، والتمهيد لدرس «ليلة الفقس».</dd>
+    <dt>التنفيذ</dt><dd>يقرأ الطلاب الملخص معًا، ثم اكتبي اسم المحقق النجم.</dd>
+    <dt>ربط بالبيئة</dt><dd>محمية السلاحف في رأس الجنز، والمحافظة على نظافة الشاطئ.</dd>
+    <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
+</section>
+
+<canvas id="confetti" width="1600" height="900"></canvas>
+<aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
+<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ١٠</span><button id="next" class="main">التّالي ◀</button></nav>
+</div>
+
+<script>
+const SFX=(()=>{let ctx=null,on=true;
+ function C(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+ function tone(f,d,o={}){const c=C();if(!c||!on)return;const{type='sine',v=.18,at=0,to=null}=o;const t=c.currentTime+at;const os=c.createOscillator(),g=c.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(to)os.frequency.exponentialRampToValueAtTime(to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.03);}
+ function noise(d,o={}){const c=C();if(!c||!on)return;const{v=.2,at=0,type='lowpass',f=1000,to=null,q=1}=o;const t=c.currentTime+at;const n=Math.max(1,Math.floor(c.sampleRate*d));const b=c.createBuffer(1,n,c.sampleRate);const a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;const fl=c.createBiquadFilter();fl.type=type;fl.frequency.setValueAtTime(f,t);if(to)fl.frequency.exponentialRampToValueAtTime(to,t+d);fl.Q.value=q;const g=c.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(g).connect(c.destination);s.start(t);s.stop(t+d);}
+ return{_t:tone,_n:noise,toggle(){on=!on;return on},
+  waves(){noise(2.4,{v:.25,f:400,to:1200,type:'lowpass'});noise(2,{v:.18,f:1200,to:300,at:.8})},
+  shell(){tone(660,.12,{type:'triangle',v:.14});tone(990,.2,{type:'triangle',v:.12,at:.1});noise(.15,{v:.2,f:800,at:.05})},
+  clack(){tone(300,.06,{type:'square',v:.08});tone(220,.08,{type:'square',v:.06,at:.07})},
+  pop(){tone(600,.08,{v:.15,to:1200})},
+  yes(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,{type:'triangle',v:.16,at:i*.08}))},
+  no(){tone(220,.25,{type:'square',v:.08,to:150})},
+  giggle(){[900,760,900,700,860].forEach((f,i)=>tone(f,.09,{type:'triangle',v:.1,at:i*.1}))},
+  magic(){[784,988,1175,1568,1976].forEach((f,i)=>tone(f,.26,{type:'triangle',v:.1,at:i*.06}))},
+  cheer(){this.yes();for(let i=0;i<22;i++)noise(.05,{v:.12,type:'bandpass',f:1500+Math.random()*2000,at:.35+Math.random()*1.1})}
+ }})();
+
+const SX2={
+ snore(){SFX._t(140,.5,{type:'sawtooth',v:.05,to:90});SFX._t(110,.6,{type:'sawtooth',v:.04,at:.55,to:150})},
+ tick(n){for(let i=0;i<n;i++)SFX._t(1200-i*18,.03,{type:'square',v:.05,at:i*(.05+i*.006)})},
+ splash(){SFX._n(.8,{v:.3,f:2500,to:300});SFX._n(.5,{v:.15,f:600,at:.15})},
+ flip(){SFX._n(.18,{v:.2,type:'bandpass',f:2400,to:900})}};
+const stage=document.getElementById('stage');let SCL=1;
+function fit(){SCL=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${SCL})`}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const $=id=>document.getElementById(id);
+let cur=0,unlocked=false;
+const nextB=$('next'),prevB=$('prev'),counter=$('counter');
+function go(i){if(i<0||i>=slides.length)return;if(i>0&&!unlocked)return;
+  slides[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');
+  counter.textContent=AR(cur+1)+' / '+AR(slides.length);
+  prevB.disabled=cur===0;nextB.disabled=cur===slides.length-1||!unlocked;nextB.classList.toggle('pulse',cur===0&&unlocked);
+  const t=slides[cur].querySelector('template.notes');$('notesBody').innerHTML=t?t.innerHTML:'';
+  if(cur===slides.length-1)closing();
+  if(cur===2)requestAnimationFrame(()=>R3&&R3());}
+nextB.onclick=()=>go(cur+1);prevB.onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
+  if(['ArrowLeft','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+$('bSound').onclick=e=>{e.currentTarget.textContent=SFX.toggle()?'🔊 الصوت':'🔇 صامت'};
+$('bFull').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+$('bNotes').onclick=()=>$('notes').classList.toggle('open');
+$('closeNotes').onclick=()=>$('notes').classList.remove('open');
+function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+const PC={'تُ':'pT','تَ':'pT','تِ':'pT','نا':'pN','نَ':'pU'},SC={'تُ':'T','تَ':'T','تِ':'T','نا':'N','نَ':'U'};
+const joined=(pre,last,p)=>`${pre}<span class="sk">${last}ْ</span><span class="${PC[p]}">${p}</span>`;
+function wear(sh,p){sh.classList.remove('on','T','N','U');void sh.offsetWidth;sh.textContent=p;sh.classList.add(SC[p]);requestAnimationFrame(()=>sh.classList.add('on'));SFX.shell()}
+
+/* ١ */
+(()=>{const s1=document.querySelector('.s1');setTimeout(()=>SFX.waves(),300);
+ $('go1').onclick=()=>{if(unlocked)return;SFX.waves();s1.classList.add('open');
+  document.querySelectorAll('.fb').forEach((f,i)=>f.style.transform=`translate(${(i-1)*20}px,${112-i*8}px)`);
+  setTimeout(()=>SFX.magic(),3100);setTimeout(()=>{unlocked=true;go(0)},3300)};})();
+
+/* ٢ */
+(()=>{const M=[{t:'<span class="v">لَعِبْ<span class="e">تُ</span></span> على الرّملِ، و<span class="v">رَسَمْ<span class="e">تُ</span></span> سلحفاةً.',k:0,c:'pT',w:'لَعِبْ<span class="pT c">تُ</span>'},
+  {t:'<span class="v">سَبَحْ<span class="e">نا</span></span> في البحرِ، و<span class="v">جَمَعْ<span class="e">نا</span></span> الأصدافَ.',k:1,c:'pN',w:'سَبَحْ<span class="pN c">نا</span>'},
+  {t:'<span class="v">نَظَّفْ<span class="e">نَ</span></span> الشّاطئَ، و<span class="v">حَمَلْ<span class="e">نَ</span></span> الأكياسَ.',k:2,c:'pU',w:'نَظَّفْ<span class="pU c">نَ</span>'}];
+ const bots=[...document.querySelectorAll('#bots2 button')],sus=[...document.querySelectorAll('#sus2 button')],scr=$('scr2'),b=$('b2');
+ let ci=-1,solved=[0,0,0],n=0;
+ function show(i){ci=i;bots.forEach(x=>x.classList.toggle('cur',x===bots[i]));
+  scr.innerHTML=`<div class="msg">${M[i].t}</div>`;if(solved[i])scr.querySelectorAll('.e').forEach(e=>e.classList.add(M[i].c));
+  sus.forEach(s=>s.disabled=!!solved[i]);SFX.pop();b.textContent=solved[i]?'هذه الرّسالةُ حلَلْناها!':'اقرؤوها بصوتٍ عالٍ… مَن قامَ بالأفعال؟'}
+ bots.forEach(x=>x.onclick=()=>show(+x.dataset.i));
+ sus.forEach(s=>s.onclick=()=>{if(ci<0||solved[ci])return;const k=+s.dataset.k;
+  if(k===M[ci].k){solved[ci]=1;n++;SFX.yes();s.classList.add('done');bots[ci].classList.add('ok');
+   scr.querySelectorAll('.e').forEach(e=>e.classList.add(M[ci].c));sus.forEach(z=>z.disabled=true);
+   b.textContent=['صحيح! شخصٌ واحدٌ يتحدّثُ عن نفسِه. كيف عرفتُم؟','صحيح! أكثرُ من شخصٍ ومعهم الكاتب. ما الدّليل؟','صحيح! جماعةٌ من البنات. ما الّذي كشفَهُنَّ؟'][ci];
+   if(n===3)setTimeout(()=>{scr.innerHTML='<div class="clue">'+M.map(m=>`<span><span class="w">${m.w}</span><em>${['أنا','نحنُ','هُنَّ'][m.k]}</em></span>`).join('')+'</div>';SFX.magic();
+    b.textContent='الدّليلُ في آخرِ الفعل! هذه صدفاتي: ضمائرُ تلتصقُ بالفعلِ فتسمّى ضمائرَ متّصلة.';
+    $('t2').innerHTML='<b>الدّليل:</b>آخرُ الفعلِ (تُ، نا، نَ) يدلُّ على مَن قامَ به؛ ولأنّه ملتصقٌ بالفعلِ نسمّيه: ضميرًا متّصلًا.'},1600)}
+  else{SFX.no();shake(s);b.textContent='ليس هذا… اقرؤوا آخرَ الفعلِ مرّةً أخرى!'}});})();
+
+/* ٣ */
+let R3=null;
+(()=>{const V=[['لَعِ','ب'],['رَسَ','م'],['كَتَ','ب']];let v=0,p=null,tried=new Set();
+ const vb=$('vb3'),sh=$('sh3'),b=$('b3');
+ const vs=$('vs3');V.forEach((x,i)=>{const bt=document.createElement('button');bt.className='btn lt vb';bt.innerHTML=`<span class="w">${x[0]}${x[1]}َ</span>`;bt.onclick=()=>{v=i;[...vs.children].forEach(c=>c.classList.toggle('sel',c===bt));render();SFX.pop()};vs.appendChild(bt)});
+ vs.children[0].classList.add('sel');
+ function render(){const [pre,last]=V[v];
+  vb.innerHTML=`<span>${pre}</span><span class="lt${p?' zz':''}">${last}${p?'ْ':'َ'}</span>${p?`<span class="${PC[p]}">${p}</span>`:''}<span class="zzz" id="z3">💤</span>`;
+  R3()}
+ R3=()=>{const lt=vb.querySelector('.lt'),z=$('z3');if(!lt||!z)return;z.style.left=(lt.offsetLeft+lt.offsetWidth-14)+'px';z.style.top=(lt.offsetTop+4)+'px';z.classList.toggle('on',!!p)};
+ document.querySelectorAll('.s3 .shb').forEach(bt=>bt.onclick=()=>{p=bt.dataset.p;wear(sh,p);setTimeout(()=>{render();SX2.snore()},450);
+  const key=v+p;if(!tried.has(key)){tried.add(key);const d=[...$('dots3').children];d.forEach((x,i)=>x.classList.toggle('on',i<tried.size));
+   if(tried.size===3){setTimeout(()=>{$('dc3').classList.add('open');SFX.magic();b.textContent='اكتشفْتُم السّرّ! الصّدفةُ على ظهرِه… فهو نائم.'},1300)}}
+  b.textContent='تثاءبَ آخرُ الفعلِ ونام! المسوه… هل يستيقظ؟'});
+ $('off3').onclick=()=>{if(!p)return;p=null;sh.classList.remove('on');render();SFX.pop();b.textContent='نزعْتُم الصّدفةَ فاستيقظَ الحرفُ مفتوحًا!'};
+ vb.onclick=e=>{if(!e.target.closest('.lt'))return;if(p){shake(vb);SX2.snore();b.textContent='الصّدفةُ على ظهرِه… فهو نائم! انزعوا الصّدفةَ ليستيقظ.'}else{SFX.pop();b.textContent='الحرفُ مستيقظٌ مفتوح… ألصقوا صدفةً وراقبوا!'}};
+ render();})();
+
+/* ٤ */
+(()=>{const V=[['ذَهَ','ب'],['جَلَ','س'],['شَرِ','ب']],P=['تُ','تَ','تِ'],ANG=[0,130,230];
+ const SAY=['أشارتْ إلى المرآة: تحدّثوا عن أنفسِكم!','أشارتْ إلى الولد: كلِّموه!','أشارتْ إلى البنت: كلِّموها!'];
+ let v=0,done=new Set(),rot=0,k=-1,busy=false;const sp=$('sp4'),tg=[...document.querySelectorAll('#ar4 .tg')],tri=[...document.querySelectorAll('#tri4>div')],b=$('b4');
+ function setVerb(){const [pre,last]=V[v];$('vv4').innerHTML=`${pre}${last}َ`;tri.forEach((d,i)=>{d.classList.remove('on');d.querySelector('.w').innerHTML=`${pre}${last}ْ<span class="pT">${P[i]}</span>`})}
+ $('spin4').onclick=()=>{if(busy)return;if(done.size===3){v=(v+1)%V.length;done.clear();setVerb();}
+  const left=[0,1,2].filter(i=>!done.has(i));k=left[Math.random()*left.length|0];busy=true;tg.forEach(t=>t.classList.remove('hl'));
+  const need=((ANG[k]-rot%360)+360)%360;rot+=1080+need;sp.style.transform=`rotate(${rot}deg)`;SX2.tick(28);$('sm4').textContent='…';$('rev4').disabled=true;
+  setTimeout(()=>{busy=false;tg[k].classList.add('hl');SFX.pop();$('sm4').textContent=SAY[k];$('rev4').disabled=false;b.textContent='قولوا الفعلَ أوّلًا… ثمّ اكشفوا!'},2650)};
+ $('rev4').onclick=()=>{if(k<0)return;const [pre,last]=V[v];$('vv4').innerHTML=joined(pre,last,P[k]);$('sm4').textContent=['(أنا)','(أنتَ)','(أنتِ)'][k];
+  tri[k].classList.add('on');done.add(k);SFX.shell();$('rev4').disabled=true;
+  b.textContent=done.size===3?'صدفةٌ واحدةٌ هي التّاء… تتغيّرُ حركتُها فقط: تُ، تَ، تِ!':'لاحظوا حركةَ التّاءِ في الصّدفة.';
+  if(done.size===3){SFX.magic();$('spin4').textContent='🍾 فعلٌ جديد'}else $('spin4').textContent='🍾 أديروا الزّجاجة'};
+ setVerb();})();
+
+/* ٥ */
+(()=>{const Q=[['كَتَبْنا الدّرسَ.','N'],['البناتُ رَسَمْنَ ريّا.','U'],['سَبَحْنا في البحرِ.','N'],['طَبَخْنَ الأرزَّ.','U'],['الطّالباتُ فَهِمْنَ الدّرسَ.','U'],['شَرِبْنا الماءَ.','N'],['لَعِبْنَ معًا.','U'],['جَلَسْنا تحتَ النّخلةِ.','N']];
+ let i=0,cnt={N:0,U:0},lock=false;const pk=$('pk5'),h=$('h5'),b=$('b5'),bk=[...document.querySelectorAll('#pail5 .buck')];
+ function set(){pk.style.transform='';pk.classList.remove('back');if(i>=Q.length){pk.textContent='امتلأ الدّلوان! 🎉';pk.style.cursor='default';h.textContent='';SFX.cheer();b.textContent='أحسنتم! «نا» بألف لنا… و«نَ» بلا ألف لهُنَّ.';return}pk.textContent=Q[i][0];h.textContent=''}
+ function drop(a){if(lock||i>=Q.length)return;const ok=Q[i][1];
+  if(a===ok){lock=true;cnt[a]++;$('cn5'+a).textContent=AR(cnt[a]);SX2.splash();pk.classList.add('back');pk.style.transform+=' scale(.2)';pk.style.opacity='0';
+   $('pc5').textContent=AR(i+1)+' / '+AR(Q.length);h.style.color='var(--ok)';h.textContent='✔ أحسنت';
+   setTimeout(()=>{i++;pk.style.opacity='';set();lock=false},650)}
+  else{SFX.no();pk.classList.add('back');pk.style.transform='';h.style.color='var(--bad)';
+   h.textContent=ok==='N'?'اسمعوا الألفَ في آخرِ الفعل: «ـنا»… فهي نحنُ!':'لا ألفَ في آخرِ الفعل: «ـنَ»… فهي هُنَّ!';shake(bk[ok==='N'?1:0])}}
+ let sx=0,sy=0,dr=false;
+ pk.addEventListener('pointerdown',e=>{if(lock||i>=Q.length)return;dr=true;sx=e.clientX;sy=e.clientY;pk.classList.remove('back');pk.classList.add('drag');pk.setPointerCapture(e.pointerId)});
+ pk.addEventListener('pointermove',e=>{if(!dr)return;pk.style.transform=`translate(${(e.clientX-sx)/SCL}px,${(e.clientY-sy)/SCL}px)`;
+  bk.forEach(x=>{const r=x.getBoundingClientRect();x.classList.toggle('over',e.clientX>r.left&&e.clientX<r.right&&e.clientY>r.top&&e.clientY<r.bottom)})});
+ pk.addEventListener('pointerup',e=>{if(!dr)return;dr=false;pk.classList.remove('drag');let hit=null;
+  bk.forEach(x=>{const r=x.getBoundingClientRect();if(e.clientX>r.left&&e.clientX<r.right&&e.clientY>r.top&&e.clientY<r.bottom)hit=x.dataset.a;x.classList.remove('over')});
+  if(hit)drop(hit);else{pk.classList.add('back');pk.style.transform=''}});
+ bk.forEach(x=>x.onclick=()=>drop(x.dataset.a));
+ set();})();
+
+/* ٦ */
+(()=>{const Q=[['نَجَ','حْ','تُ',' في الاختبارِ.','T'],['نَجَ','حَ','تْ',' فاطمةُ.','F'],['سَبَ','حْ','تِ',' يا مريمُ.','T'],['سَبَ','حَ','تْ',' رَيّا في البحرِ.','F'],['كَتَ','بْ','تَ',' الدّرسَ يا خالدُ.','T'],['جَلَ','سَ','تْ',' أمّي على الرّملِ.','F']];
+ let i=0,lock=false;const ql=$('ql6'),lz=$('lz6'),lt=$('lt6'),nr=$('nr6'),b=$('b6');
+ function set(){if(i>=Q.length){ql.textContent='كشفْتُم التّوأمتينِ كلَّهما! 🎉';lz.classList.remove('on');lt.textContent='';SFX.cheer();b.textContent='لن تخدعَكم التّوأمتانِ بعدَ اليوم!';return}
+  const [a,l,t,z]=Q[i];ql.innerHTML=`${a}${l}<span style="text-decoration:underline wavy #E4579A;text-underline-offset:12px">${t}</span>${z}`;lz.classList.remove('on');lt.textContent='';nr.textContent=''}
+ $('ln6').onclick=()=>{if(i>=Q.length)return;const [,l,t]=Q[i];lz.innerHTML=`<span class="sk">${l}</span>${t}`;lz.classList.add('on');SFX.pop();
+  lt.innerHTML=l.endsWith('ْ')?'قبلَ التّاءِ <span class="sk">ساكن</span>… والتّاءُ متحرّكة.':'قبلَ التّاءِ <span style="color:var(--fem)">مفتوح</span>… والتّاءُ ساكنة.'};
+ $('rev6').onclick=()=>{$('tw6').classList.add('rev');SFX.magic();b.textContent='الصّدفةُ متحرّكةٌ وقبلَها ساكن… والزّهرةُ ساكنةٌ وقبلَها مفتوح!'};
+ document.querySelectorAll('.s6 .qb button').forEach(bt=>bt.onclick=()=>{if(lock||i>=Q.length)return;const ok=Q[i][4];
+  if(bt.dataset.a===ok){lock=true;SFX.yes();nr.style.color='var(--ok)';nr.textContent=ok==='T'?'✔ تاءُ الفاعل: صدفةٌ متحرّكة.':'✔ تاءُ التّأنيث: زهرةٌ ساكنة (هي).';$('qc6').textContent=AR(i+1)+' / '+AR(Q.length);
+   setTimeout(()=>{i++;lock=false;set()},1600)}
+  else{SFX.no();shake(bt);nr.style.color='var(--bad)';nr.textContent='استعملوا العدسة: ما حركةُ الحرفِ قبلَ التّاء؟'}});
+ set();})();
+
+/* ٧ */
+(()=>{const C=[{f:['g:#E4579A'],h:'أنتِ وحدَكِ!',p:'قِفي، وتحدّثي عن شيءٍ فعلتِه أمسِ.',m:'لَعِبْ<span class="pT">تُ</span> مع أختي.'},
+  {f:['b','g:#1FA3B8','b','g:#F2994A'],h:'الصّفُّ كلُّه!',p:'قِفوا، وقولوا معًا شيئًا فعلتُموه اليوم.',m:'دَخَلْ<span class="pN">نا</span> الصّفَّ مبكِّرينَ.'},
+  {f:['g:#9B6BE3','g:#F2994A','g:#2FB67C'],h:'البناتُ يقِفْنَ!',p:'يتحدّثُ الأولادُ عنهنّ بجملة.',m:'البناتُ وَقَفْ<span class="pU">نَ</span> بهدوء.'},
+  {f:['b'],h:'أشيروا إلى ولد!',p:'كلِّموه بفعلٍ ماضٍ.',m:'رَسَمْ<span class="pT">تَ</span> رسمًا جميلًا يا سالمُ.'},
+  {f:['g:#E4579A'],h:'أشيروا إلى بنت!',p:'كلِّموها بفعلٍ ماضٍ.',m:'كَتَبْ<span class="pT">تِ</span> جملةً رائعةً يا مريمُ.'},
+  {f:['b'],h:'أنتَ وحدَكَ!',p:'قِفْ، وتحدّثْ عن شيءٍ فعلتَه أمسِ.',m:'شَرِبْ<span class="pT">تُ</span> الحليبَ صباحًا.'}];
+ let i=0,tm=null;const fc=$('fc7'),tr=$('tr7'),tn=$('tn7'),md=$('md7'),fm=$('fm7'),b=$('b7');
+ const fig=s=>s==='b'?'<svg class="kid"><use href="#boy"/></svg>':`<svg class="kid" style="color:${s.slice(2)}"><use href="#girl"/></svg>`;
+ function timer(){clearInterval(tm);let t=10;tn.textContent=AR(t);tr.style.transition='none';tr.style.strokeDashoffset=0;void tr.getBoundingClientRect();tr.style.transition='stroke-dashoffset 1s linear';
+  tm=setInterval(()=>{t--;tn.textContent=AR(Math.max(t,0));tr.style.strokeDashoffset=276.5*(10-t)/10;if(t<=3&&t>0)SFX._t(880,.08,{v:.1});if(t<=0){clearInterval(tm);SFX.magic();md.disabled=false;b.textContent='انتهى الوقت! لنرَ المثال.'}},1000)}
+ $('fl7').onclick=()=>{if(i>=C.length){i=0}const c=C[i];const open=()=>{$('fg7').innerHTML=c.f.map(fig).join('');$('fh7').textContent=c.h;$('fp7').textContent=c.p;fm.innerHTML=c.m;fm.classList.remove('on');
+   fc.classList.add('on');SX2.flip();md.disabled=false;timer();i++;$('dk7').textContent='البطاقات: '+AR(i)+' / '+AR(C.length);$('fl7').textContent=i>=C.length?'↺ من جديد':'🃏 البطاقةُ التّالية';b.textContent='عشرُ ثوانٍ… هيّا!'};
+  if(fc.classList.contains('on')){fc.classList.remove('on');SX2.flip();setTimeout(open,700)}else open()};
+ md.onclick=()=>{fm.classList.add('on');clearInterval(tm);SFX.shell();b.textContent='هل قلتُم مثلَه؟ أيُّ صدفةٍ استعملْنا؟'};})();
+
+/* ٨ */
+(()=>{const P=['تُ','تَ','تِ','نا','نَ'];
+ const V=[{s:'ذَهَبَ',pre:'ذَهَ',l:'ب',ok:'تُ',h:'مَن ذهب؟ «أنا»… فأيُّ صدفة؟'},{s:'شاهَدْتُ'},{s:'جَلَسْتُ',pre:'جَلَ',l:'س',ok:'نا',h:'«نحنُ» جلسْنا جميعًا… لا «جلسْتُ»!'},{s:'جَمَعْنا',pre:'جَمَ',l:'ع',ok:'نَ',h:'أخواتُه جماعةٌ من البنات… هُنَّ!'},{s:'رَسَمْتَ',pre:'رَسَ',l:'م',ok:'تِ',h:'يُكلِّمُ مريمَ، وهي بنت… فما حركةُ التّاء؟'},{s:'رَجَعْنا'}];
+ const T='إلى صديقتي ريّا،<br>أنا {0} إلى رأسِ الجنزِ مع أسرتي، و{1} صغارَكِ على الرّمل. نحنُ {2} على الشّاطئِ حتّى الغروب، وأخواتي {3} الأصدافَ الملوّنة. وأنتِ يا مريمُ، {4} سلحفاةً تشبهُ ريّا! ثمّ {5} إلى البيتِ سعداء.<br><span style="float:left">صديقُكِ: حمدان</span>';
+ const L=$('let8'),b=$('b8');let n=0,pop=null;
+ L.innerHTML=T.replace(/\{(\d)\}/g,(_,d)=>`<span class="vv" data-i="${d}">${V[d].s}</span>`);
+ function close(){if(pop){pop.remove();pop=null}}
+ L.onclick=e=>{const w=e.target.closest('.vv');if(!w){if(!e.target.closest('.pop'))close();return}close();const d=V[+w.dataset.i];
+  if(w.classList.contains('fixed')||w.classList.contains('okk'))return;
+  if(!d.ok){w.classList.add('okk');SFX.pop();b.textContent='هذا الفعلُ صحيح! ابحثوا عن غيرِه.';return}
+  pop=document.createElement('div');pop.className='pop';pop.innerHTML=P.map(p=>`<button class="shb ${SC[p]}" data-p="${p}">${p}</button>`).join('');L.appendChild(pop);
+  let x=w.offsetLeft+w.offsetWidth/2-pop.offsetWidth/2;x=Math.max(10,Math.min(L.clientWidth-pop.offsetWidth-10,x));pop.style.left=x+'px';pop.style.top=(w.offsetTop+w.offsetHeight+4)+'px';
+  if(w.offsetTop+w.offsetHeight+pop.offsetHeight>L.clientHeight)pop.style.top=(w.offsetTop-pop.offsetHeight-4)+'px';
+  pop.onclick=ev=>{ev.stopPropagation();const bt=ev.target.closest('.shb');if(!bt)return;
+   if(bt.dataset.p===d.ok){w.innerHTML=joined(d.pre,d.l,d.ok);w.classList.add('fixed');close();SFX.shell();n++;$('lc8').textContent=AR(n)+' / '+AR(4);
+    b.textContent=n===4?'أصلحْتُم الرّسالةَ كلَّها! سأوصلُها إلى ريّا ✉️':'أحسنتم! بقيَ '+['','ثلاثةُ أخطاء','خطآن','خطأٌ واحد'][4-n]+'.';if(n===4)SFX.cheer()}
+   else{SFX.no();shake(pop);b.textContent=d.h}}};})();
+
+/* ٩ */
+(()=>{const W=[['أنا','تُ','',''],['نحنُ','نا','',''],['البناتُ','نَ','البناتُ ',''],['أنتَ','تَ','',' يا سالمُ'],['أنتِ','تِ','',' يا مريمُ']];
+ const V=[['لَعِ','ب','على الرّملِ'],['رَسَ','م','سلحفاةً'],['سَبَ','ح','في البحرِ'],['جَمَ','ع','الأصدافَ']];
+ let w=null,v=null,sent=0;const pg=$('pg9'),who=$('who9'),what=$('what9'),b=$('b9'),sd=$('send9'),sea=$('sea9');
+ function show(){if(w===null||v===null){pg.innerHTML='<span class="ph">ستظهرُ رسالتُك هنا…</span>';sd.disabled=true;return}
+  const [,p,bf,af]=W[w],[pre,last,obj]=V[v];pg.innerHTML=`${bf}${joined(pre,last,p)}&nbsp;${obj}${af}.`;SFX.shell();sd.disabled=false;
+  b.textContent=`الصّدفةُ هنا «${p}»، لأنّ الّذي قامَ بالفعل: ${W[w][0]}.`}
+ W.forEach((x,i)=>{const bt=document.createElement('button');bt.className='btn lt';bt.textContent=x[0];bt.onclick=()=>{w=i;[...who.children].forEach(c=>c.classList.toggle('sel',c===bt));show()};who.appendChild(bt)});
+ V.forEach((x,i)=>{const bt=document.createElement('button');bt.className='btn tq';bt.innerHTML=`<span class="w">${x[0]}${x[1]}َ</span>`;bt.onclick=()=>{v=i;[...what.children].forEach(c=>c.classList.toggle('sel',c===bt));show()};what.appendChild(bt)});
+ sd.onclick=()=>{if(sd.disabled)return;sd.disabled=true;pg.classList.add('gone');
+  const f=document.createElement('div');f.className='flyB';f.style.right='24px';f.style.top='250px';f.innerHTML='<svg><use href="#bottle"/></svg>';sea.appendChild(f);
+  requestAnimationFrame(()=>f.classList.add('go'));setTimeout(()=>SX2.splash(),1300);
+  f.addEventListener('animationend',()=>{if(f.classList.contains('go')){f.classList.remove('go');f.classList.add('float')}else f.remove()});
+  sent++;$('sn9').textContent='رسائلُ في البحر: '+AR(sent);b.textContent='أبحرَتْ رسالتُكم! مَن يكتبُ الرّسالةَ التّالية؟';
+  setTimeout(()=>{pg.classList.remove('gone');w=v=null;[...who.children,...what.children].forEach(c=>c.classList.remove('sel'));show()},900)};})();
+
+/* ١٠ */
+const cv=$('confetti'),cx=cv.getContext('2d');
+function closing(){const s=slides[cur];s.classList.remove('go');void s.offsetWidth;s.classList.add('go');setTimeout(()=>{SFX.waves();SFX.cheer();confetti()},400)}
+function confetti(){const cols=['#F26B5B','#2FB67C','#9B6BE3','#FFC83D','#1FA3B8','#fff'];const P=[...Array(170)].map(()=>({x:Math.random()*1600,y:-20-Math.random()*300,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:cols[Math.random()*cols.length|0],w:8+Math.random()*10}));
+  let f=0;(function tick(){cx.clearRect(0,0,1600,900);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-3,p.w,6);cx.restore()});
+  if(++f<260)requestAnimationFrame(tick);else cx.clearRect(0,0,1600,900)})()}
+go(0);
+</script>
+<script src="kawn-data.js" defer></script>
+</body>
+</html>

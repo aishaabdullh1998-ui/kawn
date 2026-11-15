@@ -167,19 +167,6 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 .piece.y{background:var(--ya)}.piece.a{background:var(--alif)}.piece.wa{background:var(--waw)}
 .piece.dragging{z-index:60;cursor:grabbing}
 
-/* ٤ الأسرار */
-.secs{position:absolute;inset:0;display:flex;gap:22px}
-.secC{flex:1;background:#fff;border-radius:24px;border:5px solid;padding:12px 18px;display:flex;flex-direction:column;gap:10px}
-.secC h3{margin:0;font-size:32px}
-.secC p{margin:0;font-size:22px;font-weight:700;line-height:1.5;color:var(--ink2)}
-.tg{display:flex;align-items:center;gap:12px;background:#F8F4EA;border-radius:16px;padding:6px 12px}
-.tg .w{font-size:44px;flex:1;text-align:center;line-height:1.3}
-.tg .btn{font-size:20px;padding:6px 14px;white-space:nowrap}
-.nn{color:var(--nun);text-shadow:0 0 10px rgba(123,92,214,.6);animation:pop .5s}
-.gd{color:var(--gold);text-shadow:0 0 10px rgba(246,196,69,.9);animation:pop .5s}
-.guardRow{display:flex;gap:10px;justify-content:center}
-.guardShow{font-family:var(--word);font-size:70px;font-weight:700;text-align:center;min-height:110px;line-height:1.5;position:relative}
-
 /* ٥ العجلة */
 .wh{position:absolute;inset:0;display:flex;gap:26px}
 .wheels{display:flex;gap:26px;align-items:center;width:640px;flex-direction:column}
@@ -269,6 +256,70 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 #credit{position:absolute;bottom:5px;right:16px;z-index:40;font-size:12px;font-weight:600;color:rgba(40,30,10,.75);background:rgba(255,255,255,.5);border-radius:10px;padding:1px 9px;pointer-events:none}
 #confetti{position:absolute;inset:0;pointer-events:none;z-index:45}
 @media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+.mission{top:232px;bottom:auto;right:auto;left:330px;width:820px;padding:16px 30px;font-size:30px;font-weight:700;line-height:1.6;border-radius:26px;border-width:6px;border-color:var(--ink)}
+.mission b{color:var(--waw2)}
+/* ٢ عدّاد الصّغار */
+.cnt2{position:absolute;inset:0;display:flex;gap:24px}
+.cnt2 .beach{width:820px;flex:none}
+.cnt2 .nest2{position:absolute;right:20px;bottom:18px;width:170px;height:120px;border:0;background:radial-gradient(ellipse at 50% 70%,#A88E5E 0 55%,transparent 56%);cursor:pointer}
+.cnt2 .nest2 i{position:absolute;width:44px;height:54px;border-radius:50% 50% 46% 46%/60% 60% 40% 40%;background:radial-gradient(circle at 35% 30%,#fff,#E5DCC6);bottom:26px}
+.cnt2 .nest2 span{position:absolute;top:-40px;right:0;left:0;text-align:center;color:#FFE9A8;font-size:22px;font-weight:800;white-space:nowrap}
+.cnt2 .kid2{position:absolute;width:96px;height:77px;cursor:pointer;transition:left .9s cubic-bezier(.3,1.3,.5,1),bottom .9s cubic-bezier(.3,1.3,.5,1)}
+.cnt2 .kid2 svg{width:100%;height:100%;animation:wd .35s ease-in-out infinite alternate}
+.cnt2 .sentB{position:absolute;top:12px;right:16px;left:16px;background:#fff;border:3px solid var(--ink);border-radius:18px;padding:2px 14px;text-align:center;font-family:var(--word);font-size:44px;font-weight:700;line-height:1.6;z-index:3}
+.cnt2 .side{gap:14px}
+.cbig{font-size:120px;font-weight:800;line-height:1;text-align:center;color:var(--teal)}
+.cbig small{display:block;font-size:26px;color:var(--ink2)}
+.seen2{display:flex;gap:10px;justify-content:center}
+.seen2 i{font-style:normal;font-family:var(--word);font-size:34px;font-weight:700;width:76px;height:70px;border-radius:16px;background:#EFE8D8;color:#bbb;display:flex;align-items:center;justify-content:center}
+.seen2 i.on{color:#fff;animation:pop .5s}
+.seen2 i.on.a{background:var(--alif)}.seen2 i.on.w{background:var(--waw)}.seen2 i.on.y{background:var(--ya)}
+.disc2{background:#fff;border-radius:20px;padding:10px 18px;font-size:22px;font-weight:700;line-height:1.55;border-right:12px solid var(--gold);min-height:100px}
+.disc2 .a{display:none}.disc2.open .a{display:block;animation:pop .5s}.disc2.open .q{display:none}
+/* ٥ مسرح الحارس والنّون */
+.thr{position:absolute;inset:0;display:flex;gap:24px}
+.thrL{flex:0 0 860px;position:relative;border-radius:24px;background:linear-gradient(#1B3561,#0E2347);border:5px solid var(--teal);overflow:hidden}
+.thrL::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(#D9C9A3,#BCA77D)}
+.curtain{position:absolute;top:0;bottom:0;width:70px;background:repeating-linear-gradient(90deg,#B3263A 0 18px,#8E1B2D 18px 36px);z-index:2}
+.curtain.r{right:0}.curtain.l{left:0}
+.wordT{position:absolute;top:120px;left:0;right:0;text-align:center;font-family:var(--word);font-size:130px;font-weight:700;color:#fff;line-height:1.3;z-index:3;white-space:nowrap}
+.wordT .g{color:var(--gold);text-shadow:0 0 18px rgba(246,196,69,.9)}
+.wordT .n{color:#C9B6FF;text-shadow:0 0 18px rgba(123,92,214,.9)}
+.actor{position:absolute;bottom:60px;width:130px;height:190px;z-index:4;transition:left 1.2s cubic-bezier(.4,0,.3,1),opacity .6s}
+.actor svg{width:100%;height:100%}
+.actor b{position:absolute;bottom:-8px;left:-30px;right:-30px;text-align:center;font-size:22px;color:#fff;background:rgba(0,0,0,.45);border-radius:10px;line-height:1.5}
+.thrR{flex:1;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.thrR .row{display:flex;gap:10px;align-items:center}
+.thrR .lab{font-size:24px;font-weight:800;color:var(--ink2);min-width:84px}
+.thrR .btn{font-size:24px;padding:8px 18px}
+.thrR .btn.sel{outline:5px solid var(--gold);outline-offset:2px}
+.cave2{display:none;background:#3A2A4A;color:#FFE9A8;border-radius:16px;padding:8px 14px;font-size:22px;font-weight:800;line-height:1.5}
+.cave2.on{display:block;animation:pop .5s}
+.chk{display:flex;flex-direction:column;gap:6px;font-size:23px;font-weight:800}
+.chk span{opacity:.35}.chk span.on{opacity:1}
+.chk span::before{content:"◻ ";}.chk span.on::before{content:"✔ ";color:var(--ok)}
+/* ٩ إشارة الحارس */
+.sig{position:absolute;inset:0;display:flex;gap:30px;align-items:center}
+.board9{flex:0 0 820px;height:440px;border-radius:30px;background:radial-gradient(circle at 50% 30%,#2A4A7A,#0E2347);border:8px solid var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden}
+.board9 .beam{position:absolute;top:-60px;left:50%;width:520px;height:520px;margin-left:-260px;background:radial-gradient(circle,rgba(229,72,77,.35),transparent 65%);opacity:0;transition:opacity .4s}
+.board9.on .beam{opacity:1}
+.board9 .vb{font-family:var(--word);font-size:120px;font-weight:700;color:#fff;line-height:1.3;z-index:1;min-height:156px}
+.board9 .figs{display:flex;gap:4px;align-items:flex-end;height:120px;z-index:1;opacity:0;transition:opacity .4s}
+.board9 .figs.on{opacity:1}
+.board9 .figs svg{width:110px;height:88px}
+.board9 .ans{font-size:34px;font-weight:800;color:#FFE9A8;z-index:1;min-height:52px}
+.side9{flex:1;display:flex;flex-direction:column;gap:14px}
+.leg{background:#fff;border-radius:18px;padding:8px 16px;font-size:24px;font-weight:800;display:flex;align-items:center;gap:12px}
+.leg b{font-family:var(--word);font-size:40px;width:58px;height:58px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+
+.s1 .title{top:150px}
+.s1 .hint{top:350px}
+.mission{top:340px!important}
+.s2 .grp{transition:transform 2.2s cubic-bezier(.4,0,.3,1),opacity .3s}
+.s2 .grp.go{opacity:0;transition:transform 2.2s cubic-bezier(.4,0,.3,1),opacity .8s 1.7s}
+#gY.go{transform:translate(-90px,-135px) scale(.85)}
+#gA.go{transform:translate(-60px,-205px) scale(.85)}
+#gW.go{transform:translate(-10px,-240px) scale(.85)}
 </style>
 </head>
 <body>
@@ -304,6 +355,25 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
   <use href="#hat"/>
   <path d="M18 28 l-10 -8 l2 12z M18 28 l10 -8 l-2 12z" fill="#F06A9A"/><circle cx="18" cy="28" r="4" fill="#C2416F"/>
 </symbol>
+<symbol id="guard" viewBox="0 0 100 150">
+  <ellipse cx="50" cy="146" rx="30" ry="4" fill="#000" opacity=".2"/>
+  <path d="M28 78 Q50 68 72 78 L78 144 L22 144Z" fill="#5E7A4A"/>
+  <path d="M50 78 V144" stroke="#4A6339" stroke-width="3"/><rect x="30" y="100" width="40" height="7" fill="#3E3122"/>
+  <circle cx="20" cy="108" r="7" fill="#C68B59"/>
+  <rect x="74" y="96" width="14" height="22" rx="4" fill="#3A3A3A"/><circle cx="81" cy="96" r="7" fill="#E5484D"/><circle cx="81" cy="96" r="12" fill="#E5484D" opacity=".35"/>
+  <circle cx="50" cy="46" r="24" fill="#C68B59"/>
+  <path d="M24 38 Q26 16 50 16 Q74 16 76 38 Z" fill="#D9C08A"/><path d="M18 40 H82" stroke="#B8A06A" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="42" cy="50" r="3.6" fill="#1F3440"/><circle cx="58" cy="50" r="3.6" fill="#1F3440"/>
+  <path d="M43 60 q7 6 14 0" stroke="#1F3440" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <text x="50" y="132" text-anchor="middle" font-family="Noto Naskh Arabic" font-size="30" font-weight="700" fill="#F6C445">ا</text>
+</symbol>
+<symbol id="nunC" viewBox="0 0 100 150">
+  <ellipse cx="50" cy="146" rx="30" ry="4" fill="#000" opacity=".2"/>
+  <path d="M14 70 Q14 140 50 140 Q86 140 86 70" fill="none" stroke="#7B5CD6" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="50" cy="42" r="11" fill="#7B5CD6"/>
+  <circle cx="38" cy="100" r="5" fill="#fff"/><circle cx="62" cy="100" r="5" fill="#fff"/><circle cx="38" cy="101" r="2.6" fill="#1F3440"/><circle cx="62" cy="101" r="2.6" fill="#1F3440"/>
+  <path d="M42 114 q8 7 16 0" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+</symbol>
 </svg>
 
 <div id="stage">
@@ -317,18 +387,45 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
   <div class="hint" id="h1">🥚 اطرقوا البيضاتِ الثّلاث… مرّتين لكلِّ بيضة!</div>
   <div class="rayya"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg></div>
   <div class="nest" id="nest"></div>
-  <div class="mission"><h3>مهمّةُ اللّيلة</h3><p>بعدَ أن نرافقَ صغارَ ريّا سأستطيعُ أنْ:</p>
-    <ol><li>أستخدمَ ألفَ الاثنينِ للاثنين، وواوَ الجماعةِ للجماعة.</li><li>أستخدمَ ياءَ المخاطبةِ لمخاطبةِ الأنثى الواحدة.</li><li>أصلَها بالفعلِ الماضي والمضارعِ والأمر.</li><li>أكتبَ الألفَ الفارقةَ وأعرفَ نونَ المضارع.</li></ol></div>
+  <div class="mission"><b>فقسَ البيض!</b> صغاري سيزحفونَ إلى البحرِ الآن… راقبوا كيف أكلّمُهم، فلكلٍّ منهم نداءٌ خاصّ!</div>
   <template class="notes"><h3>١. ليلة الفقس</h3><dl>
-    <dt>الهدف</dt><dd>تقديم العالم: ريّا (من درس «أصدافها الثلاث») تعود إلى شاطئ رأس الجنز ليلًا ليفقس بيضها.</dd>
+    <dt>الهدف</dt><dd>تقديم العالم: ريّا (من درس «رسائل الزجاجات») تعود إلى شاطئ رأس الجنز ليلًا ليفقس بيضها. لا تذكري أسماء الضمائر بعد؛ سيكتشفها الطلاب.</dd>
     <dt>التنفيذ</dt><dd>يطرق ثلاثة طلاب البيضات (طرقتان لكل بيضة). الأولى تُخرج صغيرة واحدة، والثانية توأمين، والثالثة جماعة.</dd>
     <dt>معلومة</dt><dd>محمية رأس الجنز في ولاية صور من أهم مواقع تعشيش السلاحف الخضراء في العالم.</dd>
     <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
 </section>
 
+<!-- عدّاد -->
+<section class="slide s2c">
+  <div class="card"><div class="num">ليلة ٢</div>
+    <div class="head"><h2>كم صغيرًا على الرّمل؟</h2><p>أخرِجوا الصّغارَ من العشّ… وراقبوا الفعل</p></div>
+    <div class="content"><div class="cnt2">
+      <div class="beach" id="bc2"><div class="mn"></div><div class="sentB" id="st2">المسوا العشَّ ليخرجَ صغير…</div>
+        <button class="nest2" id="ns2" aria-label="العشّ"><span>🥚 المسوا العشّ</span><i style="right:30px"></i><i style="right:70px;bottom:34px"></i><i style="right:104px"></i></button>
+      </div>
+      <div class="side">
+        <div class="cbig" id="cn2">٠<small>صغارٌ على الرّمل</small></div>
+        <button class="btn y" id="dg2" style="align-self:center">🎀 ريّا تنادي صغيرتَها</button>
+        <div class="seen2"><i class="a">ا</i><i class="w">و</i><i class="y">ي</i></div>
+        <div class="disc2" id="dc2"><div class="q">جرّبوا: صغيرٌ، ثمّ اثنان، ثمّ ثلاثة… ونادوا الصّغيرة. ما الّذي تغيّرَ في آخرِ الفعل؟</div>
+          <div class="a">آخرُ الفعلِ يتغيّرُ بحسبِ الصّغار:<br><span class="ca">ا</span> حينَ يكونانِ اثنين، و<span class="cw">و</span> حينَ يكونونَ جماعة، و<span class="cy">ي</span> حينَ نخاطبُ أنثى واحدة.</div></div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>جرِّبْ:</b>المسْ صغيرًا على الرّملِ ليعودَ إلى العشّ. هل يعودُ الفعلُ كما كان؟</div>
+      <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="bb2">كلّما خرجَ صغيرٌ جديد… تغيّرَ شيءٌ في الفعل!</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٢. كم صغيرًا على الرمل؟</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف ألف الاثنين وواو الجماعة وياء المخاطبة من تغيّر الفعل، قبل تسميتها.</dd>
+    <dt>التنفيذ</dt><dd>يلمس طالب العش فيخرج صغير، ويقرأ الصف الجملة. مع الصغير الثاني ثم الثالث يتغير آخر الفعل. ثم «ريّا تنادي صغيرتها». بعد ظهور الحروف الثلاثة اسألي: ما الذي تغيّر؟</dd>
+    <dt>انتبهي</dt><dd>الجمل تبدأ بالاسم (الصغيرانِ زحفا) ليتضح أن الضمير يعود عليه.</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
 <!-- ٢ -->
 <section class="slide s2">
-  <div class="card"><div class="num">ليلة ٢</div>
+  <div class="card"><div class="num">ليلة ٣</div>
     <div class="head"><h2>نداءُ ريّا</h2><p>اضغطْ لتنادي ريّا صغارَها</p></div>
     <div class="content"><div class="split">
       <div class="beach" id="bch2"><div class="mn"></div><div class="callBox" id="cb2">ريّا تنتظرُ أن تناديَ صغارَها…</div>
@@ -349,7 +446,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
       <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="b2">أنا ريّا! أنادي صغاري بثلاثِ أصداف: ي، ا، و.</div></div>
     </div>
   </div>
-  <template class="notes"><h3>٢. نداء ريّا</h3><dl>
+  <template class="notes"><h3>٣. نداء ريّا</h3><dl>
     <dt>الهدف</dt><dd>تعرّف الضمائر الثلاثة بمعانيها.</dd>
     <dt>التنفيذ</dt><dd>يضغط الطالب كل نداء فتزحف الصغار المناداة نحو البحر ويظهر الفعل والضمير ملوّنًا.</dd>
     <dt>للتوضيح</dt><dd>ألف الاثنين للمذكر والمؤنث (التوأمان أو التوأمتان)، وواو الجماعة لجماعة الذكور.</dd>
@@ -358,7 +455,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 
 <!-- ٣ -->
 <section class="slide s3">
-  <div class="card"><div class="num">ليلة ٣</div>
+  <div class="card"><div class="num">ليلة ٤</div>
     <div class="head"><h2>ذيولُ الأحجية</h2><p>ألصقِ الذّيلَ المناسبَ في آخرِ الفعل</p></div>
     <div class="content"><div class="puz">
       <div class="sc" id="sc3">٠ / ٦</div>
@@ -372,7 +469,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
       <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="b3">لكلِّ صغيرٍ ذيلٌ في آخرِ الفعل… أكملوا الأحجية!</div></div>
     </div>
   </div>
-  <template class="notes"><h3>٣. ذيول الأحجية</h3><dl>
+  <template class="notes"><h3>٤. ذيول الأحجية</h3><dl>
     <dt>الهدف</dt><dd>إسناد الفعل إلى الضمائر الثلاثة في الأزمنة الثلاثة.</dd>
     <dt>التنفيذ</dt><dd>يسحب الطالب القطعة المناسبة إلى آخر الفعل. القطعة الصحيحة تلتصق ويكتمل الفعل.</dd>
     <dt>لاحظي</dt><dd>في المضارع تأتي القطعة مع النون (ان، ون، ين)، وهذا تمهيد لسرّ النون.</dd>
@@ -381,35 +478,39 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 
 <!-- ٤ -->
 <section class="slide s4">
-  <div class="card"><div class="num">ليلة ٤</div>
-    <div class="head"><h2>سرّانِ تحتَ ضوءِ القمر</h2><p>نونُ المضارع… والألفُ الحارسة</p></div>
-    <div class="content"><div class="secs">
-      <div class="secC" style="border-color:var(--nun)"><h3 class="cnn">🟣 سرُّ النّون</h3><p>في <b>المضارع</b> تظهرُ <b class="cnn">النّون</b> بعدَ الضّمير. اضغطِ الزّرَّ وقارنْ:</p>
-        <div class="tg" data-i="0"><span class="w"></span><button class="btn lt">⇄ المضارع</button></div>
-        <div class="tg" data-i="1"><span class="w"></span><button class="btn lt">⇄ المضارع</button></div>
-        <div class="tg" data-i="2"><span class="w"></span><button class="btn lt">⇄ المضارع</button></div>
+  <div class="card"><div class="num">ليلة ٥</div>
+    <div class="head"><h2>مسرحُ الحارسِ والنّون</h2><p>غيِّروا الزّمن… وراقبوا مَن يدخلُ المسرح</p></div>
+    <div class="content"><div class="thr">
+      <div class="thrL" id="th4"><div class="curtain r"></div><div class="curtain l"></div>
+        <div class="wordT" id="wt4"></div>
+        <div class="actor" id="ag4" style="left:-200px"><svg viewBox="0 0 100 150"><use href="#guard"/></svg><b>الحارسُ «ا»</b></div>
+        <div class="actor" id="an4" style="left:-200px"><svg viewBox="0 0 100 150"><use href="#nunC"/></svg><b>النّونُ «نَ»</b></div>
       </div>
-      <div class="secC" style="border-color:var(--gold)"><h3 style="color:var(--alif2)">💂 سرُّ الألفِ الحارسة</h3><p>بعدَ <b class="cw">واوِ الجماعة</b> في الماضي والأمر نكتبُ <b style="color:var(--alif2)">ألفًا</b> لا تُنطَق، تحرسُ الواو. تُسمّى <b>الألفَ الفارقة</b>.</p>
-        <div class="guardShow" id="gs4"></div>
-        <div class="guardRow"><button class="btn lt" data-g="p">ماضٍ</button><button class="btn lt" data-g="c">أمر</button><button class="btn lt" data-g="m">مضارع</button></div>
-        <div class="msg" id="m4" style="font-size:21px;min-height:60px"></div>
+      <div class="thrR">
+        <div class="row"><span class="lab">الصّغار:</span><button class="btn a" data-k="a">ا الاثنان</button><button class="btn wa" data-k="w">و الجماعة</button><button class="btn y" data-k="y">ي الصّغيرة</button></div>
+        <div class="row"><span class="lab">الزّمن:</span><button class="btn lt" data-t="p">ماضٍ</button><button class="btn lt" data-t="m">مضارع</button><button class="btn lt" data-t="c">أمر</button></div>
+        <div class="cave2" id="cv4">🚪 ياءُ المخاطبةِ لا تدخلُ الماضي! نقولُ للصّغيرة: زَحَفْ<span style="color:#FF9BC1">تِ</span> (تاءُ الفاعل).</div>
+        <div class="chk" id="ck4"><span data-c="g">متى يقفُ الحارسُ «ا» بعدَ الواو؟</span><span data-c="n">متى تدخلُ النّونُ المسرح؟</span></div>
+        <div class="disc2" id="dc4"><div class="q">جرّبوا الأزمنةَ الثّلاثةَ مع الجماعة، ثمّ أجيبوا عن السّؤالين.</div>
+          <div class="a"><b style="color:var(--alif2)">الحارس:</b> بعدَ واوِ الجماعةِ في الماضي والأمرِ نكتبُ ألفًا لا تُنطَق: زَحَفوا، اِزْحَفوا.<br><b class="cnn">النّون:</b> في المضارعِ تدخلُ النّون: يَزْحَفانِ، يَزْحَفونَ، تَزْحَفينَ… فيخرجُ الحارس.</div></div>
       </div>
     </div></div>
     <div class="band">
-      <div class="task"><b>جرِّبْ:</b>اضغطْ أزرارَ المقارنة، ولاحظْ متى تظهرُ النّون، ومتى يقفُ الحارس.</div>
-      <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="b4">سرّانِ صغيرانِ يجعلانِ كتابتَكم بلا أخطاء!</div></div>
+      <div class="task"><b>راقبْ:</b>مَن يدخلُ المسرحَ في المضارع؟ ومَن يخرج؟</div>
+      <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="b4">على شاطئِنا حارسٌ يحرسُ واوَ الجماعة… ونونٌ تحبُّ المضارع!</div></div>
     </div>
   </div>
-  <template class="notes"><h3>٤. سرّا النون والألف الفارقة</h3><dl>
-    <dt>سرّ النون</dt><dd>في المضارع المسند إلى هذه الضمائر تظهر النون: يزحفان، يزحفون، تزحفين (وهي علامة رفعه، دون التوسع في الإعراب).</dd>
-    <dt>الألف الفارقة</dt><dd>تُكتب بعد واو الجماعة في الماضي والأمر ولا تُنطق: زحفوا، ازحفوا. ولا تُكتب في المضارع لأن النون بعد الواو: يزحفون.</dd>
-    <dt>للمتمكنين</dt><dd>إذا حُذفت نون المضارع (لن يكتبوا، لم يكتبوا) عادت الألف الفارقة. يُذكر عند السؤال فقط.</dd>
-    <dt>الزمن</dt><dd>٥ دقائق</dd></dl></template>
+  <template class="notes"><h3>٥. مسرح الحارس والنون</h3><dl>
+    <dt>الهدف</dt><dd>اكتشاف الألف الفارقة بعد واو الجماعة في الماضي والأمر، وظهور النون في المضارع المسند إلى الضمائر الثلاثة.</dd>
+    <dt>التنفيذ</dt><dd>اختاري «و الجماعة» ثم بدّلي الأزمنة: يدخل الحارس في الماضي والأمر، ويخرج حين تدخل النون في المضارع. ثم جرّبي الاثنين والصغيرة. اطلبي من الطلاب الإجابة عن السؤالين قبل ظهور الاستنتاج.</dd>
+    <dt>الفخ</dt><dd>«الصغيرة + الماضي»: ياء المخاطبة لا تتصل بالماضي، فنستعمل تاء الفاعل المكسورة (زَحَفْتِ).</dd>
+    <dt>للمتمكنين</dt><dd>إذا حُذفت النون (لن يزحفوا، لم يزحفوا) عاد الحارس. يُذكر عند السؤال فقط.</dd>
+    <dt>الزمن</dt><dd>٦ دقائق</dd></dl></template>
 </section>
 
 <!-- ٥ -->
 <section class="slide s5">
-  <div class="card"><div class="num">ليلة ٥</div>
+  <div class="card"><div class="num">ليلة ٦</div>
     <div class="head"><h2>عجلةُ الحظّ</h2><p>أدِرِ العجلتينِ… وابنِ الفعل</p></div>
     <div class="content"><div class="wh">
       <div class="sc" id="sc5">٠ / ٦</div>
@@ -432,7 +533,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
       <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="b5">العجلةُ تختارُ… وأنتم تبنون!</div></div>
     </div>
   </div>
-  <template class="notes"><h3>٥. عجلة الحظ</h3><dl>
+  <template class="notes"><h3>٦. عجلة الحظ</h3><dl>
     <dt>الهدف</dt><dd>بناء الفعل مع الضمير المناسب في الزمن المناسب.</dd>
     <dt>التنفيذ</dt><dd>يدير الطالب العجلتين: «مَن؟» (البنت، الاثنان، الجماعة) و«متى؟» (ماضٍ، مضارع، أمر)، ثم يختار الصيغة الصحيحة.</dd>
     <dt>الفخ</dt><dd>«البنت + الماضي»: ياء المخاطبة لا تتصل بالماضي، فنستخدم تاء الفاعل المكسورة (خرجْتِ)، وهي من درس «أصداف ريّا الثلاث».</dd>
@@ -441,7 +542,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 
 <!-- ٦ -->
 <section class="slide s6">
-  <div class="card"><div class="num">ليلة ٦</div>
+  <div class="card"><div class="num">ليلة ٧</div>
     <div class="head"><h2>مصباحُ الحارسِ الأحمر</h2><p>ابحثْ في الظّلامِ عن صغارِ ريّا</p></div>
     <div class="content"><div style="position:absolute;inset:0;display:flex;flex-direction:column;gap:10px">
       <div class="sc" id="sc6">٠ / ٧</div>
@@ -454,7 +555,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
       <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="b6">الضّوءُ الأحمرُ لا يُخيفُ صغاري… ابحثوا عنهم!</div></div>
     </div>
   </div>
-  <template class="notes"><h3>٦. مصباح الحارس</h3><dl>
+  <template class="notes"><h3>٧. مصباح الحارس</h3><dl>
     <dt>الهدف</dt><dd>تمييز الضمائر الثلاثة في نص متصل.</dd>
     <dt>التنفيذ</dt><dd>يحرّك الطالب الضوء بإصبعه على السبورة ليكتشف الأفعال، ثم يضغط الفعل ويحدّد ضميره. زر «أضئ الشاطئ» يكشف النص كاملًا عند الحاجة.</dd>
     <dt>معلومة</dt><dd>في محمية رأس الجنز يُستخدم الضوء الأحمر الخافت ليلًا لأنه لا يزعج السلاحف.</dd>
@@ -464,7 +565,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 
 <!-- ٧ -->
 <section class="slide s7">
-  <div class="card"><div class="num">ليلة ٧</div>
+  <div class="card"><div class="num">ليلة ٨</div>
     <div class="head"><h2>دوريّةُ الحارس</h2><p>هل الألفُ الحارسةُ في مكانِها؟</p></div>
     <div class="content"><div class="guardG">
       <div class="sc" id="sc7">٠ / ٦</div>
@@ -477,15 +578,42 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
       <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="b7">بعضُ الحرّاسِ ناموا… وبعضُهم وقفَ في غيرِ مكانِه!</div></div>
     </div>
   </div>
-  <template class="notes"><h3>٧. دورية الحارس</h3><dl>
+  <template class="notes"><h3>٨. دورية الحارس</h3><dl>
     <dt>الهدف</dt><dd>كتابة الألف الفارقة كتابة صحيحة.</dd>
     <dt>الإجابات</dt><dd>خرجو ← خرجوا، يخرجون ✔، اخرجو ← اخرجوا، يلعبونا ← يلعبون، لعبوا ✔، رجعو ← رجعوا.</dd>
     <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
 </section>
 
+<!-- إشارة -->
+<section class="slide s9s">
+  <div class="card"><div class="num">ليلة ٩</div>
+    <div class="head"><h2>إشارةُ الحارس</h2><p>اسمعوا الفعل… وقِفوا كالصّغار</p></div>
+    <div class="content"><div class="sig">
+      <div class="board9" id="bd9s"><div class="beam"></div><div class="vb" id="vb9">🔦</div><div class="figs" id="fg9"></div><div class="ans" id="an9"></div></div>
+      <div class="side9">
+        <div class="leg"><b style="background:var(--ya)">ي</b>تقفُ بنتٌ واحدة</div>
+        <div class="leg"><b style="background:var(--alif)">ا</b>يقفُ اثنانِ معًا</div>
+        <div class="leg"><b style="background:var(--waw)">و</b>تقفُ المجموعةُ كلُّها</div>
+        <button class="btn rd" id="sg9">🔦 الإشارةُ التّالية</button>
+        <button class="btn lt" id="rv9" disabled>👀 اكشفوا</button>
+        <div class="msg" id="c9">الإشارات: ٠ / ٨</div>
+      </div>
+    </div></div>
+    <div class="band">
+      <div class="task"><b>القانون:</b>تقرأُ المعلّمةُ الفعل، فيقفُ مَن يعنيهم قبلَ الكشف.</div>
+      <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="b9s">الحارسُ يرسلُ إشارتَه… مَن سيقف؟</div></div>
+    </div>
+  </div>
+  <template class="notes"><h3>٩. إشارة الحارس (نشاط حركي)</h3><dl>
+    <dt>الهدف</dt><dd>تمييز الضمائر الثلاثة سماعًا.</dd>
+    <dt>التنفيذ</dt><dd>اضغطي «الإشارة التالية» واقرئي الفعل بصوت واضح. يقف الطلاب حسب الضمير: بنت واحدة (ي)، اثنان (ا)، المجموعة كلها (و). ثم «اكشفوا».</dd>
+    <dt>الإجابات</dt><dd>اُكْتُبي (ي)، جَلَسا (ا)، يَلْعَبونَ (و)، تَرْسُمينَ (ي)، قاما (ا)، اِشْرَبوا (و)، يَسْبَحانِ (ا)، ناموا (و).</dd>
+    <dt>الزمن</dt><dd>٤ دقائق</dd></dl></template>
+</section>
+
 <!-- ٨ -->
 <section class="slide s8">
-  <div class="card"><div class="num">ليلة ٨</div>
+  <div class="card"><div class="num">ليلة ١٠</div>
     <div class="head"><h2>سباقُ الصّغارِ إلى البحر</h2><p>فريقانِ… والموجُ ينتظر</p></div>
     <div class="content"><div class="race">
       <div class="turn"><span class="on" id="tA">🪸 فريقُ المرجان</span><span id="tB">🌊 فريقُ الموج</span></div>
@@ -499,7 +627,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
       <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="b8">أسرعوا يا صغاري… والنّورسُ يراقب!</div></div>
     </div>
   </div>
-  <template class="notes"><h3>٨. سباق الصغار</h3><dl>
+  <template class="notes"><h3>١٠. سباق الصغار</h3><dl>
     <dt>الهدف</dt><dd>تطبيق تنافسي شامل.</dd>
     <dt>التنفيذ</dt><dd>قسّمي الصف فريقين. يجيب الفريقان بالتناوب؛ الإجابة الصحيحة تقدّم صغير الفريق خطوة، والخطأ يجعل النورس يحوم. أول فريق يصل البحر (٥ خطوات) يفوز.</dd>
     <dt>الزمن</dt><dd>٧ دقائق</dd></dl></template>
@@ -507,7 +635,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 
 <!-- ٩ -->
 <section class="slide s9">
-  <div class="card"><div class="num">ليلة ٩</div>
+  <div class="card"><div class="num">ليلة ١١</div>
     <div class="head"><h2>إلى البحر!</h2><p>اضغطْ كلَّ صغيرٍ لتطلقَه</p></div>
     <div class="content"><div class="fin">
       <div class="beach" id="bch9"><div class="mn"></div></div>
@@ -527,7 +655,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
       <div class="guide"><svg viewBox="0 0 300 180"><use href="#s-turtle"/></svg><div class="bubble" id="b9">شكرًا يا حرّاسَ الشّاطئ! وصلَ صغاري إلى البحرِ بسلام.</div></div>
     </div>
   </div>
-  <template class="notes"><h3>٩. إلى البحر</h3><dl>
+  <template class="notes"><h3>١١. إلى البحر</h3><dl>
     <dt>الهدف</dt><dd>تلخيص الدرس وتعزيز المتميز.</dd>
     <dt>التنفيذ</dt><dd>يضغط الطلاب الصغار فتزحف إلى البحر ويضيء الملخص سطرًا سطرًا، ثم تُفتح الشارة.</dd>
     <dt>الزمن</dt><dd>٣ دقائق</dd></dl></template>
@@ -535,7 +663,7 @@ button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 
 <canvas id="confetti" width="1600" height="900"></canvas>
 <aside id="notes"><button class="btn lt x" id="closeNotes">إغلاق</button><div id="notesBody"></div></aside>
-<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ٩</span><button id="next" class="main">التّالي ◀</button></nav>
+<nav id="nav"><button id="prev">▶ السّابق</button><span id="counter">١ / ١١</span><button id="next" class="main">التّالي ◀</button></nav>
 </div>
 
 <script>
@@ -596,7 +724,7 @@ const HAT='<svg viewBox="0 0 100 80"><use href="#hat"/></svg>',HATG='<svg viewBo
 const COL={y:'cy',a:'ca',w:'cw'};
 
 /* ١ البيض */
-(()=>{const s1=document.querySelector('.s1'),nest=document.getElementById('nest'),h=document.getElementById('h1');const E=[['y','صغيرةٌ واحدة: ياءُ المخاطبة',HATG,''],['a','توأمان: ألفُ الاثنين',HAT+HAT,''],['w','جماعة: واوُ الجماعة',HAT+HAT+HAT+HAT,'many']];let opened=0;
+(()=>{const s1=document.querySelector('.s1'),nest=document.getElementById('nest'),h=document.getElementById('h1');const E=[['y','صغيرةٌ واحدة',HATG,''],['a','توأمان',HAT+HAT,''],['w','جماعةٌ من الصّغار',HAT+HAT+HAT+HAT,'many']];let opened=0;
   E.forEach(([k,lbl,kids,cl],i)=>{const b=document.createElement('button');b.className='egg';b.style.left=(40+i*230)+'px';
     b.innerHTML=`<div class="kids ${cl}">${kids}</div><div class="shell"></div><svg class="crk" viewBox="0 0 150 190"><path d="M20 90 l20 -14 l16 18 l18 -20 l18 16 l20 -18 l18 14" stroke="#7A6A4A" stroke-width="4" fill="none"/></svg><div class="lbl">${lbl}</div>`;
     let st=0;b.onclick=()=>{if(st===2)return;st++;if(st===1){b.classList.add('c1');SFX.crack()}else{b.classList.remove('c1');b.classList.add('open');SFX.hatch();opened++;
@@ -624,17 +752,49 @@ const COL={y:'cy',a:'ca',w:'cw'};
         SFX.no();shake(el);m.style.color='var(--bad)';m.textContent=c!==k?'هذا ذيلُ صغيرٍ آخر! كم عددُ الصّغار؟':(R[ri][1].length>2||t.length>2?'الضّميرُ صحيح… لكن انظرْ إلى الزّمن: هل يحتاجُ نونًا؟':'جرّبْ قطعةً أخرى.');return false})})}
   set();})();
 
-/* ٤ الأسرار */
-(()=>{const N=[['زَحَفَا','يَزْحَفَانِ','ا','انِ','a'],['زَحَفُوا','يَزْحَفُونَ','وا','ونَ','w'],['اِزْحَفِي','تَزْحَفِينَ','ي','ينَ','y']];
-  document.querySelectorAll('.s4 .tg').forEach(tg=>{const i=+tg.dataset.i,[p,m,ps,ms,k]=N[i];let pres=false;const w=tg.querySelector('.w'),bt=tg.querySelector('.btn');
-    function draw(){if(pres){const base=m.slice(0,m.length-ms.length);w.innerHTML=`${base}<span class="${COL[k]}">${ms.slice(0,-2)}</span><span class="nn">${ms.slice(-2)}</span>`;bt.textContent=i===2?'⇄ الأمر':'⇄ الماضي'}
-      else{w.innerHTML=`${p.slice(0,p.length-ps.length)}<span class="${COL[k]}">${ps}</span>`;bt.textContent='⇄ المضارع'}}
-    bt.onclick=()=>{pres=!pres;draw();pres?SFX.magic():SFX.pop()};draw()});
-  const gs=document.getElementById('gs4'),m=document.getElementById('m4');
-  const G={p:['زَحَفُ','و','ا','✔ ماضٍ: واوُ الجماعة ومعها <b style="color:var(--alif2)">ألفٌ حارسة</b> لا تُنطَق.'],c:['اِزْحَفُ','و','ا','✔ أمر: الحارسُ واقفٌ بعدَ الواو أيضًا.'],m:['يَزْحَفُ','و','نَ','في المضارع وقفَتِ <b class="cnn">النّونُ</b> بعدَ الواو… فلا حاجةَ إلى الحارس.']};
-  document.querySelectorAll('.s4 .guardRow .btn').forEach(bt=>bt.onclick=()=>{const [base,wa,after,t]=G[bt.dataset.g];gs.innerHTML=`${base}<span class="cw">${wa}</span><span class="${after==='ا'?'gd':'nn'}">${after}</span>`;m.innerHTML=t;SFX[after==='ا'?'magic':'pop']();
-    document.querySelectorAll('.s4 .guardRow .btn').forEach(x=>x.classList.toggle('sel',x===bt))});
-  gs.innerHTML='زَحَفُ<span class="cw">و</span><span class="gd">ا</span>';})();
+/* ٢ عدّاد الصّغار */
+(()=>{const bc=document.getElementById('bc2'),ns=document.getElementById('ns2'),st=document.getElementById('st2'),cn=document.getElementById('cn2'),bb=document.getElementById('bb2');
+ const seen=[...document.querySelectorAll('.seen2 i')];let kids=[],got=new Set(),dmode=false;
+ const POS=[[560,40],[440,70],[330,30],[220,80],[110,40]];
+ function mark(k){if(got.has(k))return;got.add(k);seen.find(x=>x.classList.contains(k)).classList.add('on');SFX.magic();if(got.size===3)setTimeout(()=>{document.getElementById('dc2').classList.add('open');bb.textContent='اكتشفْتُم ثلاثةَ ضيوفٍ جدد: ا، و، ي!'},900)}
+ function draw(){const n=kids.length;cn.innerHTML=(n?AR(n):'؟')+'<small>'+(n===0?'صغارٌ على الرّمل':n===1?'صغيرٌ واحد':n===2?'صغيران':'صغار')+'</small>';
+  if(dmode)return;
+  if(n===0)st.textContent='المسوا العشَّ ليخرجَ صغير…';
+  else if(n===1)st.innerHTML='الصّغيرُ زَحَفَ إلى البحرِ.';
+  else if(n===2){st.innerHTML='الصّغيرانِ زَحَفَ<span class="ca">ا</span> إلى البحرِ.';mark('a')}
+  else{st.innerHTML='الصّغارُ زَحَفُ<span class="cw">وا</span> إلى البحرِ.';mark('w')}}
+ ns.onclick=()=>{if(kids.length>=5)return;dmode=false;const k=document.createElement('div');k.className='kid2';k.innerHTML=HAT;k.style.left='690px';k.style.bottom='40px';bc.appendChild(k);
+  const [x,y]=POS[kids.length];requestAnimationFrame(()=>requestAnimationFrame(()=>{k.style.left=x+'px';k.style.bottom=y+'px'}));kids.push(k);SFX.hatch();
+  k.onclick=()=>{kids=kids.filter(z=>z!==k);k.style.left='690px';k.style.bottom='40px';k.style.opacity='0';setTimeout(()=>k.remove(),900);kids.forEach((z,i)=>{z.style.left=POS[i][0]+'px';z.style.bottom=POS[i][1]+'px'});SFX.pop();dmode=false;draw()};draw()};
+ document.getElementById('dg2').onclick=()=>{dmode=true;SFX.call();st.innerHTML='يا صغيرتي، اِزْحَفِ<span class="cy">ي</span> إلى البحرِ!';mark('y');bb.textContent='ناديتُ صغيرتي… فظهرَ في آخرِ الفعلِ حرفٌ جديد!'};
+ draw();})();
+
+/* ٥ مسرح الحارس والنّون */
+(()=>{const W={a:{p:['زَحَفَ','ا',''],m:['يَزْحَفَ','ا','نِ'],c:['اِزْحَفَ','ا','']},w:{p:['زَحَفُ','و','ا'],m:['يَزْحَفُ','و','نَ'],c:['اِزْحَفُ','و','ا']},y:{p:null,m:['تَزْحَفِ','ي','نَ'],c:['اِزْحَفِ','ي','']}};
+ const CL={a:'ca',w:'cw',y:'cy'};let k='w',t='p',tried=new Set();
+ const wt=document.getElementById('wt4'),ag=document.getElementById('ag4'),an=document.getElementById('an4'),cv=document.getElementById('cv4'),b=document.getElementById('b4');
+ function show(){const d=W[k][t];cv.classList.toggle('on',!d);
+  document.querySelectorAll('.thrR [data-k]').forEach(x=>x.classList.toggle('sel',x.dataset.k===k));document.querySelectorAll('.thrR [data-t]').forEach(x=>x.classList.toggle('sel',x.dataset.t===t));
+  if(!d){wt.innerHTML='زَحَفْ<span style="color:#FF9BC1">تِ</span>';ag.style.left='-200px';an.style.left='-200px';b.textContent='كهفُ الماضي مغلقٌ أمامَ الياء… فجاءتْ تاءُ الفاعلِ المكسورة!';return}
+  const [base,pr,tail]=d;const guard=tail==='ا',nun=t==='m';
+  wt.innerHTML=`${base}<span class="${CL[k]}">${pr}</span>${tail?`<span class="${guard?'g':'n'}">${tail}</span>`:''}`;
+  ag.style.left=guard?'640px':'-200px';an.style.left=nun?'600px':'-200px';
+  if(guard){SFX.magic();b.textContent='دخلَ الحارسُ «ا» ووقفَ بعدَ الواو… يُكتَبُ ولا يُنطَق!'}
+  else if(nun){SFX.call();b.textContent=k==='w'?'دخلَتِ النّونُ في المضارع… فخرجَ الحارس!':'دخلَتِ النّونُ مع المضارع!'}
+  else{SFX.pop();b.textContent=k==='w'?'':'لا حارسَ هنا… الحارسُ لا يقفُ إلّا بعدَ واوِ الجماعة.'}
+  if(k==='w'){tried.add(t);const ck=[...document.querySelectorAll('#ck4 span')];if(tried.has('p')||tried.has('c'))ck[0].classList.add('on');if(tried.has('m'))ck[1].classList.add('on');
+   if(tried.size===3)setTimeout(()=>{document.getElementById('dc4').classList.add('open');SFX.yes()},1400)}}
+ document.querySelectorAll('.thrR [data-k]').forEach(x=>x.onclick=()=>{k=x.dataset.k;show()});
+ document.querySelectorAll('.thrR [data-t]').forEach(x=>x.onclick=()=>{t=x.dataset.t;show()});
+ show();})();
+
+/* ٩ إشارة الحارس */
+(()=>{const V=[['اُكْتُب','ي','y'],['جَلَس','ا','a'],['يَلْعَب','ونَ','w'],['تَرْسُم','ينَ','y'],['قام','ا','a'],['اِشْرَب','وا','w'],['يَسْبَح','انِ','a'],['نام','وا','w']];
+ const L={y:['بنتٌ واحدة: ياءُ المخاطبة',HATG],a:['اثنان: ألفُ الاثنين',HAT+HAT],w:['جماعة: واوُ الجماعة',HAT+HAT+HAT+HAT]};
+ let i=0;const bd=document.getElementById('bd9s'),vb=document.getElementById('vb9'),fg=document.getElementById('fg9'),an=document.getElementById('an9'),rv=document.getElementById('rv9'),b=document.getElementById('b9s');
+ document.getElementById('sg9').onclick=()=>{if(i>=V.length)i=0;const [base,suf]=V[i];bd.classList.add('on');vb.innerHTML=base+suf;fg.classList.remove('on');an.textContent='';rv.disabled=false;SFX.call();i++;
+  document.getElementById('c9').textContent='الإشارات: '+AR(i)+' / '+AR(V.length);b.textContent='اقرئي الفعلَ يا معلّمتي… ومَن يعنيهم يقِف!';setTimeout(()=>bd.classList.remove('on'),900)};
+ rv.onclick=()=>{const [base,suf,k]=V[i-1];vb.innerHTML=`${base}<span class="${COL[k]}">${suf}</span>`;fg.innerHTML=L[k][1];fg.classList.add('on');an.textContent=L[k][0];rv.disabled=true;SFX.yes();b.textContent='هل وقفَ الصّحيحون؟ أحسنتم!'};})();
 
 /* ٥ العجلة */
 (()=>{const WHO=[['y','البنت 🎀','#F06A9A'],['a','الاثنان','#F2A93B'],['w','الجماعة','#19A7B8']],WHEN=[['p','ماضٍ','#7B5CD6'],['m','مضارع','#2EAD65'],['c','أمر','#F2802E']];
