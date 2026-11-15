@@ -42,6 +42,36 @@ img,svg{max-width:100%}
 .prog .pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#F2994A);border-radius:6px;transition:width .6s}
 .prog .st{font-size:18px}
 
+/* ===== البحث ===== */
+.tr{display:flex;align-items:center;gap:12px}
+.sbtn{width:38px;height:38px;border-radius:50%;border:0;background:#fff;color:#26324A;display:grid;place-items:center;cursor:pointer;box-shadow:0 3px 0 rgba(38,50,74,.10);transition:transform .2s,background .2s;padding:0}
+.sbtn:hover{transform:translateY(-2px);background:#FFF3D1}
+.sbtn svg{width:19px;height:19px}
+#srch{position:fixed;inset:0;z-index:60;display:none;background:rgba(31,42,64,.28);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+#srch.on{display:block;animation:sFade .2s}
+@keyframes sFade{from{opacity:0}}
+.sbox{position:absolute;top:calc(74px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(640px,calc(100vw - 28px));background:#FBF4E6;border-radius:24px;box-shadow:0 18px 50px rgba(31,42,64,.25);overflow:hidden;animation:sDrop .25s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes sDrop{from{transform:translate(-50%,-14px);opacity:0}}
+.sfield{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1.5px solid rgba(38,50,74,.08)}
+.sfield svg{width:20px;height:20px;flex:none;color:#8A93A6}
+.sfield input{flex:1;border:0;background:none;outline:none;font-family:var(--ui);font-weight:700;font-size:19px;color:#26324A;min-width:0}
+.sfield input::placeholder{color:#A3AABA;font-weight:600}
+.sx{border:0;background:rgba(38,50,74,.07);color:#26324A;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:15px;flex:none}
+.sres{max-height:min(420px,60vh);overflow:auto;padding:8px}
+.sres a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;text-decoration:none;color:#26324A}
+.sres a:hover,.sres a.cur{background:#fff}
+.sres .d{width:10px;height:10px;border-radius:50%;flex:none}
+.sres .t{flex:1;min-width:0}
+.sres .t b{display:block;font-size:17px;line-height:1.35}
+.sres .t small{display:block;font-size:13.5px;color:#6B7487;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sres .gl{font-size:12.5px;font-weight:800;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sres mark{background:#FFE7A3;color:inherit;border-radius:4px}
+.sempty{padding:16px 14px 18px;color:#6B7487;font-weight:700;font-size:15px}
+.schips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.schips button{border:0;background:#fff;color:#26324A;font-family:var(--ui);font-weight:800;font-size:14.5px;padding:6px 14px;border-radius:18px;cursor:pointer;box-shadow:0 2px 0 rgba(38,50,74,.08)}
+.schips button:hover{background:#FFF3D1}
+@media (max-width:760px){.sbtn{width:34px;height:34px}.tr{gap:8px}}
+
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .logo svg{display:block;width:clamp(240px,32vw,420px);height:auto}
 .top .mini svg{display:block;height:46px;width:auto}
@@ -549,8 +579,10 @@ footer small{display:block;margin-top:14px;font-family:var(--body);font-size:15p
 <header class="top" id="top">
   <a class="mini" href="#home" aria-label="الرئيسية: كون"><svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="كون"><title>كون</title><defs><clipPath id="upm"><rect x="0" y="0" width="400" height="212"/></clipPath><linearGradient id="sunm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4C24D"/><stop offset="1" stop-color="#E98A6A"/></linearGradient></defs><g clip-path="url(#upm)"><circle cx="210" cy="212" r="120" fill="url(#sunm)" opacity=".28"/><circle cx="210" cy="212" r="80" fill="url(#sunm)" opacity=".35"/></g><g fill="none" stroke="#1F2A40" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M338 44 L278 84 L278 168 Q278 192 254 192 L214 192"/><path d="M214 192 C214 158 174 156 176 180 C178 198 204 198 202 214 C198 238 168 250 140 248"/><path d="M112 146 C114 222 30 226 24 152"/></g><path d="M10 222 Q200 206 390 222" stroke="#8FAF7A" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="68" cy="100" r="15" fill="#E9B949"/></svg></a>
   <nav><a href="#grammar" data-sec="grammar"><span aria-hidden="true">🌿</span><span class="lbl">الأنماط اللّغويّة</span></a><a href="#spelling" data-sec="spelling"><span aria-hidden="true">✏️</span><span class="lbl">الإملاء</span></a><a href="#reading" data-sec="reading"><span aria-hidden="true">📖</span><span class="lbl">القراءة</span></a></nav>
-  <div class="prog" title="العوالم الّتي اكتشفتَها"><span class="st">⭐</span><span id="progT">٠ / ٢٤</span><div class="pbar"><i id="progB"></i></div></div>
+  <div class="tr"><button class="sbtn" id="sOpen" aria-label="ابحث في عوالم كون" title="ابحث"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 20 20"/></svg></button>
+  <div class="prog" title="العوالم الّتي اكتشفتَها"><span class="st">⭐</span><span id="progT">٠ / ٢٤</span><div class="pbar"><i id="progB"></i></div></div></div>
 </header>
+<div id="srch" role="dialog" aria-label="البحث في كون"><div class="sbox"><div class="sfield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 20 20"/></svg><input id="sIn" type="text" enterkeyhint="search" placeholder="ابحث عن درسٍ أو عالَم…" autocomplete="off"><button class="sx" id="sX" aria-label="إغلاق">✕</button></div><div class="sres" id="sRes"></div></div></div>
 
 <!-- الواجهة -->
 <section class="hero" id="home">
@@ -747,6 +779,42 @@ function zoomTo(a,w){const r=a.getBoundingClientRect();
   void zoom.offsetWidth;zoom.style.transition='';
   Object.assign(zoom.style,{top:'0px',left:'0px',width:innerWidth+'px',height:innerHeight+'px',borderRadius:'0px'});
   setTimeout(()=>{location.href=w.url;setTimeout(()=>zoom.style.opacity='0',400)},650)}
+
+/* ===== البحث ===== */
+(function(){const ov=document.getElementById('srch'),inp=document.getElementById('sIn'),res=document.getElementById('sRes');
+ const GL={g:['مجرّة الأنماط','#5E8B4E','#E4EEDB'],s:['مجرّة الإملاء','#C2643F','#FBE3D6'],r:['مجرّة القراءة','#3E73A8','#DDEBF6']};
+ const norm=t=>String(t).replace(/[\u064B-\u0652\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/ؤ/g,'و').replace(/ئ/g,'ي').toLowerCase();
+ const idx=W.map((w,i)=>({w,i,t:norm(w.title),wd:norm(w.world),d:norm(w.desc+' '+(w.meta||[]).join(' ')+' '+GL[w.g][0])}));
+ const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+ function hl(txt,q){if(!q)return esc(txt);let m=[];for(let k=0;k<txt.length;k++)m.push(k);
+  /* مطابقة مع تجاهل التشكيل */
+  let raw='',map=[];for(let k=0;k<txt.length;k++){const n=norm(txt[k]);for(const c of n){raw+=c;map.push(k)}}
+  const p=raw.indexOf(q);if(p<0)return esc(txt);const a=map[p],b=map[p+q.length-1]+1;let e=b;while(e<txt.length&&/[\u064B-\u0652\u0670]/.test(txt[e]))e++;
+  return esc(txt.slice(0,a))+'<mark>'+esc(txt.slice(a,e))+'</mark>'+esc(txt.slice(e))}
+ let cur=0,list=[];
+ function chips(){return '<div class="sempty">جرّب أن تبحث عن:<div class="schips">'+['الهمزة','الجملة','الضّمائر','الطّلاقة','علامات التّرقيم','الأمر والنّهي'].map(c=>`<button type="button">${c}</button>`).join('')+'</div></div>'}
+ function run(){const q=norm(inp.value.trim());cur=0;
+  if(!q){res.innerHTML=chips();list=[];return}
+  const ws=q.split(/\s+/).filter(Boolean);
+  list=idx.map(o=>{let sc=0;for(const x of ws){const ax=x.replace(/^ال/,'');const hit=s=>s.includes(x)||(ax.length>1&&s.includes(ax));
+    if(hit(o.t))sc+=o.t.includes(x)?6:5;else if(hit(o.wd))sc+=3;else if(hit(o.d))sc+=1;else return null}return {o,sc}}).filter(Boolean).sort((a,b)=>b.sc-a.sc).map(x=>x.o);
+  if(!list.length){res.innerHTML='<div class="sempty">لم نجدْ عالمًا بهذا الاسم… جرّب كلمةً أخرى 🔭'+chips().replace('<div class="sempty">جرّب أن تبحث عن:','').replace(/<\/div>$/,'')+'</div>';return}
+  res.innerHTML=list.map((o,k)=>{const g=GL[o.w.g];return `<a href="${o.w.url}" data-k="${k}" class="${k===0?'cur':''}"><span class="d" style="background:${g[1]}"></span><span class="t"><b>${hl(o.w.title,ws[0])}</b><small>${hl(o.w.world,ws[0])}</small></span><span class="gl" style="background:${g[2]};color:${g[1]}">${g[0]}</span></a>`}).join('')}
+ function go(k){const o=list[k];if(!o)return;markSeen(o.i);location.href=o.w.url}
+ function open(){ov.classList.add('on');inp.value='';run();setTimeout(()=>inp.focus(),30)}
+ function close(){ov.classList.remove('on')}
+ document.getElementById('sOpen').addEventListener('click',open);
+ document.getElementById('sX').addEventListener('click',close);
+ ov.addEventListener('click',e=>{if(e.target===ov)close()});
+ inp.addEventListener('input',run);
+ res.addEventListener('click',e=>{const c=e.target.closest('.schips button');if(c){inp.value=c.textContent;run();inp.focus();return}
+  const a=e.target.closest('a[data-k]');if(a){e.preventDefault();go(+a.dataset.k)}});
+ const paint=()=>res.querySelectorAll('a[data-k]').forEach(a=>a.classList.toggle('cur',+a.dataset.k===cur));
+ inp.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){cur=Math.min(cur+1,list.length-1);paint();e.preventDefault()}
+  else if(e.key==='ArrowUp'){cur=Math.max(cur-1,0);paint();e.preventDefault()}else if(e.key==='Enter')go(cur)});
+ addEventListener('keydown',e=>{if(e.key==='Escape'&&ov.classList.contains('on'))close();
+  else if(e.key==='/'&&!ov.classList.contains('on')&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();open()}});
+})();
 
 /* الحركة المتدرجة للطبقات والشريط العلوي */
 const layers=[...document.querySelectorAll('.layer')],topBar=document.getElementById('top');let tick=false;
