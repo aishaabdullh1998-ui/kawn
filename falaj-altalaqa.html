@@ -626,5 +626,5 @@ function show(v){QA('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
 QA('.tabs .wb').forEach(b=>b.onclick=()=>{if(M.on&&!confirm('القراءةُ جارية. مغادرة؟'))return;clearInterval(M.iv);M.on=false;newRid=null;if(b.dataset.v==='grove'){gFilter='all';page=-1}show(b.dataset.v)});
 renderLib();
 </script>
-<script src="kawn-entry.js?v=1" defer></script>
+<script src="kawn-entry.js?v=2" defer></script>
 </body></html>
