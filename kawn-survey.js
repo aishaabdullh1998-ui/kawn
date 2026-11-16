@@ -30,7 +30,8 @@ var USE={st:['في الصّفِّ مع معلّمي','في البيتِ وحدي
  ot:['للتّعلّم','لمساعدةِ غيري','للاطّلاع']};
 var FUN=['القصّةُ والشّخصيّات','الرّسوم','الأنشطةُ الّتي ألمسُها وأحرّكُها','الأصوات','التّحدّياتُ والمسابقات'];
 var GOV=['مسقط','ظفار','مسندم','البريمي','الداخلية','شمال الباطنة','جنوب الباطنة','جنوب الشرقية','شمال الشرقية','الظاهرة','الوسطى','خارج عُمان'];
-var A={role:'',gov:'',use:[],learn:'',ease:'',fun:[],rec:'',wish:''},step=0;
+var EN=null;try{EN=JSON.parse(ls.getItem('kawn-entry')||'null')}catch(e){}
+var A={role:EN&&EN.r||'',gov:EN&&EN.g||'',use:[],learn:'',ease:'',fun:[],rec:'',wish:''},step=0;
 
 var css=document.createElement('style');css.textContent=
 '#ksv{position:fixed;inset:0;z-index:99999;background:rgba(30,36,51,.55);display:flex;align-items:center;justify-content:center;padding:14px;font-family:"Baloo Bhaijaan 2","Noto Naskh Arabic",Tahoma,sans-serif;direction:rtl;animation:ksvIn .35s}'+
@@ -73,10 +74,12 @@ function f(x){return '<button class="o'+(A.learn===x[0]?' on':'')+'" data-learn=
 function nav(ok){return '<div class="nx"><button class="bk" data-back="1">رجوع</button><button class="go" data-go="1"'+(ok?'':' disabled')+'>التالي</button></div>'}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function draw(){var b=document.getElementById('ksvB'),dots='';if(step>0&&step<9){for(var i=1;i<=8;i++)dots+='<i class="'+(i===step?'on':'')+'"></i>'}
- b.innerHTML=(dots?'<div class="dots">'+dots+'</div>':'')+STEPS[step]()+(step>1&&step<8&&!/data-back/.test(STEPS[step]())?'<div class="nx"><button class="bk" data-back="1">رجوع</button></div>':'')}
+ b.innerHTML=(dots?'<div class="dots">'+dots+'</div>':'')+STEPS[step]()+(step>S1()&&step<8&&!/data-back/.test(STEPS[step]())?'<div class="nx"><button class="bk" data-back="1">رجوع</button></div>':'')}
+function S1(){return (EN&&A.role&&A.gov)?3:1}
 function next(){step++;draw()}
 W.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;var d=t.dataset;
- if(d.go){next();return}if(d.back){step=Math.max(1,step-1);draw();return}
+ var S0=(EN&&A.role&&A.gov)?3:1;
+ if(d.go){if(step===0)step=S0-1;next();return}if(d.back){step=Math.max(S0,step-1);draw();return}
  if(d.role){if(A.role!==d.role){A.use=[];A.learn='';A.rec=''}A.role=d.role;setTimeout(next,180);t.classList.add('on');return}
  if(d.use){var i=A.use.indexOf(d.use);i>-1?A.use.splice(i,1):A.use.push(d.use);draw();return}
  if(d.fun){var j=A.fun.indexOf(d.fun);j>-1?A.fun.splice(j,1):A.fun.push(d.fun);draw();return}

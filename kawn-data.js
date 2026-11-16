@@ -15,7 +15,7 @@ try{if(!/(\/|index\.html?)$/.test(location.pathname))localStorage.setItem('kawn-
     if(localStorage.getItem('kawn-v')!==today){
       localStorage.setItem('kawn-v',today);
       fetch(KAWN_API,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify({action:'visit',page:document.title})}).catch(function(){});
+        body:JSON.stringify((function(){var o={action:'visit',page:document.title};try{var e=JSON.parse(localStorage.getItem('kawn-entry')||'null');if(e){o.role=e.r;o.gov=e.g}}catch(_){}return o})())}).catch(function(){});
     }
   }catch(e){}
 })();
