@@ -29,7 +29,8 @@ var USE={st:['في الصّفِّ مع معلّمي','في البيتِ وحدي
  un:['للتّدريبِ العمليِّ أو التّربيةِ العمليّة','لبحثٍ أو مقرّرٍ دراسيّ','للاطّلاع'],
  ot:['للتّعلّم','لمساعدةِ غيري','للاطّلاع']};
 var FUN=['القصّةُ والشّخصيّات','الرّسوم','الأنشطةُ الّتي ألمسُها وأحرّكُها','الأصوات','التّحدّياتُ والمسابقات'];
-var A={role:'',use:[],learn:'',ease:'',fun:[],rec:'',wish:''},step=0;
+var GOV=['مسقط','ظفار','مسندم','البريمي','الداخلية','شمال الباطنة','جنوب الباطنة','جنوب الشرقية','شمال الشرقية','الظاهرة','الوسطى','خارج عُمان'];
+var A={role:'',gov:'',use:[],learn:'',ease:'',fun:[],rec:'',wish:''},step=0;
 
 var css=document.createElement('style');css.textContent=
 '#ksv{position:fixed;inset:0;z-index:99999;background:rgba(30,36,51,.55);display:flex;align-items:center;justify-content:center;padding:14px;font-family:"Baloo Bhaijaan 2","Noto Naskh Arabic",Tahoma,sans-serif;direction:rtl;animation:ksvIn .35s}'+
@@ -41,7 +42,7 @@ var css=document.createElement('style');css.textContent=
 '#ksv button{font-family:inherit;cursor:pointer}'+
 '#ksv .o{display:flex;align-items:center;gap:10px;text-align:right;border:2.5px solid #EADBC0;background:#fff;border-radius:18px;padding:10px 14px;font-size:18px;font-weight:700;color:#26324A;transition:.15s}'+
 '#ksv .o:hover{border-color:#9DBBF0}#ksv .o.on{border-color:#2F6FE0;background:#EAF1FD;color:#1E4FA8}'+
-'#ksv .o .e{font-size:24px}#ksv .o .ck{margin-right:auto;width:22px;height:22px;border-radius:7px;border:2.5px solid #C9D3E6;flex:none}#ksv .o.on .ck{background:#2F6FE0;border-color:#2F6FE0;box-shadow:inset 0 0 0 3px #fff}'+
+'#ksv .op.g .o{justify-content:center;text-align:center;padding:9px 8px;font-size:17px}#ksv .o .e{font-size:24px}#ksv .o .ck{margin-right:auto;width:22px;height:22px;border-radius:7px;border:2.5px solid #C9D3E6;flex:none}#ksv .o.on .ck{background:#2F6FE0;border-color:#2F6FE0;box-shadow:inset 0 0 0 3px #fff}'+
 '#ksv .faces{display:flex;gap:8px;justify-content:center}#ksv .faces{align-items:stretch}#ksv .faces .o{flex-direction:column;justify-content:flex-start;align-items:center;flex:1;min-width:0;padding:10px 3px 8px;font-size:14px;gap:4px;text-align:center}#ksv .faces .o .e{font-size:32px;line-height:1;height:36px;display:flex;align-items:center}#ksv .faces .o .l{display:flex;align-items:center;justify-content:center;min-height:2.7em;line-height:1.3;font-size:14px}'+
 '#ksv .nx{display:flex;gap:10px;margin-top:14px;align-items:center}'+
 '#ksv .go{flex:1;border:0;border-radius:18px;padding:11px;font-size:20px;font-weight:800;color:#fff;background:#2F6FE0;box-shadow:0 4px 0 #1E4FA8}#ksv .go:disabled{opacity:.4;cursor:default}'+
@@ -57,6 +58,7 @@ function isSt(){return A.role==='st'}
 var STEPS=[
  function(){return '<h2 style="text-align:center">مرحبًا بأصدقاءِ "كون"!</h2><p style="text-align:center">نسعدُ بمشاركتِك في تقييمِ المنصّة، فإجاباتُك تُسهمُ في تطويرِ تجربتِك وتحسينِ المنصّةِ مستقبلًا.</p><div class="nx"><button class="go" data-go="1">ابدأِ الاستبانة</button></div>'},
  function(){return '<h2>مَن أنت؟</h2><div class="op">'+ROLES.map(function(r){return '<button class="o'+(A.role===r[0]?' on':'')+'" data-role="'+r[0]+'"><span class="e">'+r[2]+'</span>'+r[1]+'</button>'}).join('')+'</div>'},
+ function(){return '<h2>من أيِّ محافظةٍ أنت؟</h2><div class="op g">'+GOV.map(function(g){return '<button class="o'+(A.gov===g?' on':'')+'" data-gov="'+g+'">'+g+'</button>'}).join('')+'</div>'},
  function(){return '<h2>'+(isSt()?'أين استخدمتَ «كون»؟':'كيف استخدمتَ «كون»؟')+'</h2><p>يمكنُك اختيارُ أكثرَ من إجابة.</p><div class="op">'+USE[A.role].map(function(u){return '<button class="o'+(A.use.indexOf(u)>-1?' on':'')+'" data-use="'+u+'">'+u+'<span class="ck"></span></button>'}).join('')+'</div>'+nav(A.use.length)},
  function(){if(isSt())return '<h2>هل فهمتَ الدّرسَ أكثرَ مع «كون»؟</h2><div class="faces">'+[['2','😕','قليلًا'],['4','🙂','نعم'],['5','🤩','كثيرًا']].map(f).join('')+'</div>';
   return '<h2>هل ساعدَك «كون» على فهمِ الدّرسِ أو تعليمِه؟</h2><div class="faces">'+[['1','😞','لم يساعد'],['2','😐','قليلًا'],['3','🙂','إلى حدٍّ ما'],['4','😊','ساعد'],['5','😍','ساعدَ كثيرًا']].map(f).join('')+'</div>'},
@@ -70,8 +72,8 @@ var STEPS=[
 function f(x){return '<button class="o'+(A.learn===x[0]?' on':'')+'" data-learn="'+x[0]+'"><span class="e">'+x[1]+'</span><span class="l">'+x[2]+'</span></button>'}
 function nav(ok){return '<div class="nx"><button class="bk" data-back="1">رجوع</button><button class="go" data-go="1"'+(ok?'':' disabled')+'>التالي</button></div>'}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-function draw(){var b=document.getElementById('ksvB'),dots='';if(step>0&&step<8){for(var i=1;i<=7;i++)dots+='<i class="'+(i===step?'on':'')+'"></i>'}
- b.innerHTML=(dots?'<div class="dots">'+dots+'</div>':'')+STEPS[step]()+(step>1&&step<7&&!/data-back/.test(STEPS[step]())?'<div class="nx"><button class="bk" data-back="1">رجوع</button></div>':'')}
+function draw(){var b=document.getElementById('ksvB'),dots='';if(step>0&&step<9){for(var i=1;i<=8;i++)dots+='<i class="'+(i===step?'on':'')+'"></i>'}
+ b.innerHTML=(dots?'<div class="dots">'+dots+'</div>':'')+STEPS[step]()+(step>1&&step<8&&!/data-back/.test(STEPS[step]())?'<div class="nx"><button class="bk" data-back="1">رجوع</button></div>':'')}
 function next(){step++;draw()}
 W.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;var d=t.dataset;
  if(d.go){next();return}if(d.back){step=Math.max(1,step-1);draw();return}
@@ -79,11 +81,12 @@ W.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)re
  if(d.use){var i=A.use.indexOf(d.use);i>-1?A.use.splice(i,1):A.use.push(d.use);draw();return}
  if(d.fun){var j=A.fun.indexOf(d.fun);j>-1?A.fun.splice(j,1):A.fun.push(d.fun);draw();return}
  if(d.learn){A.learn=d.learn;t.classList.add('on');setTimeout(next,180);return}
+ if(d.gov){A.gov=d.gov;t.classList.add('on');setTimeout(next,180);return}
  if(d.ease){A.ease=d.ease;t.classList.add('on');setTimeout(next,180);return}
  if(d.rec){A.rec=d.rec;t.classList.add('on');setTimeout(next,180);return}
  if(d.send){var w=document.getElementById('ksvW');A.wish=w?w.value.trim():'';
   var role=ROLES.filter(function(r){return r[0]===A.role})[0];
-  var data={role:role?role[1]:A.role,use:A.use,learn:A.learn,ease:A.ease,fun:A.fun,rec:A.rec,wish:A.wish,page:(ref||used||'').split('/').pop()};
+  var data={role:role?role[1]:A.role,gov:A.gov,use:A.use,learn:A.learn,ease:A.ease,fun:A.fun,rec:A.rec,wish:A.wish,page:(ref||used||'').split('/').pop()};
   mark();ls.setItem(Q,JSON.stringify(data));
   send(data).then(function(){ls.removeItem(Q)}).catch(function(){});
   next();return}
