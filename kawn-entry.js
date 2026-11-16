@@ -11,7 +11,11 @@ try{var pend=ls.getItem(Q);if(pend){send(JSON.parse(pend)).then(function(){ls.re
 if(/[?&#]entry-test/.test(location.href)){ls.removeItem(K);document.cookie='kawn_entry=; max-age=0; path=/'}
 function ck(){var m=document.cookie.match(/(?:^|; )kawn_entry=([^;]*)/);return m?decodeURIComponent(m[1]):''}
 function save(v){try{ls.setItem(K,v)}catch(e){}try{document.cookie='kawn_entry='+encodeURIComponent(v)+'; max-age=315360000; path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'')}catch(e){}}
-var have=ls.getItem(K)||ck();if(have){if(!ls.getItem(K))try{ls.setItem(K,have)}catch(e){}return}
+var have=ls.getItem(K)||ck();if(have){if(!ls.getItem(K))try{ls.setItem(K,have)}catch(e){}
+ /* إجاباتُ السّاعاتِ الأولى قبلَ إصلاحِ الجدول: تُعادُ مرّةً واحدةً بصمتٍ دونَ سؤالِ الزّائرِ ثانية */
+ try{var o=JSON.parse(have);if(o&&o.t&&o.t<Date.UTC(2026,10,16,5,20)&&!ls.getItem('kawn-entry-rs')){var RL={st:'طالب مدرسة',te:'معلم',pa:'ولي أمر',un:'طالب جامعي',ot:'غير ذلك'};
+  send({kind:'دخول',role:RL[o.r]||o.r,gov:o.g,page:(location.pathname.split('/').pop()||'index.html'),v:'10r'}).then(function(){ls.setItem('kawn-entry-rs','1')}).catch(function(){})}}catch(e){}
+ return}
 
 var ROLES=[['st','طالبُ مدرسة','🎒'],['te','معلّم','🍎'],['pa','وليُّ أمر','🏠'],['un','طالبٌ جامعيّ','🎓'],['ot','غيرُ ذلك','✨']];
 var GOV=['مسقط','ظفار','مسندم','البريمي','الداخلية','شمال الباطنة','جنوب الباطنة','جنوب الشرقية','شمال الشرقية','الظاهرة','الوسطى','خارج عُمان'];
