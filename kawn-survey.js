@@ -97,7 +97,7 @@ W.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)re
  if(d.close){W.remove();document.documentElement.style.overflow=''}});
 W.addEventListener('input',function(e){if(e.target.id==='ksvW')A.wish=e.target.value});
 function open(){if(document.getElementById('ksv'))return;document.body.appendChild(W);document.documentElement.style.overflow='hidden';draw()}
-var SURVEY_ON=true;
+var SURVEY_ON=false;
 function check(){if(!SURVEY_ON||isDone())return;try{var sz=+ls.getItem('kawn-survey-snooze')||0;if(Date.now()-sz<3*864e5)return}catch(e){}used=ls.getItem('kawn-used');if(used||ref)setTimeout(open,1200)}
 if(document.readyState==='complete')check();else window.addEventListener('load',check);
 // العودةُ بزرِّ الرّجوع تُعيدُ الصّفحةَ من الذّاكرة دونَ تحميل، فنفحصُ من جديد
