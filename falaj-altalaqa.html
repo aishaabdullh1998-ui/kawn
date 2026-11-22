@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ar" dir="rtl"><head>
 <script>/*kawn-rot*/(function(){
-/* عرضٌ أفقيٌّ في الهاتف: إذا كان الهاتف عموديًّا ندير الصّفحة ٩٠° لتملأ الشّاشة، وإذا قُلب أفقيًّا تعود طبيعيّة */
+/* الهاتف العموديّ: يظهرُ الدّرسُ معتدلًا، وزرُّ «ملء الشّاشة» يديرُه ليملأَ الشّاشةَ بالعرض */
 var D=document.documentElement,W=window;
 var dW=Object.getOwnPropertyDescriptor(W,'innerWidth')||Object.getOwnPropertyDescriptor(Window.prototype,'innerWidth');
 var dH=Object.getOwnPropertyDescriptor(W,'innerHeight')||Object.getOwnPropertyDescriptor(Window.prototype,'innerHeight');
@@ -9,8 +9,8 @@ if(!dW||!dH||!dW.get)return;
 var rw=function(){return dW.get.call(W)},rh=function(){return dH.get.call(W)};
 var phone=false;try{phone=matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<600}catch(e){}
 if(!phone)return;
-var on=false;
-function apply(){var w=rw(),h=rh();on=h>w*1.05;D.classList.toggle('vrot',on);
+var on=false,force=false;
+function apply(){var w=rw(),h=rh();on=force&&h>w*1.05;D.classList.toggle('kport',!on&&h>w*1.05);D.classList.toggle('vrot',on);
   D.style.setProperty('--kvw',h+'px');D.style.setProperty('--kvh',w+'px');D.style.setProperty('--krw',w+'px')}
 var st=document.createElement('style');
 st.textContent='html.vrot,html.vrot body{overflow:hidden}html.vrot body{position:fixed;left:0;top:0;margin:0;width:var(--kvw);height:var(--kvh);transform-origin:0 0;transform:translateX(var(--krw)) rotate(90deg)}';
@@ -27,6 +27,23 @@ Element.prototype.getBoundingClientRect=function(){var r=gb.call(this);if(!on)re
   return {x:x,y:y,left:x,top:y,width:ww,height:hh,right:x+ww,bottom:y+hh,toJSON:function(){return this}}};
 apply();
 var t=null;function re(){apply();clearTimeout(t);t=setTimeout(function(){apply();try{W.dispatchEvent(new Event('resize'))}catch(e){}},350)}
+
+/* زرّ ملء الشّاشة: في الهاتف العموديّ يظهرُ الدّرسُ معتدلًا، وبالضّغطِ يملأُ الشّاشةَ بالعرض */
+function goLand(){force=true;try{var fe=D.requestFullscreen||D.webkitRequestFullscreen;if(fe){var pr=fe.call(D);if(pr&&pr.then)pr.then(function(){try{screen.orientation.lock('landscape').then(function(){re()}).catch(function(){})}catch(e){}}).catch(function(){})}}catch(e){}re()}
+function goPort(){force=false;try{if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen();if(screen.orientation&&screen.orientation.unlock)screen.orientation.unlock()}catch(e){}re()}
+W.kawnLand=goLand;
+function ui(){if(document.getElementById('kLand'))return;var s2=document.createElement('style');
+ s2.textContent='#kLand,#kPort{position:fixed;z-index:2147482000;border:0;font-family:inherit;font-weight:800;cursor:pointer;display:none;box-shadow:0 6px 18px rgba(0,0,0,.25)}'+
+ '#kLand{left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#1E4FA8;color:#fff;border-radius:30px;padding:12px 26px;font-size:17px}'+
+ '#kPort{bottom:10px;left:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);color:#23263A;font-size:18px}'+
+ 'html.kport #kLand{display:block}html.vrot #kPort{display:block}';
+ document.head.appendChild(s2);
+ var a=document.createElement('button');a.id='kLand';a.type='button';a.textContent='⛶ ملء الشّاشة';a.onclick=function(e){e.stopPropagation();goLand()};
+ var b=document.createElement('button');b.id='kPort';b.type='button';b.setAttribute('aria-label','عرض عمودي');b.textContent='✕';b.onclick=function(e){e.stopPropagation();goPort()};
+ document.body.appendChild(a);document.body.appendChild(b);
+ var bf=document.getElementById('bFull');if(bf)bf.addEventListener('click',function(e){if(!on&&rh()>rw()*1.05){e.stopImmediatePropagation();e.preventDefault();goLand()}},true)}
+if(document.body)ui();else document.addEventListener('DOMContentLoaded',ui);
+document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&force){force=false;re()}});
 W.addEventListener('orientationchange',re);
 var lw=rw(),lh=rh();W.addEventListener('resize',function(){var w=rw(),h=rh();if((w>h)!==(lw>lh)){lw=w;lh=h;re()}else{lw=w;lh=h;apply()}},true);
 })();</script><meta charset="utf-8">
