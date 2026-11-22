@@ -36,7 +36,7 @@ var A={role:EN&&EN.r||'',gov:EN&&EN.g||'',use:[],learn:'',ease:'',fun:[],rec:'',
 var css=document.createElement('style');css.textContent=
 '#ksv{position:fixed;inset:0;z-index:99999;background:rgba(30,36,51,.55);display:flex;align-items:center;justify-content:center;padding:14px;font-family:"Baloo Bhaijaan 2","Noto Naskh Arabic",Tahoma,sans-serif;direction:rtl;animation:ksvIn .35s}'+
 '@keyframes ksvIn{from{opacity:0}}'+
-'#ksv .bx{width:100%;max-width:560px;max-height:94vh;overflow:auto;background:#FFF9EE;color:#26324A;border-radius:28px;padding:22px 22px 18px;box-shadow:0 20px 60px rgba(0,0,0,.35);border:3px solid #F2D9A6;position:relative}'+
+'#ksv .ksx{position:absolute;top:12px;left:12px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(38,50,74,.08);color:#26324A;font-size:17px;cursor:pointer;z-index:2;font-family:inherit;line-height:1}#ksv .ksx:hover{background:rgba(38,50,74,.16)}#ksv .bx{width:100%;max-width:560px;max-height:94vh;overflow:auto;background:#FFF9EE;color:#26324A;border-radius:28px;padding:22px 22px 18px;box-shadow:0 20px 60px rgba(0,0,0,.35);border:3px solid #F2D9A6;position:relative}'+
 '#ksv h2{margin:0 0 6px;font-size:26px;line-height:1.35;color:#1E4FA8}#ksv p{margin:0 0 12px;font-size:17px;line-height:1.6;color:#4A5570}'+
 '#ksv .dots{direction:rtl;display:flex;gap:6px;justify-content:center;margin:0 0 14px}#ksv .dots i{width:9px;height:9px;border-radius:50%;background:#E8DCC4}#ksv .dots i.on{background:#2F6FE0;width:22px;border-radius:6px}'+
 '#ksv .op{display:flex;flex-direction:column;gap:9px}#ksv .op.g{display:grid;grid-template-columns:1fr 1fr}'+
@@ -73,8 +73,9 @@ var STEPS=[
 function f(x){return '<button class="o'+(A.learn===x[0]?' on':'')+'" data-learn="'+x[0]+'"><span class="e">'+x[1]+'</span><span class="l">'+x[2]+'</span></button>'}
 function nav(ok){return '<div class="nx"><button class="bk" data-back="1">رجوع</button><button class="go" data-go="1"'+(ok?'':' disabled')+'>التالي</button></div>'}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function addX(){var bx=document.getElementById('ksvB');if(!bx||bx.querySelector('.ksx'))return;var X=document.createElement('button');X.className='ksx';X.setAttribute('aria-label','إغلاق الاستبانة');X.textContent='✕';X.onclick=function(e){e.stopPropagation();try{ls.setItem('kawn-survey-snooze',String(Date.now()))}catch(_){}W.remove();document.documentElement.style.overflow=''};bx.appendChild(X)}
 function draw(){var b=document.getElementById('ksvB'),dots='';if(step>0&&step<9){for(var i=1;i<=8;i++)dots+='<i class="'+(i===step?'on':'')+'"></i>'}
- b.innerHTML=(dots?'<div class="dots">'+dots+'</div>':'')+STEPS[step]()+(step>S1()&&step<8&&!/data-back/.test(STEPS[step]())?'<div class="nx"><button class="bk" data-back="1">رجوع</button></div>':'')}
+ b.innerHTML=(dots?'<div class="dots">'+dots+'</div>':'')+STEPS[step]()+(step>S1()&&step<8&&!/data-back/.test(STEPS[step]())?'<div class="nx"><button class="bk" data-back="1">رجوع</button></div>':'');addX()}
 function S1(){return (EN&&A.role&&A.gov)?3:1}
 function next(){step++;draw()}
 W.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;var d=t.dataset;
@@ -97,7 +98,7 @@ W.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)re
 W.addEventListener('input',function(e){if(e.target.id==='ksvW')A.wish=e.target.value});
 function open(){if(document.getElementById('ksv'))return;document.body.appendChild(W);document.documentElement.style.overflow='hidden';draw()}
 var SURVEY_ON=true;
-function check(){if(!SURVEY_ON||isDone())return;used=ls.getItem('kawn-used');if(used||ref)setTimeout(open,1200)}
+function check(){if(!SURVEY_ON||isDone())return;try{var sz=+ls.getItem('kawn-survey-snooze')||0;if(Date.now()-sz<3*864e5)return}catch(e){}used=ls.getItem('kawn-used');if(used||ref)setTimeout(open,1200)}
 if(document.readyState==='complete')check();else window.addEventListener('load',check);
 // العودةُ بزرِّ الرّجوع تُعيدُ الصّفحةَ من الذّاكرة دونَ تحميل، فنفحصُ من جديد
 window.addEventListener('pageshow',function(e){if(e.persisted)check()});
