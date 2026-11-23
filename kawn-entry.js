@@ -1,5 +1,7 @@
 /* كون: بطاقةُ الدّخول — سؤالانِ إجباريّانِ مرّةً واحدةً لكلِّ جهاز: مَن أنت؟ ومن أيِّ محافظة؟ */
 (function(){
+var ENTRY_ON=false; /* أُوقفت بطاقةُ الدّخول مؤقّتًا — اجعلها true لإعادتها */
+if(!ENTRY_ON)return;
 if(window.top!==window.self)return;
 if(/[?&#]noentry/.test(location.href))return;
 var URL='https://script.google.com/macros/s/AKfycbyX2Nu7fZINPi3YrVYYgZy1h7zOOqd8holMfapeB-h9pi2ojtJNi5-Eeyp9LC0RbeHw/exec';
