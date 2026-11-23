@@ -4,6 +4,8 @@
 <script>/*kawn-rot*/(function(){
 /* الهاتف العموديّ: يظهرُ الدّرسُ معتدلًا، وزرُّ «ملء الشّاشة» يديرُه ليملأَ الشّاشةَ بالعرض */
 var D=document.documentElement,W=window;
+function lbl(){var bf=document.getElementById('bFull');if(!bf)return;var f=!!(document.fullscreenElement||document.webkitFullscreenElement)||D.classList.contains('vrot');var tw=document.createTreeWalker(bf,4),n;while((n=tw.nextNode())){if(/ملء الشّ?اشة/.test(n.data))n.data=f?n.data.replace(/(إلغاء )?ملء الشّ?اشة/,'إلغاء ملء الشاشة'):n.data.replace(/إلغاء ملء الشّ?اشة/,'ملء الشاشة')}}
+document.addEventListener('fullscreenchange',function(){setTimeout(lbl,60)});document.addEventListener('webkitfullscreenchange',function(){setTimeout(lbl,60)});
 var dW=Object.getOwnPropertyDescriptor(W,'innerWidth')||Object.getOwnPropertyDescriptor(Window.prototype,'innerWidth');
 var dH=Object.getOwnPropertyDescriptor(W,'innerHeight')||Object.getOwnPropertyDescriptor(Window.prototype,'innerHeight');
 if(!dW||!dH||!dW.get)return;
@@ -12,7 +14,7 @@ var phone=false;try{phone=matchMedia('(pointer:coarse)').matches&&Math.min(scree
 if(!phone)return;
 var on=false,force=false;
 function apply(){var w=rw(),h=rh();on=force&&h>w*1.05;D.classList.toggle('kport',!on&&h>w*1.05);D.classList.toggle('vrot',on);
-  D.style.setProperty('--kvw',h+'px');D.style.setProperty('--kvh',w+'px');D.style.setProperty('--krw',w+'px')}
+  D.style.setProperty('--kvw',h+'px');D.style.setProperty('--kvh',w+'px');D.style.setProperty('--krw',w+'px');lbl()}
 var st=document.createElement('style');
 st.textContent='html.vrot,html.vrot body{overflow:hidden}html.vrot body{position:fixed;left:0;top:0;margin:0;width:var(--kvw);height:var(--kvh);transform-origin:0 0;transform:translateX(var(--krw)) rotate(90deg)}';
 (document.head||D).appendChild(st);
@@ -34,15 +36,13 @@ function goLand(){force=true;try{var fe=D.requestFullscreen||D.webkitRequestFull
 function goPort(){force=false;try{if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen();if(screen.orientation&&screen.orientation.unlock)screen.orientation.unlock()}catch(e){}re()}
 W.kawnLand=goLand;
 function ui(){if(document.getElementById('kLand'))return;var s2=document.createElement('style');
- s2.textContent='#kLand,#kPort{position:fixed;z-index:2147482000;border:0;font-family:inherit;font-weight:800;cursor:pointer;display:none;box-shadow:0 6px 18px rgba(0,0,0,.25)}'+
+ s2.textContent='#kLand{position:fixed;z-index:2147482000;border:0;font-family:inherit;font-weight:800;cursor:pointer;display:none;box-shadow:0 6px 18px rgba(0,0,0,.25)}'+
  '#kLand{left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#1E4FA8;color:#fff;border-radius:30px;padding:12px 26px;font-size:17px}'+
- '#kPort{bottom:10px;left:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);color:#23263A;font-size:18px}'+
- 'html.kport #kLand{display:block}html.vrot #kPort{display:block}';
+  'html.kport #kLand{display:block}';
  document.head.appendChild(s2);
  var a=document.createElement('button');a.id='kLand';a.type='button';a.textContent='⛶ ملء الشّاشة';a.onclick=function(e){e.stopPropagation();goLand()};
- var b=document.createElement('button');b.id='kPort';b.type='button';b.setAttribute('aria-label','عرض عمودي');b.textContent='✕';b.onclick=function(e){e.stopPropagation();goPort()};
- document.body.appendChild(a);document.body.appendChild(b);
- var bf=document.getElementById('bFull');if(bf)bf.addEventListener('click',function(e){if(!on&&rh()>rw()*1.05){e.stopImmediatePropagation();e.preventDefault();goLand()}},true)}
+ document.body.appendChild(a);
+ var bf=document.getElementById('bFull');if(bf)bf.addEventListener('click',function(e){if(on){e.stopImmediatePropagation();e.preventDefault();goPort()}else if(rh()>rw()*1.05){e.stopImmediatePropagation();e.preventDefault();goLand()}},true)}
 if(document.body)ui();else document.addEventListener('DOMContentLoaded',ui);
 document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&force){force=false;re()}});
 W.addEventListener('orientationchange',re);
